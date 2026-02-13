@@ -1,4 +1,4 @@
-body{
+body {
   background-color: #011629;
   color: white;
 }
@@ -9,35 +9,39 @@ h1 {
   margin-bottom: 20px;
 }
 
-nav{
+nav {
   background-color: gray;
 }
 
-a{
+a {
   font-size: large;
   color: white;
 }
 
-.main-header{
+.main-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.main-nav{
+.main-nav {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
 }
 
-.main-nav2{
+.main-nav__item {
+  margin: 0 auto;
+}
+
+.main-nav2 {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-top: 3px;
 }
 
-#RedBullRacing{
+#RedBullRacing {
   height: 100px;
   float: right;
 }
