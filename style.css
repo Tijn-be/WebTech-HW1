@@ -31,14 +31,14 @@ a {
 }
 
 .main-nav__item {
-  margin: 0 auto;
+  margin: 0 15px;
 }
 
 .main-nav2 {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: center;
   margin-top: 3px;
+  align-items: center;
 }
 
 #RedBullRacing {
