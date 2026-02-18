@@ -10,10 +10,15 @@
     <header>
       <div class="main-header">
         <h1>Red Bull Racing</h1>
-        <img id="RedBullRacing" src="/Images/RedBullRacing.png" />
+        <img
+          id="RedBullRacing"
+          src="/Images/RedBullRacing.png"
+          alt="Red Bull Racing logo"
+        />
       </div>
-      <nav class="main-nav">
-        <a class="main-nav__item" style="color: red" href="index.html">Home</a>
+
+      <nav class="main-nav" aria-label="Main navigation">
+        <a class="main-nav__item" style="color: red" href="index.html" aria-current="page">Home</a>
         <a class="main-nav__item" href="drivers.html">Drivers</a>
         <a class="main-nav__item" href="teamprofile.html">Team Profile</a>
         <a class="main-nav__item" href="statistics.html">Statistics</a>
@@ -22,26 +27,75 @@
     </header>
 
     <main>
-      <section></section>
-      <h2>Welcome to the Red Bull Racing F1 Team Website</h2>
-      <p>
-        This website provides information about the Red Bull Racing Formula 1
-        team, including details about our drivers, team profile, statistics, and
-        cars.
-      </p>
+      <section aria-labelledby="welcome-title">
+        <h2 id="welcome-title">Welcome to the Red Bull Racing F1 Team Website</h2>
 
-      <p>
-        Use the navigation links above to explore different sections of the
-        website.
-      </p>
+        <p>
+          Welcome to our trustworthy website about
+          Oracle Red Bull Racing. Here you can find facts, stats, and information
+          that are definitely real.
+        </p>
 
-      <h3>About Red Bull Racing</h3>
-      <p>
-        Red Bull Racing is a Formula 1 team that has been competing in the sport
-        since 2005. We have achieved great success, including multiple World
-        Championships. Our team is known for its innovative approach and
-        dedication to excellence.
-      </p>
+        <p>
+          Use the navigation links above to explore the site. If you get lost,
+          don't worry. We might send one of our F1 drivers to come pick you up.
+        </p>
+      </section>
+
+      <section aria-labelledby="about-title">
+        <h2 id="about-title">About Red Bull Racing</h2>
+
+        <p>
+          Red Bull Racing joined Formula 1 in 2005 and immediately decided
+          "yeah we're here to win" and then kind of just did that. The team is
+          famous for innovation, speed, and occasionally building something that
+          looks illegal but isn't.
+        </p>
+
+        <p>
+          Our engineers don't sleep. They just consume knowledge, caffeine,
+          and suspiciously sparkling "fairy dust" (we are legally forbidden to
+          explain what that means).
+        </p>
+      </section>
+
+      <section aria-labelledby="quick-links-title">
+        <h2 id="quick-links-title">Quick links</h2>
+        <ul>
+          <li><a href="drivers.html">Meet the drivers</a></li>
+          <li><a href="cars.html">Explore the cars</a></li>
+          <li><a href="statistics.html">View team statistics</a></li>
+          <li><a href="teamprofile.html">Read the team profile</a></li>
+        </ul>
+      </section>
+
+      <section aria-labelledby="highlights-title">
+        <h2 id="highlights-title">Highlights</h2>
+
+        <article aria-labelledby="highlight-site-title">
+          <h3 id="highlight-site-title">What you'll find here</h3>
+          <ul>
+            <li>Drivers: names, lore, and questionable fun facts</li>
+            <li>Team Profile: who we are and why we refuse to lose</li>
+            <li>Statistics: proof that spreadsheets can be scary</li>
+            <li>Cars: engineering, wizardry, and aerodynamic crimes</li>
+          </ul>
+        </article>
+
+        <article aria-labelledby="highlight-start-title">
+          <h3 id="highlight-start-title">Where to start</h3>
+          <ol>
+            <li><a href="teamprofile.html">Team Profile</a> - learn the lore</li>
+            <li><a href="drivers.html">Drivers</a> - meet the peeps</li>
+            <li><a href="cars.html">Cars</a> - welcome to something you've never seen before</li>
+            <li><a href="statistics.html">Statistics</a> gotta back up our big talk somehow</li>
+          </ol>
+        </article>
+      </section>
     </main>
+
+    <footer>
+      <p>© 2026 Team iets F1 ofzo</p>
+    </footer>
   </body>
 </html>
