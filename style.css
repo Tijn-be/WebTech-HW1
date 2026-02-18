@@ -77,6 +77,37 @@ a {
   flex-direction: column;
 }
 
+.Cars {
+  background-color: rgba(255, 255, 255, 0.5);
+  border: 2px solid black;
+  border-radius: 5px;
+  width: 90vw; 
+  height: 25vw;
+  display: flex;
+  justify-content: center;
+}
+
+.Cars img {
+  max-width: 90%;
+  max-height: 100%;
+}
+
+.Drivers{
+  background-color:rgba(255, 255, 255, 0.5);
+  border: 2px solid Black;
+  border-radius: 5px;
+  width: 45vw;
+  height: 15vw;
+  display: flex;
+  justify-content: center;
+}
+
+.Drivers img{
+  max-width: 100%;
+  max-height: 100%;
+  opacity: 1;
+}
+
 @media (min-width: 650px) {
   .Cars-Driver-row {
     flex-direction: row;
@@ -85,40 +116,23 @@ a {
     gap: 20px;
   }
 
+  .Cars {
+  width: 40vw;
+  height: 25vh;
+  }
+
+  .Drivers{
+    width: 15vw;
+    height: 15vh;
+  }
+
   #Cars, #Drivers {
     flex: none;
     width: auto;
   }
 }
 
-.Cars {
-  background-color: rgba(255, 255, 255, 0.5);
-  border: 2px solid black;
-  border-radius: 5px;
-  width: 200px; 
-  height: 100px;
-  display: flex;
-  justify-content: center;
-}
 
-.Cars img {
-  max-width: 90%;
-}
-
-.Drivers{
-  background-color:rgba(255, 255, 255, 0.5);
-  border: 2px solid Black;
-  border-radius: 5px;
-  width: 125px;
-  height: 80px;
-  display: flex;
-  justify-content: center;
-}
-
-.Drivers img{
-  height: 100%;
-  opacity: 1;
-}
 
 #DriversPic {
     display: flex;      
