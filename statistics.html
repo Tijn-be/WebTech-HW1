@@ -17,77 +17,66 @@
         <a class="main-nav__item" href="index.html">Home</a>
         <a class="main-nav__item" href="drivers.html">Drivers</a>
         <a class="main-nav__item" href="teamprofile.html">Team Profile</a>
-        <a class="main-nav__item" style="color: red" href="statistics.html"
-          >Statistics</a
-        >
+        <a class="main-nav__item" href="statistics.html" style="color: red">Statistics</a>
         <a class="main-nav__item" href="cars.html">Cars</a>
-      </nav>
-      <nav class="main-nav2">
-        <span><a class="main-nav__item" href="#Races">Races</a></span>
-        <span><a class="main-nav__item" href="#Drivers">Drivers</a></span>
-        <span><a class="main-nav__item" href="#Cars">Cars</a></span>
-        <span><a></a></span>
       </nav>
     </header>
 
-    <label>Year: </label>
-    <select>
-      <option value="2005">2005</option>
-      <option value="2006">2006</option>
-      <option value="2007">2007</option>
-      <option value="2008">2008</option>
-      <option value="2009">2009</option>
-      <option value="2010">2010</option>
-      <option value="2011">2011</option>
-      <option value="2012">2012</option>
-      <option value="2013">2013</option>
-      <option value="2014">2014</option>
-      <option value="2015">2015</option>
-      <option value="2016">2016</option>
-      <option value="2017">2017</option>
-      <option value="2018">2018</option>
-      <option value="2019">2019</option>
-      <option value="2020">2020</option>
-      <option value="2021">2021</option>
-      <option value="2022">2022</option>
-      <option value="2023">2023</option>
-      <option value="2024">2024</option>
-      <option value="2025">2025</option>
-    </select>
+    <div id="Year">
+      <label>Year: </label>
+      <select id="yearSelect">
+        <option value="2005">2005</option>
+        <option value="2006">2006</option>
+        <option value="2007">2007</option>
+        <option value="2008">2008</option>
+        <option value="2009">2009</option>
+        <option value="2010">2010</option>
+        <option value="2011">2011</option>
+        <option value="2012">2012</option>
+        <option value="2013">2013</option>
+        <option value="2014">2014</option>
+        <option value="2015">2015</option>
+        <option value="2016">2016</option>
+        <option value="2017">2017</option>
+        <option value="2018">2018</option>
+        <option value="2019">2019</option>
+        <option value="2020">2020</option>
+        <option value="2021">2021</option>
+        <option value="2022">2022</option>
+        <option value="2023">2023</option>
+        <option value="2024">2024</option>
+        <option value="2025">2025</option>
+      </select>
+    </div>
 
-    <section id="Races">
-      <h2>Races</h2>
-      <table border="1">
-        <tr>
-          <th>Grand Prix</th>
-          <th>Driver</th>
-          <th>Qualification</th>
-          <th>Place</th>
-          <th>Time</th>
-        </tr>
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-      </table>
-    </section>
+    <main>
+      <div class="Cars-Driver-row">
+        <section id="Cars">
+          <h2>Car</h2>
+          <div id="carType"></div>
+        </section>
 
-    <section id="Drivers">
-      <h2>Drivers</h2>
-    </section>
+        <aside id="Drivers" display="flex">
+          <h2>Drivers</h2>
+          <div id="DriversPic"></div>
+        </aside>
+      </div>
 
-    <section id="Cars">
-      <h2>Cars</h2>
-    </section>
+      <div class="Races-row">
+        <section id="Races">
+          <h2>Races</h2>
+          <table class="RaceTable">
+            <thead id="raceData">
+            </thead>
+            <tbody id="raceData">
+            </tbody>
+          </table>
+        </section>
+      </div>
+    </main>
+
+    <script src="data.js"></script>
+    <script type="module" src="script.js"></script>
+    
   </body>
 </html>
