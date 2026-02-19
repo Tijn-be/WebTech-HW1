@@ -13,23 +13,53 @@ body {
   background-color: #011629;
   color: white;
   font-family: Jost, sans-serif;
+  margin: 0;
+
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;  
+}
+
+header{
+  background-color: #011629;
+  padding: 3px 20px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  border-bottom: 3px solid black;
+}
+
+main{
+  padding: 20px;
+  flex: 1;
+}
+
+footer{
+  background-color: rgba(172, 172, 4, 0.507);
+  padding: 3px 20px;
+  border-top: 1px solid black;
 }
 
 h1 {
-  color: red;
+  color: #e0041e;
   font-size: 2.5em;
-  margin-bottom: 20px;
   font-family: Jost-Bold;
+  margin-bottom: 10px;
+}
+
+pre{
+  font-family: Jost;
 }
 
 nav {
-  background-color: gray;
+  background-color: rgba(172, 172, 4, 0.878);
+  border: 1px solid black;
   border-radius: 5px;
 }
 
 a {
+  color: #ADD8E6;
   font-size: large;
-  color: white;
   text-decoration: none;
 }
 
@@ -46,20 +76,29 @@ a {
 }
 
 .main-nav__item {
+  color: Black;   
+  font-family: Jost-Bold;
   margin: 0 15px;
-  color: Black;
-  font-family: Jost-Bold 
 }
 
-.main-nav2 {
+.main-nav-2 {
   display: flex;
   justify-content: space-evenly;
-  margin-top: 3px;
   align-items: center;
+  width: 80vw;
+  font-size: 10px; 
+  line-height: 1; 
+  padding: 5px 0;
+  margin: 3px auto 0 auto;
+}
+
+.main-nav-2 a {
+  font-size: 10px; 
+  margin: 0 10px;
 }
 
 #RedBullRacing {
-  height: 100px;
+  height: 60px;
   float: right;
 }
 
@@ -67,6 +106,20 @@ a {
 
 #Year{
   font-family: Jost-Bold;
+}
+
+#yearSelect {
+  width: 200px;
+  cursor: pointer;
+  accent-color: #e0041e;
+  vertical-align: middle;
+}
+
+#yearValue {
+  font-family: Jost-Bold, sans-serif;
+  color: #ffeb00; 
+  margin-left: 10px;
+  font-size: 1.2em;
 }
 
 .Cars-Driver-row{
@@ -111,8 +164,8 @@ a {
 @media (min-width: 650px) {
   .Cars-Driver-row {
     flex-direction: row;
-    align-items: flex-start;
-    justify-content: flex-start;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 20px;
   }
 

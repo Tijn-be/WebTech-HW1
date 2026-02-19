@@ -22,34 +22,19 @@
       </nav>
     </header>
 
-    <div id="Year">
-      <label>Year: </label>
-      <select id="yearSelect">
-        <option value="2005">2005</option>
-        <option value="2006">2006</option>
-        <option value="2007">2007</option>
-        <option value="2008">2008</option>
-        <option value="2009">2009</option>
-        <option value="2010">2010</option>
-        <option value="2011">2011</option>
-        <option value="2012">2012</option>
-        <option value="2013">2013</option>
-        <option value="2014">2014</option>
-        <option value="2015">2015</option>
-        <option value="2016">2016</option>
-        <option value="2017">2017</option>
-        <option value="2018">2018</option>
-        <option value="2019">2019</option>
-        <option value="2020">2020</option>
-        <option value="2021">2021</option>
-        <option value="2022">2022</option>
-        <option value="2023">2023</option>
-        <option value="2024">2024</option>
-        <option value="2025">2025</option>
-      </select>
-    </div>
-
     <main>
+      <div id="Year">
+         <input 
+          type="range" 
+          id="yearSelect" 
+          min="2005" 
+          max="2025" 
+          value="2025" 
+          step="1"
+          >
+        <span id="yearValue">2025</span>
+      </div>
+
       <div class="Cars-Driver-row">
         <section id="Cars">
           <h2>Car</h2>
@@ -78,5 +63,10 @@
     <script src="data.js"></script>
     <script type="module" src="script.js"></script>
     
+    <footer>
+      Author: Benjamin, Darryl, Tijn<br>
+      © 2026 Team iets F1 ofzo<br>
+      <small><a href="mailto:h.f.a.bisschop@students.uu.nl">h.f.a.bisschop@students.uu.nl</a></small>
+    </footer>
   </body>
 </html>

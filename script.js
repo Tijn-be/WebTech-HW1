@@ -1,3 +1,14 @@
+//Slider
+
+const slider = document.getElementById('yearSelect');
+const output = document.getElementById('yearValue');
+
+slider.oninput = function() {
+  output.innerHTML = this.value;
+}
+
+//Table
+
 import { raceResults } from './data.js';
 
 const yearSelect = document.getElementById('yearSelect');
