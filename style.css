@@ -51,6 +51,10 @@ section{
   scroll-margin: 30vh;
 }
 
+p{
+  width: auto;
+}
+
 pre {
   font-family: Jost;
 }
@@ -63,6 +67,10 @@ a {
   color: #add8e6;
   font-size: large;
   text-decoration: none;
+}
+
+a:hover{
+  color: red;
 }
 
 .main-header {
