@@ -17,7 +17,6 @@ body {
 
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
 }
 
 header {
@@ -27,6 +26,7 @@ header {
   z-index: 1000;
   border-bottom: 3px solid black;
   width: 100%;
+  padding-bottom: 7px;
 }
 
 main {
@@ -54,7 +54,7 @@ section {
 }
 
 p {
-  width: auto;
+  width: 90vw;
 }
 
 pre {
@@ -82,11 +82,13 @@ a:hover {
 }
 
 .main-nav {
-  justify-content: safe;
-  align-items: left;
-  width: 60%;
-  margin: 0 10px 4px;
-  padding: 20px auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px 10px;
+  justify-content: flex-start;
+  width: 100%;
+  max-width: 100%;
+  margin: 10px 0;
 }
 .main-nav__item {
   color: white;
@@ -98,10 +100,13 @@ a:hover {
 }
 
 .main-nav-2 {
-  align-items: left;
-  justify-content: space-evenly;
-  width: 60%;
-  margin: 15px 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 13px 10px;
+  justify-content: flex-start;
+  width: 100%;
+  max-width: 100%;
+  margin-top: 15px ;
 }
 
 .table-container {
@@ -130,6 +135,13 @@ a:hover {
 #RedBullRacing {
   height: 60px;
   width: auto;
+}
+
+/*Drivers*/
+
+.Bio-Drivers{
+  font-size: 0.6em;
+  color: white ;
 }
 
 /*Statistic*/
@@ -181,7 +193,11 @@ a:hover {
   opacity: 1;
 }
 
-@media (min-width: 650px) {
+@media (min-width: 700px) {
+  .main-nav {
+    width: 60%;
+  }
+  
   .Cars-Driver-row {
     flex-direction: row;
     flex-wrap: wrap;
@@ -216,25 +232,6 @@ a:hover {
   #Drivers {
     flex: none;
     width: auto;
-  }
-}
-
-@media (max-width: 650px) {
-  .Cars-Driver-row {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .Cars,
-  .Drivers {
-    width: 90vw;
-    height: auto;
-  }
-
-  .main-nav,
-  .main-nav-2 {
-    width: 100%;
-    justify-content: center;
   }
 }
 
