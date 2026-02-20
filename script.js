@@ -37,10 +37,12 @@ function updateContent (year) {
     data.drivers.forEach(item => {
       driverContainer.innerHTML += 
       `<div>
-        <div class="Drivers">
-            <img src="/Images/Drivers/${item.img}" alt="${item.name}">
-        </div>
-        <figcaption>${item.name}</figcaption>
+        <a href="drivers.html#${item.id}">
+            <div class="Drivers" >
+              <img src="/Images/Drivers/${item.img}" alt="${item.name}">
+            </div>
+          <figcaption>${item.name}</figcaption>
+        </a>
       </div>`;
     });
   }

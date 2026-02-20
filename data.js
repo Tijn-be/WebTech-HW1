@@ -6,9 +6,9 @@ export const raceResults ={
     ],
 
     drivers: [
-      { name: "Christian Klien", img: "ChristianKlien.png" },
-      { name: "David Coulthard", img: "DavidCoulthard.png" },    
-      { name: "Vitantonio Liuzzi", img: "VitantonioLiuzzi.png" }
+      { name: "Christian Klien", img: "ChristianKlien.png", id: "Christian-Klien" },
+      { name: "David Coulthard", img: "DavidCoulthard.png", id: "David-Coulthard" },    
+      { name: "Vitantonio Liuzzi", img: "VitantonioLiuzzi.png", id: "Vitantonio-Liuzzi" }
     ],
 
     races: [
@@ -93,9 +93,9 @@ export const raceResults ={
     ],
 
     drivers: [
-      { name: "Christian Klien", img: "ChristianKlien.png" },
-      { name: "David Coulthard", img: "DavidCoulthard.png" },    
-      { name: "Robert Doornbos", img: "RobertDoornbos.png" }
+      { name: "Christian Klien", img: "ChristianKlien.png", id: "Christian-Klien" },
+      { name: "David Coulthard", img: "DavidCoulthard.png", id: "David-Coulthard" },    
+      { name: "Robert Doornbos", img: "RobertDoornbos.png", id: "Robert-Doornbos" }
     ],
 
     races: [
@@ -176,8 +176,8 @@ export const raceResults ={
     ],
 
     drivers: [
-      { name: "David Coulthard", img: "DavidCoulthard.png" },
-      { name: "Mark Webber", img: "MarkWebber.png" }
+      { name: "David Coulthard", img: "DavidCoulthard.png", id: "David-Coulthard" },
+      { name: "Mark Webber", img: "MarkWebber.png", id: "Mark-Webber" }
     ],
 
     races: [
@@ -233,8 +233,8 @@ export const raceResults ={
     ],
 
     drivers: [
-      { name: "David Coulthard", img: "DavidCoulthard.png" },
-      { name: "Mark Webber", img: "MarkWebber.png" }
+      { name: "David Coulthard", img: "DavidCoulthard.png", id: "David-Coulthard" },
+      { name: "Mark Webber", img: "MarkWebber.png", id: "Mark-Webber" }
     ],
 
     races: [
@@ -292,8 +292,8 @@ export const raceResults ={
     ],
 
     drivers: [
-      { name: "Sebastian Vettel", img: "SebastianVettel.png" },
-      { name: "Mark Webber", img: "MarkWebber.png" }
+      { name: "Sebastian Vettel", img: "SebastianVettel.png", id: "Sebastian-Vettel" },
+      { name: "Mark Webber", img: "MarkWebber.png", id: "Mark-Webber" }
     ],
 
     races: [
@@ -349,8 +349,8 @@ export const raceResults ={
     ],
 
     drivers: [
-      { name: "Sebastian Vettel", img: "SebastianVettel.png" },
-      { name: "Mark Webber", img: "MarkWebber.png" }
+      { name: "Sebastian Vettel", img: "SebastianVettel.png", id: "Sebastian-Vettel" },
+      { name: "Mark Webber", img: "MarkWebber.png", id: "Mark-Webber" }
     ],
 
     races: [
@@ -410,8 +410,8 @@ export const raceResults ={
     ],
 
     drivers: [
-      { name: "Sebastian Vettel", img: "SebastianVettel.png" },
-      { name: "Mark Webber", img: "MarkWebber.png" }
+      { name: "Sebastian Vettel", img: "SebastianVettel.png", id: "Sebastian-Vettel" },
+      { name: "Mark Webber", img: "MarkWebber.png", id: "Mark-Webber" }
     ],
 
     races: [
@@ -471,8 +471,8 @@ export const raceResults ={
     ],
 
     drivers: [
-      { name: "Sebastian Vettel", img: "SebastianVettel.png" },
-      { name: "Mark Webber", img: "MarkWebber.png" }
+      { name: "Sebastian Vettel", img: "SebastianVettel.png", id: "Sebastian-Vettel" },
+      { name: "Mark Webber", img: "MarkWebber.png", id: "Mark-Webber" }
     ],
 
     races: [
@@ -534,8 +534,8 @@ export const raceResults ={
     ],
 
     drivers: [
-      { name: "Sebastian Vettel", img: "SebastianVettel.png" },
-      { name: "Mark Webber", img: "MarkWebber.png" }
+      { name: "Sebastian Vettel", img: "SebastianVettel.png", id: "Sebastion-Vettel" },
+      { name: "Mark Webber", img: "MarkWebber.png", id: "Mark-Webber" }
     ],
 
     races: [
@@ -595,8 +595,8 @@ export const raceResults ={
     ],
 
     drivers: [
-      { name: "Sebastian Vettel", img: "SebastianVettel.png" },
-      { name: "Daniel Ricciardo", img: "DanielRicciardo.png" }
+      { name: "Sebastian Vettel", img: "SebastianVettel.png", id: "Sebastian-Vettel" },
+      { name: "Daniel Ricciardo", img: "DanielRicciardo.png", id: "Daniel-Ricciardo" }
     ],
 
     races: [
@@ -656,8 +656,8 @@ export const raceResults ={
     ],
 
     drivers: [
-      { name: "Daniel Ricciardo", img: "DanielRicciardo.png" },
-      { name: "Daniil Kvyat", img: "DaniilKvyat.png" }
+      { name: "Daniel Ricciardo", img: "DanielRicciardo.png", id: "Daniel-Ricciardo" },
+      { name: "Daniil Kvyat", img: "DaniilKvyat.png", id: "Daniil-Kvyat" }
     ],
 
     races: [
@@ -717,9 +717,9 @@ export const raceResults ={
     ],
 
     drivers: [
-      { name: "Daniel Ricciardo", img: "DanielRicciardo.png" },
-      { name: "Daniil Kvyat", img: "DaniilKvyat.png" },
-      { name: "Max Verstappen", img: "MaxVerstappen.png" }
+      { name: "Daniel Ricciardo", img: "DanielRicciardo.png", id: "Daniel-Ricciardo" },
+      { name: "Daniil Kvyat", img: "DaniilKvyat.png", id: "Daniil-Kvyat" },
+      { name: "Max Verstappen", img: "MaxVerstappen.png", id: "Max-Verstappen" }
     ],
 
     races: [
@@ -809,8 +809,8 @@ export const raceResults ={
     ],
 
     drivers: [
-      { name: "Daniel Ricciardo", img: "DanielRicciardo.png" },
-      { name: "Max Verstappen", img: "MaxVerstappen.png" }
+      { name: "Daniel Ricciardo", img: "DanielRicciardo.png", id: "Daniel-Ricciardo" },
+      { name: "Max Verstappen", img: "MaxVerstappen.png", id: "Max-Verstappen" }
     ],
 
     races: [
@@ -872,8 +872,8 @@ export const raceResults ={
     ],
 
     drivers: [
-      { name: "Daniel Ricciardo", img: "DanielRicciardo.png" },
-      { name: "Max Verstappen", img: "MaxVerstappen.png" }
+      { name: "Daniel Ricciardo", img: "DanielRicciardo.png", id: "Daniel-Ricciardo" },
+      { name: "Max Verstappen", img: "MaxVerstappen.png", id: "Max-Verstappen" }
     ],
 
     races: [
@@ -937,9 +937,9 @@ export const raceResults ={
     ],
 
     drivers: [
-      { name: "Max Verstappen", img: "MaxVerstappen.png" },
-      { name: "Pierre Gasly", img: "PierreGasly.png" },
-      { name: "Alexander Albon", img: "AlexanderAlbon.png" }
+      { name: "Max Verstappen", img: "MaxVerstappen.png", id: "Max-Verstappen" },
+      { name: "Pierre Gasly", img: "PierreGasly.png", id: "Pierre-Gasly" },
+      { name: "Alexander Albon", img: "AlexanderAlbon.png", id: "Alexander-Albon" }
     ],
 
     races: [
@@ -1029,8 +1029,8 @@ export const raceResults ={
     ],
 
     drivers: [
-      { name: "Max Verstappen", img: "MaxVerstappen.png" },
-      { name: "Alexander Albon", img: "AlexanderAlbon.png" }
+      { name: "Max Verstappen", img: "MaxVerstappen.png", id: "Max-Verstappen" },
+      { name: "Alexander Albon", img: "AlexanderAlbon.png", id: "Alexander-Albon" }
     ],
 
     races: [
@@ -1086,8 +1086,8 @@ export const raceResults ={
     ],
 
     drivers: [
-      { name: "Max Verstappen", img: "MaxVerstappen.png" },
-      { name: "Sergio Perez", img: "SergioPerez.png" }
+      { name: "Max Verstappen", img: "MaxVerstappen.png", id: "Max-Verstappne" },
+      { name: "Sergio Perez", img: "SergioPerez.png", id: "Sergio-Perez" }
     ],
 
     races: [
@@ -1153,8 +1153,8 @@ export const raceResults ={
     ],
 
     drivers: [
-      { name: "Max Verstappen", img: "MaxVerstappen.png" },
-      { name: "Sergio Perez", img: "SergioPerez.png" }
+      { name: "Max Verstappen", img: "MaxVerstappen.png", id: "Max-Verstappe " },
+      { name: "Sergio Perez", img: "SergioPerez.png", id: "Sergio-Perez" }
     ],
 
     races: [
@@ -1220,8 +1220,8 @@ export const raceResults ={
     ],
 
     drivers: [
-      { name: "Max Verstappen", img: "MaxVerstappen.png" },
-      { name: "Sergio Perez", img: "SergioPerez.png" }
+      { name: "Max Verstappen", img: "MaxVerstappen.png", id: "Max-Verstappen" },
+      { name: "Sergio Perez", img: "SergioPerez.png", id: "Sergio-Perez" }
     ],
 
     races: [
@@ -1287,8 +1287,8 @@ export const raceResults ={
     ],
 
     drivers: [
-      { name: "Max Verstappen", img: "MaxVerstappen.png" },
-      { name: "Sergio Perez", img: "SergioPerez.png" }
+      { name: "Max Verstappen", img: "MaxVerstappen.png", id: "Max-Verstappen" },
+      { name: "Sergio Perez", img: "SergioPerez.png", id: "Sergio-Perez" }
     ],
 
     races: [
@@ -1358,9 +1358,9 @@ export const raceResults ={
     ],
 
     drivers: [
-      { name: "Max Verstappen", img: "MaxVerstappen.png" },
-      { name: "Liam Lawson", img: "LiamLawson.png" },
-      { name: "Yuki Tsunoda", img: "YukiTsunoda.png" }
+      { name: "Max Verstappen", img: "MaxVerstappen.png", id: "Max-Verstappen" },
+      { name: "Liam Lawson", img: "LiamLawson.png", id: "Liam-Lawson" },
+      { name: "Yuki Tsunoda", img: "YukiTsunoda.png", id: "Yuki-Tsunoda" }
     ],
 
     races: [
