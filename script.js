@@ -15,7 +15,7 @@ function updateContent(year) {
     data.Car.forEach((item) => {
       CarContainer.innerHTML += `<div>
       <a href="cars.html#${item.name}">
-        <div class="car-tile">
+        <div class="stats-car--tile">
             <img src="/Images/Cars/${item.img}" alt="${item.name}">
         </div>
         <figcaption>${item.name}</figcaption>

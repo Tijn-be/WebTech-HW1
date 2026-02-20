@@ -112,18 +112,128 @@ a:hover {
   margin-top: 15px ;
 }
 
-.site-header__logo {
+.content-row {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  flex-direction: column;
+}
+
+.driver-tile {
+  background-color: rgba(255, 255, 255, 0.5);
+  border: 2px solid Black;
+  border-radius: 5px;
+  width: 45vw;
+  height: 15vw;
+  display: flex;
+  justify-content: center;
+}
+
+.driver-tile img {
+  max-width: 100%;
+  max-height: 100%;
+  opacity: 1;
+}
+
+#RedBullRacing {
   height: 60px;
   width: auto;
 }
 
+@media (min-width: 700px) {
+  .site-nav {
+    width: 60%;
+  }
+  
+  .content-row {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+  }
 
-.table-container {
+  .driver-tile {
+    width: 15vw;
+    height: 15vh;
+  }
+}
+
+/*Drivers*/
+
+.drivers-bio{
+  font-size: 0.6em;
+  color: white ;
+}
+
+/*Statistic*/
+
+.stats__controls {
+  font-family: Jost-Bold;
+}
+
+.stats__select {
+  background-color: #011629;
+  color: white;
+  border-radius: 2px;
+}
+
+.stats-car--tile {
+  width: 90vw;
+  height: 25vw;
+  display: flex;
+  justify-content: center;
+}
+
+.stats-car--tile img {
+  object-fit: contain;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.stats__drivers {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+.stats-races {
+  width: 100%;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.stats-races--table {
+  border: 1px solid white;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.stats-races--table th, .stats-races--table td {
+  border: 1px solid white;
+  padding: 8px;
+}
+
+@media (min-width: 700px) {
+  .stats-car--tile {
+    width: 40vw;
+    height: 25vh;
+  }
+
+  #Cars, #Drivers {
+    flex: none;
+    width: auto;
+  }
+}
+
+/*Cars*/
+
+.cars-table--container {
   width: 100%;
   overflow-x: auto;
   overflow-y: hidden;
 }
-
 
 .cars-table {
   border-collapse: collapse;
@@ -142,92 +252,7 @@ a:hover {
   object-fit: contain;
 }
 
-#RedBullRacing {
-  height: 60px;
-  width: auto;
-}
-
-/*Drivers*/
-
-.Bio-Drivers{
-  font-size: 0.6em;
-  color: white ;
-}
-
-/*Statistic*/
-
-.stats__controls {
-  font-family: Jost-Bold;
-}
-
-.stats__select {
-  background-color: #011629;
-  color: white;
-  border-radius: 2px;
-}
-
-
-.content-row {
-  display: flex;
-  gap: 20px;
-  align-items: flex-start;
-  margin-bottom: 20px;
-  flex-direction: column;
-}
-
-
-.car-tile {
-  width: 90vw;
-  height: 25vw;
-  display: flex;
-  justify-content: center;
-}
-
-.car-tile img {
-  object-fit: contain;
-  max-width: 100%;
-  max-height: 100%;
-}
-
-
-.driver-tile {
-  background-color: rgba(255, 255, 255, 0.5);
-  border: 2px solid Black;
-  border-radius: 5px;
-  width: 45vw;
-  height: 15vw;
-  display: flex;
-  justify-content: center;
-}
-
-.driver-tile img {
-  max-width: 100%;
-  max-height: 100%;
-  opacity: 1;
-}
-
 @media (min-width: 700px) {
-  .main-nav {
-    width: 60%;
-  }
-  
-  .content-row {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-  }
-
-  .car-tile {
-    width: 40vw;
-    height: 25vh;
-  }
-
-  .driver-tile {
-    width: 15vw;
-    height: 15vh;
-  }
-
   .cars-table {
     width: 100%;
     overflow-x: auto;
@@ -235,62 +260,8 @@ a:hover {
     font-size: 0.8rem;
   }
 
-  .cars-table td,
-  .cars-table th {
+  .cars-table td, .cars-table th {
     padding: 4px;
     white-space: nowrap;
   }
-
-  #Cars,
-  #Drivers {
-    flex: none;
-    width: auto;
-  }
-}
-
-@media (max-width: 650px) {
-  .content-row {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .car-tile,
-  .driver-tile {
-    width: 90vw;
-    height: auto;
-  }
-
-  .site-nav,
-  .site-nav--secondary {
-    width: 100%;
-    justify-content: center;
-  }
-}
-
-
-
-.stats__drivers {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  align-items: center;
-}
-
-
-.races {
-  width: 100%;
-  overflow-x: auto;
-  white-space: nowrap;
-}
-
-.races-table {
-  border: 1px solid white;
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.races-table th,
-.races-table td {
-  border: 1px solid white;
-  padding: 8px;
 }
