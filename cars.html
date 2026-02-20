@@ -27,118 +27,363 @@
     </header>
 
     <main>
-      <section>
+      <section id="CarTable">
         <h2>Cars</h2>
-        <p>
-          This is our digital car depot. 
-          <br>Find anything and nothing about our Oracle Red Bull Racing cars here.
-        </p>
-      </section>
+        <table class="CarTable">
+          <thead>
+            <tr>
+              <th>Image</th>
+              <th>Name</th>
+              <th>Notes</th>
+              <th>Season</th>
+              <th>Engine</th>
+              <th>Drivers</th>
+              <th>Races</th>
+              <th>Wins</th>
+              <th>Poles</th>
+              <th>Fastest Laps</th>
+              <th>Power</th>
+            </tr>
+          </thead>
+          <tbody id="carData">
+            <tr id="RB1">
+              <td>
+                <img  src="Images/Cars/2005-RB1.jpg" alt="Red Bull RB1" />
+              </td>
+              <td>Red Bull RB1</td>
+              <td>First car built by Red Bull Racing, powered by Cosworth engine.</td>
+              <td>2005</td>
+              <td>Cosworth TJ2005 V10</td>
+              <td>David Coulthard, Christian Klien, Vitantonio Liuzzi</td>
+              <td>19</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>~900 hp</td>
+            </tr>
 
-      <section>
-        <h3>Current Car: RB21 Ultron 67 Edition</h3>
-        <p>
-          The RB21 Ultron 67 Edition is basically a rocket without wheels.
-          Yes you heard that right, this car has no wheels. What does that say about the definition of a car?
-          Well don't ask us, we are Red Bull Racing, not philosophers. We just made it work.
-          It was designed to go unbelievably fast and make other teams question
-          their life decisions into the first 5 seconds of the race. This thing needs its own timezone.
-        </p>
+            <tr id="RB2"> 
+              <td>
+                <img  src="Images/Cars/2006-RB2.jpg" alt="Red Bull RB2" />
+              </td>
+              <td>Red Bull RB2</td>
+              <td>Ferrari-powered V8 era car under new regulations.</td>
+              <td>2006</td>
+              <td>Ferrari 056 V8</td>
+              <td>David Coulthard, Christian Klien, Robert Doornbos</td>
+              <td>18</td>
+              <td>0</td>
+              <td>0</td>
+              <td>1</td>
+              <td>~750 hp</td>
+            </tr>
 
-        <dl>
-          <dt>Season</dt>
-          <dd>2026 </dd>
+            <tr id="RB3">
+              <td>
+                <img  src="Images/Cars/2007-RB3.jpg" alt="Red Bull RB3" />
+              </td>
+              <td>Red Bull RB3</td>
+              <td>First Renault-powered car influenced by Adrian Newey design philosophy.</td>
+              <td>2007</td>
+              <td>Renault RS27 V8</td>
+              <td>David Coulthard, Mark Webber</td>
+              <td>17</td>
+              <td>0</td>
+              <td>0</td>
+              <td>1</td>
+              <td>~750 hp</td>
+            </tr>
 
-          <dt>Engine / Power Unit</dt>
-          <dd>Fairy dust emulsifier, requires Fairy Dust from males, females or anything inbetween or around that ballpark.</dd>
+            <tr id="RB4">
+              <td>
+                <img  src="Images/Cars/2008-RB4.jpg" alt="Red Bull RB4" />
+              </td>
+              <td>Red Bull RB4</td>
+              <td>Evolution of RB3 with improved aero and Renault power unit.</td>
+              <td>2008</td>
+              <td>Renault RS27 V8</td>
+              <td>David Coulthard, Mark Webber</td>
+              <td>18</td>
+              <td>0</td>
+              <td>0</td>
+              <td>1</td>
+              <td>~750 hp</td>
+            </tr>
 
-          <dt>Horsepower</dt>
-          <dd>At least 7. Maybe 7000. Depends on the vibe.</dd>
+            <tr id="RB5">
+              <td>
+                <img  src="Images/Cars/2009-RB5.jpg" alt="Red Bull RB5" />
+              </td>
+              <td>Red Bull RB5</td>
+              <td>First race-winning Red Bull car of the Newey aero era.</td>
+              <td>2009</td>
+              <td>Renault RS27 V8</td>
+              <td>Sebastian Vettel, Mark Webber</td>
+              <td>17</td>
+              <td>6</td>
+              <td>5</td>
+              <td>16</td>
+              <td>~750 hp</td>
+            </tr>
 
-          <dt>Top Speed</dt>
-          <dd>Depends on how much you believe in fairytales</dd>
+            <tr id="RB6">
+              <td>
+                <img  src="Images/Cars/2010-RB6.jpg" alt="Red Bull RB6" />
+              </td>
+              <td>Red Bull RB6</td>
+              <td>Championship-winning car with dominant aerodynamics.</td>
+              <td>2010</td>
+              <td>Renault RS27 V8</td>
+              <td>Sebastian Vettel, Mark Webber</td>
+              <td>19</td>
+              <td>9</td>
+              <td>15</td>
+              <td>18</td>
+              <td>~780 hp</td>
+            </tr>
 
-          <dt>Special Feature</dt>
-          <dd>Whenever you say "please" politely, the car responds with a magical boost.</dd>
-        </dl>
-      </section>
+            <tr id="RB7">
+              <td>
+                <img  src="Images/Cars/2011-RB7.jpg" alt="Red Bull RB7" />
+              </td>
+              <td>Red Bull RB7</td>
+              <td>One of the most dominant cars of the blown diffuser era.</td>
+              <td>2011</td>
+              <td>Renault RS27-2011 V8</td>
+              <td>Sebastian Vettel, Mark Webber</td>
+              <td>19</td>
+              <td>12</td>
+              <td>18</td>
+              <td>27</td>
+              <td>~780 hp</td>
+            </tr>
 
-      <section>
-        <h3>Previous Cars</h3>
-        <p>
-          Every year they say "this can't get better" and then somehow it does.
+            <tr id="RB8">
+              <td>
+                <img  src="Images/Cars/2012-RB8.jpg" alt="Red Bull RB8" />
+              </td>
+              <td>Red Bull RB8</td>
+              <td>Championship-winning evolution of RB7 with refined aero.</td>
+              <td>2012</td>
+              <td>Renault RS27-2012 V8</td>
+              <td>Sebastian Vettel, Mark Webber</td>
+              <td>20</td>
+              <td>7</td>
+              <td>8</td>
+              <td>14</td>
+              <td>~780 hp</td>
+            </tr>
 
-        </p>
+            <tr id="RB9">
+              <td>
+                <img  src="Images/Cars/2013-RB9.jpg" alt="Red Bull RB9" />
+              </td>
+              <td>Red Bull RB9</td>
+              <td>Final V8 era car, famous for Vettel’s 9-win streak.</td>
+              <td>2013</td>
+              <td>Renault RS27-2013 V8</td>
+              <td>Sebastian Vettel, Mark Webber</td>
+              <td>19</td>
+              <td>13</td>
+              <td>11</td>
+              <td>24</td>
+              <td>~780 hp</td>
+            </tr>
 
-        <ul>
-          <li>
-            <b>RB20 (2025)</b> This beaut won races as if it was made for it. Technically, it was, but still. It was so good that other teams considered hiring a magician to figure out its secrets.
-          </li>
-          <li>
-            <b>RB19 (2024)</b> This thing was so aerodynamic it created a it invented a second sonic boom every time it went around a corner
-          </li>
-          <li>
-            <b>RB18 (2023)</b> Introduced "Mega Floor 2.0."
-            This thing has so much surface area, it could probably double as a solar panel. It was basically a flying carpet with wings.
-          </li>
-          <li>
-            <b>RB17 (2022)</b> We actually didn't win any races with it since it was so fast it wasn't allowed to compete.
-          </li>
-        </ul>
-      </section>
+            <tr id="RB10">
+              <td>
+                <img  src="Images/Cars/2014-RB10.jpg" alt="Red Bull RB10" />
+              </td>
+              <td>Red Bull RB10</td>
+              <td>First hybrid-era car using Renault turbo hybrid power unit.</td>
+              <td>2014</td>
+              <td>Renault Energy F1-2014 V6 Hybrid</td>
+              <td>Sebastian Vettel, Daniel Ricciardo</td>
+              <td>19</td>
+              <td>3</td>
+              <td>0</td>
+              <td>12</td>
+              <td>~850 hp</td>
+            </tr>
+            <tr id="RB11">
+              <td>
+                <img  src="Images/Cars/2015-RB11.jpg" alt="Red Bull RB11" />
+              </td>
+              <td>Red Bull RB11</td>
+              <td>TAG Heuer-branded Renault hybrid era car; performance hampered by power unit deficits.</td>
+              <td>2015</td>
+              <td>Renault Energy F1-2015 V6 Hybrid (TAG Heuer)</td>
+              <td>Daniel Ricciardo, Daniil Kvyat</td>
+              <td>19</td>
+              <td>0</td>
+              <td>0</td>
+              <td>2</td>
+              <td>~850 hp</td>
+            </tr>
 
-      <section>
-        <h3>Technical Overview</h3>
-        <p>
-          A Formula 1 car is basically a very expensive science experiment
-          with wings. Everything exists for one reason: go brrrr.
-        </p>
+            <tr id="RB12">
+              <td>
+                <img  src="Images/Cars/2016-RB12.jpg" alt="Red Bull RB12" />
+              </td>
+              <td>Red Bull RB12</td>
+              <td>Improved chassis; famous for Verstappen’s first Red Bull win on debut (Spain).</td>
+              <td>2016</td>
+              <td>Renault R.E.16 V6 Hybrid (TAG Heuer)</td>
+              <td>Daniel Ricciardo, Daniil Kvyat, Max Verstappen</td>
+              <td>21</td>
+              <td>2</td>
+              <td>1</td>
+              <td>17</td>
+              <td>~900 hp</td>
+            </tr>
 
-        <ul>
-          <li>
-            <b>Aerodynamics:</b> Wings + floor + diffuser make the car stick
-            to the ground like glue. Great downforce or whatever, it just works.
-          </li>
-          <li>
-            <b>Power Unit:</b> Engine + hybrid system = speed and brrrr sounds.
-            Mostly cool noises. Can't forget about the fairy dust emulsifier, which is the secret sauce that makes our cars go faster than the speed of light. It's like a magic potion, but for cars.
-          </li>
-          <li>
-            <b>Suspension:</b> Keeps the car stable while the driver is
-            doing 300 km/h around corners. It's the cars way of giving the driver a smooth ride while going at speeds that a rocket ship would be lowkey jealous of.
-          </li>
-          <li>
-            <b>Tyres:</b> Soft, Medium, Hard, or none at all, depending on the vibe of the race and how much we want to mess with the other teams. We like to keep them guessing.
-          </li>
-        </ul>
-      </section>
+            <tr id="RB13">
+              <td>
+                <img  src="Images/Cars/2017-RB13.jpg" alt="Red Bull RB13" />
+              </td>
+              <td>Red Bull RB13</td>
+              <td>Strong aero platform with Renault power; competitive on high-downforce tracks.</td>
+              <td>2017</td>
+              <td>Renault R.E.17 V6 Hybrid (TAG Heuer)</td>
+              <td>Daniel Ricciardo, Max Verstappen</td>
+              <td>20</td>
+              <td>3</td>
+              <td>0</td>
+              <td>13</td>
+              <td>~900 hp</td>
+            </tr>
 
-      <section>
-        <h3>Dictionairy</h3>
+            <tr id="RB14">
+              <td>
+                <img  src="Images/Cars/2018-RB14.jpg" alt="Red Bull RB14" />
+              </td>
+              <td>Red Bull RB14</td>
+              <td>First Red Bull with the Halo; final season with Renault power before switching to Honda.</td>
+              <td>2018</td>
+              <td>Renault R.E.18 V6 Hybrid (TAG Heuer)</td>
+              <td>Daniel Ricciardo, Max Verstappen</td>
+              <td>21</td>
+              <td>4</td>
+              <td>2</td>
+              <td>11</td>
+              <td>~950 hp</td>
+            </tr>
 
-        <dl>
-          <dt>Downforce</dt>
-          <dd>
-            The invisible force that pushes the car into the ground so it
-            doesn't accidentally become an airplane.
-          </dd>
+            <tr id="RB15">
+              <td>
+                <img   src="Images/Cars/2019-RB15.jpg" alt="Red Bull RB15" />
+              </td>
+              <td>Red Bull RB15</td>
+              <td>First Honda-powered Red Bull of the hybrid era; delivered Honda’s return to wins with RB.</td>
+              <td>2019</td>
+              <td>Honda RA619H V6 Hybrid</td>
+              <td>Max Verstappen, Pierre Gasly, Alexander Albon</td>
+              <td>21</td>
+              <td>3</td>
+              <td>2</td>
+              <td>9</td>
+              <td>~1000 hp</td>
+            </tr>
 
-          <dt>Fairy Dust</dt>
-          <dd>
-            We are legally forbidden to say anything about the works and origins of this fuel.
-          </dd>
+            <tr id="RB16">
+              <td>
+                <img  src="Images/Cars/2020-RB16.jpg" alt="Red Bull RB16" />
+              </td>
+              <td>Red Bull RB16</td>
+              <td>High-rake concept refined; primary challenger to Mercedes in 2020.</td>
+              <td>2020</td>
+              <td>Honda RA620H V6 Hybrid</td>
+              <td>Max Verstappen, Alexander Albon</td>
+              <td>17</td>
+              <td>2</td>
+              <td>1</td>
+              <td>11</td>
+              <td>~1000 hp</td>
+            </tr>
 
-          <dt>Diffuser</dt>
-          <dd>
-            The complicated thing at the back that makes airflow behave.
-          </dd>
+            <tr id="RB16B">
+              <td>
+                <img  src="Images/Cars/2021-RB16B.jpg" alt="Red Bull RB16B" />
+              </td>
+              <td>Red Bull RB16B</td>
+              <td>2021 title-winning car in a tight regulation environment; Verstappen’s first championship season.</td>
+              <td>2021</td>
+              <td>Honda RA621H V6 Hybrid</td>
+              <td>Max Verstappen, Sergio Pérez</td>
+              <td>22</td>
+              <td>11</td>
+              <td>10</td>
+              <td>18</td>
+              <td>~1000 hp</td>
+            </tr>
 
-          <dt>RB</dt>
-          <dd>
-            Red Bull, but also Racing Brilliant, Rocket Boost, and Really Bad at losing.
-          </dd>
-        </dl>
-      </section>
+            <tr id="RB17">
+              <td>
+                <img  src="Images/Cars/2022-RB18.jpg" alt="Red Bull RB18" />
+              </td>
+              <td>Red Bull RB18</td>
+              <td>First ground-effect era Red Bull; strong development led to dominant second half and double titles.</td>
+              <td>2022</td>
+              <td>Red Bull Powertrains / Honda RBPT V6 Hybrid</td>
+              <td>Max Verstappen, Sergio Pérez</td>
+              <td>22</td>
+              <td>17</td>
+              <td>8</td>
+              <td>28</td>
+              <td>~1000+ hp</td>
+            </tr>
+
+            <tr id="RB18">
+              <td>
+                <img  src="Images/Cars/2023-RB19.jpg" alt="Red Bull RB19" />
+              </td>
+              <td>Red Bull RB19</td>
+              <td>Historically dominant ground-effect car with one of the highest win rates in F1 history.</td>
+              <td>2023</td>
+              <td>Red Bull Powertrains / Honda RBPT V6 Hybrid</td>
+              <td>Max Verstappen, Sergio Pérez</td>
+              <td>22</td>
+              <td>21</td>
+              <td>14</td>
+              <td>30</td>
+              <td>~1000+ hp</td>
+            </tr>
+
+            <tr id="RB19"> 
+              <td>
+                <img  src="Images/Cars/2024-RB20.jpg" alt="Red Bull RB20" />
+              </td>
+              <td>Red Bull RB20</td>
+              <td>Evolution of the ground-effect concept with major packaging changes; continued as a front-runner.</td>
+              <td>2024</td>
+              <td>Red Bull Powertrains / Honda RBPT V6 Hybrid</td>
+              <td>Max Verstappen, Sergio Pérez</td>
+              <td>24</td>
+              <td>9</td>
+              <td>8</td>
+              <td>~</td>
+              <td>~1000+ hp</td>
+            </tr>
+
+            <tr id="RB21">
+              <td>
+                <img  src="Images/Cars/2025-RB21.jpg" alt="Red Bull RB21" />
+              </td>
+              <td>Red Bull RB21</td>
+              <td>2025 season chassis continuing the modern RBPT/Honda-era design direction.</td>
+              <td>2025</td>
+              <td>Red Bull Powertrains / Honda RBPT V6 Hybrid</td>
+              <td>Max Verstappen, (2025 teammate varies by season lineup)</td>
+              <td>24</td>
+              <td>~</td>
+              <td>~</td>
+              <td>~</td>
+              <td>~1000+ hp</td>
+            </tr> 
+          </tbody>
+        </table>
+     
+
     </main>
 
     <footer>
