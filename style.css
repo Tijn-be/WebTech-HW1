@@ -59,6 +59,8 @@ p {
 
 pre {
   font-family: Jost;
+  white-space: pre-wrap;     
+  max-width: 100%;
 }
 
 nav {
@@ -75,20 +77,24 @@ a:hover {
   color: red;
 }
 
-.main-header {
+
+
+
+.site-header__bar {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.main-nav {
+.site-nav {
   justify-content: safe;
   align-items: left;
   width: 60%;
   margin: 0 10px 4px;
   padding: 20px auto;
 }
-.main-nav__item {
+
+.site-nav__link {
   color: white;
   font-family: Jost-Bold;
   background-color: #011e3a;
@@ -97,12 +103,18 @@ a:hover {
   white-space: nowrap;
 }
 
-.main-nav-2 {
+.site-nav--secondary {
   align-items: left;
   justify-content: space-evenly;
   width: 60%;
   margin: 15px 10px;
 }
+
+.site-header__logo {
+  height: 60px;
+  width: auto;
+}
+
 
 .table-container {
   width: 100%;
@@ -110,41 +122,37 @@ a:hover {
   overflow-y: hidden;
 }
 
-.CarTable {
+
+.cars-table {
   border-collapse: collapse;
   white-space: nowrap;
   min-width: 100%;
   border: #e0041e 3px solid;
 }
 
-.CarTable tr:nth-child(even) {
+.cars-table tr:nth-child(even) {
   background-color: rgba(255, 255, 255, 0.5);
 }
 
-.CarTable img {
+.cars-table img {
   width: 30vw;
   height: auto;
   object-fit: contain;
 }
 
-#RedBullRacing {
-  height: 60px;
-  width: auto;
-}
 
-/*Statistic*/
-
-#Year {
+.stats__controls {
   font-family: Jost-Bold;
 }
 
-#yearSelect {
+.stats__select {
   background-color: #011629;
   color: white;
   border-radius: 2px;
 }
 
-.Cars-Driver-row {
+
+.content-row {
   display: flex;
   gap: 20px;
   align-items: flex-start;
@@ -152,20 +160,22 @@ a:hover {
   flex-direction: column;
 }
 
-.Cars {
+
+.car-tile {
   width: 90vw;
   height: 25vw;
   display: flex;
   justify-content: center;
 }
 
-.Cars img {
+.car-tile img {
   object-fit: contain;
   max-width: 100%;
   max-height: 100%;
 }
 
-.Drivers {
+
+.driver-tile {
   background-color: rgba(255, 255, 255, 0.5);
   border: 2px solid Black;
   border-radius: 5px;
@@ -175,39 +185,39 @@ a:hover {
   justify-content: center;
 }
 
-.Drivers img {
+.driver-tile img {
   max-width: 100%;
   max-height: 100%;
   opacity: 1;
 }
 
 @media (min-width: 650px) {
-  .Cars-Driver-row {
+  .content-row {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
     gap: 20px;
   }
 
-  .Cars {
+  .car-tile {
     width: 40vw;
     height: 25vh;
   }
 
-  .Drivers {
+  .driver-tile {
     width: 15vw;
     height: 15vh;
   }
 
-  .CarTable {
+  .cars-table {
     width: 100%;
     overflow-x: auto;
     white-space: nowrap;
     font-size: 0.8rem;
   }
 
-  .CarTable td,
-  .CarTable th {
+  .cars-table td,
+  .cars-table th {
     padding: 4px;
     white-space: nowrap;
   }
@@ -220,45 +230,48 @@ a:hover {
 }
 
 @media (max-width: 650px) {
-  .Cars-Driver-row {
+  .content-row {
     flex-direction: column;
     align-items: center;
   }
 
-  .Cars,
-  .Drivers {
+  .car-tile,
+  .driver-tile {
     width: 90vw;
     height: auto;
   }
 
-  .main-nav,
-  .main-nav-2 {
+  .site-nav,
+  .site-nav--secondary {
     width: 100%;
     justify-content: center;
   }
 }
 
-#DriversPic {
+
+
+.stats__drivers {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
   align-items: center;
 }
 
-.Races-row {
+
+.races {
   width: 100%;
   overflow-x: auto;
   white-space: nowrap;
 }
 
-.RaceTable {
+.races-table {
   border: 1px solid white;
   width: 100%;
   border-collapse: collapse;
 }
 
-.RaceTable th,
-.RaceTable td {
+.races-table th,
+.races-table td {
   border: 1px solid white;
   padding: 8px;
 }
