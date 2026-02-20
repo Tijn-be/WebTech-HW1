@@ -1,12 +1,12 @@
 /*General*/
 
 @font-face {
-    src: url(Fonts/Jost-Bold.ttf);
-    font-family: Jost-Bold
+  src: url(Fonts/Jost-Bold.ttf);
+  font-family: Jost-Bold;
 }
 @font-face {
-    src: url(Fonts/Jost-Regular.ttf);
-    font-family: Jost
+  src: url(Fonts/Jost-Regular.ttf);
+  font-family: Jost;
 }
 
 body {
@@ -17,10 +17,10 @@ body {
 
   display: flex;
   flex-direction: column;
-  min-height: 100vh;  
+  min-height: 100vh;
 }
 
-header{
+header {
   background-color: #011629;
   padding: 3px 20px;
   position: sticky;
@@ -29,13 +29,13 @@ header{
   border-bottom: 3px solid black;
 }
 
-main{
+main {
   padding: 20px;
   flex: 1;
 }
 
-footer{
-  background-color: rgba(172, 172, 4, 0.507);
+footer {
+  background-color: #011e3a;
   padding: 3px 20px;
   border-top: 1px solid black;
 }
@@ -47,18 +47,16 @@ h1 {
   margin-bottom: 10px;
 }
 
-pre{
+pre {
   font-family: Jost;
 }
 
 nav {
-  background-color: rgba(172, 172, 4, 0.878);
-  border: 1px solid black;
   border-radius: 5px;
 }
 
 a {
-  color: #ADD8E6;
+  color: #add8e6;
   font-size: large;
   text-decoration: none;
 }
@@ -70,31 +68,29 @@ a {
 }
 
 .main-nav {
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
+  justify-content: safe;
+  align-items: left;
+  width: 60%;
+  margin: 0 10px;
+  padding: 20px auto;
 }
-
 .main-nav__item {
-  color: Black;   
+  color: white;
   font-family: Jost-Bold;
-  margin: 0 15px;
+  background-color: #011e3a;
+  border-radius: 5px;
+  padding: 5px 20px;
+  white-space: nowrap;
 }
 
 .main-nav-2 {
-  display: flex;
+  align-items: left;
   justify-content: space-evenly;
-  align-items: center;
-  width: 80vw;
-  font-size: 10px; 
-  line-height: 1; 
-  padding: 5px 0;
-  margin: 3px auto 0 auto;
+  width: 60%;
+  margin: 5px 10px;
 }
 
 .main-nav-2 a {
-  font-size: 10px; 
-  margin: 0 10px;
 }
 
 #RedBullRacing {
@@ -104,7 +100,7 @@ a {
 
 /*Statistic*/
 
-#Year{
+#Year {
   font-family: Jost-Bold;
 }
 
@@ -117,15 +113,15 @@ a {
 
 #yearValue {
   font-family: Jost-Bold, sans-serif;
-  color: #ffeb00; 
+  color: #ffeb00;
   margin-left: 10px;
   font-size: 1.2em;
 }
 
-.Cars-Driver-row{
+.Cars-Driver-row {
   display: flex;
   gap: 20px;
-  align-items: flex-start; 
+  align-items: flex-start;
   margin-bottom: 20px;
   flex-direction: column;
 }
@@ -134,7 +130,7 @@ a {
   background-color: rgba(255, 255, 255, 0.5);
   border: 2px solid black;
   border-radius: 5px;
-  width: 90vw; 
+  width: 90vw;
   height: 25vw;
   display: flex;
   justify-content: center;
@@ -145,8 +141,8 @@ a {
   max-height: 100%;
 }
 
-.Drivers{
-  background-color:rgba(255, 255, 255, 0.5);
+.Drivers {
+  background-color: rgba(255, 255, 255, 0.5);
   border: 2px solid Black;
   border-radius: 5px;
   width: 45vw;
@@ -155,7 +151,7 @@ a {
   justify-content: center;
 }
 
-.Drivers img{
+.Drivers img {
   max-width: 100%;
   max-height: 100%;
   opacity: 1;
@@ -170,32 +166,51 @@ a {
   }
 
   .Cars {
-  width: 40vw;
-  height: 25vh;
+    width: 40vw;
+    height: 25vh;
   }
 
-  .Drivers{
+  .Drivers {
     width: 15vw;
     height: 15vh;
   }
 
-  #Cars, #Drivers {
+  #Cars,
+  #Drivers {
     flex: none;
     width: auto;
   }
 }
 
+@media (max-width: 650px) {
+  .Cars-Driver-row {
+    flex-direction: column;
+    align-items: center;
+  }
 
+  .Cars,
+  .Drivers {
+    width: 90vw;
+    height: auto;
+  }
+
+  .main-nav,
+  .main-nav-2 {
+    width: 100%;
+    justify-content: center;
+  }
+  }
+}
 
 #DriversPic {
-    display: flex;      
-    flex-wrap: wrap;     
-    gap: 10px;           
-    align-items: center; 
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
 }
 
 .Races-row {
-  width: 100%; 
+  width: 100%;
   overflow-x: auto;
   white-space: nowrap;
 }
@@ -206,8 +221,8 @@ a {
   border-collapse: collapse;
 }
 
-.RaceTable th, .RaceTable td {
-  border: 1px solid white; 
+.RaceTable th,
+.RaceTable td {
+  border: 1px solid white;
   padding: 8px;
 }
-
