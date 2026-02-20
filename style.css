@@ -22,7 +22,6 @@ body {
 
 header {
   background-color: #011629;
-  padding: 3px 20px;
   position: sticky;
   top: 0;
   z-index: 1000;
@@ -33,6 +32,7 @@ header {
 main {
   padding: 20px;
   flex: 1;
+  overflow-x: auto;
 }
 
 footer {
@@ -46,6 +46,7 @@ h1 {
   font-size: 2.5em;
   font-family: Jost-Bold;
   margin-bottom: 10px;
+  padding-left: 20px;
 }
 
 section {
@@ -113,6 +114,7 @@ a:hover {
   border-collapse: collapse;
   white-space: nowrap;
   min-width: 100%;
+  border: #e0041e 3px solid;
 }
 
 .CarTable tr:nth-child(even) {
@@ -127,7 +129,7 @@ a:hover {
 
 #RedBullRacing {
   height: 60px;
-  float: right;
+  width: auto;
 }
 
 /*Statistic*/
