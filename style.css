@@ -47,10 +47,7 @@ h1 {
   margin-bottom: 10px;
 }
 
-section {
-=======
 section{
->>>>>>> e5c94b5754a733d191d06c5aedd4bd739fa26c3f
   scroll-margin: 30vh;
 }
 
@@ -213,6 +210,7 @@ a:hover{
 .Races-row {
   width: 100%;
   overflow-x: auto;
+  white-space: nowrap;
 }
 
 .RaceTable {
