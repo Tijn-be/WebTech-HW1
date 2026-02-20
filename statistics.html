@@ -9,25 +9,25 @@
   </head>
   <body>
     <header>
-      <div class="main-header">
+      <div class="site-header__bar">
         <h1>Red Bull Racing</h1>
         <img id="RedBullRacing" src="/Images/RedBullRacing.png" />
       </div>
-      <nav class="main-nav">
-        <a class="main-nav__item" href="index.html">Home</a>
-        <a class="main-nav__item" href="drivers.html">Drivers</a>
-        <a class="main-nav__item" href="teamprofile.html">Team Profile</a>
-        <a class="main-nav__item" href="statistics.html" style="color: red"
+      <nav class="site-nav">
+        <a class="site-nav__link" href="index.html">Home</a>
+        <a class="site-nav__link" href="drivers.html">Drivers</a>
+        <a class="site-nav__link" href="teamprofile.html">Team Profile</a>
+        <a class="site-nav__link" href="statistics.html" style="color: red"
           >Statistics</a
         >
-        <a class="main-nav__item" href="cars.html">Cars</a>
+        <a class="site-nav__link" href="cars.html">Cars</a>
       </nav>
     </header>
 
     <main>
-      <div id="Year">
+      <div class="stats__controls">
         <label for="yearSelect">Year: </label>
-        <select id="yearSelect">
+        <select id="yearSelect" class="stats__select">
           <option value="2005">2005</option>
           <option value="2006">2006</option>
           <option value="2007">2007</option>
@@ -52,7 +52,7 @@
         </select>
       </div>
 
-      <div class="Cars-Driver-row">
+      <div class="content-row">
         <section id="Cars">
           <h2>Car</h2>
           <div id="carType"></div>
@@ -60,14 +60,14 @@
 
         <aside id="Drivers" display="flex">
           <h2>Drivers</h2>
-          <div id="DriversPic"></div>
+          <div id="DriversPic" class="stats__drivers"></div>
         </aside>
       </div>
 
-      <div class="Races-row">
+      <div class="races">
         <section id="Races">
           <h2>Races</h2>
-          <table class="RaceTable">
+          <table class="races-table">
             <thead id="raceData"></thead>
             <tbody id="raceData"></tbody>
           </table>

@@ -15,7 +15,7 @@ function updateContent(year) {
     data.Car.forEach((item) => {
       CarContainer.innerHTML += `<div>
       <a href="cars.html#${item.name}">
-        <div class="Cars">
+        <div class="car-tile">
             <img src="/Images/Cars/${item.img}" alt="${item.name}">
         </div>
         <figcaption>${item.name}</figcaption>
@@ -29,7 +29,7 @@ function updateContent(year) {
     data.drivers.forEach((item) => {
       driverContainer.innerHTML += `<div>
         <a href="drivers.html#${item.id}">
-            <div class="Drivers" >
+            <div class="driver-tile">
               <img src="/Images/Drivers/${item.img}" alt="${item.name}">
             </div>
           <figcaption>${item.name}</figcaption>
