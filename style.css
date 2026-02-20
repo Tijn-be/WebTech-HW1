@@ -27,6 +27,7 @@ header {
   top: 0;
   z-index: 1000;
   border-bottom: 3px solid black;
+  width: 100%;
 }
 
 main {
@@ -47,11 +48,11 @@ h1 {
   margin-bottom: 10px;
 }
 
-section{
+section {
   scroll-margin: 30vh;
 }
 
-p{
+p {
   width: auto;
 }
 
@@ -69,7 +70,7 @@ a {
   text-decoration: none;
 }
 
-a:hover{
+a:hover {
   color: red;
 }
 
@@ -100,6 +101,28 @@ a:hover{
   justify-content: space-evenly;
   width: 60%;
   margin: 15px 10px;
+}
+
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.CarTable {
+  border-collapse: collapse;
+  white-space: nowrap;
+  min-width: 100%;
+}
+
+.CarTable tr:nth-child(even) {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.CarTable img {
+  width: 30vw;
+  height: auto;
+  object-fit: contain;
 }
 
 #RedBullRacing {
@@ -172,6 +195,19 @@ a:hover{
   .Drivers {
     width: 15vw;
     height: 15vh;
+  }
+
+  .CarTable {
+    width: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
+    font-size: 0.8rem;
+  }
+
+  .CarTable td,
+  .CarTable th {
+    padding: 4px;
+    white-space: nowrap;
   }
 
   #Cars,
