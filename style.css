@@ -47,6 +47,10 @@ h1 {
   margin-bottom: 10px;
 }
 
+section{
+  scroll-margin: 30vh;
+}
+
 pre {
   font-family: Jost;
 }
@@ -71,7 +75,7 @@ a {
   justify-content: safe;
   align-items: left;
   width: 60%;
-  margin: 0 10px;
+  margin: 0 10px 4px;
   padding: 20px auto;
 }
 .main-nav__item {
@@ -87,10 +91,7 @@ a {
   align-items: left;
   justify-content: space-evenly;
   width: 60%;
-  margin: 5px 10px;
-}
-
-.main-nav-2 a {
+  margin: 15px 10px;
 }
 
 #RedBullRacing {
@@ -105,17 +106,9 @@ a {
 }
 
 #yearSelect {
-  width: 200px;
-  cursor: pointer;
-  accent-color: #e0041e;
-  vertical-align: middle;
-}
-
-#yearValue {
-  font-family: Jost-Bold, sans-serif;
-  color: #ffeb00;
-  margin-left: 10px;
-  font-size: 1.2em;
+  background-color: #011629;
+  color: white;
+  border-radius: 2px;
 }
 
 .Cars-Driver-row {
@@ -127,9 +120,6 @@ a {
 }
 
 .Cars {
-  background-color: rgba(255, 255, 255, 0.5);
-  border: 2px solid black;
-  border-radius: 5px;
   width: 90vw;
   height: 25vw;
   display: flex;
@@ -137,7 +127,8 @@ a {
 }
 
 .Cars img {
-  max-width: 90%;
+  object-fit: contain;
+  max-width: 100%;
   max-height: 100%;
 }
 
@@ -198,7 +189,6 @@ a {
   .main-nav-2 {
     width: 100%;
     justify-content: center;
-  }
   }
 }
 
