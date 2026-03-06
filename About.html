@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="This website tells everything you need to know about Red Bull Racing before you ever started watching Formule 1. It descriptes every racer every attending Red Bull Racing, the history of Red Bull Racing and their accomplishments, how they preformed in over their whole existence and what cars they had used over the years.">
+    <title>Team iets F1 ofzo</title>
+    <link rel="icon" type="Image/png" href="/Images/RedBullLogo.png" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="canonical" href="index.html" />
+  </head>
+  <body>
+    <header>
+      <div class="site-header__bar">
+        <h1>Red Bull Racing</h1>
+        <img
+          id="RedBullRacing"
+          src="/Images/RedBullRacing.png"
+          alt="Red Bull Racing logo"
+        />
+      </div>
+
+      <nav class="site-nav" aria-label="Main navigation">
+        <a class="site-nav__link" href="index.html">Home</a>
+        <a class="site-nav__link" href="drivers.html">Drivers</a>
+        <a class="site-nav__link" href="teamprofile.html">Team Profile</a>
+        <a class="site-nav__link" href="statistics.html">Statistics</a>
+        <a class="site-nav__link" href="cars.html">Cars</a>
+        <a class="site-nav__link" href="About.html" style="color: red" aria-current="page">About</a>
+      </nav>
+
+      <div class="slider-container">
+        <input id="slider-car" type="range" min="0" max="100" value="0">
+        <img id="slider-img" src="Images/Cars/RedBull_car.png" alt="Red Bull car">
+      </div>
+      <script src="script.js"></script>
+    </header>
+
+    <main>
+      <div id="uploadArea">
+        <input type="file" id="fileInput" accept=".json">
+      </div>
+      <div id="studentContainer" class="content-row"></div>
+
+    </main>
+
+    <script type="module" src="script.js"></script>
+
+    <footer>
+      <a id="about" href="About.html">About</a> Author: Benjamin, Darryl, Tijn<br>
+      © 2026 Red Bull F1 Team<br>
+    </footer>
+  </body>
+</html>

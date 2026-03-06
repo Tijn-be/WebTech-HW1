@@ -1,4 +1,4 @@
-/*General*/
+/*--General--*/
 
 @font-face {
   src: url(Fonts/Jost-Bold.ttf);
@@ -9,6 +9,10 @@
   font-family: Jost;
 }
 
+html, body {
+  max-width: 100%;
+}
+
 body {
   background-color: #011629;
   color: white;
@@ -17,6 +21,7 @@ body {
 
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
 }
 
 header {
@@ -27,12 +32,13 @@ header {
   border-bottom: 3px solid black;
   width: 100%;
   padding-bottom: 7px;
+  box-sizing: border-box;
 }
 
 main {
   padding: 20px;
   flex: 1;
-  overflow-x: auto;
+  overflow-x: hidden;
 }
 
 footer {
@@ -54,7 +60,9 @@ section {
 }
 
 p {
-  width: 90vw;
+  width: auto;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 pre {
@@ -141,6 +149,34 @@ a:hover {
   width: auto;
 }
 
+#about{
+  font-size: 1em;
+}
+
+.slider-container {
+  top: 10px;
+  width: 100%;
+  height: 14px;
+}
+
+#slider-car {
+  position: absolute;
+  width: 99%;
+  height: 14px;
+  opacity: 0;
+  cursor: grab;
+  z-index: 999;
+}
+
+#slider-img {
+  max-width: 100px;
+  height: auto;
+  position: absolute;
+  left: 0;
+  transform: translateX(calc(var(--scroll-pos, 0) * (100vw - 110px)));
+  pointer-events: none;
+}
+
 @media (min-width: 700px) {
   .site-nav {
     width: 60%;
@@ -159,14 +195,14 @@ a:hover {
   }
 }
 
-/*Drivers*/
+/*--Drivers--*/
 
 .drivers-bio{
   font-size: 0.6em;
   color: white ;
 }
 
-/*Statistic*/
+/*--Statistic--*/
 
 .stats__controls {
   font-family: Jost-Bold;
@@ -227,7 +263,7 @@ a:hover {
   }
 }
 
-/*Cars*/
+/*--Cars--*/
 
 .cars-table--container {
   width: 100%;
@@ -264,4 +300,39 @@ a:hover {
     padding: 4px;
     white-space: nowrap;
   }
+}
+
+/*--About--*/
+
+.student-section {
+  border: 1px solid white;
+  padding: 15px;
+  margin: 10px;
+  width: 300px;
+  border-radius: 8px;
+}
+
+.student-content {
+  display: none;
+  margin-top: 15px;
+  padding-top: 10px;
+  border-top: 1px dashed white;
+}
+
+section:hover .student-content {
+  display: block;
+}
+
+.student-tile img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 60%;
+  height: auto;
+  border-radius: 4px;
+}
+
+.student-tile h2 {
+  margin: 0 0 10px 0;
+  font-size: 1.4em;
 }
