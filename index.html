@@ -3,7 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="This website tells everything you need to know about Red Bull Racing before you ever started watching Formule 1. It descriptes every racer every attending Red Bull Racing, the history of Red Bull Racing and their accomplishments, how they preformed in over their whole existence and what cars they had used over the years.">
+    <meta
+      name="description"
+      content="This website tells everything you need to know about Red Bull Racing before you ever started watching Formule 1. It descriptes every racer every attending Red Bull Racing, the history of Red Bull Racing and their accomplishments, how they preformed in over their whole existence and what cars they had used over the years." />
     <title>Team iets F1 ofzo</title>
     <link rel="icon" type="Image/png" href="/Images/RedBullLogo.png" />
     <link rel="stylesheet" href="style.css" />
@@ -16,57 +18,81 @@
         <img
           id="RedBullRacing"
           src="/Images/RedBullRacing.png"
-          alt="Red Bull Racing logo"
-        />
+          alt="Red Bull Racing logo" />
       </div>
 
       <nav class="site-nav" aria-label="Main navigation">
-        <a class="site-nav__link" href="index.html" style="color: red" aria-current="page">Home</a>
+        <a
+          class="site-nav__link"
+          href="index.html"
+          style="color: red"
+          aria-current="page"
+          >Home</a
+        >
         <a class="site-nav__link" href="drivers.html">Drivers</a>
         <a class="site-nav__link" href="teamprofile.html">Team Profile</a>
         <a class="site-nav__link" href="statistics.html">Statistics</a>
         <a class="site-nav__link" href="cars.html">Cars</a>
+        <a class="site-nav__link" href="teams.html">Teams</a>
         <a class="site-nav__link" href="About.html">About</a>
       </nav>
 
       <div class="slider-container">
-        <input id="slider-car" type="range" min="0" max="100" value="0">
-        <img id="slider-img" src="Images/Cars/RedBull_car.png" alt="Red Bull car">
+        <input id="slider-car" type="range" min="0" max="100" value="0" />
+        <img
+          id="slider-img"
+          src="Images/Cars/RedBull_car.png"
+          alt="Red Bull car" />
       </div>
       <script src="script.js"></script>
     </header>
 
     <main>
       <section aria-labelledby="welcome-title">
-        <h2 id="welcome-title">Welcome to the Red Bull Racing F1 Team Website</h2>
+        <h2 id="welcome-title">Red Bull Racing</h2>
 
         <p>
-          Welcome to our trustworthy website about
-          Oracle Red Bull Racing. Here you can find facts, stats, and information
-          that are definitely real.
+          This website covers Red Bull Racing drivers, cars, yearly statistics,
+          team pages, and team profile information.
         </p>
 
         <p>
-          Use the navigation links above to explore the site. If you get lost,
-          don't worry. We might send one of our F1 drivers to come pick you up.
+          On the About page, you can upload <code>groupMembers.json</code> to
+          load group members.
         </p>
       </section>
 
-      <section aria-labelledby="about-title">
-        <h2 id="about-title">About Red Bull Racing</h2>
+      <section aria-labelledby="site-content-title">
+        <h2 id="site-content-title">Pages</h2>
 
-        <p>
-          Red Bull Racing joined Formula 1 in 2005 and immediately decided
-          "yeah we're here to win" and then kind of just did that. The team is
-          famous for innovation, speed, and occasionally building something that
-          looks illegal but isn't.
-        </p>
+        <article aria-labelledby="drivers-overview-title">
+          <h3 id="drivers-overview-title">
+            <a href="drivers.html">Drivers</a>
+          </h3>
+          <p>Driver cards with short bios and former teams.</p>
+        </article>
 
-        <p>
-          Our engineers don't sleep. They just consume knowledge, caffeine,
-          and suspiciously sparkling "fairy dust" (we are legally forbidden to
-          explain what that means).
-        </p>
+        <article aria-labelledby="cars-overview-title">
+          <h3 id="cars-overview-title"><a href="cars.html">Cars</a></h3>
+          <p>Historical Red Bull cars and technical information per season.</p>
+        </article>
+
+        <article aria-labelledby="stats-overview-title">
+          <h3 id="stats-overview-title">
+            <a href="statistics.html">Statistics</a>
+          </h3>
+          <p>Year selector with cars, drivers, and race results.</p>
+        </article>
+
+        <article aria-labelledby="teams-overview-title">
+          <h3 id="teams-overview-title"><a href="teams.html">Teams</a></h3>
+          <p>Season-based team overview and drivers for the selected year.</p>
+        </article>
+
+        <article aria-labelledby="about-overview-title">
+          <h3 id="about-overview-title"><a href="About.html">About</a></h3>
+          <p>Group members page loaded from uploaded JSON.</p>
+        </article>
       </section>
 
       <section aria-labelledby="quick-links-title">
@@ -74,39 +100,20 @@
         <ul>
           <li><a href="drivers.html">Meet the drivers</a></li>
           <li><a href="cars.html">Explore the cars</a></li>
-          <li><a href="statistics.html">View team statistics</a></li>
+          <li><a href="statistics.html">View yearly statistics</a></li>
+          <li><a href="teams.html">View teams by year</a></li>
           <li><a href="teamprofile.html">Read the team profile</a></li>
+          <li><a href="About.html">Load and view group members</a></li>
         </ul>
-      </section>
-
-      <section aria-labelledby="highlights-title">
-        <h2 id="highlights-title">Highlights</h2>
-
-        <article aria-labelledby="highlight-site-title">
-          <h3 id="highlight-site-title">What you'll find here</h3>
-          <ul>
-            <li>Drivers: names, lore, and questionable fun facts</li>
-            <li>Team Profile: who we are and why we refuse to lose</li>
-            <li>Statistics: proof that spreadsheets can be scary</li>
-            <li>Cars: engineering, wizardry, and aerodynamic crimes</li>
-          </ul>
-        </article>
-
-        <article aria-labelledby="highlight-start-title">
-          <h3 id="highlight-start-title">Where to start</h3>
-          <ol>
-            <li><a href="teamprofile.html">Team Profile</a> - learn the lore</li>
-            <li><a href="drivers.html">Drivers</a> - meet the peeps</li>
-            <li><a href="cars.html">Cars</a> - welcome to something you've never seen before</li>
-            <li><a href="statistics.html">Statistics</a> gotta back up our big talk somehow</li>
-          </ol>
-        </article>
       </section>
     </main>
 
     <footer>
-      <a id="about" href="About.html">About</a> Author: Benjamin, Darryl, Tijn<br>
-      © 2026 Red Bull F1 Team<br>
+      <a id="about" href="About.html">About</a> Author: Benjamin, Darryl,
+      Tijn<br />
+      Disclaimer: Information on this website is not guaranteed to be
+      correct.<br />
+      © 2026 Red Bull F1 Team<br />
     </footer>
   </body>
 </html>

@@ -3,10 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Drivers</title>
+    <title>Teams</title>
     <link rel="icon" type="Image/png" href="/Images/RedBullLogo.png" />
     <link rel="stylesheet" href="style.css" />
-    <link rel="canonical" href="drivers.html" />
+    <link rel="canonical" href="teams.html" />
   </head>
   <body>
     <header>
@@ -20,17 +20,17 @@
 
       <nav class="site-nav" aria-label="Main navigation">
         <a class="site-nav__link" href="index.html">Home</a>
-        <a
-          class="site-nav__link"
-          href="drivers.html"
-          style="color: red"
-          aria-current="page"
-          >Drivers</a
-        >
+        <a class="site-nav__link" href="drivers.html">Drivers</a>
         <a class="site-nav__link" href="teamprofile.html">Team Profile</a>
         <a class="site-nav__link" href="statistics.html">Statistics</a>
         <a class="site-nav__link" href="cars.html">Cars</a>
-        <a class="site-nav__link" href="teams.html">Teams</a>
+        <a
+          class="site-nav__link"
+          href="teams.html"
+          style="color: red"
+          aria-current="page"
+          >Teams</a
+        >
         <a class="site-nav__link" href="About.html">About</a>
       </nav>
 
@@ -44,30 +44,21 @@
     </header>
 
     <main>
-      <section aria-labelledby="drivers-title">
-        <h2 id="drivers-title">Red Bull Drivers</h2>
+      <div class="stats__controls">
+        <label for="teamYearSelect">Year: </label>
+        <select id="teamYearSelect" class="stats__select"></select>
+      </div>
+
+      <section id="TeamOverview" aria-labelledby="teamYearTitle">
+        <h2 id="teamYearTitle">Team Overview</h2>
+        <p id="teamSummaryText"></p>
+        <ul id="teamSummaryList"></ul>
       </section>
 
-      <section id="driversUploadArea" class="upload-panel">
-        <h2>Load Drivers</h2>
-
-        <label for="driversFileInput">Select JSON file:</label>
-        <input
-          type="file"
-          id="driversFileInput"
-          accept=".json,application/json"
-          aria-describedby="driversFileHelp" />
-        <p id="driversFileHelp">
-          Upload <strong>driversData.json</strong> to load drivers.
-        </p>
+      <section id="TeamMembersYear" aria-labelledby="team-members-title">
+        <h2 id="team-members-title">Team Members</h2>
+        <div id="teamDrivers" class="stats__drivers" aria-live="polite"></div>
       </section>
-
-      <p
-        id="propagationStatus"
-        class="propagation-status"
-        aria-live="polite"></p>
-
-      <div id="driversList" class="content-row" aria-live="polite"></div>
     </main>
 
     <footer>

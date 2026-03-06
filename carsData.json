@@ -1,0 +1,364 @@
+[
+  {
+    "id": "RB1",
+    "image": "images/cars/2005-RB1.jpg",
+    "name": "Red Bull RB1",
+    "notes": "First car built by Red Bull Racing, powered by Cosworth.",
+    "season": 2005,
+    "engine": "Cosworth TJ2005 V10",
+    "drivers": [
+      { "id": "David-Coulthard", "name": "David Coulthard" },
+      { "id": "Christian-Klien", "name": "Christian Klien" },
+      { "id": "Vitantonio-Liuzzi", "name": "Vitantonio Liuzzi" }
+    ],
+    "races": 19,
+    "wins": 0,
+    "poles": 0,
+    "fastestLaps": 0,
+    "power": "~900 hp"
+  },
+  {
+    "id": "RB2",
+    "image": "images/cars/2006-RB2.jpg",
+    "name": "Red Bull RB2",
+    "notes": "Ferrari-powered V8 era car under new regulations.",
+    "season": 2006,
+    "engine": "Ferrari 056 V8",
+    "drivers": [
+      { "id": "David-Coulthard", "name": "David Coulthard" },
+      { "id": "Christian-Klien", "name": "Christian Klien" },
+      { "id": "Robert-Doornbos", "name": "Robert Doornbos" }
+    ],
+    "races": 18,
+    "wins": 0,
+    "poles": 0,
+    "fastestLaps": 1,
+    "power": "~750 hp"
+  },
+  {
+    "id": "RB3",
+    "image": "images/cars/2007-RB3.jpg",
+    "name": "Red Bull RB3",
+    "notes": "First Renault-powered car shaped by Adrian Newey concepts.",
+    "season": 2007,
+    "engine": "Renault RS27 V8",
+    "drivers": [
+      { "id": "David-Coulthard", "name": "David Coulthard" },
+      { "id": "Mark-Webber", "name": "Mark Webber" }
+    ],
+    "races": 17,
+    "wins": 0,
+    "poles": 0,
+    "fastestLaps": 1,
+    "power": "~750 hp"
+  },
+  {
+    "id": "RB4",
+    "image": "images/cars/2008-RB4.jpg",
+    "name": "Red Bull RB4",
+    "notes": "Evolution of RB3 with improved aero package.",
+    "season": 2008,
+    "engine": "Renault RS27 V8",
+    "drivers": [
+      { "id": "David-Coulthard", "name": "David Coulthard" },
+      { "id": "Mark-Webber", "name": "Mark Webber" }
+    ],
+    "races": 18,
+    "wins": 0,
+    "poles": 0,
+    "fastestLaps": 1,
+    "power": "~750 hp"
+  },
+  {
+    "id": "RB5",
+    "image": "images/cars/2009-RB5.jpg",
+    "name": "Red Bull RB5",
+    "notes": "First race-winning Red Bull car.",
+    "season": 2009,
+    "engine": "Renault RS27 V8",
+    "drivers": [
+      { "id": "Sebastian-Vettel", "name": "Sebastian Vettel" },
+      { "id": "Mark-Webber", "name": "Mark Webber" }
+    ],
+    "races": 17,
+    "wins": 6,
+    "poles": 5,
+    "fastestLaps": 16,
+    "power": "~750 hp"
+  },
+  {
+    "id": "RB6",
+    "image": "images/cars/2010-RB6.jpg",
+    "name": "Red Bull RB6",
+    "notes": "Championship-winning car with dominant aerodynamics.",
+    "season": 2010,
+    "engine": "Renault RS27 V8",
+    "drivers": [
+      { "id": "Sebastian-Vettel", "name": "Sebastian Vettel" },
+      { "id": "Mark-Webber", "name": "Mark Webber" }
+    ],
+    "races": 19,
+    "wins": 9,
+    "poles": 15,
+    "fastestLaps": 18,
+    "power": "~780 hp"
+  },
+  {
+    "id": "RB7",
+    "image": "images/cars/2011-RB7.jpg",
+    "name": "Red Bull RB7",
+    "notes": "One of the most dominant cars of the blown diffuser era.",
+    "season": 2011,
+    "engine": "Renault RS27-2011 V8",
+    "drivers": [
+      { "id": "Sebastian-Vettel", "name": "Sebastian Vettel" },
+      { "id": "Mark-Webber", "name": "Mark Webber" }
+    ],
+    "races": 19,
+    "wins": 12,
+    "poles": 18,
+    "fastestLaps": 27,
+    "power": "~780 hp"
+  },
+  {
+    "id": "RB8",
+    "image": "images/cars/2012-RB8.jpg",
+    "name": "Red Bull RB8",
+    "notes": "Championship-winning evolution of RB7.",
+    "season": 2012,
+    "engine": "Renault RS27-2012 V8",
+    "drivers": [
+      { "id": "Sebastian-Vettel", "name": "Sebastian Vettel" },
+      { "id": "Mark-Webber", "name": "Mark Webber" }
+    ],
+    "races": 20,
+    "wins": 7,
+    "poles": 8,
+    "fastestLaps": 14,
+    "power": "~780 hp"
+  },
+  {
+    "id": "RB9",
+    "image": "images/cars/2013-RB9.jpg",
+    "name": "Red Bull RB9",
+    "notes": "Final V8 era car, famous for Vettel's 9-win streak.",
+    "season": 2013,
+    "engine": "Renault RS27-2013 V8",
+    "drivers": [
+      { "id": "Sebastian-Vettel", "name": "Sebastian Vettel" },
+      { "id": "Mark-Webber", "name": "Mark Webber" }
+    ],
+    "races": 19,
+    "wins": 13,
+    "poles": 11,
+    "fastestLaps": 24,
+    "power": "~780 hp"
+  },
+  {
+    "id": "RB10",
+    "image": "images/cars/2014-RB10.jpg",
+    "name": "Red Bull RB10",
+    "notes": "First hybrid-era Red Bull chassis.",
+    "season": 2014,
+    "engine": "Renault Energy F1-2014 V6 Hybrid",
+    "drivers": [
+      { "id": "Sebastian-Vettel", "name": "Sebastian Vettel" },
+      { "id": "Daniel-Ricciardo", "name": "Daniel Ricciardo" }
+    ],
+    "races": 19,
+    "wins": 3,
+    "poles": 0,
+    "fastestLaps": 12,
+    "power": "~850 hp"
+  },
+  {
+    "id": "RB11",
+    "image": "images/cars/2015-RB11.jpg",
+    "name": "Red Bull RB11",
+    "notes": "TAG Heuer-branded Renault hybrid era car.",
+    "season": 2015,
+    "engine": "Renault Energy F1-2015 V6 Hybrid (TAG Heuer)",
+    "drivers": [
+      { "id": "Daniel-Ricciardo", "name": "Daniel Ricciardo" },
+      { "id": "Daniil-Kvyat", "name": "Daniil Kvyat" }
+    ],
+    "races": 19,
+    "wins": 0,
+    "poles": 0,
+    "fastestLaps": 2,
+    "power": "~850 hp"
+  },
+  {
+    "id": "RB12",
+    "image": "images/cars/2016-RB12.jpg",
+    "name": "Red Bull RB12",
+    "notes": "Known for Verstappen's first Red Bull win on debut.",
+    "season": 2016,
+    "engine": "Renault R.E.16 V6 Hybrid (TAG Heuer)",
+    "drivers": [
+      { "id": "Daniel-Ricciardo", "name": "Daniel Ricciardo" },
+      { "id": "Daniil-Kvyat", "name": "Daniil Kvyat" },
+      { "id": "Max-Verstappen", "name": "Max Verstappen" }
+    ],
+    "races": 21,
+    "wins": 2,
+    "poles": 1,
+    "fastestLaps": 17,
+    "power": "~900 hp"
+  },
+  {
+    "id": "RB13",
+    "image": "images/cars/2017-RB13.jpg",
+    "name": "Red Bull RB13",
+    "notes": "Strong aero platform with Renault power.",
+    "season": 2017,
+    "engine": "Renault R.E.17 V6 Hybrid (TAG Heuer)",
+    "drivers": [
+      { "id": "Daniel-Ricciardo", "name": "Daniel Ricciardo" },
+      { "id": "Max-Verstappen", "name": "Max Verstappen" }
+    ],
+    "races": 20,
+    "wins": 3,
+    "poles": 0,
+    "fastestLaps": 13,
+    "power": "~900 hp"
+  },
+  {
+    "id": "RB14",
+    "image": "images/cars/2018-RB14.jpg",
+    "name": "Red Bull RB14",
+    "notes": "Final season before switching from Renault to Honda power.",
+    "season": 2018,
+    "engine": "Renault R.E.18 V6 Hybrid (TAG Heuer)",
+    "drivers": [
+      { "id": "Daniel-Ricciardo", "name": "Daniel Ricciardo" },
+      { "id": "Max-Verstappen", "name": "Max Verstappen" }
+    ],
+    "races": 21,
+    "wins": 4,
+    "poles": 2,
+    "fastestLaps": 11,
+    "power": "~950 hp"
+  },
+  {
+    "id": "RB15",
+    "image": "images/cars/2019-RB15.jpg",
+    "name": "Red Bull RB15",
+    "notes": "First Honda-powered Red Bull of the hybrid era.",
+    "season": 2019,
+    "engine": "Honda RA619H V6 Hybrid",
+    "drivers": [
+      { "id": "Max-Verstappen", "name": "Max Verstappen" },
+      { "id": "Pierre-Gasly", "name": "Pierre Gasly" },
+      { "id": "Alexander-Albon", "name": "Alexander Albon" }
+    ],
+    "races": 21,
+    "wins": 3,
+    "poles": 2,
+    "fastestLaps": 9,
+    "power": "~1000 hp"
+  },
+  {
+    "id": "RB16",
+    "image": "images/cars/2020-RB16.jpg",
+    "name": "Red Bull RB16",
+    "notes": "Primary challenger to Mercedes in 2020.",
+    "season": 2020,
+    "engine": "Honda RA620H V6 Hybrid",
+    "drivers": [
+      { "id": "Max-Verstappen", "name": "Max Verstappen" },
+      { "id": "Alexander-Albon", "name": "Alexander Albon" }
+    ],
+    "races": 17,
+    "wins": 2,
+    "poles": 1,
+    "fastestLaps": 11,
+    "power": "~1000 hp"
+  },
+  {
+    "id": "RB17",
+    "image": "images/cars/2021-RB17.jpg",
+    "name": "Red Bull RB16B",
+    "notes": "2021 title-winning chassis in a very close season.",
+    "season": 2021,
+    "engine": "Honda RA621H V6 Hybrid",
+    "drivers": [
+      { "id": "Max-Verstappen", "name": "Max Verstappen" },
+      { "id": "Sergio-Perez", "name": "Sergio Perez" }
+    ],
+    "races": 22,
+    "wins": 11,
+    "poles": 10,
+    "fastestLaps": 18,
+    "power": "~1000 hp"
+  },
+  {
+    "id": "RB18",
+    "image": "images/cars/2022-RB18.jpg",
+    "name": "Red Bull RB18",
+    "notes": "Ground-effect era title-winning car.",
+    "season": 2022,
+    "engine": "Red Bull Powertrains / Honda RBPT V6 Hybrid",
+    "drivers": [
+      { "id": "Max-Verstappen", "name": "Max Verstappen" },
+      { "id": "Sergio-Perez", "name": "Sergio Perez" }
+    ],
+    "races": 22,
+    "wins": 17,
+    "poles": 8,
+    "fastestLaps": 28,
+    "power": "~1000+ hp"
+  },
+  {
+    "id": "RB19",
+    "image": "images/cars/2023-RB19.jpg",
+    "name": "Red Bull RB19",
+    "notes": "Historically dominant ground-effect car.",
+    "season": 2023,
+    "engine": "Red Bull Powertrains / Honda RBPT V6 Hybrid",
+    "drivers": [
+      { "id": "Max-Verstappen", "name": "Max Verstappen" },
+      { "id": "Sergio-Perez", "name": "Sergio Perez" }
+    ],
+    "races": 22,
+    "wins": 21,
+    "poles": 14,
+    "fastestLaps": 30,
+    "power": "~1000+ hp"
+  },
+  {
+    "id": "RB20",
+    "image": "images/cars/2024-RB20.jpg",
+    "name": "Red Bull RB20",
+    "notes": "Evolution of modern Red Bull ground-effect concept.",
+    "season": 2024,
+    "engine": "Red Bull Powertrains / Honda RBPT V6 Hybrid",
+    "drivers": [
+      { "id": "Max-Verstappen", "name": "Max Verstappen" },
+      { "id": "Sergio-Perez", "name": "Sergio Perez" }
+    ],
+    "races": 24,
+    "wins": 9,
+    "poles": 8,
+    "fastestLaps": 0,
+    "power": "~1000+ hp"
+  },
+  {
+    "id": "RB21",
+    "image": "images/cars/2025-RB21.jpg",
+    "name": "Red Bull RB21",
+    "notes": "2025 season chassis continuing the RBPT/Honda era direction.",
+    "season": 2025,
+    "engine": "Red Bull Powertrains / Honda RBPT V6 Hybrid",
+    "drivers": [
+      { "id": "Max-Verstappen", "name": "Max Verstappen" },
+      { "id": "Liam-Lawson", "name": "Liam Lawson" },
+      { "id": "Yuki-Tsunoda", "name": "Yuki Tsunoda" }
+    ],
+    "races": 24,
+    "wins": 0,
+    "poles": 0,
+    "fastestLaps": 0,
+    "power": "~1000+ hp"
+  }
+]

@@ -6,30 +6,36 @@
     <title>Red Bull Racing</title>
     <link rel="icon" type="Image/png" href="/Images/RedBullLogo.png" />
     <link rel="stylesheet" href="style.css" />
-    <link rel="canonical" href="index.html" />
+    <link rel="canonical" href="statistics.html" />
   </head>
   <body>
     <header>
       <div class="site-header__bar">
         <h1>Red Bull Racing</h1>
-        <img id="RedBullRacing" 
-             src="/Images/RedBullRacing.png"
-             alt="Red Bull Racing logo"
-        />
+        <img
+          id="RedBullRacing"
+          src="/Images/RedBullRacing.png"
+          alt="Red Bull Racing logo" />
       </div>
 
       <nav class="site-nav">
         <a class="site-nav__link" href="index.html">Home</a>
         <a class="site-nav__link" href="drivers.html">Drivers</a>
         <a class="site-nav__link" href="teamprofile.html">Team Profile</a>
-        <a class="site-nav__link" href="statistics.html" style="color: red">Statistics</a>
+        <a class="site-nav__link" href="statistics.html" style="color: red"
+          >Statistics</a
+        >
         <a class="site-nav__link" href="cars.html">Cars</a>
+        <a class="site-nav__link" href="teams.html">Teams</a>
         <a class="site-nav__link" href="About.html">About</a>
       </nav>
 
       <div class="slider-container">
-        <input id="slider-car" type="range" min="0" max="100" value="0">
-        <img id="slider-img" src="Images/Cars/RedBull_car.png" alt="Red Bull car">
+        <input id="slider-car" type="range" min="0" max="100" value="0" />
+        <img
+          id="slider-img"
+          src="Images/Cars/RedBull_car.png"
+          alt="Red Bull car" />
       </div>
     </header>
 
@@ -71,6 +77,17 @@
           <h2>Drivers</h2>
           <div id="DriversPic" class="stats__drivers"></div>
         </aside>
+
+        <section id="TeamsShortcut">
+          <h2>Team</h2>
+          <a
+            id="teamsYearLink"
+            class="stats-team-link"
+            href="teams.html?year=2025">
+            <img src="/Images/RedBullLogo.png" alt="Go to teams page" />
+            <span>Open Teams Page</span>
+          </a>
+        </section>
       </div>
 
       <div class="stats-races">
@@ -83,12 +100,14 @@
       </div>
     </main>
 
-    <script src="raceData.json"></script>
-    <script type="module" src="script.js"></script>
+    <script src="script.js"></script>
 
     <footer>
-      <a id="about" href="About.html">About</a> Author: Benjamin, Darryl, Tijn<br>
-      © 2026 Red Bull F1 Team<br>
+      <a id="about" href="About.html">About</a> Author: Benjamin, Darryl,
+      Tijn<br />
+      Disclaimer: Information on this website is not guaranteed to be
+      correct.<br />
+      © 2026 Red Bull F1 Team<br />
     </footer>
   </body>
 </html>

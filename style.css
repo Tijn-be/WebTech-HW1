@@ -9,8 +9,15 @@
   font-family: Jost;
 }
 
-html, body {
+html,
+body {
   max-width: 100%;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 body {
@@ -22,6 +29,112 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+}
+
+body.site-font-small {
+  font-size: 14px;
+}
+
+body.site-font-large {
+  font-size: 20px;
+}
+
+body.theme-dark {
+  background-color: #011629;
+  color: white;
+}
+
+body.theme-dark header,
+body.theme-dark footer {
+  background-color: #011e3a;
+}
+
+body.theme-dark .site-nav__link {
+  background-color: #011e3a;
+  color: white;
+}
+
+body.theme-light {
+  background-color: #f2f4f8;
+  color: #0f172a;
+}
+
+body.theme-light header,
+body.theme-light footer {
+  background-color: #d9e3f0;
+}
+
+body.theme-light .site-nav__link {
+  background-color: #bfd3ea;
+  color: #0f172a;
+}
+
+body.theme-light h1 {
+  color: #b00020;
+}
+
+body.theme-light a {
+  color: #0b3d91;
+}
+
+body.theme-light a:hover {
+  color: #a30000;
+}
+
+body.theme-light p,
+body.theme-light pre,
+body.theme-light li,
+body.theme-light span,
+body.theme-light label,
+body.theme-light td,
+body.theme-light th,
+body.theme-light h2,
+body.theme-light h3,
+body.theme-light h4,
+body.theme-light h5,
+body.theme-light h6,
+body.theme-light .drivers-bio {
+  color: #0f172a !important;
+}
+
+body.theme-light .stats__select,
+body.theme-light .accessibility-controls select {
+  background-color: #ffffff;
+  color: #0f172a;
+  border-color: #94a3b8;
+}
+
+body.theme-light .accessibility-controls {
+  border-color: #94a3b8;
+}
+
+body.theme-light .team-tooltip {
+  background-color: #ffffff;
+  color: #0f172a;
+  border-color: #64748b;
+}
+
+body.theme-light .stats-races--table,
+body.theme-light .stats-races--table th,
+body.theme-light .stats-races--table td {
+  border-color: #334155;
+}
+
+body.theme-contrast {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+body.theme-contrast header,
+body.theme-contrast footer {
+  background-color: #000000;
+  border-color: #ffffff;
+}
+
+body.theme-contrast .site-nav__link {
+  background-color: #111111;
+  color: #ffffff;
+  border: 1px solid #ffffff;
 }
 
 header {
@@ -38,7 +151,7 @@ header {
 main {
   padding: 20px;
   flex: 1;
-  overflow-x: hidden;
+  overflow-x: auto;
 }
 
 footer {
@@ -67,8 +180,9 @@ p {
 
 pre {
   font-family: Jost;
-  white-space: pre-wrap;     
+  white-space: pre-wrap;
   max-width: 100%;
+  overflow-wrap: anywhere;
 }
 
 nav {
@@ -117,7 +231,7 @@ a:hover {
   justify-content: flex-start;
   width: 100%;
   max-width: 100%;
-  margin-top: 15px ;
+  margin-top: 15px;
 }
 
 .content-row {
@@ -132,10 +246,37 @@ a:hover {
   background-color: rgba(255, 255, 255, 0.5);
   border: 2px solid Black;
   border-radius: 5px;
-  width: 45vw;
-  height: 15vw;
+  width: min(82vw, 360px);
+  height: clamp(160px, 42vw, 240px);
   display: flex;
   justify-content: center;
+}
+
+.driver-card {
+  width: 100%;
+  min-width: 0;
+}
+
+.driver-card > a {
+  display: block;
+  width: 100%;
+}
+
+.driver-card__row {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+  min-width: 0;
+}
+
+.driver-meta {
+  width: 100%;
+  max-width: 520px;
+  border: 1px solid #ffffff33;
+  border-radius: 10px;
+  padding: 10px 12px;
+  background-color: rgba(255, 255, 255, 0.05);
 }
 
 .driver-tile img {
@@ -149,7 +290,7 @@ a:hover {
   width: auto;
 }
 
-#about{
+#about {
   font-size: 1em;
 }
 
@@ -181,7 +322,7 @@ a:hover {
   .site-nav {
     width: 60%;
   }
-  
+
   .content-row {
     flex-direction: row;
     flex-wrap: wrap;
@@ -193,13 +334,66 @@ a:hover {
     width: 15vw;
     height: 15vh;
   }
+
+  .driver-card {
+    width: 46%;
+  }
+
+  .driver-card__row {
+    flex-direction: row;
+    align-items: stretch;
+  }
+
+  #driversList .driver-card {
+    width: 46%;
+  }
 }
 
 /*--Drivers--*/
 
-.drivers-bio{
-  font-size: 0.6em;
-  color: white ;
+.drivers-bio {
+  font-size: 0.78rem;
+  color: white;
+  overflow-wrap: anywhere;
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+}
+
+.former-teams-title {
+  margin: 10px 0 6px;
+  font-size: 0.95rem;
+}
+
+.former-teams-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.former-teams-list .team-item {
+  border: 1px solid #ffffff55;
+  border-radius: 5px;
+  padding: 3px 10px;
+  font-size: 0.8rem;
+  background-color: #011e3a;
+  cursor: help;
+}
+
+.former-teams-list .team-item:hover {
+  border-color: #e0041e;
+  color: #ffffff;
+}
+
+#driversList {
+  align-items: center;
+}
+
+#driversList .driver-card {
+  width: min(95vw, 680px);
 }
 
 /*--Statistic--*/
@@ -215,8 +409,8 @@ a:hover {
 }
 
 .stats-car--tile {
-  width: 90vw;
-  height: 25vw;
+  width: min(90vw, 430px);
+  height: clamp(130px, 30vw, 220px);
   display: flex;
   justify-content: center;
 }
@@ -232,6 +426,40 @@ a:hover {
   flex-wrap: wrap;
   gap: 10px;
   align-items: center;
+  justify-content: center;
+}
+
+#carType {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+#TeamsShortcut {
+  text-align: center;
+}
+
+.stats-team-link {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid #ffffff66;
+  border-radius: 8px;
+  padding: 12px 14px;
+  background-color: #011e3a;
+  max-width: 220px;
+}
+
+.stats-team-link img {
+  width: 84px;
+  height: auto;
+}
+
+body.theme-light .stats-team-link {
+  background-color: #e8eef6;
+  border-color: #94a3b8;
 }
 
 .stats-races {
@@ -246,7 +474,8 @@ a:hover {
   border-collapse: collapse;
 }
 
-.stats-races--table th, .stats-races--table td {
+.stats-races--table th,
+.stats-races--table td {
   border: 1px solid white;
   padding: 8px;
 }
@@ -257,9 +486,14 @@ a:hover {
     height: 25vh;
   }
 
-  #Cars, #Drivers {
+  #Cars,
+  #Drivers {
     flex: none;
     width: auto;
+  }
+
+  .drivers-bio {
+    font-size: 0.6em;
   }
 }
 
@@ -296,43 +530,144 @@ a:hover {
     font-size: 0.8rem;
   }
 
-  .cars-table td, .cars-table th {
+  .cars-table td,
+  .cars-table th {
     padding: 4px;
     white-space: nowrap;
   }
 }
 
-/*--About--*/
+/*--Appearance Controls--*/
 
-.student-section {
-  border: 1px solid white;
-  padding: 15px;
-  margin: 10px;
-  width: 300px;
+.accessibility-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  padding: 8px;
+  border: 1px solid #ffffff33;
+  border-radius: 6px;
+}
+
+.accessibility-controls__title {
+  margin: 0;
+  font-family: Jost-Bold;
+  width: 100%;
+}
+
+.accessibility-controls label {
+  font-size: 0.9rem;
+}
+
+.accessibility-controls select {
+  background-color: #011629;
+  color: white;
+  border: 1px solid #ffffff55;
+  border-radius: 4px;
+  padding: 4px 6px;
+}
+
+.accessibility-size-small,
+.accessibility-size-small * {
+  font-size: 14px !important;
+}
+
+.accessibility-size-large,
+.accessibility-size-large * {
+  font-size: 20px !important;
+}
+
+.accessibility-color-red,
+.accessibility-color-red * {
+  color: #d90429 !important;
+}
+
+.accessibility-color-blue,
+.accessibility-color-blue * {
+  color: #8ecae6 !important;
+}
+
+/*--Team Members Page--*/
+
+.upload-panel {
+  border: 1px solid #ffffff55;
   border-radius: 8px;
+  padding: 14px;
+  margin-bottom: 16px;
+  max-width: 560px;
 }
 
-.student-content {
-  display: none;
-  margin-top: 15px;
-  padding-top: 10px;
-  border-top: 1px dashed white;
+.upload-panel p {
+  margin-top: 0;
 }
 
-section:hover .student-content {
+.player-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  justify-items: center;
+}
+
+.player-photo {
+  width: clamp(150px, 45vw, 320px);
+  min-width: 150px;
+  max-width: 320px;
+  height: auto;
   display: block;
+  margin: 8px auto;
 }
 
 .student-tile img {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 60%;
+  width: clamp(150px, 45vw, 320px);
+  min-width: 150px;
+  max-width: 320px;
   height: auto;
-  border-radius: 4px;
+  display: block;
+  margin: 8px auto;
 }
 
-.student-tile h2 {
-  margin: 0 0 10px 0;
-  font-size: 1.4em;
+.team-item {
+  cursor: help;
+}
+
+body.theme-light .driver-meta {
+  background-color: #e8eef6;
+  border-color: #94a3b8;
+}
+
+body.theme-light .former-teams-list .team-item {
+  background-color: #dbe7f5;
+  border-color: #94a3b8;
+  color: #0f172a;
+}
+
+.propagation-status {
+  min-height: 1.2em;
+  font-size: 0.9rem;
+}
+
+.team-tooltip {
+  position: absolute;
+  max-width: 280px;
+  background-color: #02101d;
+  color: white;
+  border: 1px solid #ffffff66;
+  border-radius: 6px;
+  padding: 6px 8px;
+  font-size: 0.85rem;
+  white-space: pre-line;
+  pointer-events: none;
+  display: none;
+  z-index: 2000;
+}
+
+.team-tooltip--visible {
+  display: block;
+}
+
+@media (min-width: 700px) {
+  .player-grid {
+    grid-template-columns: repeat(2, minmax(260px, 1fr));
+  }
 }
