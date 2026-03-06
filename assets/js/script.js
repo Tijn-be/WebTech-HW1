@@ -173,7 +173,7 @@ if (yearSelect && CarContainer && tableBody && driverContainer) {
   }
 
   async function uploadData() {
-    const response = await fetch("raceData.json");
+    const response = await fetch("data/raceData.json");
 
     raceResults = await response.json();
 
@@ -202,7 +202,7 @@ if (yearSelect && CarContainer && tableBody && driverContainer) {
         tileWrap.classList.add("stats-car--tile");
 
         const image = document.createElement("img");
-        image.src = `/Images/Cars/${item.img}`;
+        image.src = `assets/images/cars/${item.img}`;
         image.alt = item.name;
 
         const caption = document.createElement("figcaption");
@@ -235,7 +235,7 @@ if (yearSelect && CarContainer && tableBody && driverContainer) {
         tileWrap.classList.add("driver-tile");
 
         const image = document.createElement("img");
-        image.src = `/Images/Drivers/${item.img}`;
+        image.src = `assets/images/drivers/${item.img}`;
         image.alt = item.name;
 
         const caption = document.createElement("figcaption");
@@ -346,7 +346,7 @@ if (
       tile.classList.add("driver-tile");
 
       const image = document.createElement("img");
-      image.src = `/Images/Drivers/${driver.img}`;
+      image.src = `assets/images/drivers/${driver.img}`;
       image.alt = driver.name;
 
       const caption = document.createElement("figcaption");
@@ -440,7 +440,7 @@ if (
     }
   }
 
-  fetch("raceData.json")
+  fetch("data/raceData.json")
     .then((response) => response.json())
     .then((data) => {
       teamRaceData = data;
@@ -1161,7 +1161,7 @@ if (carsTableBody) {
     return td;
   }
 
-  fetch("carsData.json")
+  fetch("data/carsData.json")
     .then((response) => response.json())
     .then((cars) => {
       while (carsTableBody.firstChild) {

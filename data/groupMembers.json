@@ -4,7 +4,7 @@
     "lastName": "Bisschop",
     "age": 19,
     "email": "h.f.a.bisschop@students.uu.nl",
-    "photo": "/Images/Students/Tijn_Bisschop.png",
+    "photo": "assets/images/students/Tijn_Bisschop.png",
     "major": "Informatica and Mathematics",
     "hobbies": ["Netflix", "Skating", "Singing"],
     "courses": [
@@ -39,7 +39,7 @@
     "lastName": "Chedi",
     "age": 19,
     "email": "s.r.chedi@students.uu.nl",
-    "photo": "/Images/Students/Darryl_Chedi.jpg",
+    "photo": "assets/images/students/Darryl_Chedi.jpg",
     "major": "Computer Science",
     "hobbies": ["Drawing", "Gaming", "Travelling"],
     "courses": [
@@ -66,7 +66,7 @@
     "lastName": "Tak",
     "age": 19,
     "email": "b.m.j.tak@students.uu.nl",
-    "photo": "/Images/Students/Benjamin_Tak.jpg",
+    "photo": "assets/images/students/Benjamin_Tak.jpg",
     "major": "Computer Science",
     "hobbies": ["Programming", "Gaming", "Poker"],
     "courses": [

@@ -1,11 +1,11 @@
 /*--General--*/
 
 @font-face {
-  src: url(Fonts/Jost-Bold.ttf);
+  src: url(../fonts/Jost-Bold.ttf);
   font-family: Jost-Bold;
 }
 @font-face {
-  src: url(Fonts/Jost-Regular.ttf);
+  src: url(../fonts/Jost-Regular.ttf);
   font-family: Jost;
 }
 
