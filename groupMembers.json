@@ -54,20 +54,28 @@
     ]
   },
   {
-    "firstName": "-",
-    "lastName": "-",
-    "age": 0,
-    "email": "-",
-    "photo": "/Images/Students/-",
-    "major": "-",
-    "hobbies": ["-", "-"],
+    "firstName": "Benjamin",
+    "lastName": "Tak",
+    "age": 19,
+    "email": "b.m.j.tak@students.uu.nl",
+    "photo": "/Images/Students/Benjamin_Tak.png",
+    "major": "Computer Science",
+    "hobbies": ["Programming", "Gaming", "Poker"],
     "courses": [
       {
-        "title": "-",
-        "description": "-.",
+        "title": "Webtechnology",
+        "description": "Internet is the most relevant information technology of our age. World Wide Web is its most important application. We all use it daily for our routine information tasks. In this course, you will learn the architecture of WWW, its main protocols, representation formats, and development technologies. The practical component of the course will focus on design and implementation of Web applications that are interactive and secure.",
         "teacher": {
-          "firstName": "-",
-          "lastName": "-"
+          "firstName": "Sergey",
+          "lastName": "Sosnovsky"
+        }
+      },
+      {
+        "title": "Databases",
+        "description": "Business processes primarily revolve around information processing. This information must be maintained, which is why database management systems (DBMSs) exist. The differences from simple file systems are numerous. For example, there are \"query languages\" for easy information retrieval, \"transaction systems\" to ensure that many users can access and modify the information simultaneously, and schema information to understand the actual meaning of the data. This course covers the basics of relational databases, with an emphasis on design and query languages. We also examine the internal workings of a database system: how transactions are processed, how a query is optimized, and how it is executed. Finally, we will discuss some recent developments, such as NoSQL databases.",
+        "teacher": {
+          "firstName": "Hans",
+          "lastName": "Philippi"
         }
       }
     ]
