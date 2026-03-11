@@ -1,9 +1,11 @@
 var http = require("http");
+var fs = require("fs");
+
 http
   .createServer(function (req, res) {
     res.writeHead(200, { "Content-Type": "text/html" });
-    // add index.html file to the same folder and uncomment the line below to serve the file instead of "Hello World"
-    res.write(fs.readFileSync("../index.html"));
+    res.end(fs.readFileSync("../index.html"));
   })
-  .listen(8004, "localhost");
-console.log("Server running at http://localhost:8004/");
+  .listen(8004, "0.0.0.0");
+
+console.log("Server running on port 8004");
