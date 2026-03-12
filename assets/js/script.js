@@ -1,478 +1,4 @@
-// Draggable car
-
-const slider = document.getElementById("slider-car");
-const root = document.documentElement;
-
-slider.oninput = () => {
-  const maxScroll = root.scrollHeight - window.innerHeight * 0.99;
-  const scrollTarget = (slider.value / 100) * maxScroll;
-  window.scrollTo(0, scrollTarget);
-};
-
-window.onscroll = () => {
-  const maxScroll = root.scrollHeight - window.innerHeight * 0.99;
-  const percentage = (window.scrollY / maxScroll) * 100;
-  slider.value = percentage;
-  root.style.setProperty("--scroll-pos", percentage / 100);
-};
-
-// Statistics
-const yearSelect = document.getElementById("yearSelect");
-const CarContainer = document.getElementById("carType");
-const tableBody = document.getElementById("raceData");
-const driverContainer = document.getElementById("DriversPic");
-const teamsYearLink = document.getElementById("teamsYearLink");
-
-const driverWikiById = {
-  "Alexander-Albon": "https://en.wikipedia.org/wiki/Alex_Albon",
-  "Christian-Klien": "https://en.wikipedia.org/wiki/Christian_Klien",
-  "Daniel-Ricciardo": "https://en.wikipedia.org/wiki/Daniel_Ricciardo",
-  "Daniil-Kvyat": "https://en.wikipedia.org/wiki/Daniil_Kvyat",
-  "David-Coulthard": "https://en.wikipedia.org/wiki/David_Coulthard",
-  "Isack-Hadjar": "https://en.wikipedia.org/wiki/Isack_Hadjar",
-  "Liam-Lawson": "https://en.wikipedia.org/wiki/Liam_Lawson",
-  "Mark-Webber": "https://en.wikipedia.org/wiki/Mark_Webber",
-  "Max-Verstappen": "https://en.wikipedia.org/wiki/Max_Verstappen",
-  "Pierre-Gasly": "https://en.wikipedia.org/wiki/Pierre_Gasly",
-  "Robert-Doornbos": "https://en.wikipedia.org/wiki/Robert_Doornbos",
-  "Sebastian-Vettel": "https://en.wikipedia.org/wiki/Sebastian_Vettel",
-  "Sergio-Perez": "https://en.wikipedia.org/wiki/Sergio_P%C3%A9rez",
-  "Vitantonio-Liuzzi": "https://en.wikipedia.org/wiki/Vitantonio_Liuzzi",
-  "Yuki-Tsunoda": "https://en.wikipedia.org/wiki/Yuki_Tsunoda",
-};
-
-const driverWikiByName = {
-  "Alexander Albon": "https://en.wikipedia.org/wiki/Alex_Albon",
-  "Christian Klien": "https://en.wikipedia.org/wiki/Christian_Klien",
-  "Daniel Ricciardo": "https://en.wikipedia.org/wiki/Daniel_Ricciardo",
-  "Daniil Kvyat": "https://en.wikipedia.org/wiki/Daniil_Kvyat",
-  "David Coulthard": "https://en.wikipedia.org/wiki/David_Coulthard",
-  "Isack Hadjar": "https://en.wikipedia.org/wiki/Isack_Hadjar",
-  "Liam Lawson": "https://en.wikipedia.org/wiki/Liam_Lawson",
-  "Mark Webber": "https://en.wikipedia.org/wiki/Mark_Webber",
-  "Max Verstappen": "https://en.wikipedia.org/wiki/Max_Verstappen",
-  "Pierre Gasly": "https://en.wikipedia.org/wiki/Pierre_Gasly",
-  "Robert Doornbos": "https://en.wikipedia.org/wiki/Robert_Doornbos",
-  "Sebastian Vettel": "https://en.wikipedia.org/wiki/Sebastian_Vettel",
-  "Sergio Perez": "https://en.wikipedia.org/wiki/Sergio_P%C3%A9rez",
-  "Vitantonio Liuzzi": "https://en.wikipedia.org/wiki/Vitantonio_Liuzzi",
-  "Yuki Tsunoda": "https://en.wikipedia.org/wiki/Yuki_Tsunoda",
-};
-
-const carWikiByCode = {
-  RB1: "https://en.wikipedia.org/wiki/Red_Bull_RB1",
-  RB2: "https://en.wikipedia.org/wiki/Red_Bull_RB2",
-  RB3: "https://en.wikipedia.org/wiki/Red_Bull_RB3",
-  RB4: "https://en.wikipedia.org/wiki/Red_Bull_RB4",
-  RB5: "https://en.wikipedia.org/wiki/Red_Bull_RB5",
-  RB6: "https://en.wikipedia.org/wiki/Red_Bull_RB6",
-  RB7: "https://en.wikipedia.org/wiki/Red_Bull_RB7",
-  RB8: "https://en.wikipedia.org/wiki/Red_Bull_RB8",
-  RB9: "https://en.wikipedia.org/wiki/Red_Bull_RB9",
-  RB10: "https://en.wikipedia.org/wiki/Red_Bull_RB10",
-  RB11: "https://en.wikipedia.org/wiki/Red_Bull_RB11",
-  RB12: "https://en.wikipedia.org/wiki/Red_Bull_RB12",
-  RB13: "https://en.wikipedia.org/wiki/Red_Bull_RB13",
-  RB14: "https://en.wikipedia.org/wiki/Red_Bull_RB14",
-  RB15: "https://en.wikipedia.org/wiki/Red_Bull_RB15",
-  RB16: "https://en.wikipedia.org/wiki/Red_Bull_RB16",
-  RB17: "https://en.wikipedia.org/wiki/Red_Bull_RB16B",
-  RB18: "https://en.wikipedia.org/wiki/Red_Bull_RB18",
-  RB19: "https://en.wikipedia.org/wiki/Red_Bull_RB19",
-  RB20: "https://en.wikipedia.org/wiki/Red_Bull_RB20",
-  RB21: "https://en.wikipedia.org/wiki/Red_Bull_RB21",
-};
-
-const teamFactsByTitle = {
-  "Red Bull Racing":
-    "Entered Formula One in 2005 after purchasing Jaguar Racing and is based in Milton Keynes.",
-  Williams:
-    "British constructor founded in 1977 and based in Grove, Oxfordshire.",
-  "Williams Racing":
-    "British constructor founded in 1977 and based in Grove, Oxfordshire.",
-  "Jaguar Racing":
-    "Competed in Formula One from 2000 to 2004 before being sold to Red Bull.",
-  "HRT F1 Team": "Spanish team that competed in Formula One from 2010 to 2012.",
-  "Toro Rosso":
-    "Faenza-based Italian team that raced from 2006 to 2019 before rebranding.",
-  McLaren:
-    "Woking-based British team that has competed in Formula One since the 1960s.",
-  "Racing Bulls":
-    "Current name of the Faenza-based team that previously raced as AlphaTauri.",
-  Minardi:
-    "Italian team that raced in Formula One from 1985 to 2005 before becoming Toro Rosso.",
-  Alpine: "Renault-owned Enstone team racing under the Alpine name since 2021.",
-  "BMW Sauber":
-    "Team identity used during BMW ownership of Sauber from 2006 to 2009.",
-  Sauber:
-    "Swiss constructor based in Hinwil that first entered Formula One in 1993.",
-  "Force India":
-    "Silverstone-based team that competed from 2008 to 2018 before becoming Racing Point.",
-  AlphaTauri:
-    "Team name used from 2020 to 2023 before the change to Racing Bulls.",
-};
-
-function getDriverWikiUrl(driver) {
-  if (!driver) {
-    return "https://en.wikipedia.org/wiki/Red_Bull_Racing";
-  }
-
-  if (driver.id && driverWikiById[driver.id]) {
-    return driverWikiById[driver.id];
-  }
-
-  if (driver.name && driverWikiByName[driver.name]) {
-    return driverWikiByName[driver.name];
-  }
-
-  return "https://en.wikipedia.org/wiki/Red_Bull_Racing";
-}
-
-function getCarWikiUrl(car) {
-  if (!car) {
-    return "https://en.wikipedia.org/wiki/Red_Bull_Racing";
-  }
-
-  let code = "";
-
-  if (car.id) {
-    code = car.id;
-  } else if (car.name) {
-    code = String(car.name).replace("Red Bull ", "").trim();
-  }
-
-  if (carWikiByCode[code]) {
-    return carWikiByCode[code];
-  }
-
-  return "https://en.wikipedia.org/wiki/Red_Bull_Racing";
-}
-
-function getTeamPreviewInfo(team) {
-  const title = String(team.title || "Unknown team").trim();
-  const city = String(team.city || "Unknown city").trim();
-  const country = String(team.country || "Unknown country").trim();
-  const fact = teamFactsByTitle[title];
-
-  if (!fact) {
-    return `${title} (${city}, ${country})`;
-  }
-
-  return `${title} (${city}, ${country})\n${fact}`;
-}
-
-if (yearSelect && CarContainer && tableBody && driverContainer) {
-  let raceResults = {};
-
-  function updateTeamsYearLink(year) {
-    if (!teamsYearLink) {
-      return;
-    }
-
-    teamsYearLink.href = `teams.html?year=${year}`;
-  }
-
-  async function uploadData() {
-    const response = await fetch("data/raceData.json");
-
-    raceResults = await response.json();
-
-    updateContent("2025");
-  }
-
-  function updateContent(year) {
-    updateTeamsYearLink(year);
-    const data = raceResults[year];
-
-    //Cars
-    while (CarContainer.firstChild) {
-      CarContainer.removeChild(CarContainer.firstChild);
-    }
-
-    if (data && data.Car) {
-      data.Car.forEach((item) => {
-        const divWrap = document.createElement("div");
-
-        const aWrap = document.createElement("a");
-        aWrap.href = getCarWikiUrl(item);
-        aWrap.target = "_blank";
-        aWrap.rel = "noopener noreferrer";
-
-        const tileWrap = document.createElement("div");
-        tileWrap.classList.add("stats-car--tile");
-
-        const image = document.createElement("img");
-        image.src = `assets/images/cars/${item.img}`;
-        image.alt = item.name;
-
-        const caption = document.createElement("figcaption");
-        caption.textContent = item.name;
-
-        tileWrap.appendChild(image);
-        aWrap.appendChild(tileWrap);
-        aWrap.appendChild(caption);
-        divWrap.appendChild(aWrap);
-
-        CarContainer.appendChild(divWrap);
-      });
-    }
-
-    //Drivers
-    while (driverContainer.firstChild) {
-      driverContainer.removeChild(driverContainer.firstChild);
-    }
-
-    if (data && data.drivers) {
-      data.drivers.forEach((item) => {
-        const divWrap = document.createElement("div");
-
-        const aWrap = document.createElement("a");
-        aWrap.href = getDriverWikiUrl(item);
-        aWrap.target = "_blank";
-        aWrap.rel = "noopener noreferrer";
-
-        const tileWrap = document.createElement("div");
-        tileWrap.classList.add("driver-tile");
-
-        const image = document.createElement("img");
-        image.src = `assets/images/drivers/${item.img}`;
-        image.alt = item.name;
-
-        const caption = document.createElement("figcaption");
-        caption.textContent = item.name;
-
-        tileWrap.appendChild(image);
-        aWrap.appendChild(tileWrap);
-        aWrap.appendChild(caption);
-        divWrap.appendChild(aWrap);
-
-        driverContainer.appendChild(divWrap);
-      });
-    }
-
-    //Races
-    while (tableBody.firstChild) {
-      tableBody.removeChild(tableBody.firstChild);
-    }
-
-    if (data && Array.isArray(data.races) && data.races.length > 0) {
-      const headerRow = document.createElement("tr");
-      const thDriver = document.createElement("th");
-      thDriver.textContent = "Drivers";
-      headerRow.appendChild(thDriver);
-
-      data.races[0].results.forEach((res) => {
-        const th = document.createElement("th");
-        th.textContent = res.GP || "";
-        headerRow.appendChild(th);
-      });
-      tableBody.appendChild(headerRow);
-
-      data.races.forEach((item) => {
-        const rowPlace = document.createElement("tr");
-        const rowTime = document.createElement("tr");
-
-        const tdName = document.createElement("td");
-        tdName.rowSpan = 2;
-        tdName.textContent = item.Drivers;
-        rowPlace.appendChild(tdName);
-
-        item.results.forEach((res) => {
-          const tdPlace = document.createElement("td");
-          tdPlace.textContent = res.Place || "-";
-          rowPlace.appendChild(tdPlace);
-
-          const tdTime = document.createElement("td");
-          tdTime.textContent = res.Time || "-";
-          rowTime.appendChild(tdTime);
-        });
-
-        tableBody.appendChild(rowPlace);
-        tableBody.appendChild(rowTime);
-      });
-    }
-  }
-
-  yearSelect.addEventListener("change", (event) =>
-    updateContent(event.target.value),
-  );
-
-  updateContent(yearSelect.value);
-  uploadData();
-}
-
-// Teams page
-const teamYearSelect = document.getElementById("teamYearSelect");
-const teamDrivers = document.getElementById("teamDrivers");
-const teamSummaryText = document.getElementById("teamSummaryText");
-const teamSummaryList = document.getElementById("teamSummaryList");
-const teamYearTitle = document.getElementById("teamYearTitle");
-
-if (
-  teamYearSelect &&
-  teamDrivers &&
-  teamSummaryText &&
-  teamSummaryList &&
-  teamYearTitle
-) {
-  let teamRaceData = {};
-
-  function clearNode(node) {
-    while (node.firstChild) {
-      node.removeChild(node.firstChild);
-    }
-  }
-
-  function parsePlace(placeValue) {
-    const parsed = Number(placeValue);
-    return Number.isFinite(parsed) ? parsed : null;
-  }
-
-  function updateTeamsYearInUrl(year) {
-    window.history.replaceState({}, "", `teams.html?year=${year}`);
-  }
-
-  function renderTeamDrivers(drivers) {
-    clearNode(teamDrivers);
-
-    drivers.forEach((driver) => {
-      const card = document.createElement("div");
-      const link = document.createElement("a");
-      link.href = getDriverWikiUrl(driver);
-      link.target = "_blank";
-      link.rel = "noopener noreferrer";
-
-      const tile = document.createElement("div");
-      tile.classList.add("driver-tile");
-
-      const image = document.createElement("img");
-      image.src = `assets/images/drivers/${driver.img}`;
-      image.alt = driver.name;
-
-      const caption = document.createElement("figcaption");
-      caption.textContent = driver.name;
-
-      tile.appendChild(image);
-      link.appendChild(tile);
-      link.appendChild(caption);
-      card.appendChild(link);
-      teamDrivers.appendChild(card);
-    });
-  }
-
-  function renderTeamSummary(year, data) {
-    clearNode(teamSummaryList);
-
-    const races = Array.isArray(data.races) ? data.races : [];
-    const drivers = Array.isArray(data.drivers) ? data.drivers : [];
-    const firstResults =
-      races.length > 0 && Array.isArray(races[0].results) ?
-        races[0].results
-      : [];
-    const raceWeekends =
-      firstResults.length > 0 ?
-        firstResults.filter((result) => result.GP).length
-      : 0;
-
-    let teamWins = 0;
-    let teamPodiums = 0;
-
-    races.forEach((driverRow) => {
-      let starts = 0;
-      let wins = 0;
-      let podiums = 0;
-      let bestFinish = null;
-
-      const results = Array.isArray(driverRow.results) ? driverRow.results : [];
-
-      results.forEach((result) => {
-        const place = parsePlace(result.Place);
-        if (place === null) {
-          return;
-        }
-
-        starts += 1;
-
-        if (place === 1) {
-          wins += 1;
-          teamWins += 1;
-        }
-
-        if (place <= 3) {
-          podiums += 1;
-          teamPodiums += 1;
-        }
-
-        if (bestFinish === null || place < bestFinish) {
-          bestFinish = place;
-        }
-      });
-
-      const item = document.createElement("li");
-      item.textContent =
-        `${driverRow.Drivers}: starts ${starts}, wins ${wins}, podiums ${podiums}, best finish ` +
-        `${bestFinish === null ? "-" : bestFinish}`;
-      teamSummaryList.appendChild(item);
-    });
-
-    teamSummaryText.textContent =
-      `Year ${year}: ${drivers.length} drivers, ${raceWeekends} race weekends, ` +
-      `${teamWins} wins, ${teamPodiums} podiums.`;
-  }
-
-  function renderTeamYear(year) {
-    const data = teamRaceData[year];
-
-    if (!data) {
-      teamYearTitle.textContent = "Team Overview";
-      teamSummaryText.textContent = "No data available for this year.";
-      clearNode(teamDrivers);
-      clearNode(teamSummaryList);
-      return;
-    }
-
-    teamYearTitle.textContent = `Team Overview - ${year}`;
-    renderTeamDrivers(Array.isArray(data.drivers) ? data.drivers : []);
-    renderTeamSummary(year, data);
-
-    if (typeof refreshAccessibilityOptions === "function") {
-      refreshAccessibilityOptions();
-    }
-  }
-
-  fetch("data/raceData.json")
-    .then((response) => response.json())
-    .then((data) => {
-      teamRaceData = data;
-      const years = Object.keys(teamRaceData).sort(
-        (a, b) => Number(a) - Number(b),
-      );
-
-      years.forEach((year) => {
-        teamYearSelect.appendChild(new Option(year, year));
-      });
-
-      let requestedYear = "";
-      if (window.location.search.startsWith("?year=")) {
-        requestedYear = window.location.search.replace("?year=", "");
-      }
-      const initialYear =
-        years.includes(requestedYear) ? requestedYear : years[years.length - 1];
-
-      teamYearSelect.value = initialYear;
-      updateTeamsYearInUrl(initialYear);
-      renderTeamYear(initialYear);
-
-      teamYearSelect.addEventListener("change", function () {
-        const selectedYear = teamYearSelect.value;
-        updateTeamsYearInUrl(selectedYear);
-        renderTeamYear(selectedYear);
-      });
-    })
-    .catch((error) => console.error(error));
-}
-
-// About
+//---Classes---
 class Person {
   #firstName;
   #lastName;
@@ -531,7 +57,6 @@ class Person {
     this.#nationality = value.trim();
   }
 }
-
 class Course {
   #title;
   #teacher;
@@ -573,7 +98,47 @@ class Course {
     this.#description = value;
   }
 }
+class Team {
+  #title;
+  #country;
+  #city;
 
+  constructor({ title, country, city }) {
+    this.title = title;
+    this.country = country;
+    this.city = city;
+  }
+
+  get title() {
+    return this.#title;
+  }
+  set title(value) {
+    if (typeof value !== "string" || value.trim() === "") {
+      throw new Error("Team title must be a string");
+    }
+    this.#title = value.trim();
+  }
+
+  get country() {
+    return this.#country;
+  }
+  set country(value) {
+    if (typeof value !== "string" || value.trim() === "") {
+      throw new Error("Country must be a string");
+    }
+    this.#country = value.trim();
+  }
+
+  get city() {
+    return this.#city;
+  }
+  set city(value) {
+    if (typeof value !== "string" || value.trim() === "") {
+      throw new Error("City must be a string");
+    }
+    this.#city = value.trim();
+  }
+}
 class GroupMember extends Person {
   #age;
   #email;
@@ -727,49 +292,6 @@ class GroupMember extends Person {
     return section;
   }
 }
-
-class Team {
-  #title;
-  #country;
-  #city;
-
-  constructor({ title, country, city }) {
-    this.title = title;
-    this.country = country;
-    this.city = city;
-  }
-
-  get title() {
-    return this.#title;
-  }
-  set title(value) {
-    if (typeof value !== "string" || value.trim() === "") {
-      throw new Error("Team title must be a string");
-    }
-    this.#title = value.trim();
-  }
-
-  get country() {
-    return this.#country;
-  }
-  set country(value) {
-    if (typeof value !== "string" || value.trim() === "") {
-      throw new Error("Country must be a string");
-    }
-    this.#country = value.trim();
-  }
-
-  get city() {
-    return this.#city;
-  }
-  set city(value) {
-    if (typeof value !== "string" || value.trim() === "") {
-      throw new Error("City must be a string");
-    }
-    this.#city = value.trim();
-  }
-}
-
 class Player extends Person {
   #role;
   #number;
@@ -835,7 +357,6 @@ class Player extends Person {
     );
   }
 }
-
 class Driver extends Player {
   constructor(driverData) {
     super(driverData);
@@ -858,31 +379,783 @@ class Driver extends Player {
   }
 }
 
-// File Reader
-const fileInput = document.getElementById("fileInput");
-const playerContainer =
-  document.getElementById("playerContainer") ||
-  document.getElementById("studentContainer");
+//---Wikipedia---
+const driverWikiById = {
+  "Alexander-Albon": "https://en.wikipedia.org/wiki/Alex_Albon",
+  "Christian-Klien": "https://en.wikipedia.org/wiki/Christian_Klien",
+  "Daniel-Ricciardo": "https://en.wikipedia.org/wiki/Daniel_Ricciardo",
+  "Daniil-Kvyat": "https://en.wikipedia.org/wiki/Daniil_Kvyat",
+  "David-Coulthard": "https://en.wikipedia.org/wiki/David_Coulthard",
+  "Isack-Hadjar": "https://en.wikipedia.org/wiki/Isack_Hadjar",
+  "Liam-Lawson": "https://en.wikipedia.org/wiki/Liam_Lawson",
+  "Mark-Webber": "https://en.wikipedia.org/wiki/Mark_Webber",
+  "Max-Verstappen": "https://en.wikipedia.org/wiki/Max_Verstappen",
+  "Pierre-Gasly": "https://en.wikipedia.org/wiki/Pierre_Gasly",
+  "Robert-Doornbos": "https://en.wikipedia.org/wiki/Robert_Doornbos",
+  "Sebastian-Vettel": "https://en.wikipedia.org/wiki/Sebastian_Vettel",
+  "Sergio-Perez": "https://en.wikipedia.org/wiki/Sergio_P%C3%A9rez",
+  "Vitantonio-Liuzzi": "https://en.wikipedia.org/wiki/Vitantonio_Liuzzi",
+  "Yuki-Tsunoda": "https://en.wikipedia.org/wiki/Yuki_Tsunoda",
+};
+const driverWikiByName = {
+  "Alexander Albon": "https://en.wikipedia.org/wiki/Alex_Albon",
+  "Christian Klien": "https://en.wikipedia.org/wiki/Christian_Klien",
+  "Daniel Ricciardo": "https://en.wikipedia.org/wiki/Daniel_Ricciardo",
+  "Daniil Kvyat": "https://en.wikipedia.org/wiki/Daniil_Kvyat",
+  "David Coulthard": "https://en.wikipedia.org/wiki/David_Coulthard",
+  "Isack Hadjar": "https://en.wikipedia.org/wiki/Isack_Hadjar",
+  "Liam Lawson": "https://en.wikipedia.org/wiki/Liam_Lawson",
+  "Mark Webber": "https://en.wikipedia.org/wiki/Mark_Webber",
+  "Max Verstappen": "https://en.wikipedia.org/wiki/Max_Verstappen",
+  "Pierre Gasly": "https://en.wikipedia.org/wiki/Pierre_Gasly",
+  "Robert Doornbos": "https://en.wikipedia.org/wiki/Robert_Doornbos",
+  "Sebastian Vettel": "https://en.wikipedia.org/wiki/Sebastian_Vettel",
+  "Sergio Perez": "https://en.wikipedia.org/wiki/Sergio_P%C3%A9rez",
+  "Vitantonio Liuzzi": "https://en.wikipedia.org/wiki/Vitantonio_Liuzzi",
+  "Yuki Tsunoda": "https://en.wikipedia.org/wiki/Yuki_Tsunoda",
+};
+const carWikiByCode = {
+  RB1: "https://en.wikipedia.org/wiki/Red_Bull_RB1",
+  RB2: "https://en.wikipedia.org/wiki/Red_Bull_RB2",
+  RB3: "https://en.wikipedia.org/wiki/Red_Bull_RB3",
+  RB4: "https://en.wikipedia.org/wiki/Red_Bull_RB4",
+  RB5: "https://en.wikipedia.org/wiki/Red_Bull_RB5",
+  RB6: "https://en.wikipedia.org/wiki/Red_Bull_RB6",
+  RB7: "https://en.wikipedia.org/wiki/Red_Bull_RB7",
+  RB8: "https://en.wikipedia.org/wiki/Red_Bull_RB8",
+  RB9: "https://en.wikipedia.org/wiki/Red_Bull_RB9",
+  RB10: "https://en.wikipedia.org/wiki/Red_Bull_RB10",
+  RB11: "https://en.wikipedia.org/wiki/Red_Bull_RB11",
+  RB12: "https://en.wikipedia.org/wiki/Red_Bull_RB12",
+  RB13: "https://en.wikipedia.org/wiki/Red_Bull_RB13",
+  RB14: "https://en.wikipedia.org/wiki/Red_Bull_RB14",
+  RB15: "https://en.wikipedia.org/wiki/Red_Bull_RB15",
+  RB16: "https://en.wikipedia.org/wiki/Red_Bull_RB16",
+  RB17: "https://en.wikipedia.org/wiki/Red_Bull_RB16B",
+  RB18: "https://en.wikipedia.org/wiki/Red_Bull_RB18",
+  RB19: "https://en.wikipedia.org/wiki/Red_Bull_RB19",
+  RB20: "https://en.wikipedia.org/wiki/Red_Bull_RB20",
+  RB21: "https://en.wikipedia.org/wiki/Red_Bull_RB21",
+};
+const teamFactsByTitle = {
+  "Red Bull Racing":
+    "Entered Formula One in 2005 after purchasing Jaguar Racing and is based in Milton Keynes.",
+  Williams:
+    "British constructor founded in 1977 and based in Grove, Oxfordshire.",
+  "Williams Racing":
+    "British constructor founded in 1977 and based in Grove, Oxfordshire.",
+  "Jaguar Racing":
+    "Competed in Formula One from 2000 to 2004 before being sold to Red Bull.",
+  "HRT F1 Team": "Spanish team that competed in Formula One from 2010 to 2012.",
+  "Toro Rosso":
+    "Faenza-based Italian team that raced from 2006 to 2019 before rebranding.",
+  McLaren:
+    "Woking-based British team that has competed in Formula One since the 1960s.",
+  "Racing Bulls":
+    "Current name of the Faenza-based team that previously raced as AlphaTauri.",
+  Minardi:
+    "Italian team that raced in Formula One from 1985 to 2005 before becoming Toro Rosso.",
+  Alpine: "Renault-owned Enstone team racing under the Alpine name since 2021.",
+  "BMW Sauber":
+    "Team identity used during BMW ownership of Sauber from 2006 to 2009.",
+  Sauber:
+    "Swiss constructor based in Hinwil that first entered Formula One in 1993.",
+  "Force India":
+    "Silverstone-based team that competed from 2008 to 2018 before becoming Racing Point.",
+  AlphaTauri:
+    "Team name used from 2020 to 2023 before the change to Racing Bulls.",
+};
 
-function isGroupMembersData(data) {
-  if (!Array.isArray(data) || data.length === 0) {
-    return false;
+function getDriverWikiUrl(driver) {
+  if (!driver) {
+    return "https://en.wikipedia.org/wiki/Red_Bull_Racing";
   }
 
-  const first = data[0];
-  if (!first || typeof first !== "object") {
-    return false;
+  if (driver.id && driverWikiById[driver.id]) {
+    return driverWikiById[driver.id];
   }
 
-  return (
-    "firstName" in first &&
-    "lastName" in first &&
-    "major" in first &&
-    "courses" in first
-  );
+  if (driver.name && driverWikiByName[driver.name]) {
+    return driverWikiByName[driver.name];
+  }
+
+  return "https://en.wikipedia.org/wiki/Red_Bull_Racing";
 }
 
+function getCarWikiUrl(car) {
+  if (!car) {
+    return "https://en.wikipedia.org/wiki/Red_Bull_Racing";
+  }
+
+  let code = "";
+
+  if (car.id) {
+    code = car.id;
+  } else if (car.name) {
+    code = String(car.name).replace("Red Bull ", "").trim();
+  }
+
+  if (carWikiByCode[code]) {
+    return carWikiByCode[code];
+  }
+
+  return "https://en.wikipedia.org/wiki/Red_Bull_Racing";
+}
+
+function getTeamPreviewInfo(team) {
+  const title = String(team.title || "Unknown team").trim();
+  const city = String(team.city || "Unknown city").trim();
+  const country = String(team.country || "Unknown country").trim();
+  const fact = teamFactsByTitle[title];
+
+  if (!fact) {
+    return `${title} (${city}, ${country})`;
+  }
+
+  return `${title} (${city}, ${country})\n${fact}`;
+}
+
+//---Draggable car---
+const root = document.documentElement;
+const slider = document.getElementById("slider-car");
+
+if (slider) {
+  slider.oninput = () => {
+    const maxScroll = root.scrollHeight - window.innerHeight * 0.99;
+    const scrollTarget = (slider.value / 100) * maxScroll;
+    window.scrollTo(0, scrollTarget);
+  };
+
+  window.onscroll = () => {
+    const maxScroll = root.scrollHeight - window.innerHeight * 0.99;
+    const percentage = (window.scrollY / maxScroll) * 100;
+    slider.value = percentage;
+    root.style.setProperty("--scroll-pos", percentage / 100);
+  };
+}
+
+//---Drivers page---
+const driversList = document.getElementById("driversList");
+const driversFileInput = document.getElementById("driversFileInput");
+const driversUploadArea = document.getElementById("driversUploadArea");
+
+if (driversList && driversFileInput && driversUploadArea) {
+
+  //Checks Drivers data
+  function isDriversData(data) {
+    if (!Array.isArray(data) || data.length === 0) {return false;}
+
+    const first = data[0];
+    if (!first || typeof first !== "object") {return false;}
+
+    return (
+      "name" in first &&
+      "fullName" in first &&
+      "birthDate" in first &&
+      "formerTeams" in first
+    );
+  }
+
+  //Updates Drivers content
+  function renderDriversList(drivers) {
+    if (!driversList) {return;}
+
+    while (driversList.firstChild) {
+      driversList.removeChild(driversList.firstChild);
+    }
+
+    drivers.forEach((driverData) => {
+      const driver = new Driver(driverData);
+      const section = document.createElement("section");
+      section.id = driver.id;
+      section.classList.add("driver-card");
+
+      const link = document.createElement("a");
+      link.href = getDriverWikiUrl(driver);
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+
+      const title = document.createElement("h2");
+      title.textContent = driver.name;
+
+      const row = document.createElement("div");
+      row.classList.add("driver-card__row");
+
+      const tile = document.createElement("div");
+      tile.classList.add("driver-tile");
+
+      const image = document.createElement("img");
+      image.src = driver.image;
+      image.alt = driver.name;
+
+      const bio = document.createElement("pre");
+      bio.classList.add("drivers-bio");
+      bio.textContent =
+        "Full name: " +
+        driver.fullName +
+        "\nCurrent age: " +
+        driver.age +
+        "\nBirth date: " +
+        driver.birthDate +
+        "\nPlace of birth: " +
+        driver.birthPlace +
+        "\nNationality: " +
+        driver.nationality +
+        "\nCurrent car number: " +
+        driver.number +
+        "\nWins: " +
+        driver.wins;
+
+      const formerTeamsTitle = document.createElement("h3");
+      formerTeamsTitle.classList.add("former-teams-title");
+      formerTeamsTitle.textContent = "Former teams:";
+
+      const formerTeamsList = document.createElement("ul");
+      formerTeamsList.classList.add("former-teams-list");
+
+      driver.formerTeams.forEach((team) => {
+        const item = document.createElement("li");
+        item.classList.add("team-item");
+        item.textContent = team.title;
+        item.dataset.teamInfo = getTeamPreviewInfo(team);
+
+        item.addEventListener("click", function () {
+          addPropagationStep(`target: ${team.title}`);
+        });
+
+        formerTeamsList.appendChild(item);
+      });
+
+      let teamTooltip = document.getElementById("teamTooltip");
+      if (!teamTooltip) {
+        teamTooltip = document.createElement("div");
+        teamTooltip.id = "teamTooltip";
+        teamTooltip.classList.add("team-tooltip");
+        teamTooltip.setAttribute("role", "tooltip");
+        document.body.appendChild(teamTooltip);
+      }
+
+      formerTeamsList.addEventListener(
+        "mouseover",
+        function (event) {
+          const targetItem = event.target.closest(".team-item");
+          if (!targetItem) {return;}
+
+          teamTooltip.textContent = targetItem.dataset.teamInfo;
+          teamTooltip.style.left = `${event.pageX + 10}px`;
+          teamTooltip.style.top = `${event.pageY + 10}px`;
+          teamTooltip.classList.add("team-tooltip--visible");
+        },
+        true,
+      );
+
+      formerTeamsList.addEventListener("mousemove", function (event) {
+        if (teamTooltip.classList.contains("team-tooltip--visible")) {
+          teamTooltip.style.left = `${event.pageX + 10}px`;
+          teamTooltip.style.top = `${event.pageY + 10}px`;
+        }
+      });
+
+      formerTeamsList.addEventListener("mouseout", function () {
+        teamTooltip.classList.remove("team-tooltip--visible");
+      });
+
+      const propagationStatus = document.getElementById("propagationStatus");
+      let propagationSteps = [];
+
+      function resetPropagationSteps() {
+        propagationSteps = [];
+      }
+
+      function addPropagationStep(stepText) {
+        if (!propagationStatus) {return;}
+
+        propagationSteps.push(stepText);
+        propagationStatus.textContent = propagationSteps.join(" -> ");
+      }
+
+      section.addEventListener(
+        "click",
+        function () {
+          resetPropagationSteps();
+          addPropagationStep("capture: section");
+        },
+        true,
+      );
+
+      formerTeamsList.addEventListener(
+        "click",
+        function (event) {
+          if (event.target.closest(".team-item")) {
+            addPropagationStep("capture: teams list");
+          }
+        },
+        true,
+      );
+
+      formerTeamsList.addEventListener("click", function (event) {
+        if (event.target.closest(".team-item")) {
+          addPropagationStep("bubble: teams list");
+        }
+      });
+
+      section.addEventListener("click", function (event) {
+        if (event.target.closest(".team-item")) {
+          addPropagationStep("bubble: section");
+        } else if (propagationStatus) {
+          addPropagationStep("bubble: section");
+        }
+      });
+
+      tile.appendChild(image);
+
+      const driverMeta = document.createElement("div");
+      driverMeta.classList.add("driver-meta");
+      driverMeta.appendChild(bio);
+      driverMeta.appendChild(formerTeamsTitle);
+      driverMeta.appendChild(formerTeamsList);
+
+      row.appendChild(tile);
+      row.appendChild(driverMeta);
+      link.appendChild(title);
+      link.appendChild(row);
+      section.appendChild(link);
+      driversList.appendChild(section);
+    });
+
+    if (typeof refreshAccessibilityOptions === "function") {
+      refreshAccessibilityOptions();
+    }
+  }
+
+  //Reads & Uploads File
+  driversFileInput.addEventListener("change", function (e) {
+    const selectedFile = e.target.files[0];
+    if (!selectedFile) {return;}
+
+    const reader = new FileReader();
+
+    reader.onload = function (event) {
+      try {
+        const data = JSON.parse(event.target.result);
+        if (!isDriversData(data)) {
+          throw new Error("Please upload a valid driversData.json file.");
+        }
+
+        renderDriversList(data);
+
+        driversUploadArea.style.display = "none";
+      } 
+      catch (err) {
+        alert("Could not load JSON file.\n\n" + err.message);
+      }
+    };
+
+    reader.readAsText(selectedFile);
+  });
+}
+
+//---Statistics page---
+const yearSelect = document.getElementById("yearSelect");
+const CarContainer = document.getElementById("carType");
+const tableBody = document.getElementById("raceData");
+const driverContainer = document.getElementById("DriversPic");
+const teamsYearLink = document.getElementById("teamsYearLink");
+
+if (yearSelect && CarContainer && tableBody && driverContainer && teamsYearLink) {
+  let raceResults = {};
+
+  //Uploads raceResults
+  async function uploadData() {
+    const response = await fetch("data/raceData.json");
+
+    raceResults = await response.json();
+
+    updateContent("2025");
+  }
+
+  //Updates by year selected
+  function updateContent(year) {
+    updateTeamsYearLink(year);
+    const data = raceResults[year];
+
+    //Cars
+    while (CarContainer.firstChild) {
+      CarContainer.removeChild(CarContainer.firstChild);
+    }
+
+    if (data && data.Car) {
+      data.Car.forEach((item) => {
+        const divWrap = document.createElement("div");
+
+        const aWrap = document.createElement("a");
+        aWrap.href = getCarWikiUrl(item);
+        aWrap.target = "_blank";
+        aWrap.rel = "noopener noreferrer";
+
+        const tileWrap = document.createElement("div");
+        tileWrap.classList.add("stats-car--tile");
+
+        const image = document.createElement("img");
+        image.src = `assets/images/cars/${item.img}`;
+        image.alt = item.name;
+
+        const caption = document.createElement("figcaption");
+        caption.textContent = item.name;
+
+        tileWrap.appendChild(image);
+        aWrap.appendChild(tileWrap);
+        aWrap.appendChild(caption);
+        divWrap.appendChild(aWrap);
+
+        CarContainer.appendChild(divWrap);
+      });
+    }
+
+    //Drivers
+    while (driverContainer.firstChild) {
+      driverContainer.removeChild(driverContainer.firstChild);
+    }
+
+    if (data && data.drivers) {
+      data.drivers.forEach((item) => {
+        const divWrap = document.createElement("div");
+
+        const aWrap = document.createElement("a");
+        aWrap.href = getDriverWikiUrl(item);
+        aWrap.target = "_blank";
+        aWrap.rel = "noopener noreferrer";
+
+        const tileWrap = document.createElement("div");
+        tileWrap.classList.add("driver-tile");
+
+        const image = document.createElement("img");
+        image.src = `assets/images/drivers/${item.img}`;
+        image.alt = item.name;
+
+        const caption = document.createElement("figcaption");
+        caption.textContent = item.name;
+
+        tileWrap.appendChild(image);
+        aWrap.appendChild(tileWrap);
+        aWrap.appendChild(caption);
+        divWrap.appendChild(aWrap);
+
+        driverContainer.appendChild(divWrap);
+      });
+    }
+
+    //Races
+    while (tableBody.firstChild) {
+      tableBody.removeChild(tableBody.firstChild);
+    }
+
+    if (data && Array.isArray(data.races) && data.races.length > 0) {
+      const headerRow = document.createElement("tr");
+      const thDriver = document.createElement("th");
+      thDriver.textContent = "Drivers";
+      headerRow.appendChild(thDriver);
+
+      data.races[0].results.forEach((res) => {
+        const th = document.createElement("th");
+        th.textContent = res.GP || "";
+        headerRow.appendChild(th);
+      });
+      tableBody.appendChild(headerRow);
+
+      data.races.forEach((item) => {
+        const rowPlace = document.createElement("tr");
+        const rowTime = document.createElement("tr");
+
+        const tdName = document.createElement("td");
+        tdName.rowSpan = 2;
+        tdName.textContent = item.Drivers;
+        rowPlace.appendChild(tdName);
+
+        item.results.forEach((res) => {
+          const tdPlace = document.createElement("td");
+          tdPlace.textContent = res.Place || "-";
+          rowPlace.appendChild(tdPlace);
+
+          const tdTime = document.createElement("td");
+          tdTime.textContent = res.Time || "-";
+          rowTime.appendChild(tdTime);
+        });
+
+        tableBody.appendChild(rowPlace);
+        tableBody.appendChild(rowTime);
+      });
+    }
+  }
+
+  //Links Team Page by year selected
+  function updateTeamsYearLink(year) {
+    teamsYearLink.href = `teams.html?year=${year}`;
+  }
+
+  //Selecting year
+  yearSelect.addEventListener("change", (event) =>
+    updateContent(event.target.value),
+  );
+
+  updateContent(yearSelect.value);
+  uploadData();
+}
+
+//---Cars page---
+const carsTableBody = document.getElementById("carsTableBody");
+
+if (carsTableBody) {
+
+  //Adds table content
+  function createCell(value) {
+    const td = document.createElement("td");
+    td.textContent = String(value);
+    return td;
+  }
+
+  //Uploads table content
+  fetch("data/carsData.json")
+    .then((response) => response.json())          //Reads file
+    .then((cars) => {                             //Creates table
+      while (carsTableBody.firstChild) {
+        carsTableBody.removeChild(carsTableBody.firstChild);
+      }
+
+      cars.forEach((car) => {
+        const row = document.createElement("tr");
+        row.id = car.id;
+
+        const imageCell = document.createElement("td");
+        
+        const imageLink = document.createElement("a");
+        imageLink.href = getCarWikiUrl(car);
+        imageLink.target = "_blank";
+        imageLink.rel = "noopener noreferrer";
+
+        const image = document.createElement("img");
+        image.src = car.image;
+        image.alt = car.name;
+
+        imageLink.appendChild(image);
+        imageCell.appendChild(imageLink);
+
+        const driversCell = document.createElement("td");
+        car.drivers.forEach((driver, index) => {
+          const link = document.createElement("a");
+          link.href = `drivers.html#${driver.id}`;
+          link.textContent = driver.name;
+          driversCell.appendChild(link);
+
+          if (index < car.drivers.length - 1) {
+            driversCell.appendChild(document.createTextNode(", "));
+          }
+        });
+
+        row.appendChild(imageCell);
+        row.appendChild(createCell(car.name));
+        row.appendChild(createCell(car.notes));
+        row.appendChild(createCell(car.season));
+        row.appendChild(createCell(car.engine));
+        row.appendChild(driversCell);
+        row.appendChild(createCell(car.races));
+        row.appendChild(createCell(car.wins));
+        row.appendChild(createCell(car.poles));
+        row.appendChild(createCell(car.fastestLaps));
+        row.appendChild(createCell(car.power));
+
+        carsTableBody.appendChild(row);
+      });
+    })
+    .catch((error) => console.error(error));      //Results error
+}
+
+//---Teams page---
+const teamYearSelect = document.getElementById("teamYearSelect");
+const teamDrivers = document.getElementById("teamDrivers");
+const teamSummaryText = document.getElementById("teamSummaryText");
+const teamSummaryList = document.getElementById("teamSummaryList");
+const teamYearTitle = document.getElementById("teamYearTitle");
+
+if (teamYearSelect && teamDrivers && teamSummaryText && teamSummaryList && teamYearTitle) {
+  let teamRaceData = {};
+
+  //Empties node
+  function clearNode(node) {
+    while (node.firstChild) {
+      node.removeChild(node.firstChild);
+    }
+  }
+
+  //Returns usable number
+  function parsePlace(placeValue) {
+    const parsed = Number(placeValue);
+    return Number.isFinite(parsed) ? parsed : null;
+  }
+
+  //Changes URL by year selected
+  function updateTeamsYearInUrl(year) {
+    window.history.replaceState({}, "", `teams.html?year=${year}`);
+  }
+
+  //Updates Team Members content
+  function renderTeamDrivers(drivers) {
+    clearNode(teamDrivers);
+
+    drivers.forEach((driver) => {
+      const card = document.createElement("div");
+      
+      const link = document.createElement("a");
+      link.href = getDriverWikiUrl(driver);
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+
+      const tile = document.createElement("div");
+      tile.classList.add("driver-tile");
+
+      const image = document.createElement("img");
+      image.src = `assets/images/drivers/${driver.img}`;
+      image.alt = driver.name;
+
+      const caption = document.createElement("figcaption");
+      caption.textContent = driver.name;
+
+      tile.appendChild(image);
+      link.appendChild(tile);
+      link.appendChild(caption);
+      card.appendChild(link);
+      teamDrivers.appendChild(card);
+    });
+  }
+
+  //Updates Team Overview content
+  function renderTeamSummary(year, data) {
+    clearNode(teamSummaryList);
+
+    const races = Array.isArray(data.races) ? data.races : [];
+    const drivers = Array.isArray(data.drivers) ? data.drivers : [];
+    const firstResults =races.length > 0 && Array.isArray(races[0].results) ? races[0].results : [];
+    const raceWeekends = firstResults.length > 0 ? firstResults.filter((result) => result.GP).length : 0;
+
+    let teamWins = 0;
+    let teamPodiums = 0;
+
+    races.forEach((driverRow) => {
+      let starts = 0;
+      let wins = 0;
+      let podiums = 0;
+      let bestFinish = null;
+
+      const results = Array.isArray(driverRow.results) ? driverRow.results : [];
+
+      results.forEach((result) => {
+        const place = parsePlace(result.Place);
+        if (place === null) {return;}
+
+        starts += 1;
+
+        if (place === 1) {
+          wins += 1;
+          teamWins += 1;
+        }
+
+        if (place <= 3) {
+          podiums += 1;
+          teamPodiums += 1;
+        }
+
+        if (bestFinish === null || place < bestFinish) {
+          bestFinish = place;
+        }
+      });
+
+      const item = document.createElement("li");
+      item.textContent =
+        `${driverRow.Drivers}: starts ${starts}, wins ${wins}, podiums ${podiums}, best finish ` +
+        `${bestFinish === null ? "-" : bestFinish}`;
+      teamSummaryList.appendChild(item);
+    });
+
+    teamSummaryText.textContent =
+      `Year ${year}: ${drivers.length} drivers, ${raceWeekends} race weekends, ` +
+      `${teamWins} wins, ${teamPodiums} podiums.`;
+  }
+
+  //Updates by year selected
+  function renderTeamYear(year) {
+    const data = teamRaceData[year];
+
+    if (!data) {
+      teamYearTitle.textContent = "Team Overview";
+      teamSummaryText.textContent = "No data available for this year.";
+      clearNode(teamDrivers);
+      clearNode(teamSummaryList);
+      return;
+    }
+
+    teamYearTitle.textContent = `Team Overview - ${year}`;
+    renderTeamDrivers(Array.isArray(data.drivers) ? data.drivers : []);
+    renderTeamSummary(year, data);
+
+    if (typeof refreshAccessibilityOptions === "function") {
+      refreshAccessibilityOptions();
+    }
+  }
+
+  //Uploads page content
+  fetch("data/raceData.json")
+    .then((response) => response.json())          //Reads file
+    .then((data) => {                             //Uploads teamRaceData
+      teamRaceData = data;
+      const years = Object.keys(teamRaceData).sort(
+        (a, b) => Number(a) - Number(b),
+      );
+
+      years.forEach((year) => {
+        teamYearSelect.appendChild(new Option(year, year));
+      });
+
+      let requestedYear = "";
+      if (window.location.search.startsWith("?year=")) {
+        requestedYear = window.location.search.replace("?year=", "");
+      }
+      const initialYear = years.includes(requestedYear) ? requestedYear : years[years.length - 1];
+
+      teamYearSelect.value = initialYear;
+      updateTeamsYearInUrl(initialYear);
+      renderTeamYear(initialYear);
+
+      teamYearSelect.addEventListener("change", function () {
+        const selectedYear = teamYearSelect.value;
+        updateTeamsYearInUrl(selectedYear);
+        renderTeamYear(selectedYear);
+      });
+    })
+    .catch((error) => console.error(error));      //Results error
+}
+
+//---About page---
+const fileInput = document.getElementById("fileInput");
+const playerContainer = document.getElementById("playerContainer") || document.getElementById("studentContainer");
+
 if (fileInput && playerContainer) {
+
+  //Checks Group Members data
+  function isGroupMembersData(data) {
+    if (!Array.isArray(data) || data.length === 0) {return false;}
+
+    const first = data[0];
+    if (!first || typeof first !== "object") {return false;}
+
+    return (
+      "firstName" in first &&
+      "lastName" in first &&
+      "major" in first &&
+      "courses" in first
+    );
+  }
+
+  //Reads & Uploads File
   fileInput.addEventListener("change", function (e) {
     const reader = new FileReader();
 
@@ -921,543 +1194,262 @@ if (fileInput && playerContainer) {
     }
   });
 }
-// Drivers page
-const driversList = document.getElementById("driversList");
-const driversFileInput = document.getElementById("driversFileInput");
-const driversUploadArea = document.getElementById("driversUploadArea");
 
-function isDriversData(data) {
-  if (!Array.isArray(data) || data.length === 0) {
-    return false;
-  }
+//---Accessibility features---
+let refreshAccessibilityOptions = null;
 
-  const first = data[0];
-  if (!first || typeof first !== "object") {
-    return false;
-  }
+  //Select features
+  function initAccessibilityControls() {
+    const host = document.querySelector("footer") || document.querySelector("header");
 
-  return (
-    "name" in first &&
-    "fullName" in first &&
-    "birthDate" in first &&
-    "formerTeams" in first
-  );
-}
+    if (!host || document.getElementById("elementMenu")) {return;}
 
-function renderDriversList(drivers) {
-  if (!driversList) {
-    return;
-  }
+    const panel = document.createElement("section");
+    panel.classList.add("accessibility-controls");
 
-  while (driversList.firstChild) {
-    driversList.removeChild(driversList.firstChild);
-  }
+    const title = document.createElement("p");
+    title.classList.add("accessibility-controls__title");
+    title.textContent = "Accessibility Features";
 
-  drivers.forEach((driverData) => {
-    const driver = new Driver(driverData);
-    const section = document.createElement("section");
-    section.id = driver.id;
-    section.classList.add("driver-card");
+    const elementLabel = document.createElement("label");
+    elementLabel.setAttribute("for", "elementMenu");
+    elementLabel.textContent = "Select element:";
 
-    const link = document.createElement("a");
-    link.href = getDriverWikiUrl(driver);
-    link.target = "_blank";
-    link.rel = "noopener noreferrer";
+    const elementMenu = document.createElement("select");
+    elementMenu.id = "elementMenu";
 
-    const title = document.createElement("h2");
-    title.textContent = driver.name;
+    const styleLabel = document.createElement("label");
+    styleLabel.setAttribute("for", "styleMenu");
+    styleLabel.textContent = "Selected element:";
 
-    const row = document.createElement("div");
-    row.classList.add("driver-card__row");
+    const styleMenu = document.createElement("select");
+    styleMenu.id = "styleMenu";
 
-    const tile = document.createElement("div");
-    tile.classList.add("driver-tile");
+    styleMenu.appendChild(new Option("Text options", ""));
+    styleMenu.appendChild(new Option("Text size: small", "sizeSmall"));
+    styleMenu.appendChild(new Option("Text size: default", "sizeDefault"));
+    styleMenu.appendChild(new Option("Text size: large", "sizeLarge"));
+    styleMenu.appendChild(new Option("Text color: default", "colorDefault"));
+    styleMenu.appendChild(new Option("Text color: red", "colorRed"));
+    styleMenu.appendChild(new Option("Text color: blue", "colorBlue"));
 
-    const image = document.createElement("img");
-    image.src = driver.image;
-    image.alt = driver.name;
+    const generalLabel = document.createElement("label");
+    generalLabel.setAttribute("for", "generalMenu");
+    generalLabel.textContent = "Website accessibility:";
 
-    const bio = document.createElement("pre");
-    bio.classList.add("drivers-bio");
-    bio.textContent =
-      "Full name: " +
-      driver.fullName +
-      "\nCurrent age: " +
-      driver.age +
-      "\nBirth date: " +
-      driver.birthDate +
-      "\nPlace of birth: " +
-      driver.birthPlace +
-      "\nNationality: " +
-      driver.nationality +
-      "\nCurrent car number: " +
-      driver.number +
-      "\nWins: " +
-      driver.wins;
+    const generalMenu = document.createElement("select");
+    generalMenu.id = "generalMenu";
 
-    const formerTeamsTitle = document.createElement("h3");
-    formerTeamsTitle.classList.add("former-teams-title");
-    formerTeamsTitle.textContent = "Former teams:";
+    generalMenu.appendChild(new Option("Site options", ""));
+    generalMenu.appendChild(new Option("Site text: small", "textSmall"));
+    generalMenu.appendChild(new Option("Site text: default", "textDefault"));
+    generalMenu.appendChild(new Option("Site text: large", "textLarge"));
+    generalMenu.appendChild(new Option("Color theme: default", "themeDefault"));
+    generalMenu.appendChild(new Option("Color theme: dark", "themeDark"));
+    generalMenu.appendChild(new Option("Color theme: light", "themeLight"));
+    generalMenu.appendChild(new Option("Color theme: high contrast", "themeContrast"));
 
-    const formerTeamsList = document.createElement("ul");
-    formerTeamsList.classList.add("former-teams-list");
+    panel.appendChild(title);
+    panel.appendChild(elementLabel);
+    panel.appendChild(elementMenu);
+    panel.appendChild(styleLabel);
+    panel.appendChild(styleMenu);
+    panel.appendChild(generalLabel);
+    panel.appendChild(generalMenu);
 
-    driver.formerTeams.forEach((team) => {
-      const item = document.createElement("li");
-      item.classList.add("team-item");
-      item.textContent = team.title;
-      item.dataset.teamInfo = getTeamPreviewInfo(team);
+    host.appendChild(panel);
 
-      item.addEventListener("click", function () {
-        addPropagationStep(`target: ${team.title}`);
-      });
+    //Applies Site Theme
+    function applyTheme(theme) {
+      document.body.classList.remove(
+        "theme-dark",
+        "theme-light",
+        "theme-contrast",
+      );
 
-      formerTeamsList.appendChild(item);
-    });
-
-    let teamTooltip = document.getElementById("teamTooltip");
-    if (!teamTooltip) {
-      teamTooltip = document.createElement("div");
-      teamTooltip.id = "teamTooltip";
-      teamTooltip.classList.add("team-tooltip");
-      teamTooltip.setAttribute("role", "tooltip");
-      document.body.appendChild(teamTooltip);
-    }
-
-    formerTeamsList.addEventListener(
-      "mouseover",
-      function (event) {
-        const targetItem = event.target.closest(".team-item");
-        if (!targetItem) {
-          return;
-        }
-
-        teamTooltip.textContent = targetItem.dataset.teamInfo;
-        teamTooltip.style.left = `${event.pageX + 10}px`;
-        teamTooltip.style.top = `${event.pageY + 10}px`;
-        teamTooltip.classList.add("team-tooltip--visible");
-      },
-      true,
-    );
-
-    formerTeamsList.addEventListener("mousemove", function (event) {
-      if (teamTooltip.classList.contains("team-tooltip--visible")) {
-        teamTooltip.style.left = `${event.pageX + 10}px`;
-        teamTooltip.style.top = `${event.pageY + 10}px`;
+      if (theme === "themeDark") {
+        document.body.classList.add("theme-dark");
       }
-    });
-
-    formerTeamsList.addEventListener("mouseout", function () {
-      teamTooltip.classList.remove("team-tooltip--visible");
-    });
-
-    const propagationStatus = document.getElementById("propagationStatus");
-    let propagationSteps = [];
-
-    function resetPropagationSteps() {
-      propagationSteps = [];
+      if (theme === "themeLight") {
+        document.body.classList.add("theme-light");
+      }
+      if (theme === "themeContrast") {
+        document.body.classList.add("theme-contrast");
+      }
     }
 
-    function addPropagationStep(stepText) {
-      if (!propagationStatus) {
+    //Applies Site Textsize
+    function applySiteText(size) {
+      document.body.classList.remove("site-font-small", "site-font-large");
+
+      if (size === "textSmall") {
+        document.body.classList.add("site-font-small");
+      }
+      if (size === "textLarge") {
+        document.body.classList.add("site-font-large");
+      }
+    }
+
+    //Applies Element size & color
+    function applyOnElement(target, action) {
+      if (!target) {
         return;
       }
 
-      propagationSteps.push(stepText);
-      propagationStatus.textContent = propagationSteps.join(" -> ");
+      if (action === "sizeSmall") {
+        target.classList.remove(
+          "accessibility-size-small",
+          "accessibility-size-large",
+        );
+        target.classList.add("accessibility-size-small");
+      }
+      if (action === "sizeDefault") {
+        target.classList.remove(
+          "accessibility-size-small",
+          "accessibility-size-large",
+        );
+      }
+      if (action === "sizeLarge") {
+        target.classList.remove(
+          "accessibility-size-small",
+          "accessibility-size-large",
+        );
+        target.classList.add("accessibility-size-large");
+      }
+      if (action === "colorDefault") {
+        target.classList.remove(
+          "accessibility-color-red",
+          "accessibility-color-blue",
+        );
+      }
+      if (action === "colorRed") {
+        target.classList.remove(
+          "accessibility-color-red",
+          "accessibility-color-blue",
+        );
+        target.classList.add("accessibility-color-red");
+      }
+      if (action === "colorBlue") {
+        target.classList.remove(
+          "accessibility-color-red",
+          "accessibility-color-blue",
+        );
+        target.classList.add("accessibility-color-blue");
+      }
     }
 
-    section.addEventListener(
-      "click",
-      function () {
-        resetPropagationSteps();
-        addPropagationStep("capture: section");
-      },
-      true,
-    );
+    let elementIdCounter = 1;
+    let targetsById = new Map();
 
-    formerTeamsList.addEventListener(
-      "click",
-      function (event) {
-        if (event.target.closest(".team-item")) {
-          addPropagationStep("capture: teams list");
-        }
-      },
-      true,
-    );
-
-    formerTeamsList.addEventListener("click", function (event) {
-      if (event.target.closest(".team-item")) {
-        addPropagationStep("bubble: teams list");
+    //Checks Element ID
+    function ensureAccessibilityId(element) {
+      if (!element.dataset.accessibilityId) {
+        element.dataset.accessibilityId = `accessibility-${elementIdCounter}`;
+        elementIdCounter += 1;
       }
-    });
 
-    section.addEventListener("click", function (event) {
-      if (event.target.closest(".team-item")) {
-        addPropagationStep("bubble: section");
-      } else if (propagationStatus) {
-        addPropagationStep("bubble: section");
-      }
-    });
-
-    tile.appendChild(image);
-
-    const driverMeta = document.createElement("div");
-    driverMeta.classList.add("driver-meta");
-    driverMeta.appendChild(bio);
-    driverMeta.appendChild(formerTeamsTitle);
-    driverMeta.appendChild(formerTeamsList);
-
-    row.appendChild(tile);
-    row.appendChild(driverMeta);
-    link.appendChild(title);
-    link.appendChild(row);
-    section.appendChild(link);
-    driversList.appendChild(section);
-  });
-
-  if (typeof refreshAccessibilityOptions === "function") {
-    refreshAccessibilityOptions();
-  }
-}
-
-if (driversList && driversFileInput) {
-  driversFileInput.addEventListener("change", function (e) {
-    const selectedFile = e.target.files[0];
-    if (!selectedFile) {
-      return;
+      return element.dataset.accessibilityId;
     }
 
-    const reader = new FileReader();
+    //Names Element ID
+    function buildElementLabel(element, index) {
+      const tag = element.tagName.toLowerCase();
+      const firstClass =
+        typeof element.className === "string" ?
+          element.className.split(" ").find((name) => name.trim() !== "")
+        : "";
 
-    reader.onload = function (event) {
-      try {
-        const data = JSON.parse(event.target.result);
-        if (!isDriversData(data)) {
-          throw new Error("Please upload a valid driversData.json file.");
-        }
-
-        renderDriversList(data);
-
-        if (driversUploadArea) {
-          driversUploadArea.style.display = "none";
-        }
-      } catch (err) {
-        alert("Could not load JSON file.\n\n" + err.message);
+      if (element.id) {
+        return `${tag}#${element.id}`;
       }
+
+      if (firstClass) {
+        return `${tag}.${firstClass}`;
+      }
+
+      return `${tag} (${index + 1})`;
+    }
+
+    //Organizes Elements
+    function collectTargets() {
+      const targets = [document.body];
+      const dynamicTargets = document.querySelectorAll(
+        "header, main, footer, nav, article, section, aside",
+      );
+
+      dynamicTargets.forEach((element) => {
+        if (element !== panel && !panel.contains(element)) {
+          targets.push(element);
+        }
+      });
+
+      return targets;
+    }
+
+    //Fills Menu with Elements
+    function fillElementMenu() {
+      const previousValue = elementMenu.value;
+
+      while (elementMenu.firstChild) {
+        elementMenu.removeChild(elementMenu.firstChild);
+      }
+
+      targetsById = new Map();
+      const targets = collectTargets();
+
+      targets.forEach((element, index) => {
+        const accessibilityId = ensureAccessibilityId(element);
+        const label = buildElementLabel(element, index);
+        targetsById.set(accessibilityId, element);
+        elementMenu.appendChild(new Option(label, accessibilityId));
+      });
+
+      if (previousValue && targetsById.has(previousValue)) {
+        elementMenu.value = previousValue;
+      }
+    }
+
+    //Refills Menu with Elements
+    function refreshMenus() {
+      fillElementMenu();
+    }
+
+    refreshMenus();
+    refreshAccessibilityOptions = function () {
+      refreshMenus();
     };
 
-    reader.readAsText(selectedFile);
-  });
-}
+    applyTheme(localStorage.getItem("siteTheme") || "themeDefault");
+    applySiteText(localStorage.getItem("siteTextSize") || "textDefault");
 
-// Cars page
-const carsTableBody = document.getElementById("carsTableBody");
-
-if (carsTableBody) {
-  function createCell(value) {
-    const td = document.createElement("td");
-    td.textContent = String(value);
-    return td;
-  }
-
-  fetch("data/carsData.json")
-    .then((response) => response.json())
-    .then((cars) => {
-      while (carsTableBody.firstChild) {
-        carsTableBody.removeChild(carsTableBody.firstChild);
-      }
-
-      cars.forEach((car) => {
-        const row = document.createElement("tr");
-        row.id = car.id;
-
-        const imageCell = document.createElement("td");
-        const image = document.createElement("img");
-        image.src = car.image;
-        image.alt = car.name;
-        const imageLink = document.createElement("a");
-        imageLink.href = getCarWikiUrl(car);
-        imageLink.target = "_blank";
-        imageLink.rel = "noopener noreferrer";
-        imageLink.appendChild(image);
-        imageCell.appendChild(imageLink);
-
-        const driversCell = document.createElement("td");
-        car.drivers.forEach((driver, index) => {
-          const link = document.createElement("a");
-          link.href = `drivers.html#${driver.id}`;
-          link.textContent = driver.name;
-          driversCell.appendChild(link);
-
-          if (index < car.drivers.length - 1) {
-            driversCell.appendChild(document.createTextNode(", "));
-          }
-        });
-
-        row.appendChild(imageCell);
-        row.appendChild(createCell(car.name));
-        row.appendChild(createCell(car.notes));
-        row.appendChild(createCell(car.season));
-        row.appendChild(createCell(car.engine));
-        row.appendChild(driversCell);
-        row.appendChild(createCell(car.races));
-        row.appendChild(createCell(car.wins));
-        row.appendChild(createCell(car.poles));
-        row.appendChild(createCell(car.fastestLaps));
-        row.appendChild(createCell(car.power));
-
-        carsTableBody.appendChild(row);
-      });
-    })
-    .catch((error) => console.error(error));
-}
-
-// Accessibility features
-let refreshAccessibilityOptions = null;
-
-function initAccessibilityControls() {
-  const host =
-    document.querySelector("footer") || document.querySelector("header");
-
-  if (!host || document.getElementById("elementMenu")) {
-    return;
-  }
-
-  const panel = document.createElement("section");
-  panel.classList.add("accessibility-controls");
-
-  const title = document.createElement("p");
-  title.classList.add("accessibility-controls__title");
-  title.textContent = "Accessibility Features";
-  panel.appendChild(title);
-
-  const elementLabel = document.createElement("label");
-  elementLabel.setAttribute("for", "elementMenu");
-  elementLabel.textContent = "Select element:";
-  panel.appendChild(elementLabel);
-
-  const elementMenu = document.createElement("select");
-  elementMenu.id = "elementMenu";
-  panel.appendChild(elementMenu);
-
-  const styleLabel = document.createElement("label");
-  styleLabel.setAttribute("for", "styleMenu");
-  styleLabel.textContent = "Selected element:";
-  panel.appendChild(styleLabel);
-
-  const styleMenu = document.createElement("select");
-  styleMenu.id = "styleMenu";
-  styleMenu.appendChild(new Option("Text options", ""));
-  styleMenu.appendChild(new Option("Text size: small", "sizeSmall"));
-  styleMenu.appendChild(new Option("Text size: default", "sizeDefault"));
-  styleMenu.appendChild(new Option("Text size: large", "sizeLarge"));
-  styleMenu.appendChild(new Option("Text color: default", "colorDefault"));
-  styleMenu.appendChild(new Option("Text color: red", "colorRed"));
-  styleMenu.appendChild(new Option("Text color: blue", "colorBlue"));
-  panel.appendChild(styleMenu);
-
-  const generalLabel = document.createElement("label");
-  generalLabel.setAttribute("for", "generalMenu");
-  generalLabel.textContent = "Website accessibility:";
-  panel.appendChild(generalLabel);
-
-  const generalMenu = document.createElement("select");
-  generalMenu.id = "generalMenu";
-  generalMenu.appendChild(new Option("Site options", ""));
-  generalMenu.appendChild(new Option("Site text: small", "textSmall"));
-  generalMenu.appendChild(new Option("Site text: default", "textDefault"));
-  generalMenu.appendChild(new Option("Site text: large", "textLarge"));
-  generalMenu.appendChild(new Option("Color theme: default", "themeDefault"));
-  generalMenu.appendChild(new Option("Color theme: dark", "themeDark"));
-  generalMenu.appendChild(new Option("Color theme: light", "themeLight"));
-  generalMenu.appendChild(
-    new Option("Color theme: high contrast", "themeContrast"),
-  );
-  panel.appendChild(generalMenu);
-
-  host.appendChild(panel);
-
-  function applyTheme(theme) {
-    document.body.classList.remove(
-      "theme-dark",
-      "theme-light",
-      "theme-contrast",
-    );
-
-    if (theme === "themeDark") {
-      document.body.classList.add("theme-dark");
-    }
-    if (theme === "themeLight") {
-      document.body.classList.add("theme-light");
-    }
-    if (theme === "themeContrast") {
-      document.body.classList.add("theme-contrast");
-    }
-  }
-
-  function applySiteText(size) {
-    document.body.classList.remove("site-font-small", "site-font-large");
-
-    if (size === "textSmall") {
-      document.body.classList.add("site-font-small");
-    }
-    if (size === "textLarge") {
-      document.body.classList.add("site-font-large");
-    }
-  }
-
-  function applyOnElement(target, action) {
-    if (!target) {
-      return;
-    }
-
-    if (action === "sizeSmall") {
-      target.classList.remove(
-        "accessibility-size-small",
-        "accessibility-size-large",
-      );
-      target.classList.add("accessibility-size-small");
-    }
-    if (action === "sizeDefault") {
-      target.classList.remove(
-        "accessibility-size-small",
-        "accessibility-size-large",
-      );
-    }
-    if (action === "sizeLarge") {
-      target.classList.remove(
-        "accessibility-size-small",
-        "accessibility-size-large",
-      );
-      target.classList.add("accessibility-size-large");
-    }
-    if (action === "colorDefault") {
-      target.classList.remove(
-        "accessibility-color-red",
-        "accessibility-color-blue",
-      );
-    }
-    if (action === "colorRed") {
-      target.classList.remove(
-        "accessibility-color-red",
-        "accessibility-color-blue",
-      );
-      target.classList.add("accessibility-color-red");
-    }
-    if (action === "colorBlue") {
-      target.classList.remove(
-        "accessibility-color-red",
-        "accessibility-color-blue",
-      );
-      target.classList.add("accessibility-color-blue");
-    }
-  }
-
-  let elementIdCounter = 1;
-  let targetsById = new Map();
-
-  function ensureAccessibilityId(element) {
-    if (!element.dataset.accessibilityId) {
-      element.dataset.accessibilityId = `accessibility-${elementIdCounter}`;
-      elementIdCounter += 1;
-    }
-
-    return element.dataset.accessibilityId;
-  }
-
-  function buildElementLabel(element, index) {
-    const tag = element.tagName.toLowerCase();
-    const firstClass =
-      typeof element.className === "string" ?
-        element.className.split(" ").find((name) => name.trim() !== "")
-      : "";
-
-    if (element.id) {
-      return `${tag}#${element.id}`;
-    }
-
-    if (firstClass) {
-      return `${tag}.${firstClass}`;
-    }
-
-    return `${tag} (${index + 1})`;
-  }
-
-  function collectTargets() {
-    const targets = [document.body];
-    const dynamicTargets = document.querySelectorAll(
-      "header, main, footer, nav, article, section, aside",
-    );
-
-    dynamicTargets.forEach((element) => {
-      if (element !== panel && !panel.contains(element)) {
-        targets.push(element);
-      }
+    //Selecting element applications
+    styleMenu.addEventListener("change", function () {
+      const target = targetsById.get(elementMenu.value) || document.body;
+      applyOnElement(target, styleMenu.value);
+      styleMenu.value = "";
     });
 
-    return targets;
-  }
+    //Selecting site applications
+    generalMenu.addEventListener("change", function () {
+      const action = generalMenu.value;
 
-  function fillElementMenu() {
-    const previousValue = elementMenu.value;
+      if (action.startsWith("theme")) {
+        applyTheme(action);
+        localStorage.setItem("siteTheme", action);
+      }
 
-    while (elementMenu.firstChild) {
-      elementMenu.removeChild(elementMenu.firstChild);
-    }
+      if (action.startsWith("text")) {
+        applySiteText(action);
+        localStorage.setItem("siteTextSize", action);
+      }
 
-    targetsById = new Map();
-    const targets = collectTargets();
-
-    targets.forEach((element, index) => {
-      const accessibilityId = ensureAccessibilityId(element);
-      const label = buildElementLabel(element, index);
-      targetsById.set(accessibilityId, element);
-      elementMenu.appendChild(new Option(label, accessibilityId));
+      generalMenu.value = "";
     });
-
-    if (previousValue && targetsById.has(previousValue)) {
-      elementMenu.value = previousValue;
-    }
   }
 
-  function refreshMenus() {
-    fillElementMenu();
+  //Selecting features
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initAccessibilityControls);
+  } else {
+    initAccessibilityControls();
   }
-
-  refreshMenus();
-  refreshAccessibilityOptions = function () {
-    refreshMenus();
-  };
-
-  applyTheme(localStorage.getItem("siteTheme") || "themeDefault");
-  applySiteText(localStorage.getItem("siteTextSize") || "textDefault");
-
-  styleMenu.addEventListener("change", function () {
-    const target = targetsById.get(elementMenu.value) || document.body;
-    applyOnElement(target, styleMenu.value);
-    styleMenu.value = "";
-  });
-
-  generalMenu.addEventListener("change", function () {
-    const action = generalMenu.value;
-
-    if (action.startsWith("theme")) {
-      applyTheme(action);
-      localStorage.setItem("siteTheme", action);
-    }
-
-    if (action.startsWith("text")) {
-      applySiteText(action);
-      localStorage.setItem("siteTextSize", action);
-    }
-
-    generalMenu.value = "";
-  });
-}
-
-if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", initAccessibilityControls);
-} else {
-  initAccessibilityControls();
-}
