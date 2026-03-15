@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Statistics Ferrari</title>
+    <link rel="icon" type="Image/png" href="assets/images/FerrariLogo.png" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="canonical" href="statistics.html" />
+  </head>
+  <body>
+    <header>
+      <div class="site-header__bar">
+        <a href="../../index.html">
+          <h1>Ferrari</h1>
+        </a>
+        <img
+          id="Ferrari"
+          src="assets/images/Ferrari.png"
+          alt="Ferrari logo" />
+      </div>
+
+      <nav class="site-nav">
+        <a class="site-nav__link" href="index.html">Home</a>
+        <a class="site-nav__link" href="drivers.html">Drivers</a>
+        <a class="site-nav__link" href="teamprofile.html">Team Profile</a>
+        <a class="site-nav__link" href="statistics.html" style="color: #045C16" aria-current="page">Statistics</a>
+        <a class="site-nav__link" href="cars.html">Cars</a>
+        <a class="site-nav__link" href="teams.html">Teams</a>
+      </nav>
+
+      <div class="slider-container">
+        <input id="slider-car" type="range" min="0" max="100" value="0" />
+        <img
+          id="slider-img"
+          src="assets/images/Ferrari_car.png"
+          alt="Ferrari car" />
+      </div>
+    </header>
+
+    <main>
+      <div class="stats__controls">
+        <label for="yearSelect">Year: </label>
+        <select id="yearSelect" class="stats__select">
+          <option value="2005">2005</option>
+          <option value="2006">2006</option>
+          <option value="2007">2007</option>
+          <option value="2008">2008</option>
+          <option value="2009">2009</option>
+          <option value="2010">2010</option>
+          <option value="2011">2011</option>
+          <option value="2012">2012</option>
+          <option value="2013">2013</option>
+          <option value="2014">2014</option>
+          <option value="2015">2015</option>
+          <option value="2016">2016</option>
+          <option value="2017">2017</option>
+          <option value="2018">2018</option>
+          <option value="2019">2019</option>
+          <option value="2020">2020</option>
+          <option value="2021">2021</option>
+          <option value="2022">2022</option>
+          <option value="2023">2023</option>
+          <option value="2024">2024</option>
+          <option value="2025" selected>2025</option>
+        </select>
+      </div>
+
+      <div class="content-row">
+        <section id="Cars">
+          <h2>Car</h2>
+          <div id="carType"></div>
+        </section>
+
+        <aside id="Drivers" display="flex">
+          <h2>Drivers</h2>
+          <div id="DriversPic" class="stats__drivers"></div>
+        </aside>
+
+        <section id="TeamsShortcut">
+          <h2>Team</h2>
+          <a
+            id="teamsYearLink"
+            class="stats-team-link"
+            href="teams.html?year=2025">
+            <img src="assets/images/FerrariLogo.png" alt="Go to teams page" />
+            <span>Open Teams Page</span>
+          </a>
+        </section>
+      </div>
+
+      <div class="stats-races">
+        <section id="Races">
+          <h2>Races</h2>
+          <table class="stats-races--table">
+            <tbody id="raceData"></tbody>
+          </table>
+        </section>
+      </div>
+    </main>
+
+    <footer>
+      <a id="about" href="../../About.html">About</a> Author: Benjamin, Darryl,
+      Tijn<br />
+      Disclaimer: Information on this website is not guaranteed to be
+      correct.<br />
+      © 2026 Ferrari F1 Team<br />
+    </footer>
+
+    <script src="assets/js/script.js"></script>
+  </body>
+</html>
