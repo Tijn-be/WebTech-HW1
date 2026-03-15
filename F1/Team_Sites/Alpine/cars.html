@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cars Alpine</title>
+    <link rel="icon" type="Image/png" href="assets/images/AlpineLogo.png" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="canonical" href="cars.html" />
+  </head>
+  <body>
+    <header>
+      <div class="site-header__bar">
+        <a href="../../index.html">
+          <h1>Alpine</h1>
+        </a>
+        <img
+          id="Alpine"
+          src="assets/images/Alpine.png"
+          alt="Alpine logo" />
+      </div>
+
+      <nav class="site-nav" aria-label="Main navigation">
+        <a class="site-nav__link" href="index.html">Home</a>
+        <a class="site-nav__link" href="drivers.html">Drivers</a>
+        <a class="site-nav__link" href="teamprofile.html">Team Profile</a>
+        <a class="site-nav__link" href="statistics.html">Statistics</a>
+        <a class="site-nav__link" href="cars.html" style="color: #EF7BB6" aria-current="page">Cars</a>
+        <a class="site-nav__link" href="teams.html">Teams</a>
+      </nav>
+
+      <div class="slider-container">
+        <input id="slider-car" type="range" min="0" max="100" value="0" />
+        <img
+          id="slider-img"
+          src="assets/images/Alpine_car.png"
+          alt="Alpine car" />
+      </div>
+    </header>
+
+    <main>
+      <section id="CarTable" aria-labelledby="cars-title">
+        <h2 id="cars-title">Cars</h2>
+
+        <div class="cars-table--container">
+          <table class="cars-table">
+            <thead>
+              <tr>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Notes</th>
+                <th>Season</th>
+                <th>Engine</th>
+                <th>Drivers</th>
+                <th>Races</th>
+                <th>Wins</th>
+                <th>Poles</th>
+                <th>Fastest Laps</th>
+                <th>Power</th>
+              </tr>
+            </thead>
+            <tbody id="carsTableBody"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <a id="about" href="../../About.html">About</a> Author: Benjamin, Darryl,
+      Tijn<br />
+      Disclaimer: Information on this website is not guaranteed to be
+      correct.<br />
+      © 2026 Alpine F1 Team<br />
+    </footer>
+
+    <script src="assets/js/script.js"></script>
+  </body>
+</html>

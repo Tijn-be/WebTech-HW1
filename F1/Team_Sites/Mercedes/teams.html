@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Teams Mercedes</title>
+    <link rel="icon" type="Image/png" href="assets/images/MercedesLogo.png" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="canonical" href="teams.html" />
+  </head>
+  <body>
+    <header>
+      <div class="site-header__bar">
+        <a href="../../index.html">
+          <h1>Mercedes</h1>
+        </a>
+        <img
+          id="Mercedes"
+          src="assets/images/Mercedes.png"
+          alt="Mercedes logo" />
+      </div>
+
+      <nav class="site-nav" aria-label="Main navigation">
+        <a class="site-nav__link" href="index.html">Home</a>
+        <a class="site-nav__link" href="drivers.html">Drivers</a>
+        <a class="site-nav__link" href="teamprofile.html">Team Profile</a>
+        <a class="site-nav__link" href="statistics.html">Statistics</a>
+        <a class="site-nav__link" href="cars.html">Cars</a>
+        <a class="site-nav__link" href="teams.html" style="color: #484646" aria-current="page">Teams</a>
+      </nav>
+
+      <div class="slider-container">
+        <input id="slider-car" type="range" min="0" max="100" value="0" />
+        <img
+          id="slider-img"
+          src="assets/images/Mercedes_car.png"
+          alt="Mercedes car" />
+      </div>
+    </header>
+
+    <main>
+      <div class="stats__controls">
+        <label for="teamYearSelect">Year: </label>
+        <select id="teamYearSelect" class="stats__select"></select>
+      </div>
+
+      <section id="TeamOverview" aria-labelledby="teamYearTitle">
+        <h2 id="teamYearTitle">Team Overview</h2>
+        <p id="teamSummaryText"></p>
+        <ul id="teamSummaryList"></ul>
+      </section>
+
+      <section id="TeamMembersYear" aria-labelledby="team-members-title">
+        <h2 id="team-members-title">Team Members</h2>
+        <div id="teamDrivers" class="stats__drivers" aria-live="polite"></div>
+      </section>
+    </main>
+
+    <footer>
+      <a id="about" href="../../About.html">About</a> Author: Benjamin, Darryl,
+      Tijn<br />
+      Disclaimer: Information on this website is not guaranteed to be
+      correct.<br />
+      © 2026 Mercedes F1 Team<br />
+    </footer>
+
+    <script src="assets/js/script.js"></script>
+  </body>
+</html>
