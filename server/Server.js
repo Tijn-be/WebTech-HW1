@@ -3,7 +3,7 @@ const fs = require("fs");
 const path = require("path");
 
 const port = 8004;
-const baseDir = path.join(__dirname, "..");
+const baseDir = path.join(__dirname, "..", "F1");
 
 http.createServer((req, res) => {
 
