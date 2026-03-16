@@ -1,12 +1,38 @@
 const http = require("http");
 const fs = require("fs");
 const path = require("path");
+const sqlite3 = require('sqlite3').verbose();
 
 const port = 8004;
 const baseDir = path.join(__dirname, "..", "F1");
 
+const db = new sqlite3.Database('./users.db');
+
 http.createServer((req, res) => {
 
+    //Password
+    if (req.method === 'POST' && req.url === '/login') {
+        let body = '';
+        req.on('data', chunk => { body += chunk.toString(); });
+        req.on('end', () => {
+            const { username, password } = JSON.parse(body);
+
+            const query = `SELECT * FROM users WHERE username = ? AND password = ?`;
+            db.get(query, [username, password], (err, row) => {
+              res.writeHead(200, { "Content-Type": "application/json" });
+                if (err) {
+                    res.end(JSON.stringify({ success: false, message: "Database error" }));
+                } else if (row) {
+                    res.end(JSON.stringify({ success: true, user: row.username }));
+                } else {
+                    res.end(JSON.stringify({ success: false, message: "Wrong username or password" }));
+                }
+            });
+        });
+        return;
+    }
+
+    //Server
     let filePath = req.url === "/" ? "/index.html" : req.url;
     let fullPath = path.join(baseDir, filePath);
 
@@ -26,6 +52,12 @@ http.createServer((req, res) => {
         res.writeHead(200, { "Content-Type": contentType });
         res.end(data);
     });
-}).listen(port, "0.0.0.0");
+}).listen(port, "0.0.0.0", () => {
+    console.log(`Server draait op poort ${port}`);
+});
 
-console.log(`Server draait op poort ${port}`);
+//Makes db
+db.serialize(() => {
+    db.run("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, username TEXT, password TEXT)");
+    db.run("INSERT INTO users (username, password) VALUES ('admin', 'dolfijn123')");
+});
