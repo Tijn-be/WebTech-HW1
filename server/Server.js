@@ -36,6 +36,10 @@ http.createServer((req, res) => {
     let filePath = req.url === "/" ? "/index.html" : req.url;
     let fullPath = path.join(baseDir, filePath);
 
+    res.setHeader("Access-Control-Allow-Origin", "*"); 
+    res.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+
     fs.readFile(fullPath, (err, data) => {
         if (err) {
             res.writeHead(404);

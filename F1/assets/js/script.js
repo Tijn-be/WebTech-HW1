@@ -13,9 +13,7 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
     return;
   }
 
-  const url = `${window.location.origin}/login`;
-
-  fetch(url, {
+  fetch('http://webtech.science.uu.nl:8004/login', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ username: username, password: password })
@@ -26,7 +24,6 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
     }
     return response.json();
   })
-  .then(response => response.json())
   .then(data => {
     if (data.success) {
       document.getElementById('logInBox').style.display = 'none';
