@@ -13,10 +13,18 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
     return;
   }
 
-  fetch('/login', {
+  const url = `${window.location.origin}/login`;
+
+  fetch(url, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ username: username, password: password })
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(`Server reageerde met status ${response.status}`);
+    }
+    return response.json();
   })
   .then(response => response.json())
   .then(data => {
