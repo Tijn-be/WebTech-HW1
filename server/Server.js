@@ -58,6 +58,6 @@ http.createServer((req, res) => {
 
 //Makes db
 db.serialize(() => {
-    db.run("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, username TEXT, password TEXT)");
-    db.run("INSERT INTO users (username, password) VALUES ('admin', 'dolfijn123')");
+    db.run("CREATE TABLE IF NOT EXISTS users (username TEXT UNIQUE, password TEXT)");
+    db.run("INSERT OR IGNORE INTO users (username, password) VALUES ('admin', 'dolfijn123')");
 });

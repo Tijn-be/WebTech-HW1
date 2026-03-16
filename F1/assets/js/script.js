@@ -1,38 +1,38 @@
 //---Login---
 document.getElementById('loginForm').addEventListener('submit', function(event) {
-    event.preventDefault();
+  event.preventDefault();
 
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
-    const errorDisplay = document.getElementById('error-message');
+  const username = document.getElementById('username').value;
+  const password = document.getElementById('password').value;
+  const errorDisplay = document.getElementById('error-message');
 
-    if (password.length < 6) {
+  if (password.length < 6) {
+    errorDisplay.style.display = 'block';
+    errorDisplay.innerText = "Password too short!";
+    document.getElementById('password').style.borderColor = 'red';
+    return;
+  }
+
+  fetch('http://webtech.science.uu.nl:8004/login', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ username: username, password: password })
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (data.success) {
+      document.getElementById('logInBox').style.display = 'none';
+      document.getElementById('userDisplayName').innerText = data.user;
+      document.getElementById('logOutBox').style.display = 'block';
+    } else {
+      errorDisplay.innerText = data.message;
       errorDisplay.style.display = 'block';
-      errorDisplay.innerText = "Password too short!";
-      document.getElementById('password').style.borderColor = 'red';
-      return;
     }
-
-    fetch('/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username: username, password: password })
-    })
-    .then(response => response.json())
-    .then(data => {
-      if (data.success) {
-        document.getElementById('loginBox').style.display = 'none';
-        document.getElementById('userDisplayName').innerText = data.user;
-        document.getElementById('logOutBox').style.display = 'block';
-      } else {
-        errorDisplay.innerText = data.message;
-        errorDisplay.style.display = 'block';
-      }
-    })
-    .catch(err => {
-      console.error("Server unavailable:", err);
-    });
+  })
+  .catch(err => {
+    console.error("Server unavailable:", err);
   });
+});
 
 //---Classes---
 class Person {
