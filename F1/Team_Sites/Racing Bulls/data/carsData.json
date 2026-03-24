@@ -7,9 +7,18 @@
     "season": 2005,
     "engine": "Cosworth TJ2005 V10",
     "drivers": [
-      { "id": "David-Coulthard", "name": "David Coulthard" },
-      { "id": "Christian-Klien", "name": "Christian Klien" },
-      { "id": "Vitantonio-Liuzzi", "name": "Vitantonio Liuzzi" }
+      {
+        "id": "David-Coulthard",
+        "name": "David Coulthard"
+      },
+      {
+        "id": "Christian-Klien",
+        "name": "Christian Klien"
+      },
+      {
+        "id": "Vitantonio-Liuzzi",
+        "name": "Vitantonio Liuzzi"
+      }
     ],
     "races": 19,
     "wins": 0,
@@ -25,9 +34,18 @@
     "season": 2006,
     "engine": "Ferrari 056 V8",
     "drivers": [
-      { "id": "David-Coulthard", "name": "David Coulthard" },
-      { "id": "Christian-Klien", "name": "Christian Klien" },
-      { "id": "Robert-Doornbos", "name": "Robert Doornbos" }
+      {
+        "id": "David-Coulthard",
+        "name": "David Coulthard"
+      },
+      {
+        "id": "Christian-Klien",
+        "name": "Christian Klien"
+      },
+      {
+        "id": "Robert-Doornbos",
+        "name": "Robert Doornbos"
+      }
     ],
     "races": 18,
     "wins": 0,
@@ -43,8 +61,14 @@
     "season": 2007,
     "engine": "Renault RS27 V8",
     "drivers": [
-      { "id": "David-Coulthard", "name": "David Coulthard" },
-      { "id": "Mark-Webber", "name": "Mark Webber" }
+      {
+        "id": "David-Coulthard",
+        "name": "David Coulthard"
+      },
+      {
+        "id": "Mark-Webber",
+        "name": "Mark Webber"
+      }
     ],
     "races": 17,
     "wins": 0,
@@ -60,8 +84,14 @@
     "season": 2008,
     "engine": "Renault RS27 V8",
     "drivers": [
-      { "id": "David-Coulthard", "name": "David Coulthard" },
-      { "id": "Mark-Webber", "name": "Mark Webber" }
+      {
+        "id": "David-Coulthard",
+        "name": "David Coulthard"
+      },
+      {
+        "id": "Mark-Webber",
+        "name": "Mark Webber"
+      }
     ],
     "races": 18,
     "wins": 0,
@@ -77,8 +107,14 @@
     "season": 2009,
     "engine": "Renault RS27 V8",
     "drivers": [
-      { "id": "Sebastian-Vettel", "name": "Sebastian Vettel" },
-      { "id": "Mark-Webber", "name": "Mark Webber" }
+      {
+        "id": "Sebastian-Vettel",
+        "name": "Sebastian Vettel"
+      },
+      {
+        "id": "Mark-Webber",
+        "name": "Mark Webber"
+      }
     ],
     "races": 17,
     "wins": 6,
@@ -94,8 +130,14 @@
     "season": 2010,
     "engine": "Renault RS27 V8",
     "drivers": [
-      { "id": "Sebastian-Vettel", "name": "Sebastian Vettel" },
-      { "id": "Mark-Webber", "name": "Mark Webber" }
+      {
+        "id": "Sebastian-Vettel",
+        "name": "Sebastian Vettel"
+      },
+      {
+        "id": "Mark-Webber",
+        "name": "Mark Webber"
+      }
     ],
     "races": 19,
     "wins": 9,
@@ -111,8 +153,14 @@
     "season": 2011,
     "engine": "Renault RS27-2011 V8",
     "drivers": [
-      { "id": "Sebastian-Vettel", "name": "Sebastian Vettel" },
-      { "id": "Mark-Webber", "name": "Mark Webber" }
+      {
+        "id": "Sebastian-Vettel",
+        "name": "Sebastian Vettel"
+      },
+      {
+        "id": "Mark-Webber",
+        "name": "Mark Webber"
+      }
     ],
     "races": 19,
     "wins": 12,
@@ -128,8 +176,14 @@
     "season": 2012,
     "engine": "Renault RS27-2012 V8",
     "drivers": [
-      { "id": "Sebastian-Vettel", "name": "Sebastian Vettel" },
-      { "id": "Mark-Webber", "name": "Mark Webber" }
+      {
+        "id": "Sebastian-Vettel",
+        "name": "Sebastian Vettel"
+      },
+      {
+        "id": "Mark-Webber",
+        "name": "Mark Webber"
+      }
     ],
     "races": 20,
     "wins": 7,
@@ -145,8 +199,14 @@
     "season": 2013,
     "engine": "Renault RS27-2013 V8",
     "drivers": [
-      { "id": "Sebastian-Vettel", "name": "Sebastian Vettel" },
-      { "id": "Mark-Webber", "name": "Mark Webber" }
+      {
+        "id": "Sebastian-Vettel",
+        "name": "Sebastian Vettel"
+      },
+      {
+        "id": "Mark-Webber",
+        "name": "Mark Webber"
+      }
     ],
     "races": 19,
     "wins": 13,
@@ -162,8 +222,14 @@
     "season": 2014,
     "engine": "Renault Energy F1-2014 V6 Hybrid",
     "drivers": [
-      { "id": "Sebastian-Vettel", "name": "Sebastian Vettel" },
-      { "id": "Daniel-Ricciardo", "name": "Daniel Ricciardo" }
+      {
+        "id": "Sebastian-Vettel",
+        "name": "Sebastian Vettel"
+      },
+      {
+        "id": "Daniel-Ricciardo",
+        "name": "Daniel Ricciardo"
+      }
     ],
     "races": 19,
     "wins": 3,
@@ -179,8 +245,14 @@
     "season": 2015,
     "engine": "Renault Energy F1-2015 V6 Hybrid (TAG Heuer)",
     "drivers": [
-      { "id": "Daniel-Ricciardo", "name": "Daniel Ricciardo" },
-      { "id": "Daniil-Kvyat", "name": "Daniil Kvyat" }
+      {
+        "id": "Daniel-Ricciardo",
+        "name": "Daniel Ricciardo"
+      },
+      {
+        "id": "Daniil-Kvyat",
+        "name": "Daniil Kvyat"
+      }
     ],
     "races": 19,
     "wins": 0,
@@ -196,9 +268,18 @@
     "season": 2016,
     "engine": "Renault R.E.16 V6 Hybrid (TAG Heuer)",
     "drivers": [
-      { "id": "Daniel-Ricciardo", "name": "Daniel Ricciardo" },
-      { "id": "Daniil-Kvyat", "name": "Daniil Kvyat" },
-      { "id": "Max-Verstappen", "name": "Max Verstappen" }
+      {
+        "id": "Daniel-Ricciardo",
+        "name": "Daniel Ricciardo"
+      },
+      {
+        "id": "Daniil-Kvyat",
+        "name": "Daniil Kvyat"
+      },
+      {
+        "id": "Max-Verstappen",
+        "name": "Max Verstappen"
+      }
     ],
     "races": 21,
     "wins": 2,
@@ -214,8 +295,14 @@
     "season": 2017,
     "engine": "Renault R.E.17 V6 Hybrid (TAG Heuer)",
     "drivers": [
-      { "id": "Daniel-Ricciardo", "name": "Daniel Ricciardo" },
-      { "id": "Max-Verstappen", "name": "Max Verstappen" }
+      {
+        "id": "Daniel-Ricciardo",
+        "name": "Daniel Ricciardo"
+      },
+      {
+        "id": "Max-Verstappen",
+        "name": "Max Verstappen"
+      }
     ],
     "races": 20,
     "wins": 3,
@@ -231,8 +318,14 @@
     "season": 2018,
     "engine": "Renault R.E.18 V6 Hybrid (TAG Heuer)",
     "drivers": [
-      { "id": "Daniel-Ricciardo", "name": "Daniel Ricciardo" },
-      { "id": "Max-Verstappen", "name": "Max Verstappen" }
+      {
+        "id": "Daniel-Ricciardo",
+        "name": "Daniel Ricciardo"
+      },
+      {
+        "id": "Max-Verstappen",
+        "name": "Max Verstappen"
+      }
     ],
     "races": 21,
     "wins": 4,
@@ -248,9 +341,18 @@
     "season": 2019,
     "engine": "Honda RA619H V6 Hybrid",
     "drivers": [
-      { "id": "Max-Verstappen", "name": "Max Verstappen" },
-      { "id": "Pierre-Gasly", "name": "Pierre Gasly" },
-      { "id": "Alexander-Albon", "name": "Alexander Albon" }
+      {
+        "id": "Max-Verstappen",
+        "name": "Max Verstappen"
+      },
+      {
+        "id": "Pierre-Gasly",
+        "name": "Pierre Gasly"
+      },
+      {
+        "id": "Alexander-Albon",
+        "name": "Alexander Albon"
+      }
     ],
     "races": 21,
     "wins": 3,
@@ -266,8 +368,14 @@
     "season": 2020,
     "engine": "Honda RA620H V6 Hybrid",
     "drivers": [
-      { "id": "Max-Verstappen", "name": "Max Verstappen" },
-      { "id": "Alexander-Albon", "name": "Alexander Albon" }
+      {
+        "id": "Max-Verstappen",
+        "name": "Max Verstappen"
+      },
+      {
+        "id": "Alexander-Albon",
+        "name": "Alexander Albon"
+      }
     ],
     "races": 17,
     "wins": 2,
@@ -283,8 +391,14 @@
     "season": 2021,
     "engine": "Honda RA621H V6 Hybrid",
     "drivers": [
-      { "id": "Max-Verstappen", "name": "Max Verstappen" },
-      { "id": "Sergio-Perez", "name": "Sergio Perez" }
+      {
+        "id": "Max-Verstappen",
+        "name": "Max Verstappen"
+      },
+      {
+        "id": "Sergio-Perez",
+        "name": "Sergio Perez"
+      }
     ],
     "races": 22,
     "wins": 11,
@@ -300,8 +414,14 @@
     "season": 2022,
     "engine": "Red Bull Powertrains / Honda RBPT V6 Hybrid",
     "drivers": [
-      { "id": "Max-Verstappen", "name": "Max Verstappen" },
-      { "id": "Sergio-Perez", "name": "Sergio Perez" }
+      {
+        "id": "Max-Verstappen",
+        "name": "Max Verstappen"
+      },
+      {
+        "id": "Sergio-Perez",
+        "name": "Sergio Perez"
+      }
     ],
     "races": 22,
     "wins": 17,
@@ -317,8 +437,14 @@
     "season": 2023,
     "engine": "Red Bull Powertrains / Honda RBPT V6 Hybrid",
     "drivers": [
-      { "id": "Max-Verstappen", "name": "Max Verstappen" },
-      { "id": "Sergio-Perez", "name": "Sergio Perez" }
+      {
+        "id": "Max-Verstappen",
+        "name": "Max Verstappen"
+      },
+      {
+        "id": "Sergio-Perez",
+        "name": "Sergio Perez"
+      }
     ],
     "races": 22,
     "wins": 21,
@@ -328,14 +454,20 @@
   },
   {
     "id": "RB20",
-    "image": "assets/images/cars/2024-RB20.jpg",
+    "image": "assets/images/cars/2024-VCARB01.jpg",
     "name": "Red Bull RB20",
     "notes": "Evolution of modern Red Bull ground-effect concept.",
     "season": 2024,
     "engine": "Red Bull Powertrains / Honda RBPT V6 Hybrid",
     "drivers": [
-      { "id": "Max-Verstappen", "name": "Max Verstappen" },
-      { "id": "Sergio-Perez", "name": "Sergio Perez" }
+      {
+        "id": "Max-Verstappen",
+        "name": "Max Verstappen"
+      },
+      {
+        "id": "Sergio-Perez",
+        "name": "Sergio Perez"
+      }
     ],
     "races": 24,
     "wins": 9,
@@ -345,15 +477,24 @@
   },
   {
     "id": "RB21",
-    "image": "assets/images/cars/2025-RB21.jpg",
+    "image": "assets/images/cars/2025-VCARB02.jpg",
     "name": "Red Bull RB21",
     "notes": "2025 season chassis continuing the RBPT/Honda era direction.",
     "season": 2025,
     "engine": "Red Bull Powertrains / Honda RBPT V6 Hybrid",
     "drivers": [
-      { "id": "Max-Verstappen", "name": "Max Verstappen" },
-      { "id": "Liam-Lawson", "name": "Liam Lawson" },
-      { "id": "Yuki-Tsunoda", "name": "Yuki Tsunoda" }
+      {
+        "id": "Max-Verstappen",
+        "name": "Max Verstappen"
+      },
+      {
+        "id": "Liam-Lawson",
+        "name": "Liam Lawson"
+      },
+      {
+        "id": "Yuki-Tsunoda",
+        "name": "Yuki Tsunoda"
+      }
     ],
     "races": 24,
     "wins": 0,

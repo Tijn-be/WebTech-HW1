@@ -521,13 +521,12 @@ const driversFileInput = document.getElementById("driversFileInput");
 const driversUploadArea = document.getElementById("driversUploadArea");
 
 if (driversList && driversFileInput && driversUploadArea) {
-
   //Uploads Drivers Data
   async function uploadDriversData() {
     try {
       const response = await fetch("data/driversData.json");
       if (!response.ok) throw new Error("Couldn't find file");
-      
+
       const data = await response.json();
 
       if (isDriversData(data)) {
@@ -535,16 +534,20 @@ if (driversList && driversFileInput && driversUploadArea) {
         driversUploadArea.style.display = "none";
       }
     } catch (err) {
-      console.warn("Could not load JSON file.\n\n" + err.messageS);
+      console.warn("Could not load JSON file.\n\n" + err.message);
     }
   }
 
   //Checks Drivers data
   function isDriversData(data) {
-    if (!Array.isArray(data) || data.length === 0) {return false;}
+    if (!Array.isArray(data) || data.length === 0) {
+      return false;
+    }
 
     const first = data[0];
-    if (!first || typeof first !== "object") {return false;}
+    if (!first || typeof first !== "object") {
+      return false;
+    }
 
     return (
       "name" in first &&
@@ -556,7 +559,9 @@ if (driversList && driversFileInput && driversUploadArea) {
 
   //Updates Drivers content
   function renderDriversList(drivers) {
-    if (!driversList) {return;}
+    if (!driversList) {
+      return;
+    }
 
     while (driversList.firstChild) {
       driversList.removeChild(driversList.firstChild);
@@ -637,7 +642,9 @@ if (driversList && driversFileInput && driversUploadArea) {
         "mouseover",
         function (event) {
           const targetItem = event.target.closest(".team-item");
-          if (!targetItem) {return;}
+          if (!targetItem) {
+            return;
+          }
 
           teamTooltip.textContent = targetItem.dataset.teamInfo;
           teamTooltip.style.left = `${event.pageX + 10}px`;
@@ -666,7 +673,9 @@ if (driversList && driversFileInput && driversUploadArea) {
       }
 
       function addPropagationStep(stepText) {
-        if (!propagationStatus) {return;}
+        if (!propagationStatus) {
+          return;
+        }
 
         propagationSteps.push(stepText);
         propagationStatus.textContent = propagationSteps.join(" -> ");
@@ -729,7 +738,9 @@ if (driversList && driversFileInput && driversUploadArea) {
   //Reads & Uploads File
   driversFileInput.addEventListener("change", function (e) {
     const selectedFile = e.target.files[0];
-    if (!selectedFile) {return;}
+    if (!selectedFile) {
+      return;
+    }
 
     const reader = new FileReader();
 
@@ -743,8 +754,7 @@ if (driversList && driversFileInput && driversUploadArea) {
         renderDriversList(data);
 
         driversUploadArea.style.display = "none";
-      } 
-      catch (err) {
+      } catch (err) {
         alert("Could not load JSON file.\n\n" + err.message);
       }
     };
@@ -762,7 +772,13 @@ const tableBody = document.getElementById("raceData");
 const driverContainer = document.getElementById("DriversPic");
 const teamsYearLink = document.getElementById("teamsYearLink");
 
-if (yearSelect && CarContainer && tableBody && driverContainer && teamsYearLink) {
+if (
+  yearSelect &&
+  CarContainer &&
+  tableBody &&
+  driverContainer &&
+  teamsYearLink
+) {
   let raceResults = {};
 
   //Uploads raceResults
@@ -906,7 +922,6 @@ if (yearSelect && CarContainer && tableBody && driverContainer && teamsYearLink)
 const carsTableBody = document.getElementById("carsTableBody");
 
 if (carsTableBody) {
-
   //Adds table content
   function createCell(value) {
     const td = document.createElement("td");
@@ -916,8 +931,9 @@ if (carsTableBody) {
 
   //Uploads table content
   fetch("data/carsData.json")
-    .then((response) => response.json())          //Reads file
-    .then((cars) => {                             //Creates table
+    .then((response) => response.json()) //Reads file
+    .then((cars) => {
+      //Creates table
       while (carsTableBody.firstChild) {
         carsTableBody.removeChild(carsTableBody.firstChild);
       }
@@ -927,7 +943,7 @@ if (carsTableBody) {
         row.id = car.id;
 
         const imageCell = document.createElement("td");
-        
+
         const imageLink = document.createElement("a");
         imageLink.href = getCarWikiUrl(car);
         imageLink.target = "_blank";
@@ -967,7 +983,7 @@ if (carsTableBody) {
         carsTableBody.appendChild(row);
       });
     })
-    .catch((error) => console.error(error));      //Results error
+    .catch((error) => console.error(error)); //Results error
 }
 
 //---Teams page---
@@ -977,7 +993,13 @@ const teamSummaryText = document.getElementById("teamSummaryText");
 const teamSummaryList = document.getElementById("teamSummaryList");
 const teamYearTitle = document.getElementById("teamYearTitle");
 
-if (teamYearSelect && teamDrivers && teamSummaryText && teamSummaryList && teamYearTitle) {
+if (
+  teamYearSelect &&
+  teamDrivers &&
+  teamSummaryText &&
+  teamSummaryList &&
+  teamYearTitle
+) {
   let teamRaceData = {};
 
   //Empties node
@@ -1004,7 +1026,7 @@ if (teamYearSelect && teamDrivers && teamSummaryText && teamSummaryList && teamY
 
     drivers.forEach((driver) => {
       const card = document.createElement("div");
-      
+
       const link = document.createElement("a");
       link.href = getDriverWikiUrl(driver);
       link.target = "_blank";
@@ -1034,8 +1056,14 @@ if (teamYearSelect && teamDrivers && teamSummaryText && teamSummaryList && teamY
 
     const races = Array.isArray(data.races) ? data.races : [];
     const drivers = Array.isArray(data.drivers) ? data.drivers : [];
-    const firstResults =races.length > 0 && Array.isArray(races[0].results) ? races[0].results : [];
-    const raceWeekends = firstResults.length > 0 ? firstResults.filter((result) => result.GP).length : 0;
+    const firstResults =
+      races.length > 0 && Array.isArray(races[0].results) ?
+        races[0].results
+      : [];
+    const raceWeekends =
+      firstResults.length > 0 ?
+        firstResults.filter((result) => result.GP).length
+      : 0;
 
     let teamWins = 0;
     let teamPodiums = 0;
@@ -1050,7 +1078,9 @@ if (teamYearSelect && teamDrivers && teamSummaryText && teamSummaryList && teamY
 
       results.forEach((result) => {
         const place = parsePlace(result.Place);
-        if (place === null) {return;}
+        if (place === null) {
+          return;
+        }
 
         starts += 1;
 
@@ -1104,8 +1134,9 @@ if (teamYearSelect && teamDrivers && teamSummaryText && teamSummaryList && teamY
 
   //Uploads page content
   fetch("data/raceData.json")
-    .then((response) => response.json())          //Reads file
-    .then((data) => {                             //Uploads teamRaceData
+    .then((response) => response.json()) //Reads file
+    .then((data) => {
+      //Uploads teamRaceData
       teamRaceData = data;
       const years = Object.keys(teamRaceData).sort(
         (a, b) => Number(a) - Number(b),
@@ -1119,7 +1150,8 @@ if (teamYearSelect && teamDrivers && teamSummaryText && teamSummaryList && teamY
       if (window.location.search.startsWith("?year=")) {
         requestedYear = window.location.search.replace("?year=", "");
       }
-      const initialYear = years.includes(requestedYear) ? requestedYear : years[years.length - 1];
+      const initialYear =
+        years.includes(requestedYear) ? requestedYear : years[years.length - 1];
 
       teamYearSelect.value = initialYear;
       updateTeamsYearInUrl(initialYear);
@@ -1131,21 +1163,26 @@ if (teamYearSelect && teamDrivers && teamSummaryText && teamSummaryList && teamY
         renderTeamYear(selectedYear);
       });
     })
-    .catch((error) => console.error(error));      //Results error
+    .catch((error) => console.error(error)); //Results error
 }
 
 //---About page---
 const fileInput = document.getElementById("fileInput");
-const playerContainer = document.getElementById("playerContainer") || document.getElementById("studentContainer");
+const playerContainer =
+  document.getElementById("playerContainer") ||
+  document.getElementById("studentContainer");
 
 if (fileInput && playerContainer) {
-
   //Checks Group Members data
   function isGroupMembersData(data) {
-    if (!Array.isArray(data) || data.length === 0) {return false;}
+    if (!Array.isArray(data) || data.length === 0) {
+      return false;
+    }
 
     const first = data[0];
-    if (!first || typeof first !== "object") {return false;}
+    if (!first || typeof first !== "object") {
+      return false;
+    }
 
     return (
       "firstName" in first &&
@@ -1198,258 +1235,265 @@ if (fileInput && playerContainer) {
 //---Accessibility features---
 let refreshAccessibilityOptions = null;
 
-  //Select features
-  function initAccessibilityControls() {
-    const host = document.querySelector("footer") || document.querySelector("header");
+//Select features
 
-    if (!host || document.getElementById("elementMenu")) {return;}
+function initAccessibilityControls() {
+  return;
+  const host =
+    document.querySelector("footer") || document.querySelector("header");
 
-    const panel = document.createElement("section");
-    panel.classList.add("accessibility-controls");
+  if (!host || document.getElementById("elementMenu")) {
+    return;
+  }
 
-    const title = document.createElement("p");
-    title.classList.add("accessibility-controls__title");
-    title.textContent = "Accessibility Features";
+  const panel = document.createElement("section");
+  panel.classList.add("accessibility-controls");
 
-    const elementLabel = document.createElement("label");
-    elementLabel.setAttribute("for", "elementMenu");
-    elementLabel.textContent = "Select element:";
+  const title = document.createElement("p");
+  title.classList.add("accessibility-controls__title");
+  title.textContent = "Accessibility Features";
 
-    const elementMenu = document.createElement("select");
-    elementMenu.id = "elementMenu";
+  const elementLabel = document.createElement("label");
+  elementLabel.setAttribute("for", "elementMenu");
+  elementLabel.textContent = "Select element:";
 
-    const styleLabel = document.createElement("label");
-    styleLabel.setAttribute("for", "styleMenu");
-    styleLabel.textContent = "Selected element:";
+  const elementMenu = document.createElement("select");
+  elementMenu.id = "elementMenu";
 
-    const styleMenu = document.createElement("select");
-    styleMenu.id = "styleMenu";
+  const styleLabel = document.createElement("label");
+  styleLabel.setAttribute("for", "styleMenu");
+  styleLabel.textContent = "Selected element:";
 
-    styleMenu.appendChild(new Option("Text options", ""));
-    styleMenu.appendChild(new Option("Text size: small", "sizeSmall"));
-    styleMenu.appendChild(new Option("Text size: default", "sizeDefault"));
-    styleMenu.appendChild(new Option("Text size: large", "sizeLarge"));
-    styleMenu.appendChild(new Option("Text color: default", "colorDefault"));
-    styleMenu.appendChild(new Option("Text color: red", "colorRed"));
-    styleMenu.appendChild(new Option("Text color: blue", "colorBlue"));
+  const styleMenu = document.createElement("select");
+  styleMenu.id = "styleMenu";
 
-    const generalLabel = document.createElement("label");
-    generalLabel.setAttribute("for", "generalMenu");
-    generalLabel.textContent = "Website accessibility:";
+  styleMenu.appendChild(new Option("Text options", ""));
+  styleMenu.appendChild(new Option("Text size: small", "sizeSmall"));
+  styleMenu.appendChild(new Option("Text size: default", "sizeDefault"));
+  styleMenu.appendChild(new Option("Text size: large", "sizeLarge"));
+  styleMenu.appendChild(new Option("Text color: default", "colorDefault"));
+  styleMenu.appendChild(new Option("Text color: red", "colorRed"));
+  styleMenu.appendChild(new Option("Text color: blue", "colorBlue"));
 
-    const generalMenu = document.createElement("select");
-    generalMenu.id = "generalMenu";
+  const generalLabel = document.createElement("label");
+  generalLabel.setAttribute("for", "generalMenu");
+  generalLabel.textContent = "Website accessibility:";
 
-    generalMenu.appendChild(new Option("Site options", ""));
-    generalMenu.appendChild(new Option("Site text: small", "textSmall"));
-    generalMenu.appendChild(new Option("Site text: default", "textDefault"));
-    generalMenu.appendChild(new Option("Site text: large", "textLarge"));
-    generalMenu.appendChild(new Option("Color theme: default", "themeDefault"));
-    generalMenu.appendChild(new Option("Color theme: dark", "themeDark"));
-    generalMenu.appendChild(new Option("Color theme: light", "themeLight"));
-    generalMenu.appendChild(new Option("Color theme: high contrast", "themeContrast"));
+  const generalMenu = document.createElement("select");
+  generalMenu.id = "generalMenu";
 
-    panel.appendChild(title);
-    panel.appendChild(elementLabel);
-    panel.appendChild(elementMenu);
-    panel.appendChild(styleLabel);
-    panel.appendChild(styleMenu);
-    panel.appendChild(generalLabel);
-    panel.appendChild(generalMenu);
+  generalMenu.appendChild(new Option("Site options", ""));
+  generalMenu.appendChild(new Option("Site text: small", "textSmall"));
+  generalMenu.appendChild(new Option("Site text: default", "textDefault"));
+  generalMenu.appendChild(new Option("Site text: large", "textLarge"));
+  generalMenu.appendChild(new Option("Color theme: default", "themeDefault"));
+  generalMenu.appendChild(new Option("Color theme: dark", "themeDark"));
+  generalMenu.appendChild(new Option("Color theme: light", "themeLight"));
+  generalMenu.appendChild(
+    new Option("Color theme: high contrast", "themeContrast"),
+  );
 
-    host.appendChild(panel);
+  panel.appendChild(title);
+  panel.appendChild(elementLabel);
+  panel.appendChild(elementMenu);
+  panel.appendChild(styleLabel);
+  panel.appendChild(styleMenu);
+  panel.appendChild(generalLabel);
+  panel.appendChild(generalMenu);
 
-    //Applies Site Theme
-    function applyTheme(theme) {
-      document.body.classList.remove(
-        "theme-dark",
-        "theme-light",
-        "theme-contrast",
+  host.appendChild(panel);
+
+  //Applies Site Theme
+  function applyTheme(theme) {
+    document.body.classList.remove(
+      "theme-dark",
+      "theme-light",
+      "theme-contrast",
+    );
+
+    if (theme === "themeDark") {
+      document.body.classList.add("theme-dark");
+    }
+    if (theme === "themeLight") {
+      document.body.classList.add("theme-light");
+    }
+    if (theme === "themeContrast") {
+      document.body.classList.add("theme-contrast");
+    }
+  }
+
+  //Applies Site Textsize
+  function applySiteText(size) {
+    document.body.classList.remove("site-font-small", "site-font-large");
+
+    if (size === "textSmall") {
+      document.body.classList.add("site-font-small");
+    }
+    if (size === "textLarge") {
+      document.body.classList.add("site-font-large");
+    }
+  }
+
+  //Applies Element size & color
+  function applyOnElement(target, action) {
+    if (!target) {
+      return;
+    }
+
+    if (action === "sizeSmall") {
+      target.classList.remove(
+        "accessibility-size-small",
+        "accessibility-size-large",
       );
-
-      if (theme === "themeDark") {
-        document.body.classList.add("theme-dark");
-      }
-      if (theme === "themeLight") {
-        document.body.classList.add("theme-light");
-      }
-      if (theme === "themeContrast") {
-        document.body.classList.add("theme-contrast");
-      }
+      target.classList.add("accessibility-size-small");
     }
-
-    //Applies Site Textsize
-    function applySiteText(size) {
-      document.body.classList.remove("site-font-small", "site-font-large");
-
-      if (size === "textSmall") {
-        document.body.classList.add("site-font-small");
-      }
-      if (size === "textLarge") {
-        document.body.classList.add("site-font-large");
-      }
-    }
-
-    //Applies Element size & color
-    function applyOnElement(target, action) {
-      if (!target) {
-        return;
-      }
-
-      if (action === "sizeSmall") {
-        target.classList.remove(
-          "accessibility-size-small",
-          "accessibility-size-large",
-        );
-        target.classList.add("accessibility-size-small");
-      }
-      if (action === "sizeDefault") {
-        target.classList.remove(
-          "accessibility-size-small",
-          "accessibility-size-large",
-        );
-      }
-      if (action === "sizeLarge") {
-        target.classList.remove(
-          "accessibility-size-small",
-          "accessibility-size-large",
-        );
-        target.classList.add("accessibility-size-large");
-      }
-      if (action === "colorDefault") {
-        target.classList.remove(
-          "accessibility-color-red",
-          "accessibility-color-blue",
-        );
-      }
-      if (action === "colorRed") {
-        target.classList.remove(
-          "accessibility-color-red",
-          "accessibility-color-blue",
-        );
-        target.classList.add("accessibility-color-red");
-      }
-      if (action === "colorBlue") {
-        target.classList.remove(
-          "accessibility-color-red",
-          "accessibility-color-blue",
-        );
-        target.classList.add("accessibility-color-blue");
-      }
-    }
-
-    let elementIdCounter = 1;
-    let targetsById = new Map();
-
-    //Checks Element ID
-    function ensureAccessibilityId(element) {
-      if (!element.dataset.accessibilityId) {
-        element.dataset.accessibilityId = `accessibility-${elementIdCounter}`;
-        elementIdCounter += 1;
-      }
-
-      return element.dataset.accessibilityId;
-    }
-
-    //Names Element ID
-    function buildElementLabel(element, index) {
-      const tag = element.tagName.toLowerCase();
-      const firstClass =
-        typeof element.className === "string" ?
-          element.className.split(" ").find((name) => name.trim() !== "")
-        : "";
-
-      if (element.id) {
-        return `${tag}#${element.id}`;
-      }
-
-      if (firstClass) {
-        return `${tag}.${firstClass}`;
-      }
-
-      return `${tag} (${index + 1})`;
-    }
-
-    //Organizes Elements
-    function collectTargets() {
-      const targets = [document.body];
-      const dynamicTargets = document.querySelectorAll(
-        "header, main, footer, nav, article, section, aside",
+    if (action === "sizeDefault") {
+      target.classList.remove(
+        "accessibility-size-small",
+        "accessibility-size-large",
       );
+    }
+    if (action === "sizeLarge") {
+      target.classList.remove(
+        "accessibility-size-small",
+        "accessibility-size-large",
+      );
+      target.classList.add("accessibility-size-large");
+    }
+    if (action === "colorDefault") {
+      target.classList.remove(
+        "accessibility-color-red",
+        "accessibility-color-blue",
+      );
+    }
+    if (action === "colorRed") {
+      target.classList.remove(
+        "accessibility-color-red",
+        "accessibility-color-blue",
+      );
+      target.classList.add("accessibility-color-red");
+    }
+    if (action === "colorBlue") {
+      target.classList.remove(
+        "accessibility-color-red",
+        "accessibility-color-blue",
+      );
+      target.classList.add("accessibility-color-blue");
+    }
+  }
 
-      dynamicTargets.forEach((element) => {
-        if (element !== panel && !panel.contains(element)) {
-          targets.push(element);
-        }
-      });
+  let elementIdCounter = 1;
+  let targetsById = new Map();
 
-      return targets;
+  //Checks Element ID
+  function ensureAccessibilityId(element) {
+    if (!element.dataset.accessibilityId) {
+      element.dataset.accessibilityId = `accessibility-${elementIdCounter}`;
+      elementIdCounter += 1;
     }
 
-    //Fills Menu with Elements
-    function fillElementMenu() {
-      const previousValue = elementMenu.value;
+    return element.dataset.accessibilityId;
+  }
 
-      while (elementMenu.firstChild) {
-        elementMenu.removeChild(elementMenu.firstChild);
+  //Names Element ID
+  function buildElementLabel(element, index) {
+    const tag = element.tagName.toLowerCase();
+    const firstClass =
+      typeof element.className === "string" ?
+        element.className.split(" ").find((name) => name.trim() !== "")
+      : "";
+
+    if (element.id) {
+      return `${tag}#${element.id}`;
+    }
+
+    if (firstClass) {
+      return `${tag}.${firstClass}`;
+    }
+
+    return `${tag} (${index + 1})`;
+  }
+
+  //Organizes Elements
+  function collectTargets() {
+    const targets = [document.body];
+    const dynamicTargets = document.querySelectorAll(
+      "header, main, footer, nav, article, section, aside",
+    );
+
+    dynamicTargets.forEach((element) => {
+      if (element !== panel && !panel.contains(element)) {
+        targets.push(element);
       }
+    });
 
-      targetsById = new Map();
-      const targets = collectTargets();
+    return targets;
+  }
 
-      targets.forEach((element, index) => {
-        const accessibilityId = ensureAccessibilityId(element);
-        const label = buildElementLabel(element, index);
-        targetsById.set(accessibilityId, element);
-        elementMenu.appendChild(new Option(label, accessibilityId));
-      });
+  //Fills Menu with Elements
+  function fillElementMenu() {
+    const previousValue = elementMenu.value;
 
-      if (previousValue && targetsById.has(previousValue)) {
-        elementMenu.value = previousValue;
-      }
+    while (elementMenu.firstChild) {
+      elementMenu.removeChild(elementMenu.firstChild);
     }
 
-    //Refills Menu with Elements
-    function refreshMenus() {
-      fillElementMenu();
-    }
+    targetsById = new Map();
+    const targets = collectTargets();
 
+    targets.forEach((element, index) => {
+      const accessibilityId = ensureAccessibilityId(element);
+      const label = buildElementLabel(element, index);
+      targetsById.set(accessibilityId, element);
+      elementMenu.appendChild(new Option(label, accessibilityId));
+    });
+
+    if (previousValue && targetsById.has(previousValue)) {
+      elementMenu.value = previousValue;
+    }
+  }
+
+  //Refills Menu with Elements
+  function refreshMenus() {
+    fillElementMenu();
+  }
+
+  refreshMenus();
+  refreshAccessibilityOptions = function () {
     refreshMenus();
-    refreshAccessibilityOptions = function () {
-      refreshMenus();
-    };
+  };
 
-    applyTheme(localStorage.getItem("siteTheme") || "themeDefault");
-    applySiteText(localStorage.getItem("siteTextSize") || "textDefault");
+  applyTheme(localStorage.getItem("siteTheme") || "themeDefault");
+  applySiteText(localStorage.getItem("siteTextSize") || "textDefault");
 
-    //Selecting element applications
-    styleMenu.addEventListener("change", function () {
-      const target = targetsById.get(elementMenu.value) || document.body;
-      applyOnElement(target, styleMenu.value);
-      styleMenu.value = "";
-    });
+  //Selecting element applications
+  styleMenu.addEventListener("change", function () {
+    const target = targetsById.get(elementMenu.value) || document.body;
+    applyOnElement(target, styleMenu.value);
+    styleMenu.value = "";
+  });
 
-    //Selecting site applications
-    generalMenu.addEventListener("change", function () {
-      const action = generalMenu.value;
+  //Selecting site applications
+  generalMenu.addEventListener("change", function () {
+    const action = generalMenu.value;
 
-      if (action.startsWith("theme")) {
-        applyTheme(action);
-        localStorage.setItem("siteTheme", action);
-      }
+    if (action.startsWith("theme")) {
+      applyTheme(action);
+      localStorage.setItem("siteTheme", action);
+    }
 
-      if (action.startsWith("text")) {
-        applySiteText(action);
-        localStorage.setItem("siteTextSize", action);
-      }
+    if (action.startsWith("text")) {
+      applySiteText(action);
+      localStorage.setItem("siteTextSize", action);
+    }
 
-      generalMenu.value = "";
-    });
-  }
+    generalMenu.value = "";
+  });
+}
 
-  //Selecting features
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initAccessibilityControls);
-  } else {
-    initAccessibilityControls();
-  }
+//Selecting features
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initAccessibilityControls);
+} else {
+  initAccessibilityControls();
+}

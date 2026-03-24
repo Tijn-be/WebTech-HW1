@@ -554,7 +554,7 @@ if (driversList && driversFileInput && driversUploadArea) {
         driversUploadArea.style.display = "none";
       }
     } catch (err) {
-      console.warn("Could not load JSON file.\n\n" + err.messageS);
+      console.warn("Could not load JSON file.\n\n" + err.message);
     }
   }
 
@@ -1219,6 +1219,7 @@ let refreshAccessibilityOptions = null;
 
   //Select features
   function initAccessibilityControls() {
+    return;
     const host = document.querySelector("footer") || document.querySelector("header");
 
     if (!host || document.getElementById("elementMenu")) {return;}

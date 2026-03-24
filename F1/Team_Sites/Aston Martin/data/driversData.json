@@ -3,7 +3,7 @@
     "id": "Alexander-Albon",
     "name": "Alexander Albon",
     "wikiUrl": "https://en.wikipedia.org/wiki/Alex_Albon",
-    "image": "assets/images/drivers/AlexanderAlbon.png",
+    "image": "assets/images/drivers/AlexanderAlbon.jpg",
     "fullName": "Alexander Albon Ansusinha",
     "age": 29,
     "birthDate": "23 March 1996",
@@ -15,7 +15,7 @@
     "lastName": "Albon",
     "born": "23 March 1996",
     "role": "Driver",
-    "photo": "assets/images/drivers/AlexanderAlbon.png",
+    "photo": "assets/images/drivers/AlexanderAlbon.jpg",
     "formerTeams": [
       {
         "title": "Red Bull Racing",
@@ -33,7 +33,7 @@
     "id": "Christian-Klien",
     "name": "Christian Klien",
     "wikiUrl": "https://en.wikipedia.org/wiki/Christian_Klien",
-    "image": "assets/images/drivers/ChristianKlien.png",
+    "image": "assets/images/drivers/ChristianKlien.jpg",
     "fullName": "Christian Klien",
     "age": 43,
     "birthDate": "7 February 1983",
@@ -45,7 +45,7 @@
     "lastName": "Klien",
     "born": "7 February 1983",
     "role": "Driver",
-    "photo": "assets/images/drivers/ChristianKlien.png",
+    "photo": "assets/images/drivers/ChristianKlien.jpg",
     "formerTeams": [
       {
         "title": "Jaguar Racing",
@@ -63,7 +63,7 @@
     "id": "Daniel-Ricciardo",
     "name": "Daniel Ricciardo",
     "wikiUrl": "https://en.wikipedia.org/wiki/Daniel_Ricciardo",
-    "image": "assets/images/drivers/DanielRicciardo.png",
+    "image": "assets/images/drivers/DanielRicciardo.jpg",
     "fullName": "Daniel Joseph Ricciardo",
     "age": 36,
     "birthDate": "1 July 1989",
@@ -75,7 +75,7 @@
     "lastName": "Ricciardo",
     "born": "1 July 1989",
     "role": "Driver",
-    "photo": "assets/images/drivers/DanielRicciardo.png",
+    "photo": "assets/images/drivers/DanielRicciardo.jpg",
     "formerTeams": [
       {
         "title": "HRT F1 Team",
@@ -98,7 +98,7 @@
     "id": "Daniil-Kvyat",
     "name": "Daniil Kvyat",
     "wikiUrl": "https://en.wikipedia.org/wiki/Daniil_Kvyat",
-    "image": "assets/images/drivers/DaniilKvyat.png",
+    "image": "assets/images/drivers/DaniilKvyat.jpg",
     "fullName": "Daniil Kvyat",
     "age": 31,
     "birthDate": "26 April 1994",
@@ -110,7 +110,7 @@
     "lastName": "Kvyat",
     "born": "26 April 1994",
     "role": "Driver",
-    "photo": "assets/images/drivers/DaniilKvyat.png",
+    "photo": "assets/images/drivers/DaniilKvyat.jpg",
     "formerTeams": [
       {
         "title": "Toro Rosso",
@@ -128,7 +128,7 @@
     "id": "David-Coulthard",
     "name": "David Coulthard",
     "wikiUrl": "https://en.wikipedia.org/wiki/David_Coulthard",
-    "image": "assets/images/drivers/DavidCoulthard.png",
+    "image": "assets/images/drivers/DavidCoulthard.jpg",
     "fullName": "David Marshall Coulthard",
     "age": 54,
     "birthDate": "27 March 1971",
@@ -140,7 +140,7 @@
     "lastName": "Coulthard",
     "born": "27 March 1971",
     "role": "Driver",
-    "photo": "assets/images/drivers/DavidCoulthard.png",
+    "photo": "assets/images/drivers/DavidCoulthard.jpg",
     "formerTeams": [
       {
         "title": "Williams",
@@ -163,7 +163,7 @@
     "id": "Isack-Hadjar",
     "name": "Isack Hadjar",
     "wikiUrl": "https://en.wikipedia.org/wiki/Isack_Hadjar",
-    "image": "assets/images/drivers/IsackHadjar.png",
+    "image": "assets/images/drivers/IsackHadjar.jpg",
     "fullName": "Isack Alexandre Hadjar",
     "age": 21,
     "birthDate": "28 September 2004",
@@ -175,7 +175,7 @@
     "lastName": "Hadjar",
     "born": "28 September 2004",
     "role": "Driver",
-    "photo": "assets/images/drivers/IsackHadjar.png",
+    "photo": "assets/images/drivers/IsackHadjar.jpg",
     "formerTeams": [
       {
         "title": "Racing Bulls",
@@ -188,7 +188,7 @@
     "id": "Liam-Lawson",
     "name": "Liam Lawson",
     "wikiUrl": "https://en.wikipedia.org/wiki/Liam_Lawson",
-    "image": "assets/images/drivers/LiamLawson.png",
+    "image": "assets/images/drivers/LiamLawson.jpg",
     "fullName": "Liam Jared Lawson",
     "age": 24,
     "birthDate": "11 February 2002",
@@ -200,7 +200,7 @@
     "lastName": "Lawson",
     "born": "11 February 2002",
     "role": "Driver",
-    "photo": "assets/images/drivers/LiamLawson.png",
+    "photo": "assets/images/drivers/LiamLawson.jpg",
     "formerTeams": [
       {
         "title": "Racing Bulls",
@@ -218,7 +218,7 @@
     "id": "Mark-Webber",
     "name": "Mark Webber",
     "wikiUrl": "https://en.wikipedia.org/wiki/Mark_Webber",
-    "image": "assets/images/drivers/MarkWebber.png",
+    "image": "assets/images/drivers/MarkWebber.jpg",
     "fullName": "Mark Alan Webber",
     "age": 49,
     "birthDate": "27 August 1976",
@@ -230,7 +230,7 @@
     "lastName": "Webber",
     "born": "27 August 1976",
     "role": "Driver",
-    "photo": "assets/images/drivers/MarkWebber.png",
+    "photo": "assets/images/drivers/MarkWebber.jpg",
     "formerTeams": [
       {
         "title": "Minardi",
@@ -253,7 +253,7 @@
     "id": "Max-Verstappen",
     "name": "Max Verstappen",
     "wikiUrl": "https://en.wikipedia.org/wiki/Max_Verstappen",
-    "image": "assets/images/drivers/MaxVerstappen.png",
+    "image": "assets/images/drivers/MaxVerstappen.jpg",
     "fullName": "Max Emilian Verstappen",
     "age": 28,
     "birthDate": "30 September 1997",
@@ -265,7 +265,7 @@
     "lastName": "Verstappen",
     "born": "30 September 1997",
     "role": "Driver",
-    "photo": "assets/images/drivers/MaxVerstappen.png",
+    "photo": "assets/images/drivers/MaxVerstappen.jpg",
     "formerTeams": [
       {
         "title": "Toro Rosso",
@@ -283,7 +283,7 @@
     "id": "Pierre-Gasly",
     "name": "Pierre Gasly",
     "wikiUrl": "https://en.wikipedia.org/wiki/Pierre_Gasly",
-    "image": "assets/images/drivers/PierreGasly.png",
+    "image": "assets/images/drivers/PierreGasly.jpg",
     "fullName": "Pierre Jean-Jacques Gasly",
     "age": 30,
     "birthDate": "7 February 1996",
@@ -295,7 +295,7 @@
     "lastName": "Gasly",
     "born": "7 February 1996",
     "role": "Driver",
-    "photo": "assets/images/drivers/PierreGasly.png",
+    "photo": "assets/images/drivers/PierreGasly.jpg",
     "formerTeams": [
       {
         "title": "Toro Rosso",
@@ -318,7 +318,7 @@
     "id": "Robert-Doornbos",
     "name": "Robert Doornbos",
     "wikiUrl": "https://en.wikipedia.org/wiki/Robert_Doornbos",
-    "image": "assets/images/drivers/RobertDoornbos.png",
+    "image": "assets/images/drivers/RobertDoornbos.jpg",
     "fullName": "Robert Michael Doornbos",
     "age": 44,
     "birthDate": "23 September 1981",
@@ -330,7 +330,7 @@
     "lastName": "Doornbos",
     "born": "23 September 1981",
     "role": "Driver",
-    "photo": "assets/images/drivers/RobertDoornbos.png",
+    "photo": "assets/images/drivers/RobertDoornbos.jpg",
     "formerTeams": [
       {
         "title": "Minardi",
@@ -348,7 +348,7 @@
     "id": "Sebastian-Vettel",
     "name": "Sebastian Vettel",
     "wikiUrl": "https://en.wikipedia.org/wiki/Sebastian_Vettel",
-    "image": "assets/images/drivers/SebastianVettel.png",
+    "image": "assets/images/drivers/SebastianVettel.jpg",
     "fullName": "Sebastian Vettel",
     "age": 38,
     "birthDate": "3 July 1987",
@@ -360,7 +360,7 @@
     "lastName": "Vettel",
     "born": "3 July 1987",
     "role": "Driver",
-    "photo": "assets/images/drivers/SebastianVettel.png",
+    "photo": "assets/images/drivers/SebastianVettel.jpg",
     "formerTeams": [
       {
         "title": "BMW Sauber",
@@ -383,7 +383,7 @@
     "id": "Sergio-Perez",
     "name": "Sergio Perez",
     "wikiUrl": "https://en.wikipedia.org/wiki/Sergio_P%C3%A9rez",
-    "image": "assets/images/drivers/SergioPerez.png",
+    "image": "assets/images/drivers/SergioPerez.jpg",
     "fullName": "Sergio Perez Mendoza",
     "age": 36,
     "birthDate": "26 January 1990",
@@ -395,7 +395,7 @@
     "lastName": "Perez",
     "born": "26 January 1990",
     "role": "Driver",
-    "photo": "assets/images/drivers/SergioPerez.png",
+    "photo": "assets/images/drivers/SergioPerez.jpg",
     "formerTeams": [
       {
         "title": "Sauber",
@@ -418,7 +418,7 @@
     "id": "Vitantonio-Liuzzi",
     "name": "Vitantonio Liuzzi",
     "wikiUrl": "https://en.wikipedia.org/wiki/Vitantonio_Liuzzi",
-    "image": "assets/images/drivers/VitantonioLiuzzi.png",
+    "image": "assets/images/drivers/VitantonioLiuzzi.jpg",
     "fullName": "Vitantonio Liuzzi",
     "age": 45,
     "birthDate": "6 August 1980",
@@ -430,7 +430,7 @@
     "lastName": "Liuzzi",
     "born": "6 August 1980",
     "role": "Driver",
-    "photo": "assets/images/drivers/VitantonioLiuzzi.png",
+    "photo": "assets/images/drivers/VitantonioLiuzzi.jpg",
     "formerTeams": [
       {
         "title": "Toro Rosso",
@@ -448,7 +448,7 @@
     "id": "Yuki-Tsunoda",
     "name": "Yuki Tsunoda",
     "wikiUrl": "https://en.wikipedia.org/wiki/Yuki_Tsunoda",
-    "image": "assets/images/drivers/YukiTsunoda.png",
+    "image": "assets/images/drivers/YukiTsunoda.jpg",
     "fullName": "Yuki Tsunoda",
     "age": 25,
     "birthDate": "11 May 2000",
@@ -460,7 +460,7 @@
     "lastName": "Tsunoda",
     "born": "11 May 2000",
     "role": "Driver",
-    "photo": "assets/images/drivers/YukiTsunoda.png",
+    "photo": "assets/images/drivers/YukiTsunoda.jpg",
     "formerTeams": [
       {
         "title": "AlphaTauri",
