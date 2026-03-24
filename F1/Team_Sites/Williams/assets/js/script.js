@@ -1217,9 +1217,10 @@ if (fileInput && playerContainer) {
 //---Accessibility features---
 let refreshAccessibilityOptions = null;
 
-  //Select features
-  function initAccessibilityControls() {
-    const host = document.querySelector("footer") || document.querySelector("header");
+//Select features
+function initAccessibilityControls() {
+  const host =
+    document.querySelector("footer") || document.querySelector("header");
 
     if (!host || document.getElementById("elementMenu")) {return;}
 
