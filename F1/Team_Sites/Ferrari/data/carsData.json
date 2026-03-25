@@ -1,505 +1,512 @@
 [
   {
-    "id": "RB1",
+    "id": "F2005",
     "image": "assets/images/cars/2005-F2005.jpg",
-    "name": "Red Bull RB1",
-    "notes": "First car built by Red Bull Racing, powered by Cosworth.",
+    "name": "Ferrari F2005",
+    "notes": "Ferrari chassis for the 2005 Formula One season.",
     "season": 2005,
-    "engine": "Cosworth TJ2005 V10",
+    "engine": "V10 Formula One engine",
     "drivers": [
       {
-        "id": "David-Coulthard",
-        "name": "David Coulthard"
+        "id": "Michael-Schumacher",
+        "name": "Michael Schumacher"
       },
       {
-        "id": "Christian-Klien",
-        "name": "Christian Klien"
-      },
-      {
-        "id": "Vitantonio-Liuzzi",
-        "name": "Vitantonio Liuzzi"
+        "id": "Rubens-Barrichello",
+        "name": "Rubens Barrichello"
       }
     ],
     "races": 19,
-    "wins": 0,
-    "poles": 0,
-    "fastestLaps": 0,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
     "power": "~900 hp"
   },
   {
-    "id": "RB2",
+    "id": "248F1",
     "image": "assets/images/cars/2006-248F1.jpg",
-    "name": "Red Bull RB2",
-    "notes": "Ferrari-powered V8 era car under new regulations.",
+    "name": "Ferrari 248 F1",
+    "notes": "Ferrari chassis for the 2006 Formula One season.",
     "season": 2006,
-    "engine": "Ferrari 056 V8",
+    "engine": "V8 Formula One engine",
     "drivers": [
       {
-        "id": "David-Coulthard",
-        "name": "David Coulthard"
+        "id": "Michael-Schumacher",
+        "name": "Michael Schumacher"
       },
       {
-        "id": "Christian-Klien",
-        "name": "Christian Klien"
-      },
-      {
-        "id": "Robert-Doornbos",
-        "name": "Robert Doornbos"
+        "id": "Felipe-Massa",
+        "name": "Felipe Massa"
       }
     ],
     "races": 18,
-    "wins": 0,
-    "poles": 0,
-    "fastestLaps": 1,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
     "power": "~750 hp"
   },
   {
-    "id": "RB3",
+    "id": "F2007",
     "image": "assets/images/cars/2007-F2007.jpg",
-    "name": "Red Bull RB3",
-    "notes": "First Renault-powered car shaped by Adrian Newey concepts.",
+    "name": "Ferrari F2007",
+    "notes": "Ferrari chassis for the 2007 Formula One season.",
     "season": 2007,
-    "engine": "Renault RS27 V8",
+    "engine": "V8 Formula One engine",
     "drivers": [
       {
-        "id": "David-Coulthard",
-        "name": "David Coulthard"
+        "id": "Kimi-Raikkonen",
+        "name": "Kimi Raikkonen"
       },
       {
-        "id": "Mark-Webber",
-        "name": "Mark Webber"
+        "id": "Felipe-Massa",
+        "name": "Felipe Massa"
       }
     ],
     "races": 17,
-    "wins": 0,
-    "poles": 0,
-    "fastestLaps": 1,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
     "power": "~750 hp"
   },
   {
-    "id": "RB4",
+    "id": "F2008",
     "image": "assets/images/cars/2008-F2008.jpg",
-    "name": "Red Bull RB4",
-    "notes": "Evolution of RB3 with improved aero package.",
+    "name": "Ferrari F2008",
+    "notes": "Ferrari chassis for the 2008 Formula One season.",
     "season": 2008,
-    "engine": "Renault RS27 V8",
+    "engine": "V8 Formula One engine",
     "drivers": [
       {
-        "id": "David-Coulthard",
-        "name": "David Coulthard"
+        "id": "Kimi-Raikkonen",
+        "name": "Kimi Raikkonen"
       },
       {
-        "id": "Mark-Webber",
-        "name": "Mark Webber"
+        "id": "Felipe-Massa",
+        "name": "Felipe Massa"
       }
     ],
     "races": 18,
-    "wins": 0,
-    "poles": 0,
-    "fastestLaps": 1,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
     "power": "~750 hp"
   },
   {
-    "id": "RB5",
+    "id": "F60",
     "image": "assets/images/cars/2009-F60.jpg",
-    "name": "Red Bull RB5",
-    "notes": "First race-winning Red Bull car.",
+    "name": "Ferrari F60",
+    "notes": "Ferrari chassis for the 2009 Formula One season.",
     "season": 2009,
-    "engine": "Renault RS27 V8",
+    "engine": "V8 Formula One engine",
     "drivers": [
       {
-        "id": "Sebastian-Vettel",
-        "name": "Sebastian Vettel"
+        "id": "Kimi-Raikkonen",
+        "name": "Kimi Raikkonen"
       },
       {
-        "id": "Mark-Webber",
-        "name": "Mark Webber"
+        "id": "Felipe-Massa",
+        "name": "Felipe Massa"
+      },
+      {
+        "id": "Giancarlo-Fisichella",
+        "name": "Giancarlo Fisichella"
       }
     ],
     "races": 17,
-    "wins": 6,
-    "poles": 5,
-    "fastestLaps": 16,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
     "power": "~750 hp"
   },
   {
-    "id": "RB6",
+    "id": "F10",
     "image": "assets/images/cars/2010-F10.jpg",
-    "name": "Red Bull RB6",
-    "notes": "Championship-winning car with dominant aerodynamics.",
+    "name": "Ferrari F10",
+    "notes": "Ferrari chassis for the 2010 Formula One season.",
     "season": 2010,
-    "engine": "Renault RS27 V8",
+    "engine": "V8 Formula One engine",
     "drivers": [
       {
-        "id": "Sebastian-Vettel",
-        "name": "Sebastian Vettel"
+        "id": "Fernando-Alonso",
+        "name": "Fernando Alonso"
       },
       {
-        "id": "Mark-Webber",
-        "name": "Mark Webber"
+        "id": "Felipe-Massa",
+        "name": "Felipe Massa"
       }
     ],
     "races": 19,
-    "wins": 9,
-    "poles": 15,
-    "fastestLaps": 18,
-    "power": "~780 hp"
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~750 hp"
   },
   {
-    "id": "RB7",
+    "id": "150Italia",
     "image": "assets/images/cars/2011-150Italia.jpg",
-    "name": "Red Bull RB7",
-    "notes": "One of the most dominant cars of the blown diffuser era.",
+    "name": "Ferrari 150 Italia",
+    "notes": "Ferrari chassis for the 2011 Formula One season.",
     "season": 2011,
-    "engine": "Renault RS27-2011 V8",
+    "engine": "V8 Formula One engine",
     "drivers": [
       {
-        "id": "Sebastian-Vettel",
-        "name": "Sebastian Vettel"
+        "id": "Fernando-Alonso",
+        "name": "Fernando Alonso"
       },
       {
-        "id": "Mark-Webber",
-        "name": "Mark Webber"
+        "id": "Felipe-Massa",
+        "name": "Felipe Massa"
       }
     ],
     "races": 19,
-    "wins": 12,
-    "poles": 18,
-    "fastestLaps": 27,
-    "power": "~780 hp"
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~750 hp"
   },
   {
-    "id": "RB8",
+    "id": "F2012",
     "image": "assets/images/cars/2012-F2012.jpg",
-    "name": "Red Bull RB8",
-    "notes": "Championship-winning evolution of RB7.",
+    "name": "Ferrari F2012",
+    "notes": "Ferrari chassis for the 2012 Formula One season.",
     "season": 2012,
-    "engine": "Renault RS27-2012 V8",
+    "engine": "V8 Formula One engine",
     "drivers": [
       {
-        "id": "Sebastian-Vettel",
-        "name": "Sebastian Vettel"
+        "id": "Fernando-Alonso",
+        "name": "Fernando Alonso"
       },
       {
-        "id": "Mark-Webber",
-        "name": "Mark Webber"
+        "id": "Felipe-Massa",
+        "name": "Felipe Massa"
       }
     ],
     "races": 20,
-    "wins": 7,
-    "poles": 8,
-    "fastestLaps": 14,
-    "power": "~780 hp"
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~750 hp"
   },
   {
-    "id": "RB9",
+    "id": "F138",
     "image": "assets/images/cars/2013-F138.jpg",
-    "name": "Red Bull RB9",
-    "notes": "Final V8 era car, famous for Vettel's 9-win streak.",
+    "name": "Ferrari F138",
+    "notes": "Ferrari chassis for the 2013 Formula One season.",
     "season": 2013,
-    "engine": "Renault RS27-2013 V8",
+    "engine": "V8 Formula One engine",
     "drivers": [
       {
-        "id": "Sebastian-Vettel",
-        "name": "Sebastian Vettel"
+        "id": "Fernando-Alonso",
+        "name": "Fernando Alonso"
       },
       {
-        "id": "Mark-Webber",
-        "name": "Mark Webber"
+        "id": "Felipe-Massa",
+        "name": "Felipe Massa"
       }
     ],
     "races": 19,
-    "wins": 13,
-    "poles": 11,
-    "fastestLaps": 24,
-    "power": "~780 hp"
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~750 hp"
   },
   {
-    "id": "RB10",
+    "id": "F14T",
     "image": "assets/images/cars/2014-F14T.jpg",
-    "name": "Red Bull RB10",
-    "notes": "First hybrid-era Red Bull chassis.",
+    "name": "Ferrari F14 T",
+    "notes": "Ferrari chassis for the 2014 Formula One season.",
     "season": 2014,
-    "engine": "Renault Energy F1-2014 V6 Hybrid",
+    "engine": "Hybrid Formula One power unit",
     "drivers": [
       {
-        "id": "Sebastian-Vettel",
-        "name": "Sebastian Vettel"
+        "id": "Fernando-Alonso",
+        "name": "Fernando Alonso"
       },
       {
-        "id": "Daniel-Ricciardo",
-        "name": "Daniel Ricciardo"
+        "id": "Kimi-Raikkonen",
+        "name": "Kimi Raikkonen"
       }
     ],
     "races": 19,
-    "wins": 3,
-    "poles": 0,
-    "fastestLaps": 12,
-    "power": "~850 hp"
-  },
-  {
-    "id": "RB11",
-    "image": "assets/images/cars/2015-SF15T.jpg",
-    "name": "Red Bull RB11",
-    "notes": "TAG Heuer-branded Renault hybrid era car.",
-    "season": 2015,
-    "engine": "Renault Energy F1-2015 V6 Hybrid (TAG Heuer)",
-    "drivers": [
-      {
-        "id": "Daniel-Ricciardo",
-        "name": "Daniel Ricciardo"
-      },
-      {
-        "id": "Daniil-Kvyat",
-        "name": "Daniil Kvyat"
-      }
-    ],
-    "races": 19,
-    "wins": 0,
-    "poles": 0,
-    "fastestLaps": 2,
-    "power": "~850 hp"
-  },
-  {
-    "id": "RB12",
-    "image": "assets/images/cars/2016-SF16H.jpg",
-    "name": "Red Bull RB12",
-    "notes": "Known for Verstappen's first Red Bull win on debut.",
-    "season": 2016,
-    "engine": "Renault R.E.16 V6 Hybrid (TAG Heuer)",
-    "drivers": [
-      {
-        "id": "Daniel-Ricciardo",
-        "name": "Daniel Ricciardo"
-      },
-      {
-        "id": "Daniil-Kvyat",
-        "name": "Daniil Kvyat"
-      },
-      {
-        "id": "Max-Verstappen",
-        "name": "Max Verstappen"
-      }
-    ],
-    "races": 21,
-    "wins": 2,
-    "poles": 1,
-    "fastestLaps": 17,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
     "power": "~900 hp"
   },
   {
-    "id": "RB13",
-    "image": "assets/images/cars/2017-SF70H.jpg",
-    "name": "Red Bull RB13",
-    "notes": "Strong aero platform with Renault power.",
-    "season": 2017,
-    "engine": "Renault R.E.17 V6 Hybrid (TAG Heuer)",
+    "id": "SF15T",
+    "image": "assets/images/cars/2015-SF15T.jpg",
+    "name": "Ferrari SF15-T",
+    "notes": "Ferrari chassis for the 2015 Formula One season.",
+    "season": 2015,
+    "engine": "Hybrid Formula One power unit",
     "drivers": [
       {
-        "id": "Daniel-Ricciardo",
-        "name": "Daniel Ricciardo"
+        "id": "Sebastian-Vettel",
+        "name": "Sebastian Vettel"
       },
       {
-        "id": "Max-Verstappen",
-        "name": "Max Verstappen"
+        "id": "Kimi-Raikkonen",
+        "name": "Kimi Raikkonen"
+      }
+    ],
+    "races": 19,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~900 hp"
+  },
+  {
+    "id": "SF16H",
+    "image": "assets/images/cars/2016-SF16H.jpg",
+    "name": "Ferrari SF16-H",
+    "notes": "Ferrari chassis for the 2016 Formula One season.",
+    "season": 2016,
+    "engine": "Hybrid Formula One power unit",
+    "drivers": [
+      {
+        "id": "Sebastian-Vettel",
+        "name": "Sebastian Vettel"
+      },
+      {
+        "id": "Kimi-Raikkonen",
+        "name": "Kimi Raikkonen"
+      }
+    ],
+    "races": 21,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~900 hp"
+  },
+  {
+    "id": "SF70H",
+    "image": "assets/images/cars/2017-SF70H.jpg",
+    "name": "Ferrari SF70H",
+    "notes": "Ferrari chassis for the 2017 Formula One season.",
+    "season": 2017,
+    "engine": "Hybrid Formula One power unit",
+    "drivers": [
+      {
+        "id": "Sebastian-Vettel",
+        "name": "Sebastian Vettel"
+      },
+      {
+        "id": "Kimi-Raikkonen",
+        "name": "Kimi Raikkonen"
       }
     ],
     "races": 20,
-    "wins": 3,
-    "poles": 0,
-    "fastestLaps": 13,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
     "power": "~900 hp"
   },
   {
-    "id": "RB14",
+    "id": "SF71H",
     "image": "assets/images/cars/2018-SF71H.jpg",
-    "name": "Red Bull RB14",
-    "notes": "Final season before switching from Renault to Honda power.",
+    "name": "Ferrari SF71H",
+    "notes": "Ferrari chassis for the 2018 Formula One season.",
     "season": 2018,
-    "engine": "Renault R.E.18 V6 Hybrid (TAG Heuer)",
+    "engine": "Hybrid Formula One power unit",
     "drivers": [
       {
-        "id": "Daniel-Ricciardo",
-        "name": "Daniel Ricciardo"
+        "id": "Sebastian-Vettel",
+        "name": "Sebastian Vettel"
       },
       {
-        "id": "Max-Verstappen",
-        "name": "Max Verstappen"
+        "id": "Kimi-Raikkonen",
+        "name": "Kimi Raikkonen"
       }
     ],
     "races": 21,
-    "wins": 4,
-    "poles": 2,
-    "fastestLaps": 11,
-    "power": "~950 hp"
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~900 hp"
   },
   {
-    "id": "RB15",
+    "id": "SF90",
     "image": "assets/images/cars/2019-SF90.jpg",
-    "name": "Red Bull RB15",
-    "notes": "First Honda-powered Red Bull of the hybrid era.",
+    "name": "Ferrari SF90",
+    "notes": "Ferrari chassis for the 2019 Formula One season.",
     "season": 2019,
-    "engine": "Honda RA619H V6 Hybrid",
+    "engine": "Hybrid Formula One power unit",
     "drivers": [
       {
-        "id": "Max-Verstappen",
-        "name": "Max Verstappen"
+        "id": "Sebastian-Vettel",
+        "name": "Sebastian Vettel"
       },
       {
-        "id": "Pierre-Gasly",
-        "name": "Pierre Gasly"
-      },
-      {
-        "id": "Alexander-Albon",
-        "name": "Alexander Albon"
+        "id": "Charles-Leclerc",
+        "name": "Charles Leclerc"
       }
     ],
     "races": 21,
-    "wins": 3,
-    "poles": 2,
-    "fastestLaps": 9,
-    "power": "~1000 hp"
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~900 hp"
   },
   {
-    "id": "RB16",
+    "id": "SF1000",
     "image": "assets/images/cars/2020-SF1000.jpg",
-    "name": "Red Bull RB16",
-    "notes": "Primary challenger to Mercedes in 2020.",
+    "name": "Ferrari SF1000",
+    "notes": "Ferrari chassis for the 2020 Formula One season.",
     "season": 2020,
-    "engine": "Honda RA620H V6 Hybrid",
+    "engine": "Hybrid Formula One power unit",
     "drivers": [
       {
-        "id": "Max-Verstappen",
-        "name": "Max Verstappen"
+        "id": "Sebastian-Vettel",
+        "name": "Sebastian Vettel"
       },
       {
-        "id": "Alexander-Albon",
-        "name": "Alexander Albon"
+        "id": "Charles-Leclerc",
+        "name": "Charles Leclerc"
       }
     ],
     "races": 17,
-    "wins": 2,
-    "poles": 1,
-    "fastestLaps": 11,
-    "power": "~1000 hp"
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~900 hp"
   },
   {
-    "id": "RB17",
+    "id": "SF21",
     "image": "assets/images/cars/2021-SF21.jpg",
-    "name": "Red Bull RB16B",
-    "notes": "2021 title-winning chassis in a very close season.",
+    "name": "Ferrari SF21",
+    "notes": "Ferrari chassis for the 2021 Formula One season.",
     "season": 2021,
-    "engine": "Honda RA621H V6 Hybrid",
+    "engine": "Hybrid Formula One power unit",
     "drivers": [
       {
-        "id": "Max-Verstappen",
-        "name": "Max Verstappen"
+        "id": "Charles-Leclerc",
+        "name": "Charles Leclerc"
       },
       {
-        "id": "Sergio-Perez",
-        "name": "Sergio Perez"
+        "id": "Carlos-Sainz",
+        "name": "Carlos Sainz"
       }
     ],
     "races": 22,
-    "wins": 11,
-    "poles": 10,
-    "fastestLaps": 18,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
     "power": "~1000 hp"
   },
   {
-    "id": "RB18",
+    "id": "F175",
     "image": "assets/images/cars/2022-F175.jpg",
-    "name": "Red Bull RB18",
-    "notes": "Ground-effect era title-winning car.",
+    "name": "Ferrari F1-75",
+    "notes": "Ferrari chassis for the 2022 Formula One season.",
     "season": 2022,
-    "engine": "Red Bull Powertrains / Honda RBPT V6 Hybrid",
+    "engine": "Hybrid Formula One power unit",
     "drivers": [
       {
-        "id": "Max-Verstappen",
-        "name": "Max Verstappen"
+        "id": "Charles-Leclerc",
+        "name": "Charles Leclerc"
       },
       {
-        "id": "Sergio-Perez",
-        "name": "Sergio Perez"
+        "id": "Carlos-Sainz",
+        "name": "Carlos Sainz"
       }
     ],
     "races": 22,
-    "wins": 17,
-    "poles": 8,
-    "fastestLaps": 28,
-    "power": "~1000+ hp"
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~1000 hp"
   },
   {
-    "id": "RB19",
+    "id": "SF23",
     "image": "assets/images/cars/2023-SF23.jpg",
-    "name": "Red Bull RB19",
-    "notes": "Historically dominant ground-effect car.",
+    "name": "Ferrari SF-23",
+    "notes": "Ferrari chassis for the 2023 Formula One season.",
     "season": 2023,
-    "engine": "Red Bull Powertrains / Honda RBPT V6 Hybrid",
+    "engine": "Hybrid Formula One power unit",
     "drivers": [
       {
-        "id": "Max-Verstappen",
-        "name": "Max Verstappen"
+        "id": "Charles-Leclerc",
+        "name": "Charles Leclerc"
       },
       {
-        "id": "Sergio-Perez",
-        "name": "Sergio Perez"
+        "id": "Carlos-Sainz",
+        "name": "Carlos Sainz"
       }
     ],
     "races": 22,
-    "wins": 21,
-    "poles": 14,
-    "fastestLaps": 30,
-    "power": "~1000+ hp"
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~1000 hp"
   },
   {
-    "id": "RB20",
+    "id": "SF24",
     "image": "assets/images/cars/2024-SF24.jpg",
-    "name": "Red Bull RB20",
-    "notes": "Evolution of modern Red Bull ground-effect concept.",
+    "name": "Ferrari SF-24",
+    "notes": "Ferrari chassis for the 2024 Formula One season.",
     "season": 2024,
-    "engine": "Red Bull Powertrains / Honda RBPT V6 Hybrid",
+    "engine": "Hybrid Formula One power unit",
     "drivers": [
       {
-        "id": "Max-Verstappen",
-        "name": "Max Verstappen"
+        "id": "Charles-Leclerc",
+        "name": "Charles Leclerc"
       },
       {
-        "id": "Sergio-Perez",
-        "name": "Sergio Perez"
+        "id": "Carlos-Sainz",
+        "name": "Carlos Sainz"
       }
     ],
     "races": 24,
-    "wins": 9,
-    "poles": 8,
-    "fastestLaps": 0,
-    "power": "~1000+ hp"
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~1000 hp"
   },
   {
-    "id": "RB21",
+    "id": "SF25",
     "image": "assets/images/cars/2025-SF25.jpg",
-    "name": "Red Bull RB21",
-    "notes": "2025 season chassis continuing the RBPT/Honda era direction.",
+    "name": "Ferrari SF-25",
+    "notes": "Ferrari chassis for the 2025 Formula One season.",
     "season": 2025,
-    "engine": "Red Bull Powertrains / Honda RBPT V6 Hybrid",
+    "engine": "Hybrid Formula One power unit",
     "drivers": [
       {
-        "id": "Max-Verstappen",
-        "name": "Max Verstappen"
+        "id": "Charles-Leclerc",
+        "name": "Charles Leclerc"
       },
       {
-        "id": "Liam-Lawson",
-        "name": "Liam Lawson"
-      },
-      {
-        "id": "Yuki-Tsunoda",
-        "name": "Yuki Tsunoda"
+        "id": "Lewis-Hamilton",
+        "name": "Lewis Hamilton"
       }
     ],
     "races": 24,
-    "wins": 0,
-    "poles": 0,
-    "fastestLaps": 0,
-    "power": "~1000+ hp"
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~1000 hp"
+  },
+  {
+    "id": "SF26",
+    "image": "assets/images/cars/2026-SF26.jpg",
+    "name": "Ferrari SF-26",
+    "notes": "Ferrari chassis for the 2026 Formula One season.",
+    "season": 2026,
+    "engine": "2026 Formula One power unit",
+    "drivers": [
+      {
+        "id": "Charles-Leclerc",
+        "name": "Charles Leclerc"
+      },
+      {
+        "id": "Lewis-Hamilton",
+        "name": "Lewis Hamilton"
+      }
+    ],
+    "races": "-",
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "TBD"
   }
 ]

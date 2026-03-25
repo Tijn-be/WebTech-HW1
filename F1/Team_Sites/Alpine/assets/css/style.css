@@ -653,12 +653,7 @@ a:hover {
 .team-item {
   cursor: help;
 }
-
-.propagation-status {
-  min-height: 1.2em;
-  font-size: 0.9rem;
-}
-
+
 .team-tooltip {
   position: absolute;
   max-width: 280px;

@@ -467,19 +467,23 @@ const teamFactsByTitle = {
 };
 
 function getDriverWikiUrl(driver) {
-  if (!driver) {
-    return "https://en.wikipedia.org/wiki/Red_Bull_Racing";
+  if (driver && typeof driver.wikiUrl === "string" && driver.wikiUrl.trim() !== "") {
+    return driver.wikiUrl;
   }
 
-  if (driver.id && driverWikiById[driver.id]) {
+  if (driver && driver.id && driverWikiById[driver.id]) {
     return driverWikiById[driver.id];
   }
 
-  if (driver.name && driverWikiByName[driver.name]) {
+  if (driver && driver.name && driverWikiByName[driver.name]) {
     return driverWikiByName[driver.name];
   }
 
-  return "https://en.wikipedia.org/wiki/Red_Bull_Racing";
+  const rawName =
+    (driver && (driver.name || driver.fullName)) ||
+    (driver && driver.id ? String(driver.id).replace(/-/g, " ") : "Formula One driver");
+
+  return `https://en.wikipedia.org/wiki/${encodeURIComponent(rawName).replace(/%20/g, "_")}`;
 }
 
 function getCarWikiUrl(car) {
@@ -620,12 +624,7 @@ if (driversList && driversFileInput && driversUploadArea) {
         const item = document.createElement("li");
         item.classList.add("team-item");
         item.textContent = team.title;
-        item.dataset.teamInfo = getTeamPreviewInfo(team);
-
-        item.addEventListener("click", function () {
-          addPropagationStep(`target: ${team.title}`);
-        });
-
+        item.dataset.teamInfo = getTeamPreviewInfo(team);
         formerTeamsList.appendChild(item);
       });
 
@@ -663,56 +662,8 @@ if (driversList && driversFileInput && driversUploadArea) {
 
       formerTeamsList.addEventListener("mouseout", function () {
         teamTooltip.classList.remove("team-tooltip--visible");
-      });
+      });
 
-      const propagationStatus = document.getElementById("propagationStatus");
-      let propagationSteps = [];
-
-      function resetPropagationSteps() {
-        propagationSteps = [];
-      }
-
-      function addPropagationStep(stepText) {
-        if (!propagationStatus) {
-          return;
-        }
-
-        propagationSteps.push(stepText);
-        propagationStatus.textContent = propagationSteps.join(" -> ");
-      }
-
-      section.addEventListener(
-        "click",
-        function () {
-          resetPropagationSteps();
-          addPropagationStep("capture: section");
-        },
-        true,
-      );
-
-      formerTeamsList.addEventListener(
-        "click",
-        function (event) {
-          if (event.target.closest(".team-item")) {
-            addPropagationStep("capture: teams list");
-          }
-        },
-        true,
-      );
-
-      formerTeamsList.addEventListener("click", function (event) {
-        if (event.target.closest(".team-item")) {
-          addPropagationStep("bubble: teams list");
-        }
-      });
-
-      section.addEventListener("click", function (event) {
-        if (event.target.closest(".team-item")) {
-          addPropagationStep("bubble: section");
-        } else if (propagationStatus) {
-          addPropagationStep("bubble: section");
-        }
-      });
 
       tile.appendChild(image);
 

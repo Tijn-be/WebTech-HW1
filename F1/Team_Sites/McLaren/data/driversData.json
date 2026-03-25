@@ -1,60 +1,50 @@
 [
   {
-    "id": "Alexander-Albon",
-    "name": "Alexander Albon",
-    "wikiUrl": "https://en.wikipedia.org/wiki/Alex_Albon",
-    "image": "assets/images/drivers/AlexanderAlbon.jpg",
-    "fullName": "Alexander Albon Ansusinha",
-    "age": 29,
-    "birthDate": "23 March 1996",
-    "birthPlace": "London, England",
-    "nationality": "Thai",
-    "number": "23",
-    "wins": 0,
-    "firstName": "Alexander",
-    "lastName": "Albon",
-    "born": "23 March 1996",
+    "id": "Lando-Norris",
+    "name": "Lando Norris",
+    "wikiUrl": "https://en.wikipedia.org/wiki/Lando_Norris",
+    "image": "assets/images/drivers/LandoNorris.jpg",
+    "fullName": "Lando Norris",
+    "age": "26",
+    "birthDate": "13 November 1999",
+    "birthPlace": "Bristol, England, United Kingdom",
+    "nationality": "British",
+    "number": "4",
+    "wins": "4",
+    "firstName": "Lando",
+    "lastName": "Norris",
+    "born": "13 November 1999",
     "role": "Driver",
-    "photo": "assets/images/drivers/AlexanderAlbon.jpg",
+    "photo": "assets/images/drivers/LandoNorris.jpg",
     "formerTeams": [
       {
-        "title": "Red Bull Racing",
-        "city": "Milton Keynes",
-        "country": "United Kingdom"
-      },
-      {
-        "title": "Williams Racing",
-        "city": "Grove",
+        "title": "McLaren",
+        "city": "Woking",
         "country": "United Kingdom"
       }
     ]
   },
   {
-    "id": "Christian-Klien",
-    "name": "Christian Klien",
-    "wikiUrl": "https://en.wikipedia.org/wiki/Christian_Klien",
-    "image": "assets/images/drivers/ChristianKlien.jpg",
-    "fullName": "Christian Klien",
-    "age": 43,
-    "birthDate": "7 February 1983",
-    "birthPlace": "Hohenems, Austria",
-    "nationality": "Austrian",
-    "number": "-",
-    "wins": 0,
-    "firstName": "Christian",
-    "lastName": "Klien",
-    "born": "7 February 1983",
+    "id": "Oscar-Piastri",
+    "name": "Oscar Piastri",
+    "wikiUrl": "https://en.wikipedia.org/wiki/Oscar_Piastri",
+    "image": "assets/images/drivers/OscarPiastri.jpg",
+    "fullName": "Oscar Piastri",
+    "age": "24",
+    "birthDate": "6 April 2001",
+    "birthPlace": "Melbourne, Victoria, Australia",
+    "nationality": "Australian",
+    "number": "81",
+    "wins": "2",
+    "firstName": "Oscar",
+    "lastName": "Piastri",
+    "born": "6 April 2001",
     "role": "Driver",
-    "photo": "assets/images/drivers/ChristianKlien.jpg",
+    "photo": "assets/images/drivers/OscarPiastri.jpg",
     "formerTeams": [
       {
-        "title": "Jaguar Racing",
-        "city": "Milton Keynes",
-        "country": "United Kingdom"
-      },
-      {
-        "title": "Red Bull Racing",
-        "city": "Milton Keynes",
+        "title": "McLaren",
+        "city": "Woking",
         "country": "United Kingdom"
       }
     ]
@@ -64,13 +54,13 @@
     "name": "Daniel Ricciardo",
     "wikiUrl": "https://en.wikipedia.org/wiki/Daniel_Ricciardo",
     "image": "assets/images/drivers/DanielRicciardo.jpg",
-    "fullName": "Daniel Joseph Ricciardo",
-    "age": 36,
+    "fullName": "Daniel Ricciardo",
+    "age": "36",
     "birthDate": "1 July 1989",
-    "birthPlace": "Perth, Australia",
+    "birthPlace": "Perth, Western Australia, Australia",
     "nationality": "Australian",
-    "number": "3",
-    "wins": 8,
+    "number": "N/A",
+    "wins": "8",
     "firstName": "Daniel",
     "lastName": "Ricciardo",
     "born": "1 July 1989",
@@ -78,303 +68,133 @@
     "photo": "assets/images/drivers/DanielRicciardo.jpg",
     "formerTeams": [
       {
-        "title": "HRT F1 Team",
-        "city": "Murcia",
-        "country": "Spain"
-      },
-      {
-        "title": "Toro Rosso",
-        "city": "Faenza",
-        "country": "Italy"
-      },
-      {
-        "title": "Red Bull Racing",
-        "city": "Milton Keynes",
+        "title": "McLaren",
+        "city": "Woking",
         "country": "United Kingdom"
       }
     ]
   },
   {
-    "id": "Daniil-Kvyat",
-    "name": "Daniil Kvyat",
-    "wikiUrl": "https://en.wikipedia.org/wiki/Daniil_Kvyat",
-    "image": "assets/images/drivers/DaniilKvyat.jpg",
-    "fullName": "Daniil Kvyat",
-    "age": 31,
-    "birthDate": "26 April 1994",
-    "birthPlace": "Ufa, Russia",
-    "nationality": "Russian",
-    "number": "-",
-    "wins": 0,
-    "firstName": "Daniil",
-    "lastName": "Kvyat",
-    "born": "26 April 1994",
+    "id": "Carlos-Sainz",
+    "name": "Carlos Sainz",
+    "wikiUrl": "https://en.wikipedia.org/wiki/Carlos_Sainz_Jr.",
+    "image": "assets/images/drivers/CarlosSainz.jpg",
+    "fullName": "Carlos Sainz",
+    "age": "31",
+    "birthDate": "1 September 1994",
+    "birthPlace": "Madrid, Spain",
+    "nationality": "Spanish",
+    "number": "55",
+    "wins": "4",
+    "firstName": "Carlos",
+    "lastName": "Sainz",
+    "born": "1 September 1994",
     "role": "Driver",
-    "photo": "assets/images/drivers/DaniilKvyat.jpg",
+    "photo": "assets/images/drivers/CarlosSainz.jpg",
     "formerTeams": [
-      {
-        "title": "Toro Rosso",
-        "city": "Faenza",
-        "country": "Italy"
-      },
-      {
-        "title": "Red Bull Racing",
-        "city": "Milton Keynes",
-        "country": "United Kingdom"
-      }
-    ]
-  },
-  {
-    "id": "David-Coulthard",
-    "name": "David Coulthard",
-    "wikiUrl": "https://en.wikipedia.org/wiki/David_Coulthard",
-    "image": "assets/images/drivers/DavidCoulthard.jpg",
-    "fullName": "David Marshall Coulthard",
-    "age": 54,
-    "birthDate": "27 March 1971",
-    "birthPlace": "Twynholm, Scotland",
-    "nationality": "Scottish",
-    "number": "-",
-    "wins": 13,
-    "firstName": "David",
-    "lastName": "Coulthard",
-    "born": "27 March 1971",
-    "role": "Driver",
-    "photo": "assets/images/drivers/DavidCoulthard.jpg",
-    "formerTeams": [
-      {
-        "title": "Williams",
-        "city": "Grove",
-        "country": "United Kingdom"
-      },
       {
         "title": "McLaren",
         "city": "Woking",
         "country": "United Kingdom"
-      },
+      }
+    ]
+  },
+  {
+    "id": "Fernando-Alonso",
+    "name": "Fernando Alonso",
+    "wikiUrl": "https://en.wikipedia.org/wiki/Fernando_Alonso",
+    "image": "assets/images/drivers/FernandoAlonso.jpg",
+    "fullName": "Fernando Alonso",
+    "age": "44",
+    "birthDate": "29 July 1981",
+    "birthPlace": "Oviedo, Spain",
+    "nationality": "Spanish",
+    "number": "14",
+    "wins": "32",
+    "firstName": "Fernando",
+    "lastName": "Alonso",
+    "born": "29 July 1981",
+    "role": "Driver",
+    "photo": "assets/images/drivers/FernandoAlonso.jpg",
+    "formerTeams": [
       {
-        "title": "Red Bull Racing",
-        "city": "Milton Keynes",
+        "title": "McLaren",
+        "city": "Woking",
         "country": "United Kingdom"
       }
     ]
   },
   {
-    "id": "Isack-Hadjar",
-    "name": "Isack Hadjar",
-    "wikiUrl": "https://en.wikipedia.org/wiki/Isack_Hadjar",
-    "image": "assets/images/drivers/IsackHadjar.jpg",
-    "fullName": "Isack Alexandre Hadjar",
-    "age": 21,
-    "birthDate": "28 September 2004",
-    "birthPlace": "Paris, France",
-    "nationality": "French",
-    "number": "6",
-    "wins": 0,
-    "firstName": "Isack",
-    "lastName": "Hadjar",
-    "born": "28 September 2004",
+    "id": "Stoffel-Vandoorne",
+    "name": "Stoffel Vandoorne",
+    "wikiUrl": "https://en.wikipedia.org/wiki/Stoffel_Vandoorne",
+    "image": "assets/images/drivers/StoffelVandoorne.jpg",
+    "fullName": "Stoffel Vandoorne",
+    "age": "33",
+    "birthDate": "26 March 1992",
+    "birthPlace": "Kortrijk, Belgium",
+    "nationality": "Belgian",
+    "number": "2",
+    "wins": "0",
+    "firstName": "Stoffel",
+    "lastName": "Vandoorne",
+    "born": "26 March 1992",
     "role": "Driver",
-    "photo": "assets/images/drivers/IsackHadjar.jpg",
+    "photo": "assets/images/drivers/StoffelVandoorne.jpg",
     "formerTeams": [
       {
-        "title": "Racing Bulls",
-        "city": "Faenza",
-        "country": "Italy"
-      }
-    ]
-  },
-  {
-    "id": "Liam-Lawson",
-    "name": "Liam Lawson",
-    "wikiUrl": "https://en.wikipedia.org/wiki/Liam_Lawson",
-    "image": "assets/images/drivers/LiamLawson.jpg",
-    "fullName": "Liam Jared Lawson",
-    "age": 24,
-    "birthDate": "11 February 2002",
-    "birthPlace": "Hastings, New Zealand",
-    "nationality": "New Zealander",
-    "number": "30",
-    "wins": 0,
-    "firstName": "Liam",
-    "lastName": "Lawson",
-    "born": "11 February 2002",
-    "role": "Driver",
-    "photo": "assets/images/drivers/LiamLawson.jpg",
-    "formerTeams": [
-      {
-        "title": "Racing Bulls",
-        "city": "Faenza",
-        "country": "Italy"
-      },
-      {
-        "title": "Red Bull Racing",
-        "city": "Milton Keynes",
+        "title": "McLaren",
+        "city": "Woking",
         "country": "United Kingdom"
       }
     ]
   },
   {
-    "id": "Mark-Webber",
-    "name": "Mark Webber",
-    "wikiUrl": "https://en.wikipedia.org/wiki/Mark_Webber",
-    "image": "assets/images/drivers/MarkWebber.jpg",
-    "fullName": "Mark Alan Webber",
-    "age": 49,
-    "birthDate": "27 August 1976",
-    "birthPlace": "Queanbeyan, Australia",
-    "nationality": "Australian",
-    "number": "-",
-    "wins": 9,
-    "firstName": "Mark",
-    "lastName": "Webber",
-    "born": "27 August 1976",
+    "id": "Jenson-Button",
+    "name": "Jenson Button",
+    "wikiUrl": "https://en.wikipedia.org/wiki/Jenson_Button",
+    "image": "assets/images/drivers/JensonButton.jpg",
+    "fullName": "Jenson Button",
+    "age": "46",
+    "birthDate": "19 January 1980",
+    "birthPlace": "Frome, Somerset, England, United Kingdom",
+    "nationality": "British",
+    "number": "N/A",
+    "wins": "15",
+    "firstName": "Jenson",
+    "lastName": "Button",
+    "born": "19 January 1980",
     "role": "Driver",
-    "photo": "assets/images/drivers/MarkWebber.jpg",
+    "photo": "assets/images/drivers/JensonButton.jpg",
     "formerTeams": [
       {
-        "title": "Minardi",
-        "city": "Faenza",
-        "country": "Italy"
-      },
-      {
-        "title": "Williams",
-        "city": "Grove",
-        "country": "United Kingdom"
-      },
-      {
-        "title": "Red Bull Racing",
-        "city": "Milton Keynes",
+        "title": "McLaren",
+        "city": "Woking",
         "country": "United Kingdom"
       }
     ]
   },
   {
-    "id": "Max-Verstappen",
-    "name": "Max Verstappen",
-    "wikiUrl": "https://en.wikipedia.org/wiki/Max_Verstappen",
-    "image": "assets/images/drivers/MaxVerstappen.jpg",
-    "fullName": "Max Emilian Verstappen",
-    "age": 28,
-    "birthDate": "30 September 1997",
-    "birthPlace": "Hasselt, Belgium",
-    "nationality": "Dutch",
-    "number": "1",
-    "wins": 71,
-    "firstName": "Max",
-    "lastName": "Verstappen",
-    "born": "30 September 1997",
+    "id": "Kevin-Magnussen",
+    "name": "Kevin Magnussen",
+    "wikiUrl": "https://en.wikipedia.org/wiki/Kevin_Magnussen",
+    "image": "assets/images/drivers/KevinMagnussen.jpg",
+    "fullName": "Kevin Magnussen",
+    "age": "33",
+    "birthDate": "5 October 1992",
+    "birthPlace": "Roskilde, Denmark",
+    "nationality": "Danish",
+    "number": "N/A",
+    "wins": "0",
+    "firstName": "Kevin",
+    "lastName": "Magnussen",
+    "born": "5 October 1992",
     "role": "Driver",
-    "photo": "assets/images/drivers/MaxVerstappen.jpg",
+    "photo": "assets/images/drivers/KevinMagnussen.jpg",
     "formerTeams": [
       {
-        "title": "Toro Rosso",
-        "city": "Faenza",
-        "country": "Italy"
-      },
-      {
-        "title": "Red Bull Racing",
-        "city": "Milton Keynes",
-        "country": "United Kingdom"
-      }
-    ]
-  },
-  {
-    "id": "Pierre-Gasly",
-    "name": "Pierre Gasly",
-    "wikiUrl": "https://en.wikipedia.org/wiki/Pierre_Gasly",
-    "image": "assets/images/drivers/PierreGasly.jpg",
-    "fullName": "Pierre Jean-Jacques Gasly",
-    "age": 30,
-    "birthDate": "7 February 1996",
-    "birthPlace": "Rouen, France",
-    "nationality": "French",
-    "number": "10",
-    "wins": 1,
-    "firstName": "Pierre",
-    "lastName": "Gasly",
-    "born": "7 February 1996",
-    "role": "Driver",
-    "photo": "assets/images/drivers/PierreGasly.jpg",
-    "formerTeams": [
-      {
-        "title": "Toro Rosso",
-        "city": "Faenza",
-        "country": "Italy"
-      },
-      {
-        "title": "Red Bull Racing",
-        "city": "Milton Keynes",
-        "country": "United Kingdom"
-      },
-      {
-        "title": "Alpine",
-        "city": "Enstone",
-        "country": "France"
-      }
-    ]
-  },
-  {
-    "id": "Robert-Doornbos",
-    "name": "Robert Doornbos",
-    "wikiUrl": "https://en.wikipedia.org/wiki/Robert_Doornbos",
-    "image": "assets/images/drivers/RobertDoornbos.jpg",
-    "fullName": "Robert Michael Doornbos",
-    "age": 44,
-    "birthDate": "23 September 1981",
-    "birthPlace": "Rotterdam, Netherlands",
-    "nationality": "Dutch",
-    "number": "-",
-    "wins": 0,
-    "firstName": "Robert",
-    "lastName": "Doornbos",
-    "born": "23 September 1981",
-    "role": "Driver",
-    "photo": "assets/images/drivers/RobertDoornbos.jpg",
-    "formerTeams": [
-      {
-        "title": "Minardi",
-        "city": "Faenza",
-        "country": "Italy"
-      },
-      {
-        "title": "Red Bull Racing",
-        "city": "Milton Keynes",
-        "country": "United Kingdom"
-      }
-    ]
-  },
-  {
-    "id": "Sebastian-Vettel",
-    "name": "Sebastian Vettel",
-    "wikiUrl": "https://en.wikipedia.org/wiki/Sebastian_Vettel",
-    "image": "assets/images/drivers/SebastianVettel.jpg",
-    "fullName": "Sebastian Vettel",
-    "age": 38,
-    "birthDate": "3 July 1987",
-    "birthPlace": "Heppenheim, Germany",
-    "nationality": "German",
-    "number": "5",
-    "wins": 53,
-    "firstName": "Sebastian",
-    "lastName": "Vettel",
-    "born": "3 July 1987",
-    "role": "Driver",
-    "photo": "assets/images/drivers/SebastianVettel.jpg",
-    "formerTeams": [
-      {
-        "title": "BMW Sauber",
-        "city": "Hinwil",
-        "country": "Switzerland"
-      },
-      {
-        "title": "Toro Rosso",
-        "city": "Faenza",
-        "country": "Italy"
-      },
-      {
-        "title": "Red Bull Racing",
-        "city": "Milton Keynes",
+        "title": "McLaren",
+        "city": "Woking",
         "country": "United Kingdom"
       }
     ]
@@ -384,13 +204,13 @@
     "name": "Sergio Perez",
     "wikiUrl": "https://en.wikipedia.org/wiki/Sergio_P%C3%A9rez",
     "image": "assets/images/drivers/SergioPerez.jpg",
-    "fullName": "Sergio Perez Mendoza",
-    "age": 36,
+    "fullName": "Sergio Perez",
+    "age": "36",
     "birthDate": "26 January 1990",
-    "birthPlace": "Guadalajara, Mexico",
+    "birthPlace": "Guadalajara, Jalisco, Mexico",
     "nationality": "Mexican",
     "number": "11",
-    "wins": 6,
+    "wins": "6",
     "firstName": "Sergio",
     "lastName": "Perez",
     "born": "26 January 1990",
@@ -398,79 +218,134 @@
     "photo": "assets/images/drivers/SergioPerez.jpg",
     "formerTeams": [
       {
-        "title": "Sauber",
-        "city": "Hinwil",
-        "country": "Switzerland"
-      },
-      {
-        "title": "Force India",
-        "city": "Silverstone",
-        "country": "United Kingdom"
-      },
-      {
-        "title": "Red Bull Racing",
-        "city": "Milton Keynes",
+        "title": "McLaren",
+        "city": "Woking",
         "country": "United Kingdom"
       }
     ]
   },
   {
-    "id": "Vitantonio-Liuzzi",
-    "name": "Vitantonio Liuzzi",
-    "wikiUrl": "https://en.wikipedia.org/wiki/Vitantonio_Liuzzi",
-    "image": "assets/images/drivers/VitantonioLiuzzi.jpg",
-    "fullName": "Vitantonio Liuzzi",
-    "age": 45,
-    "birthDate": "6 August 1980",
-    "birthPlace": "Locorotondo, Italy",
-    "nationality": "Italian",
-    "number": "-",
-    "wins": 0,
-    "firstName": "Vitantonio",
-    "lastName": "Liuzzi",
-    "born": "6 August 1980",
+    "id": "Lewis-Hamilton",
+    "name": "Lewis Hamilton",
+    "wikiUrl": "https://en.wikipedia.org/wiki/Lewis_Hamilton",
+    "image": "assets/images/drivers/LewisHamilton.jpg",
+    "fullName": "Lewis Hamilton",
+    "age": "41",
+    "birthDate": "7 January 1985",
+    "birthPlace": "Stevenage, England, United Kingdom",
+    "nationality": "British",
+    "number": "44",
+    "wins": "105",
+    "firstName": "Lewis",
+    "lastName": "Hamilton",
+    "born": "7 January 1985",
     "role": "Driver",
-    "photo": "assets/images/drivers/VitantonioLiuzzi.jpg",
+    "photo": "assets/images/drivers/LewisHamilton.jpg",
     "formerTeams": [
       {
-        "title": "Toro Rosso",
-        "city": "Faenza",
-        "country": "Italy"
-      },
-      {
-        "title": "Red Bull Racing",
-        "city": "Milton Keynes",
+        "title": "McLaren",
+        "city": "Woking",
         "country": "United Kingdom"
       }
     ]
   },
   {
-    "id": "Yuki-Tsunoda",
-    "name": "Yuki Tsunoda",
-    "wikiUrl": "https://en.wikipedia.org/wiki/Yuki_Tsunoda",
-    "image": "assets/images/drivers/YukiTsunoda.jpg",
-    "fullName": "Yuki Tsunoda",
-    "age": 25,
-    "birthDate": "11 May 2000",
-    "birthPlace": "Sagamihara, Japan",
-    "nationality": "Japanese",
-    "number": "22",
-    "wins": 0,
-    "firstName": "Yuki",
-    "lastName": "Tsunoda",
-    "born": "11 May 2000",
+    "id": "Heikki-Kovalainen",
+    "name": "Heikki Kovalainen",
+    "wikiUrl": "https://en.wikipedia.org/wiki/Heikki_Kovalainen",
+    "image": "assets/images/drivers/HeikkiKovalainen.jpg",
+    "fullName": "Heikki Kovalainen",
+    "age": "44",
+    "birthDate": "19 October 1981",
+    "birthPlace": "Suomussalmi, Finland",
+    "nationality": "Finnish",
+    "number": "N/A",
+    "wins": "1",
+    "firstName": "Heikki",
+    "lastName": "Kovalainen",
+    "born": "19 October 1981",
     "role": "Driver",
-    "photo": "assets/images/drivers/YukiTsunoda.jpg",
+    "photo": "assets/images/drivers/HeikkiKovalainen.jpg",
     "formerTeams": [
       {
-        "title": "AlphaTauri",
-        "city": "Faenza",
-        "country": "Italy"
-      },
+        "title": "McLaren",
+        "city": "Woking",
+        "country": "United Kingdom"
+      }
+    ]
+  },
+  {
+    "id": "Juan-Pablo-Montoya",
+    "name": "Juan Pablo Montoya",
+    "wikiUrl": "https://en.wikipedia.org/wiki/Juan_Pablo_Montoya",
+    "image": "assets/images/drivers/JuanPabloMontoya.jpg",
+    "fullName": "Juan Pablo Montoya",
+    "age": "50",
+    "birthDate": "20 September 1975",
+    "birthPlace": "Bogota, Colombia",
+    "nationality": "Colombian",
+    "number": "N/A",
+    "wins": "7",
+    "firstName": "Juan",
+    "lastName": "Pablo Montoya",
+    "born": "20 September 1975",
+    "role": "Driver",
+    "photo": "assets/images/drivers/JuanPabloMontoya.jpg",
+    "formerTeams": [
       {
-        "title": "Racing Bulls",
-        "city": "Faenza",
-        "country": "Italy"
+        "title": "McLaren",
+        "city": "Woking",
+        "country": "United Kingdom"
+      }
+    ]
+  },
+  {
+    "id": "Kimi-Raikkonen",
+    "name": "Kimi Raikkonen",
+    "wikiUrl": "https://en.wikipedia.org/wiki/Kimi_R%C3%A4ikk%C3%B6nen",
+    "image": "assets/images/drivers/KimiRaikkonen.jpg",
+    "fullName": "Kimi Raikkonen",
+    "age": "46",
+    "birthDate": "17 October 1979",
+    "birthPlace": "Espoo, Finland",
+    "nationality": "Finnish",
+    "number": "N/A",
+    "wins": "21",
+    "firstName": "Kimi",
+    "lastName": "Raikkonen",
+    "born": "17 October 1979",
+    "role": "Driver",
+    "photo": "assets/images/drivers/KimiRaikkonen.jpg",
+    "formerTeams": [
+      {
+        "title": "McLaren",
+        "city": "Woking",
+        "country": "United Kingdom"
+      }
+    ]
+  },
+  {
+    "id": "Pedro-de-la-Rosa",
+    "name": "Pedro de la Rosa",
+    "wikiUrl": "https://en.wikipedia.org/wiki/Pedro_de_la_Rosa",
+    "image": "assets/images/drivers/PedrodelaRosa.jpg",
+    "fullName": "Pedro de la Rosa",
+    "age": "55",
+    "birthDate": "24 February 1971",
+    "birthPlace": "Barcelona, Spain",
+    "nationality": "Spanish",
+    "number": "N/A",
+    "wins": "0",
+    "firstName": "Pedro",
+    "lastName": "de la Rosa",
+    "born": "24 February 1971",
+    "role": "Driver",
+    "photo": "assets/images/drivers/PedrodelaRosa.jpg",
+    "formerTeams": [
+      {
+        "title": "McLaren",
+        "city": "Woking",
+        "country": "United Kingdom"
       }
     ]
   }
