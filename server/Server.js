@@ -21,7 +21,7 @@ http.createServer((req, res) => {
     }
 
     //Password
-    if (req.method === 'POST' && req.url === '/login') {
+    if (req.method === 'POST') {
         let body = '';
         req.on('data', chunk => { body += chunk.toString(); });
         req.on('end', () => {
