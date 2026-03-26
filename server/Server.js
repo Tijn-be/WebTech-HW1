@@ -21,7 +21,7 @@ http.createServer((req, res) => {
     }
 
     //Password
-    if (req.method === 'POST') {
+    if (req.method === 'POST' && req.url === '/login') {
         let body = '';
         req.on('data', chunk => { body += chunk.toString(); });
         req.on('end', () => {
@@ -65,8 +65,8 @@ http.createServer((req, res) => {
         res.end(data);
     });
 
-}).listen(port, "0.0.0.0", () => 
-    { console.log(`Server draait op poort ${port}`);
+}).listen(port, "0.0.0.0", () => { 
+    console.log(`Server draait op poort ${port}`);
 });
 
 //Makes db
