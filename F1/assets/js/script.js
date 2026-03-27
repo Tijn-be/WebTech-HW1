@@ -1,3 +1,44 @@
+//---Login---
+document.getElementById('loginForm').addEventListener('submit', function(event) {
+  event.preventDefault();
+
+  const username = document.getElementById('username').value;
+  const password = document.getElementById('password').value;
+  const errorDisplay = document.getElementById('error-message');
+
+  if (password.length < 6) {
+    errorDisplay.style.display = 'block';
+    errorDisplay.innerText = "Password too short!";
+    document.getElementById('password').style.borderColor = 'red';
+    return;
+  }
+
+  fetch('login', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ username: username, password: password })
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(`Server reageerde met status ${response.status}`);
+    }
+    return response.json();
+  })
+  .then(data => {
+    if (data.success) {
+      document.getElementById('logInBox').style.display = 'none';
+      document.getElementById('userDisplayName').innerText = data.user;
+      document.getElementById('logOutBox').style.display = 'block';
+    } else {
+      errorDisplay.innerText = data.message;
+      errorDisplay.style.display = 'block';
+    }
+  })
+  .catch(err => {
+    console.error("Server unavailable:", err);
+  });
+});
+
 //---Classes---
 class Person {
   #firstName;
@@ -519,6 +560,59 @@ function getTeamPreviewInfo(team) {
   return `${title} (${city}, ${country})\n${fact}`;
 }
 
+//---Leaderboard---
+const leaderBody = document.getElementById('leaderboard-body');
+
+if (leaderBody) {
+
+  //Adds table content
+  function createLeaderCell(value) {
+    const td = document.createElement("td");
+    td.textContent = String(value);
+    return td;
+  }
+
+  //Uploads table content
+  fetch("data/leaderData.json")
+    .then((response) => response.json())          //Reads file
+    .then((Placements) => {                       //Creates table
+      while (leaderBody.firstChild) {
+        leaderBody.removeChild(leaderBody.firstChild);
+      }
+
+      Placements.sort((a, b) => {
+        return Number(b.points) - Number(a.points);
+      });
+
+      Placements.forEach((driverPlace, index) => {
+        const row = document.createElement("tr");
+
+        const rankCell = createLeaderCell(index + 1);
+        rankCell.classList.add("rank");
+        
+        const driverCell = document.createElement("td");
+        const link = document.createElement("a");
+        link.href = getDriverWikiUrl({ name: driverPlace.name });
+        link.textContent = driverPlace.name;
+        driverCell.appendChild(link);
+
+        const teamCell = createLeaderCell(driverPlace.team)
+        teamCell.style.textAlign = "center";
+
+        const pointsCell = createLeaderCell(driverPlace.points);
+        pointsCell.classList.add("points");
+
+        row.appendChild(rankCell);
+        row.appendChild(driverCell);
+        row.appendChild(teamCell);
+        row.appendChild(pointsCell);
+
+        leaderBody.appendChild(row);
+      });
+    })
+    .catch((error) => console.error(error));      //Results error
+}
+
 //---Drivers page---
 const driversList = document.getElementById("driversList");
 const driversFileInput = document.getElementById("driversFileInput");
@@ -624,7 +718,8 @@ if (driversList && driversFileInput && driversUploadArea) {
         const item = document.createElement("li");
         item.classList.add("team-item");
         item.textContent = team.title;
-        item.dataset.teamInfo = getTeamPreviewInfo(team);
+        item.dataset.teamInfo = getTeamPreviewInfo(team);
+
         formerTeamsList.appendChild(item);
       });
 
@@ -662,7 +757,8 @@ if (driversList && driversFileInput && driversUploadArea) {
 
       formerTeamsList.addEventListener("mouseout", function () {
         teamTooltip.classList.remove("team-tooltip--visible");
-      });
+      });
+
 
 
       tile.appendChild(image);
