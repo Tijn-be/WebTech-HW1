@@ -13,7 +13,7 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
     return;
   }
 
-  fetch('/login', {
+  fetch('/api/login', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ username: username, password: password })
@@ -554,6 +554,59 @@ function getTeamPreviewInfo(team) {
   }
 
   return `${title} (${city}, ${country})\n${fact}`;
+}
+
+//---Leaderboard---
+const leaderBody = document.getElementById('leaderboard-body');
+
+if (leaderBody) {
+
+  //Adds table content
+  function createLeaderCell(value) {
+    const td = document.createElement("td");
+    td.textContent = String(value);
+    return td;
+  }
+
+  //Uploads table content
+  fetch("data/leaderData.json")
+    .then((response) => response.json())          //Reads file
+    .then((Placements) => {                       //Creates table
+      while (leaderBody.firstChild) {
+        leaderBody.removeChild(leaderBody.firstChild);
+      }
+
+      Placements.sort((a, b) => {
+        return Number(b.points) - Number(a.points);
+      });
+
+      Placements.forEach((driverPlace, index) => {
+        const row = document.createElement("tr");
+
+        const rankCell = createLeaderCell(index + 1);
+        rankCell.classList.add("rank");
+        
+        const driverCell = document.createElement("td");
+        const link = document.createElement("a");
+        link.href = getDriverWikiUrl({ name: driverPlace.name });
+        link.textContent = driverPlace.name;
+        driverCell.appendChild(link);
+
+        const teamCell = createLeaderCell(driverPlace.team)
+        teamCell.style.textAlign = "center";
+
+        const pointsCell = createLeaderCell(driverPlace.points);
+        pointsCell.classList.add("points");
+
+        row.appendChild(rankCell);
+        row.appendChild(driverCell);
+        row.appendChild(teamCell);
+        row.appendChild(pointsCell);
+
+        leaderBody.appendChild(row);
+      });
+    })
+    .catch((error) => console.error(error));      //Results error
 }
 
 //---Drivers page---

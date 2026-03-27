@@ -391,6 +391,53 @@ a:hover {
     border-color: #94a3b8;
   }
 
+/*---Home Page---*/
+
+.leaderboard-table {
+  margin: 10px auto;
+  border-collapse: collapse;
+  width: 80%;
+  max-width: 80vw;
+  background-color: #2d2d2d;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0);
+}
+.leaderboard-table tr:nth-child(even) {
+  background-color: rgba(255, 255, 255, 0.244);
+}
+
+.leaderboard-table certain {
+  background-color: #444;
+  color: #00ffcc;
+  text-align: left;
+}
+
+.leaderboard-table th, 
+.leaderboard-table td {
+  padding: 15px 20px;
+  border-bottom: 1px solid #242424;
+}
+
+.leaderboard-table tbody tr:hover {
+  background-color: #383838;
+}
+
+.rank {
+  font-weight: bold;
+  width: 50px;
+}
+
+.points {
+  text-align: right;
+  color: #ffd900c6;
+  font-weight: bold;
+}
+
+tr:nth-child(1) .rank { color: #ffd700; }
+tr:nth-child(2) .rank { color: #c0c0c0; }
+tr:nth-child(3) .rank { color: #cd7f32; }
+
 /*----Drivers page----*/
 
 .drivers-bio {
