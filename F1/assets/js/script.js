@@ -20,15 +20,14 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
   })
   .then(response => {
     if (!response.ok) {
-      throw new Error(`Server reageerde met status ${response.status}`);
+      throw new Error(`Server responded with status: ${response.status}`);
     }
     return response.json();
   })
   .then(data => {
     if (data.success) {
-      document.getElementById('logInBox').style.display = 'none';
-      document.getElementById('userDisplayName').innerText = data.user;
-      document.getElementById('logOutBox').style.display = 'block';
+      localStorage.setItem('loggedInUser', data.user);
+      showLoggedInUI(data.user);
     } else {
       errorDisplay.innerText = data.message;
       errorDisplay.style.display = 'block';
@@ -37,6 +36,83 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
   .catch(err => {
     console.error("Server unavailable:", err);
   });
+});
+
+//Register
+document.getElementById('registerForm').addEventListener('submit', function(event) {
+  event.preventDefault();
+
+  const username = document.getElementById('regUsername').value;
+  const password = document.getElementById('regPassword').value;
+  const errorDisplay = document.getElementById('error-message');
+
+  if (password.length < 6) {
+    errorDisplay.style.display = 'block';
+    errorDisplay.innerText = "Password too short!";
+    document.getElementById('password').style.borderColor = 'red';
+    return;
+  }
+
+  fetch('register', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ username: username, password: password })
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(`Server responded with status: ${response.status}`);
+    }
+    return response.json();
+  })
+  .then(data => {
+    if (data.success) {
+      errorDisplay.style.display = 'block';
+      errorDisplay.innerText = "Account created!";
+      errorDisplay.style.color = 'blue';
+      document.getElementById('toLogin-button').click();
+    } else {
+      errorDisplay.innerText = data.message;
+      errorDisplay.style.display = 'block';
+    }
+  })
+  .catch(err => {
+    console.error("Server unavailable:", err);
+  });
+});
+
+//Logout
+function logout() {
+  localStorage.removeItem('loggedInUser');
+  location.reload();
+}
+
+//Displays logged in
+function showLoggedInUI(username) {
+  document.getElementById('logInBox').style.display = 'none';
+  document.getElementById('userDisplayName').innerText = username;
+  document.getElementById('logOutBox').style.display = 'block';
+}
+
+//Displays registering
+document.getElementById('toRegister-button').addEventListener('click', (e) => {
+  e.preventDefault();
+  document.getElementById('logInBox').style.display = 'none';
+  document.getElementById('registerBox').style.display = 'block';
+});
+
+//Displays loggin in
+document.getElementById('toLogin-button').addEventListener('click', (e) => {
+  e.preventDefault();
+  document.getElementById('registerBox').style.display = 'none';
+  document.getElementById('logInBox').style.display = 'block';
+});
+
+//Keeps logged in
+document.addEventListener('DOMContentLoaded', () => {
+  const savedUser = localStorage.getItem('loggedInUser');
+  if (savedUser) {
+    showLoggedInUI(savedUser);
+  }
 });
 
 //---Classes---
@@ -580,9 +656,7 @@ if (leaderBody) {
         leaderBody.removeChild(leaderBody.firstChild);
       }
 
-      Placements.sort((a, b) => {
-        return Number(b.points) - Number(a.points);
-      });
+      Placements.sort((a, b) => {return Number(b.points) - Number(a.points);});
 
       Placements.forEach((driverPlace, index) => {
         const row = document.createElement("tr");
@@ -611,6 +685,82 @@ if (leaderBody) {
       });
     })
     .catch((error) => console.error(error));      //Results error
+}
+
+//---Schedule page---
+const scheduleBody1 = document.getElementById('schedule-body1');
+const scheduleBody2 = document.getElementById('schedule-body2');
+
+if (scheduleBody1) {
+  
+  //Adds table content
+  function createScheduleCell(value) {
+    const td = document.createElement("td");
+    td.textContent = String(value);
+    return td;
+  }
+
+  //Uploads table content
+  fetch("data/scheduleData1.json")
+    .then((response) => response.json())          //Reads file
+    .then((events) => {                           //Creates table
+      while (scheduleBody1.firstChild) {
+        scheduleBody1.removeChild(scheduleBody1.firstChild);
+      }
+
+      events.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+      events.forEach((event) => {
+        const row = document.createElement("tr");
+
+        const dateCell = createScheduleCell(event.date);
+        const typeCell = createScheduleCell(event.type);
+        const placeCell = createScheduleCell(event.place);
+
+        row.appendChild(dateCell);
+        row.appendChild(typeCell);
+        row.appendChild(placeCell);
+
+        scheduleBody1.appendChild(row);
+      });
+    })
+    .catch((error) => console.error(error));    //Results error
+}
+
+if (scheduleBody2) {
+  
+  //Adds table content
+  function createScheduleCell(value) {
+    const td = document.createElement("td");
+    td.textContent = String(value);
+    return td;
+  }
+
+  //Uploads table content
+  fetch("data/scheduleData2.json")
+    .then((response) => response.json())          //Reads file
+    .then((events) => {                           //Creates table
+      while (scheduleBody2.firstChild) {
+        scheduleBody2.removeChild(scheduleBody2.firstChild);
+      }
+
+      events.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+      events.forEach((event) => {
+        const row = document.createElement("tr");
+
+        const dateCell = createScheduleCell(event.date);
+        const typeCell = createScheduleCell(event.type);
+        const placeCell = createScheduleCell(event.place);
+
+        row.appendChild(dateCell);
+        row.appendChild(typeCell);
+        row.appendChild(placeCell);
+
+        scheduleBody2.appendChild(row);
+      });
+    })
+    .catch((error) => console.error(error));    //Results error
 }
 
 //---Drivers page---
@@ -819,13 +969,7 @@ const tableBody = document.getElementById("raceData");
 const driverContainer = document.getElementById("DriversPic");
 const teamsYearLink = document.getElementById("teamsYearLink");
 
-if (
-  yearSelect &&
-  CarContainer &&
-  tableBody &&
-  driverContainer &&
-  teamsYearLink
-) {
+if (yearSelect && CarContainer && tableBody && driverContainer && teamsYearLink) {
   let raceResults = {};
 
   //Uploads raceResults
@@ -1040,13 +1184,7 @@ const teamSummaryText = document.getElementById("teamSummaryText");
 const teamSummaryList = document.getElementById("teamSummaryList");
 const teamYearTitle = document.getElementById("teamYearTitle");
 
-if (
-  teamYearSelect &&
-  teamDrivers &&
-  teamSummaryText &&
-  teamSummaryList &&
-  teamYearTitle
-) {
+if ( teamYearSelect && teamDrivers && teamSummaryText && teamSummaryList && teamYearTitle) {
   let teamRaceData = {};
 
   //Empties node
@@ -1215,9 +1353,7 @@ if (
 
 //---About page---
 const fileInput = document.getElementById("fileInput");
-const playerContainer =
-  document.getElementById("playerContainer") ||
-  document.getElementById("studentContainer");
+const playerContainer = document.getElementById("playerContainer") || document.getElementById("studentContainer");
 
 if (fileInput && playerContainer) {
   //Checks Group Members data

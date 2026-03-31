@@ -20,7 +20,7 @@ http.createServer((req, res) => {
         return;
     }
 
-    //Password
+    //Login
     if (req.method === 'POST' && req.url === '/login') {
         let body = '';
         req.on('data', chunk => { body += chunk.toString(); });
@@ -45,6 +45,34 @@ http.createServer((req, res) => {
         });
         return;
     }
+
+    //Register
+    if (req.method === 'POST' && req.url === '/register') {
+        let body = '';
+        req.on('data', chunk => { body += chunk.toString(); });
+        req.on('end', () => {
+            try {
+                const { username, password } = JSON.parse(body);
+                const query = `INSERT INTO users (username, password) VALUES (?, ?)`;
+                db.run(query, [username, password], function(err) {
+                    res.writeHead(200, { "Content-Type": "application/json" });
+                    if (err) {
+                        if (err.message.includes("UNIQUE")) {
+                            res.end(JSON.stringify({ success: false, message: "Username already exist!" }));
+                        } else {
+                            res.end(JSON.stringify({ success: false, message: "Database fault" }));
+                        }
+                    } else {
+                        res.end(JSON.stringify({ success: true, message: "Account created!" }));
+                    }
+                });
+            } catch (e) {
+                res.writeHead(400);
+                res.end("Invalid JSON");
+            }
+        });
+        return;
+    }
     
     let filePath = req.url === "/" ? "/index.html" : req.url;
     let fullPath = path.join(baseDir, filePath);
@@ -52,7 +80,7 @@ http.createServer((req, res) => {
     fs.readFile(fullPath, (err, data) => {
         if (err) {
             res.writeHead(404);
-            res.end("Bestand niet gevonden: " + filePath);
+            res.end("File not found: " + filePath);
             return;
         }
 
@@ -66,7 +94,7 @@ http.createServer((req, res) => {
     });
 
 }).listen(port, "0.0.0.0", () => { 
-    console.log(`Server draait op poort ${port}`);
+    console.log(`Server running on port ${port}`);
 });
 
 //Makes db

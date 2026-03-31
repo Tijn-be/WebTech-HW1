@@ -11,42 +11,124 @@
   <body>
     <header>
       <div class="site-header__bar">
-        <h1>Formula 1</h1>
-        <img
-          id="Formula1"
-          src="assets/images/Formula1.png"
-          alt="Formula 1 logo" />
+        <a href="index.html">
+          <h1>Formula 1</h1>
+        </a>
+
+        <div class="header-right">
+          <div id="logInBox" class="login-container">
+            <form id="loginForm">
+              <input type="text" class="header-form" id="username" name="username" placeholder="username" required>
+              <input type="password" class="header-form" id="password" name="password" placeholder="••••••••" required>
+              <p id="error-message"></p>
+              <div class="button-group">
+                <button id="login-button" type="submit">Login</button>
+                <button id="toRegister-button">New account</button>
+              </div>
+            </form>
+          </div>
+
+          <div id="logOutBox">
+            <h3 id="login-message">Welcome Back: <span id="userDisplayName"></span>!</h2>
+            <button id="logout-button" onclick="logout()">Logout</button>
+          </div>
+
+          <div id="registerBox" class="login-container">
+            <form id="registerForm">
+              <input type="text" class="header-form" id="regUsername" placeholder="Choose username" required>
+              <input type="text" class="header-form" id="regPassword" placeholder="Choose password" required >
+              <p id="error-message"></p>
+              <div class="button-group">
+                <button id="register-button" type="submit">Register</button>
+                <button id="toLogin-button">Sign in</button>
+              </div>
+            </form>
+          </div>
+
+          <img
+            id="Formula1"
+            src="assets/images/Formula1.png"
+            alt="Formula 1 logo"/>
+        </div>
       </div>
 
       <nav class="site-nav" aria-label="Main navigation">
         <a class="site-nav__link" href="index.html">Home</a>
+        <a class="site-nav__link" href="schedule.html">Schedule</a>
         <a class="site-nav__link" href="drivers.html">Drivers</a>
-        <a
-          class="site-nav__link"
-          href="teams.html"
-          style="color: red"
-          aria-current="page"
-          >Teams</a
-        >
+        <a class="site-nav__link" href="teams.html" style="color: red" aria-current="page">Teams</a>
         <a class="site-nav__link" href="teamprofile.html">League Profile</a>
         <a class="site-nav__link" href="About.html">About</a>
       </nav>
     </header>
 
     <main>
-      <pre>
-        <a href="Team_Sites/Alpine/index.html">Alpine</a>
-        <a href="Team_Sites/Aston_Martin/index.html">Aston Martin</a>
-        <a href="Team_Sites/Audi/index.html">Audi</a>
-        <a href="Team_Sites/Cadillac/index.html">Cadillac</a>
-        <a href="Team_Sites/Ferrari/index.html">Ferrari</a>
-        <a href="Team_Sites/Haas/index.html">Haas</a>
-        <a href="Team_Sites/McLaren/index.html">McLaren</a>
-        <a href="Team_Sites/Mercedes/index.html">Mercedes</a>
-        <a href="Team_Sites/Racing_Bulls/index.html">Racing Bulls</a>
-        <a href="Team_Sites/Red_Bull/index.html">Red Bull</a>
-        <a href="Team_Sites/Williams/index.html">Williams</a>
-      </pre>
+      <a
+        class="stats-team-link"
+        href="Team_Sites/Alpine/index.html">
+        <img src="assets/images/Logos/Alpinelogo.png" alt="Go to Alpine page" />
+        <span>Open Alpine Page</span>
+      </a>
+      <a
+        class="stats-team-link"
+        href="Team_Sites/Aston_Martin/index.html">
+        <img src="assets/images/Logos/Aston_Martinlogo.png" alt="Go to Aston Martin page" />
+        <span>Open Aston Martin Page</span>
+      </a>
+      <a
+        class="stats-team-link"
+        href="Team_Sites/Audi/index.html">
+        <img src="assets/images/Logos/Audilogo.png" alt="Go to Audi page" />
+        <span>Open Audi Page</span>
+      </a>
+      <a
+        class="stats-team-link"
+        href="Team_Sites/Cadillac/index.html">
+        <img src="assets/images/Logos/Cadillaclogo.png" alt="Go to Cadillac page" />
+        <span>Open Cadillac Page</span>
+      </a>
+      <a
+        class="stats-team-link"
+        href="Team_Sites/Ferrari/index.html">
+        <img src="assets/images/Logos/Ferrarilogo.png" alt="Go to Ferrari page" />
+        <span>Open Ferrari Page</span>
+      </a>
+      <a
+        class="stats-team-link"
+        href="Team_Sites/Haas/index.html">
+        <img src="assets/images/Logos/Haaslogo.png" alt="Go to Haas page" />
+        <span>Open Haas Page</span>
+      </a>
+      <a
+        class="stats-team-link"
+        href="Team_Sites/McLaren/index.html">
+        <img src="assets/images/Logos/McLarenlogo.png" alt="Go to McLaren page" />
+        <span>Open McLaren Page</span>
+      </a>
+      <a
+        class="stats-team-link"
+        href="Team_Sites/Mercedes/index.html">
+        <img src="assets/images/Logos/Mercedeslogo.png" alt="Go to Mercedes page" />
+        <span>Open Mercedes Page</span>
+      </a>
+      <a
+        class="stats-team-link"
+        href="Team_Sites/Racing_Bulls/index.html">
+        <img src="assets/images/Logos/Racing_Bullslogo.png" alt="Go to Racing Bulls page" />
+        <span>Open Racing Bulls Page</span>
+      </a>
+      <a
+        class="stats-team-link"
+        href="Team_Sites/Red_Bull/index.html">
+        <img src="assets/images/Logos/RedBullLogo.png" alt="Go to Red Bull page" />
+        <span>Open Red Bull Page</span>
+      </a>
+      <a
+        class="stats-team-link"
+        href="Team_Sites/Williams/index.html">
+        <img src="assets/images/Logos/Williamslogo.png" alt="Go to Williams page" />
+        <span>Open Williams Page</span>
+      </a>
     </main>
 
     <footer>

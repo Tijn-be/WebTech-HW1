@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="description" content="Explore Formula 1 teams, drivers, league profile information, and project pages." />
+    <meta name="description" content="Explore Formula 1 teams, drivers, league profile information, and project pages." />
     <title>Home F1</title>
     <link rel="icon" type="image/png" href="assets/images/F1Logo.png" />
     <link rel="stylesheet" href="assets/css/style.css" />
@@ -12,51 +12,50 @@
   <body>
     <header>
       <div class="site-header__bar">
-        <h1>Formula 1</h1>
+        <a href="index.html">
+          <h1>Formula 1</h1>
+        </a>
 
-        <div id="logInBox" class="login-container">
-          <form id="loginForm">
-            <div class="input-groep">
-              <label for="username">username</label>
-              <input type="text" id="username" name="username" required>
-            </div>
+        <div class="header-right">
+          <div id="logInBox" class="login-container">
+            <form id="loginForm">
+              <input type="text" class="header-form" id="username" name="username" placeholder="username" required>
+              <input type="password" class="header-form" id="password" name="password" placeholder="••••••••" required>
+              <p id="error-message"></p>
+              <div class="button-group">
+                <button id="login-button" type="submit">Login</button>
+                <button id="toRegister-button">New account</button>
+              </div>
+            </form>
+          </div>
 
-            <div class="input-groep">
-              <label for="password">password</label>
-              <input type="password" id="password" name="password" required>
-              <p id="error-message" style="color: red; font-size: 0.8rem; display: none; margin-bottom: 10px;">
-                Wachtwoord moet minimaal 6 tekens lang zijn.
-              </p>
-            </div>
+          <div id="logOutBox">
+            <h3 id="login-message">Welcome Back: <span id="userDisplayName"></span>!</h2>
+            <button id="logout-button" onclick="logout()">Logout</button>
+          </div>
 
-            <div class="footer-tekst">
-              <button type="submit">Log in</button>
-              <p>
-                <a href="#">Forgot password</a>?
-              </p>
-            </div>
-          </form>
+          <div id="registerBox" class="login-container">
+            <form id="registerForm">
+              <input type="text" class="header-form" id="regUsername" placeholder="Choose username" required>
+              <input type="text" class="header-form" id="regPassword" placeholder="Choose password" required >
+              <p id="error-message"></p>
+              <div class="button-group">
+                <button id="register-button" type="submit">Register</button>
+                <button id="toLogin-button">Sign in</button>
+              </div>
+            </form>
+          </div>
+
+          <img
+            id="Formula1"
+            src="assets/images/Formula1.png"
+            alt="Formula 1 logo"/>
         </div>
-
-        <div id="logOutBox" style="display: none; text-align: center;">
-          <h2>Welcome Back: <span id="userDisplayName"></span>!</h2>
-          <button onclick="location.reload()">Uitloggen</button>
-        </div>
-
-        <img
-          id="Formula1"
-          src="assets/images/Formula1.png"
-          alt="Formula 1 logo" />
       </div>
 
       <nav class="site-nav" aria-label="Main navigation">
-        <a
-          class="site-nav__link"
-          href="index.html"
-          style="color: red"
-          aria-current="page"
-          >Home</a
-        >
+        <a class="site-nav__link" href="index.html" style="color: red" aria-current="page">Home</a>
+        <a class="site-nav__link" href="schedule.html">Schedule</a>
         <a class="site-nav__link" href="drivers.html">Drivers</a>
         <a class="site-nav__link" href="teams.html">Teams</a>
         <a class="site-nav__link" href="teamprofile.html">League Profile</a>
@@ -88,6 +87,13 @@
       <section aria-labelledby="site-content-title">
         <h2 id="site-content-title">Pages</h2>
 
+        <article aria-labelledby="schedule">
+          <h3 id="schedule">
+            <a href="schedule.html">Schedule</a>
+          </h3>
+          <p>See what and where the upcoming races will be.</p>
+        </article>
+
         <article aria-labelledby="drivers-overview-title">
           <h3 id="drivers-overview-title">
             <a href="drivers.html">Drivers</a>
@@ -100,6 +106,11 @@
           <p>Open each team site to explore team-specific pages, cars, and statistics.</p>
         </article>
 
+        <article aria-labelledby="league-overview-title">
+          <h3 id="league-overview-title"><a href="league.html">League</a></h3>
+          <p>Read what Formula 1 is all about and how is was created</p>
+        </article>
+
         <article aria-labelledby="about-overview-title">
           <h3 id="about-overview-title"><a href="About.html">About</a></h3>
           <p>View the group information page and related project details.</p>
@@ -109,6 +120,7 @@
       <section aria-labelledby="quick-links-title">
         <h2 id="quick-links-title">Quick links</h2>
         <ul>
+          <li><a href="schedule.html">See the schedule</a></li>
           <li><a href="drivers.html">Browse the drivers</a></li>
           <li><a href="teams.html">Browse the teams</a></li>
           <li><a href="teamprofile.html">Read the league profile</a></li>
