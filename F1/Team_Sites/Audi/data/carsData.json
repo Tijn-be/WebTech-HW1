@@ -1,0 +1,25 @@
+[
+  {
+    "id": "R26",
+    "image": "assets/images/cars/2026-R26.jpg",
+    "name": "Audi R26",
+    "notes": "Audi chassis for the 2026 Formula One season.",
+    "season": 2026,
+    "engine": "2026 Formula One power unit",
+    "drivers": [
+      {
+        "id": "Nico-Hulkenberg",
+        "name": "Nico Hulkenberg"
+      },
+      {
+        "id": "Gabriel-Bortoleto",
+        "name": "Gabriel Bortoleto"
+      }
+    ],
+    "races": "-",
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "TBD"
+  }
+]

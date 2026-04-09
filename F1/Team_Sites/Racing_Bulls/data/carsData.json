@@ -1,0 +1,144 @@
+[
+  {
+    "id": "AMR21",
+    "image": "assets/images/cars/2021-AMR21.jpg",
+    "name": "Aston Martin AMR21",
+    "notes": "Aston Martin chassis for the 2021 Formula One season.",
+    "season": 2021,
+    "engine": "Hybrid Formula One power unit",
+    "drivers": [
+      {
+        "id": "Sebastian-Vettel",
+        "name": "Sebastian Vettel"
+      },
+      {
+        "id": "Lance-Stroll",
+        "name": "Lance Stroll"
+      }
+    ],
+    "races": 22,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~1000 hp"
+  },
+  {
+    "id": "AMR22",
+    "image": "assets/images/cars/2022-AMR22.jpg",
+    "name": "Aston Martin AMR22",
+    "notes": "Aston Martin chassis for the 2022 Formula One season.",
+    "season": 2022,
+    "engine": "Hybrid Formula One power unit",
+    "drivers": [
+      {
+        "id": "Sebastian-Vettel",
+        "name": "Sebastian Vettel"
+      },
+      {
+        "id": "Lance-Stroll",
+        "name": "Lance Stroll"
+      },
+      {
+        "id": "Nico-Hulkenberg",
+        "name": "Nico Hulkenberg"
+      }
+    ],
+    "races": 22,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~1000 hp"
+  },
+  {
+    "id": "AMR23",
+    "image": "assets/images/cars/2023-AMR23.jpg",
+    "name": "Aston Martin AMR23",
+    "notes": "Aston Martin chassis for the 2023 Formula One season.",
+    "season": 2023,
+    "engine": "Hybrid Formula One power unit",
+    "drivers": [
+      {
+        "id": "Fernando-Alonso",
+        "name": "Fernando Alonso"
+      },
+      {
+        "id": "Lance-Stroll",
+        "name": "Lance Stroll"
+      }
+    ],
+    "races": 22,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~1000 hp"
+  },
+  {
+    "id": "AMR24",
+    "image": "assets/images/cars/2024-AMR24.jpg",
+    "name": "Aston Martin AMR24",
+    "notes": "Aston Martin chassis for the 2024 Formula One season.",
+    "season": 2024,
+    "engine": "Hybrid Formula One power unit",
+    "drivers": [
+      {
+        "id": "Fernando-Alonso",
+        "name": "Fernando Alonso"
+      },
+      {
+        "id": "Lance-Stroll",
+        "name": "Lance Stroll"
+      }
+    ],
+    "races": 24,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~1000 hp"
+  },
+  {
+    "id": "AMR25",
+    "image": "assets/images/cars/2025-AMR25.jpg",
+    "name": "Aston Martin AMR25",
+    "notes": "Aston Martin chassis for the 2025 Formula One season.",
+    "season": 2025,
+    "engine": "Hybrid Formula One power unit",
+    "drivers": [
+      {
+        "id": "Fernando-Alonso",
+        "name": "Fernando Alonso"
+      },
+      {
+        "id": "Lance-Stroll",
+        "name": "Lance Stroll"
+      }
+    ],
+    "races": 24,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~1000 hp"
+  },
+  {
+    "id": "AMR26",
+    "image": "assets/images/cars/2026-AMR26.jpg",
+    "name": "Aston Martin AMR26",
+    "notes": "Aston Martin chassis for the 2026 Formula One season.",
+    "season": 2026,
+    "engine": "2026 Formula One power unit",
+    "drivers": [
+      {
+        "id": "Fernando-Alonso",
+        "name": "Fernando Alonso"
+      },
+      {
+        "id": "Lance-Stroll",
+        "name": "Lance Stroll"
+      }
+    ],
+    "races": "-",
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "TBD"
+  }
+]

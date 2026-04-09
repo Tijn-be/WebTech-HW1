@@ -1,0 +1,259 @@
+[
+  {
+    "id": "VF16",
+    "image": "assets/images/cars/2016-VF16.jpg",
+    "name": "Haas VF-16",
+    "notes": "Haas chassis for the 2016 Formula One season.",
+    "season": 2016,
+    "engine": "Hybrid Formula One power unit",
+    "drivers": [
+      {
+        "id": "Romain-Grosjean",
+        "name": "Romain Grosjean"
+      },
+      {
+        "id": "Esteban-Gutierrez",
+        "name": "Esteban Gutierrez"
+      }
+    ],
+    "races": 21,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~900 hp"
+  },
+  {
+    "id": "VF17",
+    "image": "assets/images/cars/2017-VF17.jpg",
+    "name": "Haas VF-17",
+    "notes": "Haas chassis for the 2017 Formula One season.",
+    "season": 2017,
+    "engine": "Hybrid Formula One power unit",
+    "drivers": [
+      {
+        "id": "Romain-Grosjean",
+        "name": "Romain Grosjean"
+      },
+      {
+        "id": "Kevin-Magnussen",
+        "name": "Kevin Magnussen"
+      }
+    ],
+    "races": 20,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~900 hp"
+  },
+  {
+    "id": "VF18",
+    "image": "assets/images/cars/2018-VF18.jpg",
+    "name": "Haas VF-18",
+    "notes": "Haas chassis for the 2018 Formula One season.",
+    "season": 2018,
+    "engine": "Hybrid Formula One power unit",
+    "drivers": [
+      {
+        "id": "Romain-Grosjean",
+        "name": "Romain Grosjean"
+      },
+      {
+        "id": "Kevin-Magnussen",
+        "name": "Kevin Magnussen"
+      }
+    ],
+    "races": 21,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~900 hp"
+  },
+  {
+    "id": "VF19",
+    "image": "assets/images/cars/2019-VF19.jpg",
+    "name": "Haas VF-19",
+    "notes": "Haas chassis for the 2019 Formula One season.",
+    "season": 2019,
+    "engine": "Hybrid Formula One power unit",
+    "drivers": [
+      {
+        "id": "Romain-Grosjean",
+        "name": "Romain Grosjean"
+      },
+      {
+        "id": "Kevin-Magnussen",
+        "name": "Kevin Magnussen"
+      }
+    ],
+    "races": 21,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~900 hp"
+  },
+  {
+    "id": "VF20",
+    "image": "assets/images/cars/2020-VF20.jpg",
+    "name": "Haas VF-20",
+    "notes": "Haas chassis for the 2020 Formula One season.",
+    "season": 2020,
+    "engine": "Hybrid Formula One power unit",
+    "drivers": [
+      {
+        "id": "Romain-Grosjean",
+        "name": "Romain Grosjean"
+      },
+      {
+        "id": "Kevin-Magnussen",
+        "name": "Kevin Magnussen"
+      }
+    ],
+    "races": 17,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~900 hp"
+  },
+  {
+    "id": "VF21",
+    "image": "assets/images/cars/2021-VF21.jpg",
+    "name": "Haas VF-21",
+    "notes": "Haas chassis for the 2021 Formula One season.",
+    "season": 2021,
+    "engine": "Hybrid Formula One power unit",
+    "drivers": [
+      {
+        "id": "Nikita-Mazepin",
+        "name": "Nikita Mazepin"
+      },
+      {
+        "id": "Mick-Schumacher",
+        "name": "Mick Schumacher"
+      }
+    ],
+    "races": 22,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~1000 hp"
+  },
+  {
+    "id": "VF22",
+    "image": "assets/images/cars/2022-VF22.jpg",
+    "name": "Haas VF-22",
+    "notes": "Haas chassis for the 2022 Formula One season.",
+    "season": 2022,
+    "engine": "Hybrid Formula One power unit",
+    "drivers": [
+      {
+        "id": "Kevin-Magnussen",
+        "name": "Kevin Magnussen"
+      },
+      {
+        "id": "Mick-Schumacher",
+        "name": "Mick Schumacher"
+      }
+    ],
+    "races": 22,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~1000 hp"
+  },
+  {
+    "id": "VF23",
+    "image": "assets/images/cars/2023-VF23.jpg",
+    "name": "Haas VF-23",
+    "notes": "Haas chassis for the 2023 Formula One season.",
+    "season": 2023,
+    "engine": "Hybrid Formula One power unit",
+    "drivers": [
+      {
+        "id": "Kevin-Magnussen",
+        "name": "Kevin Magnussen"
+      },
+      {
+        "id": "Nico-Hulkenberg",
+        "name": "Nico Hulkenberg"
+      }
+    ],
+    "races": 22,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~1000 hp"
+  },
+  {
+    "id": "VF24",
+    "image": "assets/images/cars/2024-VF24.jpg",
+    "name": "Haas VF-24",
+    "notes": "Haas chassis for the 2024 Formula One season.",
+    "season": 2024,
+    "engine": "Hybrid Formula One power unit",
+    "drivers": [
+      {
+        "id": "Kevin-Magnussen",
+        "name": "Kevin Magnussen"
+      },
+      {
+        "id": "Nico-Hulkenberg",
+        "name": "Nico Hulkenberg"
+      },
+      {
+        "id": "Oliver-Bearman",
+        "name": "Oliver Bearman"
+      }
+    ],
+    "races": 24,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~1000 hp"
+  },
+  {
+    "id": "VF25",
+    "image": "assets/images/cars/2025-VF25.jpg",
+    "name": "Haas VF-25",
+    "notes": "Haas chassis for the 2025 Formula One season.",
+    "season": 2025,
+    "engine": "Hybrid Formula One power unit",
+    "drivers": [
+      {
+        "id": "Esteban-Ocon",
+        "name": "Esteban Ocon"
+      },
+      {
+        "id": "Oliver-Bearman",
+        "name": "Oliver Bearman"
+      }
+    ],
+    "races": 24,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~1000 hp"
+  },
+  {
+    "id": "VF26",
+    "image": "assets/images/cars/2026-VF26.jpg",
+    "name": "Haas VF-26",
+    "notes": "Haas chassis for the 2026 Formula One season.",
+    "season": 2026,
+    "engine": "2026 Formula One power unit",
+    "drivers": [
+      {
+        "id": "Esteban-Ocon",
+        "name": "Esteban Ocon"
+      },
+      {
+        "id": "Oliver-Bearman",
+        "name": "Oliver Bearman"
+      }
+    ],
+    "races": "-",
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "TBD"
+  }
+]

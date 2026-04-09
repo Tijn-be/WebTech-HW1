@@ -1,0 +1,25 @@
+[
+  {
+    "id": "CadillacMAC26",
+    "image": "assets/images/cars/2026-CadillacMAC26.jpg",
+    "name": "Cadillac MAC26",
+    "notes": "Cadillac chassis for the 2026 Formula One season.",
+    "season": 2026,
+    "engine": "2026 Formula One power unit",
+    "drivers": [
+      {
+        "id": "Sergio-Perez",
+        "name": "Sergio Perez"
+      },
+      {
+        "id": "Valtteri-Bottas",
+        "name": "Valtteri Bottas"
+      }
+    ],
+    "races": "-",
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "TBD"
+  }
+]

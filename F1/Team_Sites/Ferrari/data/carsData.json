@@ -1,0 +1,512 @@
+[
+  {
+    "id": "F2005",
+    "image": "assets/images/cars/2005-F2005.jpg",
+    "name": "Ferrari F2005",
+    "notes": "Ferrari chassis for the 2005 Formula One season.",
+    "season": 2005,
+    "engine": "V10 Formula One engine",
+    "drivers": [
+      {
+        "id": "Michael-Schumacher",
+        "name": "Michael Schumacher"
+      },
+      {
+        "id": "Rubens-Barrichello",
+        "name": "Rubens Barrichello"
+      }
+    ],
+    "races": 19,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~900 hp"
+  },
+  {
+    "id": "248F1",
+    "image": "assets/images/cars/2006-248F1.jpg",
+    "name": "Ferrari 248 F1",
+    "notes": "Ferrari chassis for the 2006 Formula One season.",
+    "season": 2006,
+    "engine": "V8 Formula One engine",
+    "drivers": [
+      {
+        "id": "Michael-Schumacher",
+        "name": "Michael Schumacher"
+      },
+      {
+        "id": "Felipe-Massa",
+        "name": "Felipe Massa"
+      }
+    ],
+    "races": 18,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~750 hp"
+  },
+  {
+    "id": "F2007",
+    "image": "assets/images/cars/2007-F2007.jpg",
+    "name": "Ferrari F2007",
+    "notes": "Ferrari chassis for the 2007 Formula One season.",
+    "season": 2007,
+    "engine": "V8 Formula One engine",
+    "drivers": [
+      {
+        "id": "Kimi-Raikkonen",
+        "name": "Kimi Raikkonen"
+      },
+      {
+        "id": "Felipe-Massa",
+        "name": "Felipe Massa"
+      }
+    ],
+    "races": 17,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~750 hp"
+  },
+  {
+    "id": "F2008",
+    "image": "assets/images/cars/2008-F2008.jpg",
+    "name": "Ferrari F2008",
+    "notes": "Ferrari chassis for the 2008 Formula One season.",
+    "season": 2008,
+    "engine": "V8 Formula One engine",
+    "drivers": [
+      {
+        "id": "Kimi-Raikkonen",
+        "name": "Kimi Raikkonen"
+      },
+      {
+        "id": "Felipe-Massa",
+        "name": "Felipe Massa"
+      }
+    ],
+    "races": 18,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~750 hp"
+  },
+  {
+    "id": "F60",
+    "image": "assets/images/cars/2009-F60.jpg",
+    "name": "Ferrari F60",
+    "notes": "Ferrari chassis for the 2009 Formula One season.",
+    "season": 2009,
+    "engine": "V8 Formula One engine",
+    "drivers": [
+      {
+        "id": "Kimi-Raikkonen",
+        "name": "Kimi Raikkonen"
+      },
+      {
+        "id": "Felipe-Massa",
+        "name": "Felipe Massa"
+      },
+      {
+        "id": "Giancarlo-Fisichella",
+        "name": "Giancarlo Fisichella"
+      }
+    ],
+    "races": 17,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~750 hp"
+  },
+  {
+    "id": "F10",
+    "image": "assets/images/cars/2010-F10.jpg",
+    "name": "Ferrari F10",
+    "notes": "Ferrari chassis for the 2010 Formula One season.",
+    "season": 2010,
+    "engine": "V8 Formula One engine",
+    "drivers": [
+      {
+        "id": "Fernando-Alonso",
+        "name": "Fernando Alonso"
+      },
+      {
+        "id": "Felipe-Massa",
+        "name": "Felipe Massa"
+      }
+    ],
+    "races": 19,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~750 hp"
+  },
+  {
+    "id": "150Italia",
+    "image": "assets/images/cars/2011-150Italia.jpg",
+    "name": "Ferrari 150 Italia",
+    "notes": "Ferrari chassis for the 2011 Formula One season.",
+    "season": 2011,
+    "engine": "V8 Formula One engine",
+    "drivers": [
+      {
+        "id": "Fernando-Alonso",
+        "name": "Fernando Alonso"
+      },
+      {
+        "id": "Felipe-Massa",
+        "name": "Felipe Massa"
+      }
+    ],
+    "races": 19,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~750 hp"
+  },
+  {
+    "id": "F2012",
+    "image": "assets/images/cars/2012-F2012.jpg",
+    "name": "Ferrari F2012",
+    "notes": "Ferrari chassis for the 2012 Formula One season.",
+    "season": 2012,
+    "engine": "V8 Formula One engine",
+    "drivers": [
+      {
+        "id": "Fernando-Alonso",
+        "name": "Fernando Alonso"
+      },
+      {
+        "id": "Felipe-Massa",
+        "name": "Felipe Massa"
+      }
+    ],
+    "races": 20,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~750 hp"
+  },
+  {
+    "id": "F138",
+    "image": "assets/images/cars/2013-F138.jpg",
+    "name": "Ferrari F138",
+    "notes": "Ferrari chassis for the 2013 Formula One season.",
+    "season": 2013,
+    "engine": "V8 Formula One engine",
+    "drivers": [
+      {
+        "id": "Fernando-Alonso",
+        "name": "Fernando Alonso"
+      },
+      {
+        "id": "Felipe-Massa",
+        "name": "Felipe Massa"
+      }
+    ],
+    "races": 19,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~750 hp"
+  },
+  {
+    "id": "F14T",
+    "image": "assets/images/cars/2014-F14T.jpg",
+    "name": "Ferrari F14 T",
+    "notes": "Ferrari chassis for the 2014 Formula One season.",
+    "season": 2014,
+    "engine": "Hybrid Formula One power unit",
+    "drivers": [
+      {
+        "id": "Fernando-Alonso",
+        "name": "Fernando Alonso"
+      },
+      {
+        "id": "Kimi-Raikkonen",
+        "name": "Kimi Raikkonen"
+      }
+    ],
+    "races": 19,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~900 hp"
+  },
+  {
+    "id": "SF15T",
+    "image": "assets/images/cars/2015-SF15T.jpg",
+    "name": "Ferrari SF15-T",
+    "notes": "Ferrari chassis for the 2015 Formula One season.",
+    "season": 2015,
+    "engine": "Hybrid Formula One power unit",
+    "drivers": [
+      {
+        "id": "Sebastian-Vettel",
+        "name": "Sebastian Vettel"
+      },
+      {
+        "id": "Kimi-Raikkonen",
+        "name": "Kimi Raikkonen"
+      }
+    ],
+    "races": 19,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~900 hp"
+  },
+  {
+    "id": "SF16H",
+    "image": "assets/images/cars/2016-SF16H.jpg",
+    "name": "Ferrari SF16-H",
+    "notes": "Ferrari chassis for the 2016 Formula One season.",
+    "season": 2016,
+    "engine": "Hybrid Formula One power unit",
+    "drivers": [
+      {
+        "id": "Sebastian-Vettel",
+        "name": "Sebastian Vettel"
+      },
+      {
+        "id": "Kimi-Raikkonen",
+        "name": "Kimi Raikkonen"
+      }
+    ],
+    "races": 21,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~900 hp"
+  },
+  {
+    "id": "SF70H",
+    "image": "assets/images/cars/2017-SF70H.jpg",
+    "name": "Ferrari SF70H",
+    "notes": "Ferrari chassis for the 2017 Formula One season.",
+    "season": 2017,
+    "engine": "Hybrid Formula One power unit",
+    "drivers": [
+      {
+        "id": "Sebastian-Vettel",
+        "name": "Sebastian Vettel"
+      },
+      {
+        "id": "Kimi-Raikkonen",
+        "name": "Kimi Raikkonen"
+      }
+    ],
+    "races": 20,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~900 hp"
+  },
+  {
+    "id": "SF71H",
+    "image": "assets/images/cars/2018-SF71H.jpg",
+    "name": "Ferrari SF71H",
+    "notes": "Ferrari chassis for the 2018 Formula One season.",
+    "season": 2018,
+    "engine": "Hybrid Formula One power unit",
+    "drivers": [
+      {
+        "id": "Sebastian-Vettel",
+        "name": "Sebastian Vettel"
+      },
+      {
+        "id": "Kimi-Raikkonen",
+        "name": "Kimi Raikkonen"
+      }
+    ],
+    "races": 21,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~900 hp"
+  },
+  {
+    "id": "SF90",
+    "image": "assets/images/cars/2019-SF90.jpg",
+    "name": "Ferrari SF90",
+    "notes": "Ferrari chassis for the 2019 Formula One season.",
+    "season": 2019,
+    "engine": "Hybrid Formula One power unit",
+    "drivers": [
+      {
+        "id": "Sebastian-Vettel",
+        "name": "Sebastian Vettel"
+      },
+      {
+        "id": "Charles-Leclerc",
+        "name": "Charles Leclerc"
+      }
+    ],
+    "races": 21,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~900 hp"
+  },
+  {
+    "id": "SF1000",
+    "image": "assets/images/cars/2020-SF1000.jpg",
+    "name": "Ferrari SF1000",
+    "notes": "Ferrari chassis for the 2020 Formula One season.",
+    "season": 2020,
+    "engine": "Hybrid Formula One power unit",
+    "drivers": [
+      {
+        "id": "Sebastian-Vettel",
+        "name": "Sebastian Vettel"
+      },
+      {
+        "id": "Charles-Leclerc",
+        "name": "Charles Leclerc"
+      }
+    ],
+    "races": 17,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~900 hp"
+  },
+  {
+    "id": "SF21",
+    "image": "assets/images/cars/2021-SF21.jpg",
+    "name": "Ferrari SF21",
+    "notes": "Ferrari chassis for the 2021 Formula One season.",
+    "season": 2021,
+    "engine": "Hybrid Formula One power unit",
+    "drivers": [
+      {
+        "id": "Charles-Leclerc",
+        "name": "Charles Leclerc"
+      },
+      {
+        "id": "Carlos-Sainz",
+        "name": "Carlos Sainz"
+      }
+    ],
+    "races": 22,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~1000 hp"
+  },
+  {
+    "id": "F175",
+    "image": "assets/images/cars/2022-F175.jpg",
+    "name": "Ferrari F1-75",
+    "notes": "Ferrari chassis for the 2022 Formula One season.",
+    "season": 2022,
+    "engine": "Hybrid Formula One power unit",
+    "drivers": [
+      {
+        "id": "Charles-Leclerc",
+        "name": "Charles Leclerc"
+      },
+      {
+        "id": "Carlos-Sainz",
+        "name": "Carlos Sainz"
+      }
+    ],
+    "races": 22,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~1000 hp"
+  },
+  {
+    "id": "SF23",
+    "image": "assets/images/cars/2023-SF23.jpg",
+    "name": "Ferrari SF-23",
+    "notes": "Ferrari chassis for the 2023 Formula One season.",
+    "season": 2023,
+    "engine": "Hybrid Formula One power unit",
+    "drivers": [
+      {
+        "id": "Charles-Leclerc",
+        "name": "Charles Leclerc"
+      },
+      {
+        "id": "Carlos-Sainz",
+        "name": "Carlos Sainz"
+      }
+    ],
+    "races": 22,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~1000 hp"
+  },
+  {
+    "id": "SF24",
+    "image": "assets/images/cars/2024-SF24.jpg",
+    "name": "Ferrari SF-24",
+    "notes": "Ferrari chassis for the 2024 Formula One season.",
+    "season": 2024,
+    "engine": "Hybrid Formula One power unit",
+    "drivers": [
+      {
+        "id": "Charles-Leclerc",
+        "name": "Charles Leclerc"
+      },
+      {
+        "id": "Carlos-Sainz",
+        "name": "Carlos Sainz"
+      }
+    ],
+    "races": 24,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~1000 hp"
+  },
+  {
+    "id": "SF25",
+    "image": "assets/images/cars/2025-SF25.jpg",
+    "name": "Ferrari SF-25",
+    "notes": "Ferrari chassis for the 2025 Formula One season.",
+    "season": 2025,
+    "engine": "Hybrid Formula One power unit",
+    "drivers": [
+      {
+        "id": "Charles-Leclerc",
+        "name": "Charles Leclerc"
+      },
+      {
+        "id": "Lewis-Hamilton",
+        "name": "Lewis Hamilton"
+      }
+    ],
+    "races": 24,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~1000 hp"
+  },
+  {
+    "id": "SF26",
+    "image": "assets/images/cars/2026-SF26.jpg",
+    "name": "Ferrari SF-26",
+    "notes": "Ferrari chassis for the 2026 Formula One season.",
+    "season": 2026,
+    "engine": "2026 Formula One power unit",
+    "drivers": [
+      {
+        "id": "Charles-Leclerc",
+        "name": "Charles Leclerc"
+      },
+      {
+        "id": "Lewis-Hamilton",
+        "name": "Lewis Hamilton"
+      }
+    ],
+    "races": "-",
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "TBD"
+  }
+]

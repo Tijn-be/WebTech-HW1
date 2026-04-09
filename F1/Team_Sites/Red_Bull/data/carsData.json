@@ -1,0 +1,501 @@
+[
+  {
+    "id": "PS05",
+    "image": "assets/images/cars/2005-PS05.jpg",
+    "name": "Minardi PS05",
+    "notes": "Minardi chassis for the 2005 Formula One season.",
+    "season": 2005,
+    "engine": "V10 Formula One engine",
+    "drivers": [
+      {
+        "id": "Christijan-Albers",
+        "name": "Christijan Albers"
+      },
+      {
+        "id": "Robert-Doornbos",
+        "name": "Robert Doornbos"
+      }
+    ],
+    "races": 19,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~900 hp"
+  },
+  {
+    "id": "STR1",
+    "image": "assets/images/cars/2006-STR1.jpg",
+    "name": "Toro Rosso STR1",
+    "notes": "Toro Rosso chassis for the 2006 Formula One season.",
+    "season": 2006,
+    "engine": "V8 Formula One engine",
+    "drivers": [
+      {
+        "id": "Vitantonio-Liuzzi",
+        "name": "Vitantonio Liuzzi"
+      },
+      {
+        "id": "Scott-Speed",
+        "name": "Scott Speed"
+      }
+    ],
+    "races": 18,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~750 hp"
+  },
+  {
+    "id": "STR2",
+    "image": "assets/images/cars/2007-STR2.jpg",
+    "name": "Toro Rosso STR2",
+    "notes": "Toro Rosso chassis for the 2007 Formula One season.",
+    "season": 2007,
+    "engine": "V8 Formula One engine",
+    "drivers": [
+      {
+        "id": "Vitantonio-Liuzzi",
+        "name": "Vitantonio Liuzzi"
+      },
+      {
+        "id": "Scott-Speed",
+        "name": "Scott Speed"
+      },
+      {
+        "id": "Sebastian-Vettel",
+        "name": "Sebastian Vettel"
+      }
+    ],
+    "races": 17,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~750 hp"
+  },
+  {
+    "id": "STR3",
+    "image": "assets/images/cars/2008-STR3.jpg",
+    "name": "Toro Rosso STR3",
+    "notes": "Toro Rosso chassis for the 2008 Formula One season.",
+    "season": 2008,
+    "engine": "V8 Formula One engine",
+    "drivers": [
+      {
+        "id": "Sebastian-Vettel",
+        "name": "Sebastian Vettel"
+      },
+      {
+        "id": "Sebastien-Bourdais",
+        "name": "Sebastien Bourdais"
+      }
+    ],
+    "races": 18,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~750 hp"
+  },
+  {
+    "id": "STR4",
+    "image": "assets/images/cars/2009-STR4.jpg",
+    "name": "Toro Rosso STR4",
+    "notes": "Toro Rosso chassis for the 2009 Formula One season.",
+    "season": 2009,
+    "engine": "V8 Formula One engine",
+    "drivers": [
+      {
+        "id": "Sebastien-Buemi",
+        "name": "Sebastien Buemi"
+      },
+      {
+        "id": "Sebastien-Bourdais",
+        "name": "Sebastien Bourdais"
+      }
+    ],
+    "races": 17,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~750 hp"
+  },
+  {
+    "id": "STR5",
+    "image": "assets/images/cars/2010-STR5.jpg",
+    "name": "Toro Rosso STR5",
+    "notes": "Toro Rosso chassis for the 2010 Formula One season.",
+    "season": 2010,
+    "engine": "V8 Formula One engine",
+    "drivers": [
+      {
+        "id": "Sebastien-Buemi",
+        "name": "Sebastien Buemi"
+      },
+      {
+        "id": "Jaime-Alguersuari",
+        "name": "Jaime Alguersuari"
+      }
+    ],
+    "races": 19,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~750 hp"
+  },
+  {
+    "id": "STR6",
+    "image": "assets/images/cars/2011-STR6.jpg",
+    "name": "Toro Rosso STR6",
+    "notes": "Toro Rosso chassis for the 2011 Formula One season.",
+    "season": 2011,
+    "engine": "V8 Formula One engine",
+    "drivers": [
+      {
+        "id": "Sebastien-Buemi",
+        "name": "Sebastien Buemi"
+      },
+      {
+        "id": "Jaime-Alguersuari",
+        "name": "Jaime Alguersuari"
+      }
+    ],
+    "races": 19,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~750 hp"
+  },
+  {
+    "id": "STR7",
+    "image": "assets/images/cars/2012-STR7.jpg",
+    "name": "Toro Rosso STR7",
+    "notes": "Toro Rosso chassis for the 2012 Formula One season.",
+    "season": 2012,
+    "engine": "V8 Formula One engine",
+    "drivers": [
+      {
+        "id": "Daniel-Ricciardo",
+        "name": "Daniel Ricciardo"
+      },
+      {
+        "id": "Jean-Eric-Vergne",
+        "name": "Jean-Eric Vergne"
+      }
+    ],
+    "races": 20,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~750 hp"
+  },
+  {
+    "id": "STR8",
+    "image": "assets/images/cars/2013-STR8.jpg",
+    "name": "Toro Rosso STR8",
+    "notes": "Toro Rosso chassis for the 2013 Formula One season.",
+    "season": 2013,
+    "engine": "V8 Formula One engine",
+    "drivers": [
+      {
+        "id": "Daniel-Ricciardo",
+        "name": "Daniel Ricciardo"
+      },
+      {
+        "id": "Jean-Eric-Vergne",
+        "name": "Jean-Eric Vergne"
+      }
+    ],
+    "races": 19,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~750 hp"
+  },
+  {
+    "id": "STR9",
+    "image": "assets/images/cars/2014-STR9.jpg",
+    "name": "Toro Rosso STR9",
+    "notes": "Toro Rosso chassis for the 2014 Formula One season.",
+    "season": 2014,
+    "engine": "Hybrid Formula One power unit",
+    "drivers": [
+      {
+        "id": "Jean-Eric-Vergne",
+        "name": "Jean-Eric Vergne"
+      },
+      {
+        "id": "Daniil-Kvyat",
+        "name": "Daniil Kvyat"
+      }
+    ],
+    "races": 19,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~900 hp"
+  },
+  {
+    "id": "STR10",
+    "image": "assets/images/cars/2015-STR10.jpg",
+    "name": "Toro Rosso STR10",
+    "notes": "Toro Rosso chassis for the 2015 Formula One season.",
+    "season": 2015,
+    "engine": "Hybrid Formula One power unit",
+    "drivers": [
+      {
+        "id": "Max-Verstappen",
+        "name": "Max Verstappen"
+      },
+      {
+        "id": "Carlos-Sainz",
+        "name": "Carlos Sainz"
+      }
+    ],
+    "races": 19,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~900 hp"
+  },
+  {
+    "id": "STR11",
+    "image": "assets/images/cars/2016-STR11.jpg",
+    "name": "Toro Rosso STR11",
+    "notes": "Toro Rosso chassis for the 2016 Formula One season.",
+    "season": 2016,
+    "engine": "Hybrid Formula One power unit",
+    "drivers": [
+      {
+        "id": "Daniil-Kvyat",
+        "name": "Daniil Kvyat"
+      },
+      {
+        "id": "Carlos-Sainz",
+        "name": "Carlos Sainz"
+      }
+    ],
+    "races": 21,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~900 hp"
+  },
+  {
+    "id": "STR12",
+    "image": "assets/images/cars/2017-STR12.jpg",
+    "name": "Toro Rosso STR12",
+    "notes": "Toro Rosso chassis for the 2017 Formula One season.",
+    "season": 2017,
+    "engine": "Hybrid Formula One power unit",
+    "drivers": [
+      {
+        "id": "Daniil-Kvyat",
+        "name": "Daniil Kvyat"
+      },
+      {
+        "id": "Carlos-Sainz",
+        "name": "Carlos Sainz"
+      },
+      {
+        "id": "Pierre-Gasly",
+        "name": "Pierre Gasly"
+      }
+    ],
+    "races": 20,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~900 hp"
+  },
+  {
+    "id": "STR13",
+    "image": "assets/images/cars/2018-STR13.jpg",
+    "name": "Toro Rosso STR13",
+    "notes": "Toro Rosso chassis for the 2018 Formula One season.",
+    "season": 2018,
+    "engine": "Hybrid Formula One power unit",
+    "drivers": [
+      {
+        "id": "Pierre-Gasly",
+        "name": "Pierre Gasly"
+      }
+    ],
+    "races": 21,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~900 hp"
+  },
+  {
+    "id": "STR14",
+    "image": "assets/images/cars/2019-STR14.jpg",
+    "name": "Toro Rosso STR14",
+    "notes": "Toro Rosso chassis for the 2019 Formula One season.",
+    "season": 2019,
+    "engine": "Hybrid Formula One power unit",
+    "drivers": [
+      {
+        "id": "Daniil-Kvyat",
+        "name": "Daniil Kvyat"
+      },
+      {
+        "id": "Alexander-Albon",
+        "name": "Alexander Albon"
+      },
+      {
+        "id": "Pierre-Gasly",
+        "name": "Pierre Gasly"
+      }
+    ],
+    "races": 21,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~900 hp"
+  },
+  {
+    "id": "AT01",
+    "image": "assets/images/cars/2020-AT01.jpg",
+    "name": "AlphaTauri AT01",
+    "notes": "AlphaTauri chassis for the 2020 Formula One season.",
+    "season": 2020,
+    "engine": "Hybrid Formula One power unit",
+    "drivers": [
+      {
+        "id": "Pierre-Gasly",
+        "name": "Pierre Gasly"
+      },
+      {
+        "id": "Daniil-Kvyat",
+        "name": "Daniil Kvyat"
+      }
+    ],
+    "races": 17,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~900 hp"
+  },
+  {
+    "id": "AT02",
+    "image": "assets/images/cars/2021-AT02.jpg",
+    "name": "AlphaTauri AT02",
+    "notes": "AlphaTauri chassis for the 2021 Formula One season.",
+    "season": 2021,
+    "engine": "Hybrid Formula One power unit",
+    "drivers": [
+      {
+        "id": "Pierre-Gasly",
+        "name": "Pierre Gasly"
+      },
+      {
+        "id": "Yuki-Tsunoda",
+        "name": "Yuki Tsunoda"
+      }
+    ],
+    "races": 22,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~1000 hp"
+  },
+  {
+    "id": "AT03",
+    "image": "assets/images/cars/2022-AT03.jpg",
+    "name": "AlphaTauri AT03",
+    "notes": "AlphaTauri chassis for the 2022 Formula One season.",
+    "season": 2022,
+    "engine": "Hybrid Formula One power unit",
+    "drivers": [
+      {
+        "id": "Pierre-Gasly",
+        "name": "Pierre Gasly"
+      },
+      {
+        "id": "Yuki-Tsunoda",
+        "name": "Yuki Tsunoda"
+      }
+    ],
+    "races": 22,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~1000 hp"
+  },
+  {
+    "id": "AT04",
+    "image": "assets/images/cars/2023-AT04.jpg",
+    "name": "AlphaTauri AT04",
+    "notes": "AlphaTauri chassis for the 2023 Formula One season.",
+    "season": 2023,
+    "engine": "Hybrid Formula One power unit",
+    "drivers": [
+      {
+        "id": "Yuki-Tsunoda",
+        "name": "Yuki Tsunoda"
+      },
+      {
+        "id": "Daniel-Ricciardo",
+        "name": "Daniel Ricciardo"
+      },
+      {
+        "id": "Liam-Lawson",
+        "name": "Liam Lawson"
+      }
+    ],
+    "races": 22,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~1000 hp"
+  },
+  {
+    "id": "VCARB01",
+    "image": "assets/images/cars/2024-VCARB01.jpg",
+    "name": "Racing Bulls VCARB 01",
+    "notes": "Racing Bulls chassis for the 2024 Formula One season.",
+    "season": 2024,
+    "engine": "Hybrid Formula One power unit",
+    "drivers": [
+      {
+        "id": "Yuki-Tsunoda",
+        "name": "Yuki Tsunoda"
+      },
+      {
+        "id": "Daniel-Ricciardo",
+        "name": "Daniel Ricciardo"
+      },
+      {
+        "id": "Liam-Lawson",
+        "name": "Liam Lawson"
+      }
+    ],
+    "races": 24,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~1000 hp"
+  },
+  {
+    "id": "VCARB02",
+    "image": "assets/images/cars/2025-VCARB02.jpg",
+    "name": "Racing Bulls VCARB 02",
+    "notes": "Racing Bulls chassis for the 2025 Formula One season.",
+    "season": 2025,
+    "engine": "Hybrid Formula One power unit",
+    "drivers": [
+      {
+        "id": "Isack-Hadjar",
+        "name": "Isack Hadjar"
+      },
+      {
+        "id": "Liam-Lawson",
+        "name": "Liam Lawson"
+      }
+    ],
+    "races": 24,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~1000 hp"
+  }
+]

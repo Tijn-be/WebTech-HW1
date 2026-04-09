@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About F1</title>
+    <link rel="icon" type="image/png" href="assets/images/F1logo.png" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="canonical" href="About.html" />
+  </head>
+  <body>
+    <header>
+      <div class="site-header__bar">
+        <a href="index.html">
+          <h1>Formula 1</h1>
+        </a>
+
+        <div class="header-right">
+          <div id="logInBox" class="login-container">
+            <form id="loginForm">
+              <input type="text" class="header-form" id="username" name="username" placeholder="username" required>
+              <input type="password" class="header-form" id="password" name="password" placeholder="••••••••" required>
+              <p id="error-message"></p>
+              <div class="button-group">
+                <button id="login-button" type="submit">Login</button>
+                <button id="toRegister-button">New account</button>
+              </div>
+            </form>
+          </div>
+
+          <div id="logOutBox">
+            <h3 id="login-message">Welcome Back: <span id="userDisplayName"></span>!</h2>
+            <button id="logout-button" onclick="logout()">Logout</button>
+          </div>
+
+          <div id="registerBox" class="login-container">
+            <form id="registerForm">
+              <input type="text" class="header-form" id="regUsername" placeholder="Choose username" required>
+              <input type="text" class="header-form" id="regPassword" placeholder="Choose password" required >
+              <p id="error-message"></p>
+              <div class="button-group">
+                <button id="register-button" type="submit">Register</button>
+                <button id="toLogin-button">Sign in</button>
+              </div>
+            </form>
+          </div>
+
+          <img
+            id="Formula1"
+            src="assets/images/Formula1.png"
+            alt="Formula 1 logo"/>
+        </div>
+      </div>
+
+      <nav class="site-nav" aria-label="Main navigation">
+        <a class="site-nav__link" href="index.html">Home</a>
+        <a class="site-nav__link" href="schedule.html">Schedule</a>
+        <a class="site-nav__link" href="drivers.html">Drivers</a>
+        <a class="site-nav__link" href="teams.html">Teams</a>
+        <a class="site-nav__link" href="teamprofile.html">League Profile</a>
+        <a class="site-nav__link" href="About.html" style="color: red" aria-current="page">About</a>
+      </nav>
+    </header>
+
+    <main>
+      <section id="uploadArea" class="upload-panel">
+        <h2>Load Group Members</h2>
+
+        <label for="fileInput">Select JSON file:</label>
+        <input
+          type="file"
+          id="fileInput"
+          accept=".json,application/json"
+          aria-describedby="fileHelp" />
+        <p id="fileHelp">
+          Upload <strong>groupMembers.json</strong> to load group members.
+        </p>
+      </section>
+
+      <div id="playerContainer" class="player-grid" aria-live="polite"></div>
+    </main>
+
+    <footer>
+      <a id="about" href="About.html">About</a> Author: Benjamin, Darryl,
+      Tijn<br />
+      Disclaimer: Information on this website is not guaranteed to be
+      correct.<br />
+      &copy; 2026 F1 Team<br />
+    </footer>
+
+    <script src="assets/js/script.js"></script>
+  </body>
+</html>

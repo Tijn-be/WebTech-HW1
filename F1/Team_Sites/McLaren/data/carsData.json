@@ -1,0 +1,512 @@
+[
+  {
+    "id": "MP420",
+    "image": "assets/images/cars/2005-MP420.jpg",
+    "name": "McLaren MP4-20",
+    "notes": "McLaren chassis for the 2005 Formula One season.",
+    "season": 2005,
+    "engine": "V10 Formula One engine",
+    "drivers": [
+      {
+        "id": "Kimi-Raikkonen",
+        "name": "Kimi Raikkonen"
+      },
+      {
+        "id": "Juan-Pablo-Montoya",
+        "name": "Juan Pablo Montoya"
+      }
+    ],
+    "races": 19,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~900 hp"
+  },
+  {
+    "id": "MP421",
+    "image": "assets/images/cars/2006-MP421.jpg",
+    "name": "McLaren MP4-21",
+    "notes": "McLaren chassis for the 2006 Formula One season.",
+    "season": 2006,
+    "engine": "V8 Formula One engine",
+    "drivers": [
+      {
+        "id": "Kimi-Raikkonen",
+        "name": "Kimi Raikkonen"
+      },
+      {
+        "id": "Juan-Pablo-Montoya",
+        "name": "Juan Pablo Montoya"
+      },
+      {
+        "id": "Pedro-de-la-Rosa",
+        "name": "Pedro de la Rosa"
+      }
+    ],
+    "races": 18,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~750 hp"
+  },
+  {
+    "id": "MP422",
+    "image": "assets/images/cars/2007-MP422.jpg",
+    "name": "McLaren MP4-22",
+    "notes": "McLaren chassis for the 2007 Formula One season.",
+    "season": 2007,
+    "engine": "V8 Formula One engine",
+    "drivers": [
+      {
+        "id": "Fernando-Alonso",
+        "name": "Fernando Alonso"
+      },
+      {
+        "id": "Lewis-Hamilton",
+        "name": "Lewis Hamilton"
+      }
+    ],
+    "races": 17,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~750 hp"
+  },
+  {
+    "id": "MP423",
+    "image": "assets/images/cars/2008-MP423.jpg",
+    "name": "McLaren MP4-23",
+    "notes": "McLaren chassis for the 2008 Formula One season.",
+    "season": 2008,
+    "engine": "V8 Formula One engine",
+    "drivers": [
+      {
+        "id": "Lewis-Hamilton",
+        "name": "Lewis Hamilton"
+      },
+      {
+        "id": "Heikki-Kovalainen",
+        "name": "Heikki Kovalainen"
+      }
+    ],
+    "races": 18,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~750 hp"
+  },
+  {
+    "id": "MP424",
+    "image": "assets/images/cars/2009-MP424.jpg",
+    "name": "McLaren MP4-24",
+    "notes": "McLaren chassis for the 2009 Formula One season.",
+    "season": 2009,
+    "engine": "V8 Formula One engine",
+    "drivers": [
+      {
+        "id": "Lewis-Hamilton",
+        "name": "Lewis Hamilton"
+      },
+      {
+        "id": "Heikki-Kovalainen",
+        "name": "Heikki Kovalainen"
+      }
+    ],
+    "races": 17,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~750 hp"
+  },
+  {
+    "id": "MP425",
+    "image": "assets/images/cars/2010-MP425.jpg",
+    "name": "McLaren MP4-25",
+    "notes": "McLaren chassis for the 2010 Formula One season.",
+    "season": 2010,
+    "engine": "V8 Formula One engine",
+    "drivers": [
+      {
+        "id": "Lewis-Hamilton",
+        "name": "Lewis Hamilton"
+      },
+      {
+        "id": "Jenson-Button",
+        "name": "Jenson Button"
+      }
+    ],
+    "races": 19,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~750 hp"
+  },
+  {
+    "id": "MP426",
+    "image": "assets/images/cars/2011-MP426.jpg",
+    "name": "McLaren MP4-26",
+    "notes": "McLaren chassis for the 2011 Formula One season.",
+    "season": 2011,
+    "engine": "V8 Formula One engine",
+    "drivers": [
+      {
+        "id": "Lewis-Hamilton",
+        "name": "Lewis Hamilton"
+      },
+      {
+        "id": "Jenson-Button",
+        "name": "Jenson Button"
+      }
+    ],
+    "races": 19,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~750 hp"
+  },
+  {
+    "id": "MP427",
+    "image": "assets/images/cars/2012-MP427.jpg",
+    "name": "McLaren MP4-27",
+    "notes": "McLaren chassis for the 2012 Formula One season.",
+    "season": 2012,
+    "engine": "V8 Formula One engine",
+    "drivers": [
+      {
+        "id": "Lewis-Hamilton",
+        "name": "Lewis Hamilton"
+      },
+      {
+        "id": "Jenson-Button",
+        "name": "Jenson Button"
+      }
+    ],
+    "races": 20,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~750 hp"
+  },
+  {
+    "id": "MP428",
+    "image": "assets/images/cars/2013-MP428.jpg",
+    "name": "McLaren MP4-28",
+    "notes": "McLaren chassis for the 2013 Formula One season.",
+    "season": 2013,
+    "engine": "V8 Formula One engine",
+    "drivers": [
+      {
+        "id": "Jenson-Button",
+        "name": "Jenson Button"
+      },
+      {
+        "id": "Sergio-Perez",
+        "name": "Sergio Perez"
+      }
+    ],
+    "races": 19,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~750 hp"
+  },
+  {
+    "id": "MP429",
+    "image": "assets/images/cars/2014-MP429.jpg",
+    "name": "McLaren MP4-29",
+    "notes": "McLaren chassis for the 2014 Formula One season.",
+    "season": 2014,
+    "engine": "Hybrid Formula One power unit",
+    "drivers": [
+      {
+        "id": "Jenson-Button",
+        "name": "Jenson Button"
+      },
+      {
+        "id": "Kevin-Magnussen",
+        "name": "Kevin Magnussen"
+      }
+    ],
+    "races": 19,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~900 hp"
+  },
+  {
+    "id": "MP430",
+    "image": "assets/images/cars/2015-MP430.jpg",
+    "name": "McLaren MP4-30",
+    "notes": "McLaren chassis for the 2015 Formula One season.",
+    "season": 2015,
+    "engine": "Hybrid Formula One power unit",
+    "drivers": [
+      {
+        "id": "Jenson-Button",
+        "name": "Jenson Button"
+      },
+      {
+        "id": "Fernando-Alonso",
+        "name": "Fernando Alonso"
+      }
+    ],
+    "races": 19,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~900 hp"
+  },
+  {
+    "id": "MP431",
+    "image": "assets/images/cars/2016-MP431.jpg",
+    "name": "McLaren MP4-31",
+    "notes": "McLaren chassis for the 2016 Formula One season.",
+    "season": 2016,
+    "engine": "Hybrid Formula One power unit",
+    "drivers": [
+      {
+        "id": "Fernando-Alonso",
+        "name": "Fernando Alonso"
+      },
+      {
+        "id": "Jenson-Button",
+        "name": "Jenson Button"
+      }
+    ],
+    "races": 21,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~900 hp"
+  },
+  {
+    "id": "MCL32",
+    "image": "assets/images/cars/2017-MCL32.jpg",
+    "name": "McLaren MCL32",
+    "notes": "McLaren chassis for the 2017 Formula One season.",
+    "season": 2017,
+    "engine": "Hybrid Formula One power unit",
+    "drivers": [
+      {
+        "id": "Fernando-Alonso",
+        "name": "Fernando Alonso"
+      },
+      {
+        "id": "Stoffel-Vandoorne",
+        "name": "Stoffel Vandoorne"
+      }
+    ],
+    "races": 20,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~900 hp"
+  },
+  {
+    "id": "MCL33",
+    "image": "assets/images/cars/2018-MCL33.jpg",
+    "name": "McLaren MCL33",
+    "notes": "McLaren chassis for the 2018 Formula One season.",
+    "season": 2018,
+    "engine": "Hybrid Formula One power unit",
+    "drivers": [
+      {
+        "id": "Fernando-Alonso",
+        "name": "Fernando Alonso"
+      },
+      {
+        "id": "Stoffel-Vandoorne",
+        "name": "Stoffel Vandoorne"
+      }
+    ],
+    "races": 21,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~900 hp"
+  },
+  {
+    "id": "MCL34",
+    "image": "assets/images/cars/2019-MCL34.jpg",
+    "name": "McLaren MCL34",
+    "notes": "McLaren chassis for the 2019 Formula One season.",
+    "season": 2019,
+    "engine": "Hybrid Formula One power unit",
+    "drivers": [
+      {
+        "id": "Carlos-Sainz",
+        "name": "Carlos Sainz"
+      },
+      {
+        "id": "Lando-Norris",
+        "name": "Lando Norris"
+      }
+    ],
+    "races": 21,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~900 hp"
+  },
+  {
+    "id": "MCL35",
+    "image": "assets/images/cars/2020-MCL35.jpg",
+    "name": "McLaren MCL35",
+    "notes": "McLaren chassis for the 2020 Formula One season.",
+    "season": 2020,
+    "engine": "Hybrid Formula One power unit",
+    "drivers": [
+      {
+        "id": "Carlos-Sainz",
+        "name": "Carlos Sainz"
+      },
+      {
+        "id": "Lando-Norris",
+        "name": "Lando Norris"
+      }
+    ],
+    "races": 17,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~900 hp"
+  },
+  {
+    "id": "MCL35M",
+    "image": "assets/images/cars/2021-MCL35M.jpg",
+    "name": "McLaren MCL35M",
+    "notes": "McLaren chassis for the 2021 Formula One season.",
+    "season": 2021,
+    "engine": "Hybrid Formula One power unit",
+    "drivers": [
+      {
+        "id": "Daniel-Ricciardo",
+        "name": "Daniel Ricciardo"
+      },
+      {
+        "id": "Lando-Norris",
+        "name": "Lando Norris"
+      }
+    ],
+    "races": 22,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~1000 hp"
+  },
+  {
+    "id": "MCL36",
+    "image": "assets/images/cars/2022-MCL36.jpg",
+    "name": "McLaren MCL36",
+    "notes": "McLaren chassis for the 2022 Formula One season.",
+    "season": 2022,
+    "engine": "Hybrid Formula One power unit",
+    "drivers": [
+      {
+        "id": "Daniel-Ricciardo",
+        "name": "Daniel Ricciardo"
+      },
+      {
+        "id": "Lando-Norris",
+        "name": "Lando Norris"
+      }
+    ],
+    "races": 22,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~1000 hp"
+  },
+  {
+    "id": "MCL60",
+    "image": "assets/images/cars/2023-MCL60.jpg",
+    "name": "McLaren MCL60",
+    "notes": "McLaren chassis for the 2023 Formula One season.",
+    "season": 2023,
+    "engine": "Hybrid Formula One power unit",
+    "drivers": [
+      {
+        "id": "Lando-Norris",
+        "name": "Lando Norris"
+      },
+      {
+        "id": "Oscar-Piastri",
+        "name": "Oscar Piastri"
+      }
+    ],
+    "races": 22,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~1000 hp"
+  },
+  {
+    "id": "MCL38",
+    "image": "assets/images/cars/2024-MCL38.jpg",
+    "name": "McLaren MCL38",
+    "notes": "McLaren chassis for the 2024 Formula One season.",
+    "season": 2024,
+    "engine": "Hybrid Formula One power unit",
+    "drivers": [
+      {
+        "id": "Lando-Norris",
+        "name": "Lando Norris"
+      },
+      {
+        "id": "Oscar-Piastri",
+        "name": "Oscar Piastri"
+      }
+    ],
+    "races": 24,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~1000 hp"
+  },
+  {
+    "id": "MCL39",
+    "image": "assets/images/cars/2025-MCL39.jpg",
+    "name": "McLaren MCL39",
+    "notes": "McLaren chassis for the 2025 Formula One season.",
+    "season": 2025,
+    "engine": "Hybrid Formula One power unit",
+    "drivers": [
+      {
+        "id": "Lando-Norris",
+        "name": "Lando Norris"
+      },
+      {
+        "id": "Oscar-Piastri",
+        "name": "Oscar Piastri"
+      }
+    ],
+    "races": 24,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~1000 hp"
+  },
+  {
+    "id": "MCL40",
+    "image": "assets/images/cars/2026-MCL40.jpg",
+    "name": "McLaren MCL40",
+    "notes": "McLaren chassis for the 2026 Formula One season.",
+    "season": 2026,
+    "engine": "2026 Formula One power unit",
+    "drivers": [
+      {
+        "id": "Lando-Norris",
+        "name": "Lando Norris"
+      },
+      {
+        "id": "Oscar-Piastri",
+        "name": "Oscar Piastri"
+      }
+    ],
+    "races": "-",
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "TBD"
+  }
+]

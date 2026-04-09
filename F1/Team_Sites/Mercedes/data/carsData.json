@@ -1,0 +1,393 @@
+[
+  {
+    "id": "MGPW01",
+    "image": "assets/images/cars/2010-MGPW01.jpg",
+    "name": "Mercedes MGP W01",
+    "notes": "Mercedes chassis for the 2010 Formula One season.",
+    "season": 2010,
+    "engine": "V8 Formula One engine",
+    "drivers": [
+      {
+        "id": "Michael-Schumacher",
+        "name": "Michael Schumacher"
+      },
+      {
+        "id": "Nico-Rosberg",
+        "name": "Nico Rosberg"
+      }
+    ],
+    "races": 19,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~750 hp"
+  },
+  {
+    "id": "MGPW02",
+    "image": "assets/images/cars/2011-MGPW02.jpg",
+    "name": "Mercedes MGP W02",
+    "notes": "Mercedes chassis for the 2011 Formula One season.",
+    "season": 2011,
+    "engine": "V8 Formula One engine",
+    "drivers": [
+      {
+        "id": "Michael-Schumacher",
+        "name": "Michael Schumacher"
+      },
+      {
+        "id": "Nico-Rosberg",
+        "name": "Nico Rosberg"
+      }
+    ],
+    "races": 19,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~750 hp"
+  },
+  {
+    "id": "F1W03",
+    "image": "assets/images/cars/2012-F1W03.jpg",
+    "name": "Mercedes F1 W03",
+    "notes": "Mercedes chassis for the 2012 Formula One season.",
+    "season": 2012,
+    "engine": "V8 Formula One engine",
+    "drivers": [
+      {
+        "id": "Michael-Schumacher",
+        "name": "Michael Schumacher"
+      },
+      {
+        "id": "Nico-Rosberg",
+        "name": "Nico Rosberg"
+      }
+    ],
+    "races": 20,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~750 hp"
+  },
+  {
+    "id": "F1W04",
+    "image": "assets/images/cars/2013-F1W04.jpg",
+    "name": "Mercedes F1 W04",
+    "notes": "Mercedes chassis for the 2013 Formula One season.",
+    "season": 2013,
+    "engine": "V8 Formula One engine",
+    "drivers": [
+      {
+        "id": "Lewis-Hamilton",
+        "name": "Lewis Hamilton"
+      },
+      {
+        "id": "Nico-Rosberg",
+        "name": "Nico Rosberg"
+      }
+    ],
+    "races": 19,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~750 hp"
+  },
+  {
+    "id": "F1W05Hybrid",
+    "image": "assets/images/cars/2014-F1W05Hybrid.jpg",
+    "name": "Mercedes F1 W05 Hybrid",
+    "notes": "Mercedes chassis for the 2014 Formula One season.",
+    "season": 2014,
+    "engine": "Hybrid Formula One power unit",
+    "drivers": [
+      {
+        "id": "Lewis-Hamilton",
+        "name": "Lewis Hamilton"
+      },
+      {
+        "id": "Nico-Rosberg",
+        "name": "Nico Rosberg"
+      }
+    ],
+    "races": 19,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~900 hp"
+  },
+  {
+    "id": "F1W06Hybrid",
+    "image": "assets/images/cars/2015-F1W06Hybrid.jpg",
+    "name": "Mercedes F1 W06 Hybrid",
+    "notes": "Mercedes chassis for the 2015 Formula One season.",
+    "season": 2015,
+    "engine": "Hybrid Formula One power unit",
+    "drivers": [
+      {
+        "id": "Lewis-Hamilton",
+        "name": "Lewis Hamilton"
+      },
+      {
+        "id": "Nico-Rosberg",
+        "name": "Nico Rosberg"
+      }
+    ],
+    "races": 19,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~900 hp"
+  },
+  {
+    "id": "F1W07Hybrid",
+    "image": "assets/images/cars/2016-F1W07Hybrid.jpg",
+    "name": "Mercedes F1 W07 Hybrid",
+    "notes": "Mercedes chassis for the 2016 Formula One season.",
+    "season": 2016,
+    "engine": "Hybrid Formula One power unit",
+    "drivers": [
+      {
+        "id": "Lewis-Hamilton",
+        "name": "Lewis Hamilton"
+      },
+      {
+        "id": "Nico-Rosberg",
+        "name": "Nico Rosberg"
+      }
+    ],
+    "races": 21,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~900 hp"
+  },
+  {
+    "id": "F1W08EQPower",
+    "image": "assets/images/cars/2017-F1W08EQPower.jpg",
+    "name": "Mercedes F1 W08 EQ Power+",
+    "notes": "Mercedes chassis for the 2017 Formula One season.",
+    "season": 2017,
+    "engine": "Hybrid Formula One power unit",
+    "drivers": [
+      {
+        "id": "Lewis-Hamilton",
+        "name": "Lewis Hamilton"
+      },
+      {
+        "id": "Valtteri-Bottas",
+        "name": "Valtteri Bottas"
+      }
+    ],
+    "races": 20,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~900 hp"
+  },
+  {
+    "id": "F1W09EQPower",
+    "image": "assets/images/cars/2018-F1W09EQPower.jpg",
+    "name": "Mercedes F1 W09 EQ Power+",
+    "notes": "Mercedes chassis for the 2018 Formula One season.",
+    "season": 2018,
+    "engine": "Hybrid Formula One power unit",
+    "drivers": [
+      {
+        "id": "Lewis-Hamilton",
+        "name": "Lewis Hamilton"
+      },
+      {
+        "id": "Valtteri-Bottas",
+        "name": "Valtteri Bottas"
+      }
+    ],
+    "races": 21,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~900 hp"
+  },
+  {
+    "id": "F1W10EQPower",
+    "image": "assets/images/cars/2019-F1W10EQPower.jpg",
+    "name": "Mercedes F1 W10 EQ Power+",
+    "notes": "Mercedes chassis for the 2019 Formula One season.",
+    "season": 2019,
+    "engine": "Hybrid Formula One power unit",
+    "drivers": [
+      {
+        "id": "Lewis-Hamilton",
+        "name": "Lewis Hamilton"
+      },
+      {
+        "id": "Valtteri-Bottas",
+        "name": "Valtteri Bottas"
+      }
+    ],
+    "races": 21,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~900 hp"
+  },
+  {
+    "id": "F1W11EQPerformance",
+    "image": "assets/images/cars/2020-F1W11EQPerformance.jpg",
+    "name": "Mercedes F1 W11 EQ Performance",
+    "notes": "Mercedes chassis for the 2020 Formula One season.",
+    "season": 2020,
+    "engine": "Hybrid Formula One power unit",
+    "drivers": [
+      {
+        "id": "Lewis-Hamilton",
+        "name": "Lewis Hamilton"
+      },
+      {
+        "id": "Valtteri-Bottas",
+        "name": "Valtteri Bottas"
+      }
+    ],
+    "races": 17,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~900 hp"
+  },
+  {
+    "id": "F1W12EPerformance",
+    "image": "assets/images/cars/2021-F1W12EPerformance.jpg",
+    "name": "Mercedes F1 W12 E Performance",
+    "notes": "Mercedes chassis for the 2021 Formula One season.",
+    "season": 2021,
+    "engine": "Hybrid Formula One power unit",
+    "drivers": [
+      {
+        "id": "Lewis-Hamilton",
+        "name": "Lewis Hamilton"
+      },
+      {
+        "id": "Valtteri-Bottas",
+        "name": "Valtteri Bottas"
+      }
+    ],
+    "races": 22,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~1000 hp"
+  },
+  {
+    "id": "F1W13EPerformance",
+    "image": "assets/images/cars/2022-F1W13EPerformance.jpg",
+    "name": "Mercedes F1 W13 E Performance",
+    "notes": "Mercedes chassis for the 2022 Formula One season.",
+    "season": 2022,
+    "engine": "Hybrid Formula One power unit",
+    "drivers": [
+      {
+        "id": "Lewis-Hamilton",
+        "name": "Lewis Hamilton"
+      },
+      {
+        "id": "George-Russell",
+        "name": "George Russell"
+      }
+    ],
+    "races": 22,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~1000 hp"
+  },
+  {
+    "id": "F1W14EPerformance",
+    "image": "assets/images/cars/2023-F1W14EPerformance.jpg",
+    "name": "Mercedes F1 W14 E Performance",
+    "notes": "Mercedes chassis for the 2023 Formula One season.",
+    "season": 2023,
+    "engine": "Hybrid Formula One power unit",
+    "drivers": [
+      {
+        "id": "Lewis-Hamilton",
+        "name": "Lewis Hamilton"
+      },
+      {
+        "id": "George-Russell",
+        "name": "George Russell"
+      }
+    ],
+    "races": 22,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~1000 hp"
+  },
+  {
+    "id": "F1W15EPerformance",
+    "image": "assets/images/cars/2024-F1W15EPerformance.jpg",
+    "name": "Mercedes F1 W15 E Performance",
+    "notes": "Mercedes chassis for the 2024 Formula One season.",
+    "season": 2024,
+    "engine": "Hybrid Formula One power unit",
+    "drivers": [
+      {
+        "id": "Lewis-Hamilton",
+        "name": "Lewis Hamilton"
+      },
+      {
+        "id": "George-Russell",
+        "name": "George Russell"
+      }
+    ],
+    "races": 24,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~1000 hp"
+  },
+  {
+    "id": "F1W16",
+    "image": "assets/images/cars/2025-F1W16.jpg",
+    "name": "Mercedes F1W16",
+    "notes": "Mercedes chassis for the 2025 Formula One season.",
+    "season": 2025,
+    "engine": "Hybrid Formula One power unit",
+    "drivers": [
+      {
+        "id": "George-Russell",
+        "name": "George Russell"
+      },
+      {
+        "id": "Andrea-Kimi-Antonelli",
+        "name": "Andrea Kimi Antonelli"
+      }
+    ],
+    "races": 24,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~1000 hp"
+  },
+  {
+    "id": "F1W17",
+    "image": "assets/images/cars/2026-F1W17.jpg",
+    "name": "Mercedes F1W17",
+    "notes": "Mercedes chassis for the 2026 Formula One season.",
+    "season": 2026,
+    "engine": "2026 Formula One power unit",
+    "drivers": [
+      {
+        "id": "George-Russell",
+        "name": "George Russell"
+      },
+      {
+        "id": "Andrea-Kimi-Antonelli",
+        "name": "Andrea Kimi Antonelli"
+      }
+    ],
+    "races": "-",
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "TBD"
+  }
+]

@@ -1,0 +1,140 @@
+[
+  {
+    "id": "A521",
+    "image": "assets/images/cars/2021-A521.jpg",
+    "name": "Alpine A521",
+    "notes": "Alpine chassis for the 2021 Formula One season.",
+    "season": 2021,
+    "engine": "Hybrid Formula One power unit",
+    "drivers": [
+      {
+        "id": "Fernando-Alonso",
+        "name": "Fernando Alonso"
+      },
+      {
+        "id": "Esteban-Ocon",
+        "name": "Esteban Ocon"
+      }
+    ],
+    "races": 22,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~1000 hp"
+  },
+  {
+    "id": "A522",
+    "image": "assets/images/cars/2022-A522.jpg",
+    "name": "Alpine A522",
+    "notes": "Alpine chassis for the 2022 Formula One season.",
+    "season": 2022,
+    "engine": "Hybrid Formula One power unit",
+    "drivers": [
+      {
+        "id": "Fernando-Alonso",
+        "name": "Fernando Alonso"
+      },
+      {
+        "id": "Esteban-Ocon",
+        "name": "Esteban Ocon"
+      }
+    ],
+    "races": 22,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~1000 hp"
+  },
+  {
+    "id": "A523",
+    "image": "assets/images/cars/2023-A523.jpg",
+    "name": "Alpine A523",
+    "notes": "Alpine chassis for the 2023 Formula One season.",
+    "season": 2023,
+    "engine": "Hybrid Formula One power unit",
+    "drivers": [
+      {
+        "id": "Esteban-Ocon",
+        "name": "Esteban Ocon"
+      },
+      {
+        "id": "Pierre-Gasly",
+        "name": "Pierre Gasly"
+      }
+    ],
+    "races": 22,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~1000 hp"
+  },
+  {
+    "id": "A524",
+    "image": "assets/images/cars/2024-A524.jpg",
+    "name": "Alpine A524",
+    "notes": "Alpine chassis for the 2024 Formula One season.",
+    "season": 2024,
+    "engine": "Hybrid Formula One power unit",
+    "drivers": [
+      {
+        "id": "Esteban-Ocon",
+        "name": "Esteban Ocon"
+      },
+      {
+        "id": "Pierre-Gasly",
+        "name": "Pierre Gasly"
+      }
+    ],
+    "races": 24,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~1000 hp"
+  },
+  {
+    "id": "A525",
+    "image": "assets/images/cars/2025-A525.jpg",
+    "name": "Alpine A525",
+    "notes": "Alpine chassis for the 2025 Formula One season.",
+    "season": 2025,
+    "engine": "Hybrid Formula One power unit",
+    "drivers": [
+      {
+        "id": "Pierre-Gasly",
+        "name": "Pierre Gasly"
+      },
+      {
+        "id": "Franco-Colapinto",
+        "name": "Franco Colapinto"
+      }
+    ],
+    "races": 24,
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "~1000 hp"
+  },
+  {
+    "id": "A526",
+    "image": "assets/images/cars/2026-A526.jpg",
+    "name": "Alpine A526",
+    "notes": "Alpine chassis for the 2026 Formula One season.",
+    "season": 2026,
+    "engine": "2026 Formula One power unit",
+    "drivers": [
+      {
+        "id": "Pierre-Gasly",
+        "name": "Pierre Gasly"
+      },
+      {
+        "id": "Franco-Colapinto",
+        "name": "Franco Colapinto"
+      }
+    ],
+    "races": "-",
+    "wins": "-",
+    "poles": "-",
+    "fastestLaps": "-",
+    "power": "TBD"
+  }
+]
