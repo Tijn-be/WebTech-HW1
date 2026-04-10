@@ -7,9 +7,38 @@ const dashboardState = {
   selectedCompletedRaceId: null,
 };
 
+function getAppBasePath() {
+  const matchingScript = Array.from(document.scripts || []).find(
+    function findScript(scriptNode) {
+      return /\/assets\/js\/(main-pages|script|admin)\.js(?:\?|$)/.test(
+        String((scriptNode && scriptNode.src) || ""),
+      );
+    },
+  );
+
+  if (!matchingScript || !matchingScript.src) {
+    return "";
+  }
+
+  return new URL(matchingScript.src, window.location.href).pathname.replace(
+    /\/assets\/js\/[^/]+$/,
+    "",
+  );
+}
+
+function buildAppUrl(pathValue) {
+  const normalizedPath = String(pathValue || "");
+
+  if (!normalizedPath.startsWith("/")) {
+    return normalizedPath;
+  }
+
+  return getAppBasePath() + normalizedPath;
+}
+
 function fetchJson(url, options) {
   return fetch(
-    url,
+    buildAppUrl(url),
     Object.assign({ credentials: "same-origin" }, options || {}),
   ).then(async function handleResponse(response) {
     let payload = null;
