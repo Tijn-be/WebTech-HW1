@@ -1,0 +1,67 @@
+<!-- Purpose: Shows the next upcoming races using the existing public API and shared site layout. -->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Upcoming Games Formula 1</title>
+    <link rel="icon" type="image/png" href="assets/images/F1Logo.png" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="canonical" href="upcominggames.html" />
+  </head>
+  <body data-page="upcoming-games">
+    <header>
+      <div class="site-header__bar">
+        <h1>Formula 1</h1>
+        <img
+          id="Formula1"
+          src="assets/images/Formula1.png"
+          alt="Formula 1 logo" />
+      </div>
+
+      <nav class="site-nav" aria-label="Main navigation">
+        <a class="site-nav__link" href="index.html">Home</a>
+        <a class="site-nav__link" href="latestscores.html">Latest Scores</a>
+        <a
+          class="site-nav__link"
+          href="upcominggames.html"
+          style="color: red"
+          aria-current="page"
+          >Upcoming Games</a
+        >
+        <a class="site-nav__link" href="drivers.html">Drivers</a>
+        <a class="site-nav__link" href="teams.html">Teams</a>
+        <a class="site-nav__link" href="league.html">League Info</a>
+        <a class="site-nav__link" href="About.html">About</a>
+      </nav>
+    </header>
+
+    <main>
+      <section aria-labelledby="upcoming-games-page-title">
+        <h2 id="upcoming-games-page-title">Upcoming Games</h2>
+        <p>
+          This page looks ahead to the next race weekends still waiting to be
+          run in the current season. It helps visitors follow the remaining
+          calendar and see which circuits are still to come.
+        </p>
+        <p>
+          When an admin enters a result for one of these upcoming races, that
+          weekend leaves this page and appears in the latest scores list.
+        </p>
+        <p id="upcomingGamesPageStatus">Loading upcoming games...</p>
+      </section>
+
+      <div id="upcomingGamesPageList" class="race-feed" aria-live="polite"></div>
+    </main>
+
+    <footer>
+      <a id="about" href="About.html">About</a> Author: Benjamin, Darryl,
+      Tijn<br />
+      Disclaimer: Information on this website is not guaranteed to be
+      correct.<br />
+      &copy; 2026 F1 Team<br />
+    </footer>
+
+    <script src="assets/js/main-pages.js"></script>
+  </body>
+</html>

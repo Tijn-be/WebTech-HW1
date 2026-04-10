@@ -1,3 +1,4 @@
+<!-- Purpose: Provides the drivers page markup for the main F1 site. -->
 <!doctype html>
 <html lang="en">
   <head>
@@ -8,7 +9,7 @@
     <link rel="stylesheet" href="assets/css/style.css" />
     <link rel="canonical" href="drivers.html" />
   </head>
-  <body>
+  <body data-page="players">
     <header>
       <div class="site-header__bar">
         <h1>Formula 1</h1>
@@ -20,6 +21,8 @@
 
       <nav class="site-nav" aria-label="Main navigation">
         <a class="site-nav__link" href="index.html">Home</a>
+        <a class="site-nav__link" href="latestscores.html">Latest Scores</a>
+        <a class="site-nav__link" href="upcominggames.html">Upcoming Games</a>
         <a
           class="site-nav__link"
           href="drivers.html"
@@ -28,7 +31,7 @@
           >Drivers</a
         >
         <a class="site-nav__link" href="teams.html">Teams</a>
-        <a class="site-nav__link" href="teamprofile.html">League Profile</a>
+        <a class="site-nav__link" href="league.html">League Info</a>
         <a class="site-nav__link" href="About.html">About</a>
       </nav>
     </header>
@@ -36,21 +39,19 @@
     <main>
       <section aria-labelledby="drivers-title">
         <h2 id="drivers-title">Formula 1 Drivers</h2>
+        <p>
+          The drivers page gathers the active Formula 1 grid in one place and
+          links each driver to a fuller profile page. It is meant to be a quick
+          way to connect a name with a team, a role on the grid, and the basic
+          career details stored in the project database.
+        </p>
+        <p>
+          If you want a team's longer story, cars, and season material, open
+          the team mini-site from the team references shown across the site.
+        </p>
+        <p id="playersStatus">Loading drivers...</p>
       </section>
 
-      <section id="driversUploadArea" class="upload-panel">
-        <h2>Load Drivers</h2>
-
-        <label for="driversFileInput">Select JSON file:</label>
-        <input
-          type="file"
-          id="driversFileInput"
-          accept=".json,application/json"
-          aria-describedby="driversFileHelp" />
-        <p id="driversFileHelp">
-          Upload <strong>driversData.json</strong> to load drivers.
-        </p>
-      </section>
       <div id="driversList" class="content-row" aria-live="polite"></div>
     </main>
 
@@ -62,6 +63,6 @@
       &copy; 2026 F1 Team<br />
     </footer>
 
-    <script src="assets/js/script.js"></script>
+    <script src="assets/js/main-pages.js"></script>
   </body>
 </html>

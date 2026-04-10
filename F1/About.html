@@ -1,3 +1,4 @@
+<!-- Purpose: Provides the About page markup for the main F1 site. -->
 <!doctype html>
 <html lang="en">
   <head>
@@ -20,9 +21,11 @@
 
       <nav class="site-nav" aria-label="Main navigation">
         <a class="site-nav__link" href="index.html">Home</a>
+        <a class="site-nav__link" href="latestscores.html">Latest Scores</a>
+        <a class="site-nav__link" href="upcominggames.html">Upcoming Games</a>
         <a class="site-nav__link" href="drivers.html">Drivers</a>
         <a class="site-nav__link" href="teams.html">Teams</a>
-        <a class="site-nav__link" href="teamprofile.html">League Profile</a>
+        <a class="site-nav__link" href="league.html">League Info</a>
         <a
           class="site-nav__link"
           href="About.html"
@@ -34,18 +37,18 @@
     </header>
 
     <main>
-      <section id="uploadArea" class="upload-panel">
-        <h2>Load Group Members</h2>
-
-        <label for="fileInput">Select JSON file:</label>
-        <input
-          type="file"
-          id="fileInput"
-          accept=".json,application/json"
-          aria-describedby="fileHelp" />
-        <p id="fileHelp">
-          Upload <strong>groupMembers.json</strong> to load group members.
+      <section aria-labelledby="group-members-title">
+        <h2 id="group-members-title">Group Members</h2>
+        <p>
+          The About page explains who built the project and gives visitors a way
+          to connect the site back to the course group behind it. It acts as the
+          project credits page rather than another Formula 1 statistics view.
         </p>
+        <p>
+          Each group-member card summarises the person, their studies, and the
+          course context that shaped the website.
+        </p>
+        <p id="groupMembersStatus">Loading group members...</p>
       </section>
 
       <div id="playerContainer" class="player-grid" aria-live="polite"></div>

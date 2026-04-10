@@ -1,3 +1,4 @@
+/* Purpose: Defines the shared presentation rules for the public F1 site. */
 /*----General----*/
 
 @font-face {
@@ -157,118 +158,6 @@ a:hover {
     gap: 20px;
   }
 }
-
-  /*Font-Size*/
-  body.site-font-small {
-    font-size: 14px;
-  }
-
-  body.site-font-large {
-    font-size: 20px;
-  }
-
-  /*Theme-Contrast*/
-  body.theme-contrast {
-    background-color: #000000;
-    color: #ffffff;
-  }
-
-  body.theme-contrast header,
-  body.theme-contrast footer {
-    background-color: #000000;
-    border-color: #ffffff;
-  }
-
-  body.theme-contrast .site-nav__link {
-    background-color: #111111;
-    color: #ffffff;
-    border: 1px solid #ffffff;
-  }
-
-  /*Theme-Dark*/
-  body.theme-dark {
-    background-color: #258380;
-    color: white;
-  }
-
-  body.theme-dark header,
-  body.theme-dark footer {
-    background-color: #205554;
-  }
-
-  body.theme-dark .site-nav__link {
-    background-color: #205554;
-    color: white;
-  }
-
-  /*Theme-Light*/
-  body.theme-light {
-    background-color: #f2f4f8;
-    color: #0f172a;
-  }
-
-  body.theme-light header,
-  body.theme-light footer {
-    background-color: #d9e3f0;
-  }
-
-  body.theme-light .site-nav__link {
-    background-color: #bfd3ea;
-    color: #0f172a;
-  }
-
-  body.theme-light h1 {
-    color: #484646;
-  }
-
-  body.theme-light a {
-    color: #0b3d91;
-  }
-
-  body.theme-light a:hover {
-    color: #484646;
-  }
-
-  body.theme-light p,
-  body.theme-light pre,
-  body.theme-light li,
-  body.theme-light span,
-  body.theme-light label,
-  body.theme-light td,
-  body.theme-light th,
-  body.theme-light h2,
-  body.theme-light h3,
-  body.theme-light h4,
-  body.theme-light h5,
-  body.theme-light h6 {
-    color: #0f172a !important;
-  }
-
-/*--Draggable car--*/
-.slider-container {
-  top: 10px;
-  width: 100%;
-  height: 14px;
-}
-
-#slider-car {
-  position: absolute;
-  width: 99%;
-  height: 14px;
-  opacity: 0;
-  cursor: grab;
-  z-index: 999;
-}
-
-#slider-img {
-  max-width: 100px;
-  height: auto;
-  position: absolute;
-  left: 0;
-  transform: translateX(calc(var(--scroll-pos, 0) * (100vw - 110px)));
-  pointer-events: none;
-}
-
 /*--Driver tile--*/
 .driver-tile {
   background-color: rgba(255, 255, 255, 0.5);
@@ -328,69 +217,6 @@ a:hover {
     align-items: stretch;
   }
 }
-
-/*--Accessibility Controls--*/
-
-.accessibility-controls {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 8px;
-  margin-top: 10px;
-  padding: 8px;
-  border: 1px solid #ffffff33;
-  border-radius: 6px;
-}
-
-.accessibility-controls__title {
-  margin: 0;
-  font-family: Jost-Bold;
-  width: 100%;
-}
-
-.accessibility-controls label {
-  font-size: 0.9rem;
-}
-
-.accessibility-controls select {
-  background-color: #258380;
-  color: white;
-  border: 1px solid #ffffff55;
-  border-radius: 4px;
-  padding: 4px 6px;
-}
-
-.accessibility-size-small,
-.accessibility-size-small * {
-  font-size: 14px !important;
-}
-
-.accessibility-size-large,
-.accessibility-size-large * {
-  font-size: 20px !important;
-}
-
-.accessibility-color-red,
-.accessibility-color-red * {
-  color: #d90429 !important;
-}
-
-.accessibility-color-blue,
-.accessibility-color-blue * {
-  color: #8ecae6 !important;
-}
-
-  /*Theme Light*/
-  body.theme-light .accessibility-controls select {
-    background-color: #ffffff;
-    color: #0f172a;
-    border-color: #94a3b8;
-  }
-
-  body.theme-light .accessibility-controls {
-    border-color: #94a3b8;
-  }
-
 /*----Drivers page----*/
 
 .drivers-bio {
@@ -447,12 +273,6 @@ a:hover {
     width: 46%;
   }
 }
-
-  /*Theme-Light*/
-  body.theme-light .drivers-bio {
-      color: #0f172a !important;
-    }
-
 /*----Statistic page----*/
 
 .stats__controls {
@@ -544,25 +364,6 @@ a:hover {
     width: auto;
   }
 }
-
-  /*Theme-Light*/
-  body.theme-light .stats__select{
-    background-color: #ffffff;
-    color: #0f172a;
-    border-color: #94a3b8;
-  }
-
-  body.theme-light .stats-team-link {
-    background-color: #e8eef6;
-    border-color: #94a3b8;
-  }
-
-  body.theme-light .stats-races--table,
-  body.theme-light .stats-races--table th,
-  body.theme-light .stats-races--table td {
-    border-color: #334155;
-  }
-
 /*----Cars page----*/
 
 .cars-table--container {
@@ -605,17 +406,7 @@ a:hover {
 
 /*----Team Members Page----*/
 
-.upload-panel {
-  border: 1px solid #ffffff55;
-  border-radius: 8px;
-  padding: 14px;
-  margin-bottom: 16px;
-  max-width: 560px;
-}
 
-.upload-panel p {
-  margin-top: 0;
-}
 
 .player-grid {
   display: grid;
@@ -645,7 +436,8 @@ a:hover {
 .team-item {
   cursor: help;
 }
-
+
+
 .team-tooltip {
   position: absolute;
   max-width: 280px;
@@ -670,20 +462,5 @@ a:hover {
     grid-template-columns: repeat(2, minmax(260px, 1fr));
   }
 }
-  /*Theme Light*/
-  body.theme-light .driver-meta {
-    background-color: #e8eef6;
-    border-color: #94a3b8;
-  }
 
-  body.theme-light .former-teams-list .team-item {
-    background-color: #dbe7f5;
-    border-color: #94a3b8;
-    color: #0f172a;
-  }
 
-  body.theme-light .team-tooltip {
-    background-color: #ffffff;
-    color: #0f172a;
-    border-color: #64748b;
-  }

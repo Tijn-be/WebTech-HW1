@@ -1,14 +1,15 @@
+<!-- Purpose: Provides the teamprofile page markup for the main F1 site. -->
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>League Profile Formula 1</title>
+    <title>Team Profile Formula 1</title>
     <link rel="icon" type="image/png" href="assets/images/F1Logo.png" />
     <link rel="stylesheet" href="assets/css/style.css" />
     <link rel="canonical" href="teamprofile.html" />
   </head>
-  <body>
+  <body data-page="team-profile">
     <header>
       <div class="site-header__bar">
         <h1>Formula 1</h1>
@@ -18,42 +19,31 @@
           alt="Formula 1 logo" />
       </div>
 
-      <nav class="site-nav">
+      <nav class="site-nav" aria-label="Main navigation">
         <a class="site-nav__link" href="index.html">Home</a>
+        <a class="site-nav__link" href="latestscores.html">Latest Scores</a>
+        <a class="site-nav__link" href="upcominggames.html">Upcoming Games</a>
         <a class="site-nav__link" href="drivers.html">Drivers</a>
         <a class="site-nav__link" href="teams.html">Teams</a>
-        <a
-          class="site-nav__link"
-          href="teamprofile.html"
-          style="color: red"
-          aria-current="page"
-          >League Profile</a
-        >
+        <a class="site-nav__link" href="league.html">League Info</a>
         <a class="site-nav__link" href="About.html">About</a>
-      </nav>
-
-      <nav class="site-nav site-nav--secondary">
-        <span><a class="site-nav__link" href="#History">History</a></span>
-        <span><a class="site-nav__link" href="#LeagueStructure">League Structure</a></span>
-        <span><a class="site-nav__link" href="#FeaturedCircuits">Featured Circuits</a></span>
       </nav>
     </header>
 
     <main>
-      <section id="History">
-        <h2>History</h2>
-        <p>Formula 1 became an official world championship in 1950 and has grown into the highest-profile form of international single-seater racing. Across its history, the series has combined technical innovation, global travel, and intense competition between drivers and constructors.</p>
+      <section aria-labelledby="team-info-title">
+        <h2 id="teamInfoTitle">Team Info</h2>
+        <p id="teamInfoStatus">
+          Open a team from the Teams page to load its info.
+        </p>
       </section>
 
-      <section id="LeagueStructure">
-        <h2>League Structure</h2>
-        <p>Each Formula 1 season is built around teams entering two cars, a calendar of Grands Prix, and championship points awarded based on race results. Success depends not only on the drivers, but also on engineering, strategy, reliability, pit work, and long-term car development.</p>
-      </section>
+      <nav
+        id="teamSectionNav"
+        class="site-nav site-nav--secondary"
+        aria-label="Selected team pages"></nav>
 
-      <section id="FeaturedCircuits">
-        <h2>Featured Circuits</h2>
-        <p>Formula 1 is defined by a mix of classic venues and modern host circuits. Tracks such as Silverstone, Monza, Suzuka, Spa-Francorchamps, and Monaco are widely associated with the sport's history, atmosphere, and competitive identity.</p>
-      </section>
+      <div id="teamInfoCard" class="team-profile-page" aria-live="polite"></div>
     </main>
 
     <footer>
@@ -64,6 +54,6 @@
       &copy; 2026 F1 Team<br />
     </footer>
 
-    <script src="assets/js/script.js"></script>
+    <script src="assets/js/main-pages.js"></script>
   </body>
 </html>

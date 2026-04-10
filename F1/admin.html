@@ -1,0 +1,231 @@
+<!-- Purpose: Provides admin-only editable versions of the public league views using the shared site layout and styles. -->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Formula 1</title>
+    <link rel="icon" type="image/png" href="assets/images/F1Logo.png" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="canonical" href="admin.html" />
+  </head>
+  <body data-page="admin">
+    <header>
+      <div class="site-header__bar">
+        <h1>Formula 1</h1>
+        <img
+          id="Formula1"
+          src="assets/images/Formula1.png"
+          alt="Formula 1 logo" />
+      </div>
+
+      <nav class="site-nav" aria-label="Main navigation">
+        <a class="site-nav__link" href="index.html">Home</a>
+        <a class="site-nav__link" href="drivers.html">Drivers</a>
+        <a class="site-nav__link" href="teams.html">Teams</a>
+        <a class="site-nav__link" href="league.html">League Info</a>
+        <a class="site-nav__link" href="About.html">About</a>
+        <a
+          class="site-nav__link"
+          href="admin.html"
+          style="color: red"
+          aria-current="page"
+          >Admin</a
+        >
+      </nav>
+    </header>
+
+    <main>
+      <section aria-labelledby="admin-title">
+        <h2 id="admin-title">Admin</h2>
+        <p id="adminSessionText">Checking admin session...</p>
+        <div class="admin-actions">
+          <button id="adminLogoutButton" type="button">Log out</button>
+        </div>
+        <p id="adminFeedback" class="admin-feedback" aria-live="polite"></p>
+      </section>
+
+      <section aria-labelledby="race-scores-title">
+        <h2 id="race-scores-title">Race Scores</h2>
+        <div class="content-row">
+          <article class="driver-card" aria-labelledby="admin-upcoming-races-title">
+            <h3 id="admin-upcoming-races-title">Enter Upcoming Race Scores</h3>
+            <div class="driver-card__row">
+              <div class="driver-tile">
+                <img src="assets/images/F1Logo.png" alt="Formula 1 logo" />
+              </div>
+              <div class="driver-meta">
+                <p class="admin-note">
+                  Choose an upcoming race and enter the finishing positions and times.
+                </p>
+                <form id="upcomingRaceForm">
+                  <label for="adminUpcomingRaceSelect">Upcoming race</label>
+                  <select id="adminUpcomingRaceSelect" class="admin-input"></select>
+                  <p id="adminUpcomingRaceSummary">Loading upcoming race editor...</p>
+                  <div class="admin-table-wrap">
+                    <table class="leaderboard-table admin-edit-table">
+                      <thead>
+                        <tr>
+                          <th>Driver</th>
+                          <th>Team</th>
+                          <th>Position</th>
+                          <th>Time</th>
+                          <th>Points</th>
+                        </tr>
+                      </thead>
+                      <tbody id="adminUpcomingRaceResults"></tbody>
+                    </table>
+                  </div>
+                  <div class="admin-actions">
+                    <button type="submit">Save Upcoming Race Scores</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </article>
+
+          <article class="driver-card" aria-labelledby="admin-completed-races-title">
+            <h3 id="admin-completed-races-title">Edit Existing Race Scores</h3>
+            <div class="driver-card__row">
+              <div class="driver-tile">
+                <img src="assets/images/F1Logo.png" alt="Formula 1 logo" />
+              </div>
+              <div class="driver-meta">
+                <p class="admin-note">
+                  Choose a completed race and update the published finishing order.
+                </p>
+                <form id="completedRaceForm">
+                  <label for="adminCompletedRaceSelect">Completed race</label>
+                  <select id="adminCompletedRaceSelect" class="admin-input"></select>
+                  <p id="adminCompletedRaceSummary">Loading completed race editor...</p>
+                  <div class="admin-table-wrap">
+                    <table class="leaderboard-table admin-edit-table">
+                      <thead>
+                        <tr>
+                          <th>Driver</th>
+                          <th>Team</th>
+                          <th>Position</th>
+                          <th>Time</th>
+                          <th>Points</th>
+                        </tr>
+                      </thead>
+                      <tbody id="adminCompletedRaceResults"></tbody>
+                    </table>
+                  </div>
+                  <div class="admin-actions">
+                    <button type="submit">Save Edited Race Scores</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section aria-labelledby="players-admin-title">
+        <h2 id="players-admin-title">Players</h2>
+        <div class="content-row">
+          <article class="driver-card" aria-labelledby="admin-create-player-title">
+            <h3 id="admin-create-player-title">Create Player</h3>
+            <div class="driver-card__row">
+              <div class="driver-tile">
+                <img src="assets/images/F1Logo.png" alt="Formula 1 logo" />
+              </div>
+              <div class="driver-meta">
+                <form id="createPlayerForm" class="admin-form">
+                  <label>
+                    First name
+                    <input id="createFirstName" name="firstName" type="text" required />
+                  </label>
+                  <label>
+                    Last name
+                    <input id="createLastName" name="lastName" type="text" required />
+                  </label>
+                  <label>
+                    Date of birth
+                    <input
+                      id="createDateOfBirth"
+                      name="dateOfBirth"
+                      type="text"
+                      placeholder="2000-01-01"
+                      required />
+                  </label>
+                  <label>
+                    Role
+                    <input id="createRole" name="role" type="text" value="Driver" />
+                  </label>
+                  <label>
+                    Number
+                    <input id="createNumber" name="number" type="number" min="1" />
+                  </label>
+                  <label>
+                    Photo path
+                    <input
+                      id="createPhoto"
+                      name="photo"
+                      type="text"
+                      placeholder="/assets/images/F1Logo.png" />
+                  </label>
+                  <label>
+                    Team
+                    <select id="createTeamId" name="teamId" required></select>
+                  </label>
+                  <div class="admin-actions">
+                    <button type="submit">Create Player</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </article>
+
+          <article class="driver-card" aria-labelledby="admin-assign-player-title">
+            <h3 id="admin-assign-player-title">Change Team Assignment</h3>
+            <div class="driver-card__row">
+              <div class="driver-tile">
+                <img src="assets/images/F1Logo.png" alt="Formula 1 logo" />
+              </div>
+              <div class="driver-meta">
+                <form id="assignPlayerForm" class="admin-form">
+                  <label>
+                    Player
+                    <select id="assignPlayerId" name="playerId" required></select>
+                  </label>
+                  <label>
+                    Team
+                    <select id="assignTeamId" name="teamId" required></select>
+                  </label>
+                  <div class="admin-actions">
+                    <button type="submit">Save Team Assignment</button>
+                  </div>
+                </form>
+
+                <form id="removePlayerForm" class="admin-form">
+                  <label>
+                    Remove player from team
+                    <select id="removePlayerId" name="playerId" required></select>
+                  </label>
+                  <div class="admin-actions">
+                    <button type="submit">Remove From Team</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div id="adminPlayersCards" class="content-row" aria-live="polite"></div>
+      </section>
+    </main>
+
+    <footer>
+      <a id="about" href="About.html">About</a> Author: Benjamin, Darryl,
+      Tijn<br />
+      Disclaimer: Information on this website is not guaranteed to be
+      correct.<br />
+      &copy; 2026 F1 Team<br />
+    </footer>
+
+    <script src="assets/js/main-pages.js"></script>
+    <script src="assets/js/admin.js"></script>
+  </body>
+</html>

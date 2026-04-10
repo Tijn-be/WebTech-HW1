@@ -1,3 +1,4 @@
+/* Purpose: Defines the shared presentation rules for the public F1 site. */
 /*----General----*/
 
 @font-face {
@@ -128,12 +129,54 @@ a:hover {
   margin-top: 15px;
 }
 
+.session-banner {
+  width: min(960px, calc(100% - 40px));
+  margin: 10px auto 0;
+  padding: 10px 14px;
+  border: 1px solid #ffffff33;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.05);
+  text-align: center;
+}
+
 .content-row {
   display: flex;
   gap: 20px;
   align-items: flex-start;
   margin-bottom: 20px;
   flex-direction: column;
+}
+
+.race-feed {
+  display: grid;
+  gap: 14px;
+}
+
+.race-feed__card {
+  border: 1px solid #ffffff33;
+  border-radius: 12px;
+  padding: 14px 16px;
+  background-color: rgba(255, 255, 255, 0.04);
+}
+
+.race-feed__card h3 {
+  margin: 0 0 6px;
+}
+
+.race-feed__meta {
+  margin: 0 0 10px;
+  color: #d7dce2;
+}
+
+.race-feed__results {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.admin-edit-table {
+  width: 100%;
+  max-width: 100%;
+  margin: 10px 0;
 }
 
 #Formula1 {
@@ -157,118 +200,6 @@ a:hover {
     gap: 20px;
   }
 }
-
-/*Font-Size*/
-body.site-font-small {
-  font-size: 14px;
-}
-
-body.site-font-large {
-  font-size: 20px;
-}
-
-/*Theme-Contrast*/
-body.theme-contrast {
-  background-color: #000000;
-  color: #ffffff;
-}
-
-body.theme-contrast header,
-body.theme-contrast footer {
-  background-color: #000000;
-  border-color: #ffffff;
-}
-
-body.theme-contrast .site-nav__link {
-  background-color: #111111;
-  color: #ffffff;
-  border: 1px solid #ffffff;
-}
-
-/*Theme-Dark*/
-body.theme-dark {
-  background-color: #1d2226;
-  color: white;
-}
-
-body.theme-dark header,
-body.theme-dark footer {
-  background-color: #788999;
-}
-
-body.theme-dark .site-nav__link {
-  background-color: #788999;
-  color: white;
-}
-
-/*Theme-Light*/
-body.theme-light {
-  background-color: #f2f4f8;
-  color: #0f172a;
-}
-
-body.theme-light header,
-body.theme-light footer {
-  background-color: #d9e3f0;
-}
-
-body.theme-light .site-nav__link {
-  background-color: #bfd3ea;
-  color: #0f172a;
-}
-
-body.theme-light h1 {
-  color: #b00020;
-}
-
-body.theme-light a {
-  color: #0b3d91;
-}
-
-body.theme-light a:hover {
-  color: #a30000;
-}
-
-body.theme-light p,
-body.theme-light pre,
-body.theme-light li,
-body.theme-light span,
-body.theme-light label,
-body.theme-light td,
-body.theme-light th,
-body.theme-light h2,
-body.theme-light h3,
-body.theme-light h4,
-body.theme-light h5,
-body.theme-light h6 {
-  color: #0f172a !important;
-}
-
-/*--Draggable car--*/
-.slider-container {
-  top: 10px;
-  width: 100%;
-  height: 14px;
-}
-
-#slider-car {
-  position: absolute;
-  width: 99%;
-  height: 14px;
-  opacity: 0;
-  cursor: grab;
-  z-index: 999;
-}
-
-#slider-img {
-  max-width: 100px;
-  height: auto;
-  position: absolute;
-  left: 0;
-  transform: translateX(calc(var(--scroll-pos, 0) * (100vw - 110px)));
-  pointer-events: none;
-}
-
 /*--Driver tile--*/
 .driver-tile {
   background-color: rgba(255, 255, 255, 0.5);
@@ -285,6 +216,11 @@ body.theme-light h6 {
   min-width: 0;
 }
 
+.favorite-team-highlight {
+  border: 2px solid #ffd700 !important;
+  box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.18);
+}
+
 .driver-card > a {
   display: block;
   width: 100%;
@@ -296,6 +232,37 @@ body.theme-light h6 {
   gap: 12px;
   align-items: center;
   min-width: 0;
+}
+
+.team-profile-page {
+  display: grid;
+  gap: 20px;
+}
+
+.team-section {
+  display: grid;
+  gap: 14px;
+}
+
+.team-section h3 {
+  margin: 0;
+}
+
+.team-detail-list {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.team-detail-list li + li {
+  margin-top: 6px;
+}
+
+.team-driver-list,
+.team-car-list {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  flex-direction: column;
 }
 
 .driver-meta {
@@ -327,68 +294,13 @@ body.theme-light h6 {
     flex-direction: row;
     align-items: stretch;
   }
-}
 
-/*--Accessibility Controls--*/
-
-.accessibility-controls {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 8px;
-  margin-top: 10px;
-  padding: 8px;
-  border: 1px solid #ffffff33;
-  border-radius: 6px;
-}
-
-.accessibility-controls__title {
-  margin: 0;
-  font-family: Jost-Bold;
-  width: 100%;
-}
-
-.accessibility-controls label {
-  font-size: 0.9rem;
-}
-
-.accessibility-controls select {
-  background-color: #1d2226;
-  color: white;
-  border: 1px solid #ffffff55;
-  border-radius: 4px;
-  padding: 4px 6px;
-}
-
-.accessibility-size-small,
-.accessibility-size-small * {
-  font-size: 14px !important;
-}
-
-.accessibility-size-large,
-.accessibility-size-large * {
-  font-size: 20px !important;
-}
-
-.accessibility-color-red,
-.accessibility-color-red * {
-  color: #d90429 !important;
-}
-
-.accessibility-color-blue,
-.accessibility-color-blue * {
-  color: #8ecae6 !important;
-}
-
-/*Theme Light*/
-body.theme-light .accessibility-controls select {
-  background-color: #ffffff;
-  color: #0f172a;
-  border-color: #94a3b8;
-}
-
-body.theme-light .accessibility-controls {
-  border-color: #94a3b8;
+  .team-driver-list,
+  .team-car-list {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
 }
 
 /*---Home Page---*/
@@ -401,7 +313,7 @@ body.theme-light .accessibility-controls {
   background-color: #2d2d2d;
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0,0,0);
+  box-shadow: 0 10px 30px rgba(0, 0, 0);
 }
 .leaderboard-table tr:nth-child(even) {
   background-color: rgba(255, 255, 255, 0.244);
@@ -413,7 +325,7 @@ body.theme-light .accessibility-controls {
   text-align: left;
 }
 
-.leaderboard-table th, 
+.leaderboard-table th,
 .leaderboard-table td {
   padding: 15px 20px;
   border-bottom: 1px solid #242424;
@@ -421,6 +333,10 @@ body.theme-light .accessibility-controls {
 
 .leaderboard-table tbody tr:hover {
   background-color: #383838;
+}
+
+.leaderboard-table tbody tr.favorite-team-highlight {
+  background-color: rgba(255, 215, 0, 0.18);
 }
 
 .rank {
@@ -434,9 +350,15 @@ body.theme-light .accessibility-controls {
   font-weight: bold;
 }
 
-tr:nth-child(1) .rank { color: #ffd700; }
-tr:nth-child(2) .rank { color: #c0c0c0; }
-tr:nth-child(3) .rank { color: #cd7f32; }
+tr:nth-child(1) .rank {
+  color: #ffd700;
+}
+tr:nth-child(2) .rank {
+  color: #c0c0c0;
+}
+tr:nth-child(3) .rank {
+  color: #cd7f32;
+}
 
 /*----Drivers page----*/
 
@@ -494,12 +416,6 @@ tr:nth-child(3) .rank { color: #cd7f32; }
     width: 46%;
   }
 }
-
-/*Theme-Light*/
-body.theme-light .drivers-bio {
-  color: #0f172a !important;
-}
-
 /*----Statistic page----*/
 
 .stats__controls {
@@ -591,25 +507,6 @@ body.theme-light .drivers-bio {
     width: auto;
   }
 }
-
-/*Theme-Light*/
-body.theme-light .stats__select {
-  background-color: #ffffff;
-  color: #0f172a;
-  border-color: #94a3b8;
-}
-
-body.theme-light .stats-team-link {
-  background-color: #e8eef6;
-  border-color: #94a3b8;
-}
-
-body.theme-light .stats-races--table,
-body.theme-light .stats-races--table th,
-body.theme-light .stats-races--table td {
-  border-color: #334155;
-}
-
 /*----Cars page----*/
 
 .cars-table--container {
@@ -652,18 +549,6 @@ body.theme-light .stats-races--table td {
 
 /*----Team Members Page----*/
 
-.upload-panel {
-  border: 1px solid #ffffff55;
-  border-radius: 8px;
-  padding: 14px;
-  margin-bottom: 16px;
-  max-width: 560px;
-}
-
-.upload-panel p {
-  margin-top: 0;
-}
-
 .player-grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -693,7 +578,6 @@ body.theme-light .stats-races--table td {
   cursor: help;
 }
 
-
 .team-tooltip {
   position: absolute;
   max-width: 280px;
@@ -718,20 +602,115 @@ body.theme-light .stats-races--table td {
     grid-template-columns: repeat(2, minmax(260px, 1fr));
   }
 }
-/*Theme Light*/
-body.theme-light .driver-meta {
-  background-color: #e8eef6;
-  border-color: #94a3b8;
+/*---Admin Dashboard---*/
+
+.admin-panel {
+  border: 1px solid #ffffff33;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 20px;
+  background-color: rgba(255, 255, 255, 0.04);
 }
 
-body.theme-light .former-teams-list .team-item {
-  background-color: #dbe7f5;
-  border-color: #94a3b8;
-  color: #0f172a;
+.admin-toolbar,
+.admin-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  margin: 12px 0;
 }
 
-body.theme-light .team-tooltip {
-  background-color: #ffffff;
-  color: #0f172a;
-  border-color: #64748b;
+.admin-feedback {
+  min-height: 1.5em;
+}
+
+.admin-feedback--error {
+  color: #ff8c8c;
+}
+
+.admin-note {
+  margin: 0 0 12px;
+  color: #d7dce2;
+}
+
+.admin-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+}
+
+.admin-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.admin-input,
+.admin-form input,
+.admin-form select,
+.admin-toolbar select {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid #ffffff33;
+  background-color: #10161b;
+  color: white;
+  font-family: Jost, sans-serif;
+}
+
+.admin-table-wrap {
+  overflow-x: auto;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.admin-table th,
+.admin-table td {
+  padding: 10px;
+  border-bottom: 1px solid #ffffff22;
+  text-align: left;
+  vertical-align: top;
+}
+
+.admin-table tbody tr:nth-child(even) {
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+.admin-table button,
+.admin-actions button,
+.login-container button,
+#logOutBox button {
+  padding: 8px 14px;
+  border: 0;
+  border-radius: 8px;
+  background-color: #e0041e;
+  color: white;
+  font-family: Jost-Bold, sans-serif;
+  cursor: pointer;
+}
+
+.admin-table button:hover,
+.admin-actions button:hover,
+.login-container button:hover,
+#logOutBox button:hover {
+  opacity: 0.9;
+}
+
+.admin-table button:disabled,
+.admin-actions button:disabled,
+.login-container button:disabled,
+#logOutBox button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+@media (max-width: 699px) {
+  .admin-table th,
+  .admin-table td {
+    min-width: 120px;
+  }
 }

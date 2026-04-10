@@ -1,3 +1,4 @@
+/* Purpose: Provides the client-side behavior for this team mini-site, including team info, drivers, cars, statistics, and race data. */
 //---Classes---
 class Person {
   #firstName;
@@ -374,46 +375,11 @@ class Driver extends Player {
     this.birthDate = driverData.birthDate || this.born;
     this.birthPlace = driverData.birthPlace;
     this.wins = driverData.wins;
-    this.wikiUrl = driverData.wikiUrl;
     this.image = driverData.image || this.photo;
   }
 }
 
 //---Wikipedia---
-const driverWikiById = {
-  "Alexander-Albon": "https://en.wikipedia.org/wiki/Alex_Albon",
-  "Christian-Klien": "https://en.wikipedia.org/wiki/Christian_Klien",
-  "Daniel-Ricciardo": "https://en.wikipedia.org/wiki/Daniel_Ricciardo",
-  "Daniil-Kvyat": "https://en.wikipedia.org/wiki/Daniil_Kvyat",
-  "David-Coulthard": "https://en.wikipedia.org/wiki/David_Coulthard",
-  "Isack-Hadjar": "https://en.wikipedia.org/wiki/Isack_Hadjar",
-  "Liam-Lawson": "https://en.wikipedia.org/wiki/Liam_Lawson",
-  "Mark-Webber": "https://en.wikipedia.org/wiki/Mark_Webber",
-  "Max-Verstappen": "https://en.wikipedia.org/wiki/Max_Verstappen",
-  "Pierre-Gasly": "https://en.wikipedia.org/wiki/Pierre_Gasly",
-  "Robert-Doornbos": "https://en.wikipedia.org/wiki/Robert_Doornbos",
-  "Sebastian-Vettel": "https://en.wikipedia.org/wiki/Sebastian_Vettel",
-  "Sergio-Perez": "https://en.wikipedia.org/wiki/Sergio_P%C3%A9rez",
-  "Vitantonio-Liuzzi": "https://en.wikipedia.org/wiki/Vitantonio_Liuzzi",
-  "Yuki-Tsunoda": "https://en.wikipedia.org/wiki/Yuki_Tsunoda",
-};
-const driverWikiByName = {
-  "Alexander Albon": "https://en.wikipedia.org/wiki/Alex_Albon",
-  "Christian Klien": "https://en.wikipedia.org/wiki/Christian_Klien",
-  "Daniel Ricciardo": "https://en.wikipedia.org/wiki/Daniel_Ricciardo",
-  "Daniil Kvyat": "https://en.wikipedia.org/wiki/Daniil_Kvyat",
-  "David Coulthard": "https://en.wikipedia.org/wiki/David_Coulthard",
-  "Isack Hadjar": "https://en.wikipedia.org/wiki/Isack_Hadjar",
-  "Liam Lawson": "https://en.wikipedia.org/wiki/Liam_Lawson",
-  "Mark Webber": "https://en.wikipedia.org/wiki/Mark_Webber",
-  "Max Verstappen": "https://en.wikipedia.org/wiki/Max_Verstappen",
-  "Pierre Gasly": "https://en.wikipedia.org/wiki/Pierre_Gasly",
-  "Robert Doornbos": "https://en.wikipedia.org/wiki/Robert_Doornbos",
-  "Sebastian Vettel": "https://en.wikipedia.org/wiki/Sebastian_Vettel",
-  "Sergio Perez": "https://en.wikipedia.org/wiki/Sergio_P%C3%A9rez",
-  "Vitantonio Liuzzi": "https://en.wikipedia.org/wiki/Vitantonio_Liuzzi",
-  "Yuki Tsunoda": "https://en.wikipedia.org/wiki/Yuki_Tsunoda",
-};
 const carWikiByCode = {
   RB1: "https://en.wikipedia.org/wiki/Red_Bull_RB1",
   RB2: "https://en.wikipedia.org/wiki/Red_Bull_RB2",
@@ -466,29 +432,23 @@ const teamFactsByTitle = {
     "Team name used from 2020 to 2023 before the change to Racing Bulls.",
 };
 
-function getDriverWikiUrl(driver) {
-  if (driver && typeof driver.wikiUrl === "string" && driver.wikiUrl.trim() !== "") {
-    return driver.wikiUrl;
+function getPlayerProfileUrl(driver) {
+  const playerId = Number(driver && driver.playerId);
+
+  if (Number.isInteger(playerId) && playerId > 0) {
+    return "../../playerprofile.html?id=" + encodeURIComponent(playerId);
   }
 
-  if (driver && driver.id && driverWikiById[driver.id]) {
-    return driverWikiById[driver.id];
-  }
-
-  if (driver && driver.name && driverWikiByName[driver.name]) {
-    return driverWikiByName[driver.name];
-  }
-
-  const rawName =
-    (driver && (driver.name || driver.fullName)) ||
-    (driver && driver.id ? String(driver.id).replace(/-/g, " ") : "Formula One driver");
-
-  return `https://en.wikipedia.org/wiki/${encodeURIComponent(rawName).replace(/%20/g, "_")}`;
+  return "../../playerprofile.html";
 }
 
 function getCarWikiUrl(car) {
+  if (car && typeof car.wikiUrl === "string" && car.wikiUrl.trim() !== "") {
+    return car.wikiUrl;
+  }
+
   if (!car) {
-    return "https://en.wikipedia.org/wiki/Red_Bull_Racing";
+    return "https://en.wikipedia.org/wiki/Special:Search?search=Formula+One+car";
   }
 
   let code = "";
@@ -496,14 +456,14 @@ function getCarWikiUrl(car) {
   if (car.id) {
     code = car.id;
   } else if (car.name) {
-    code = String(car.name).replace("Red Bull ", "").trim();
+    code = String(car.name).trim();
   }
 
   if (carWikiByCode[code]) {
     return carWikiByCode[code];
   }
 
-  return "https://en.wikipedia.org/wiki/Red_Bull_Racing";
+  return "https://en.wikipedia.org/wiki/Special:Search?search=" + encodeURIComponent(code || "Formula One car");
 }
 
 function getTeamPreviewInfo(team) {
@@ -519,46 +479,208 @@ function getTeamPreviewInfo(team) {
   return `${title} (${city}, ${country})\n${fact}`;
 }
 
-//---Draggable car---
-const root = document.documentElement;
-const slider = document.getElementById("slider-car");
+function fetchJson(url) {
+  return fetch(url).then((response) => {
+    if (!response.ok) {
+      throw new Error("Request failed with status " + response.status);
+    }
 
-if (slider) {
-  slider.oninput = () => {
-    const maxScroll = root.scrollHeight - window.innerHeight * 0.99;
-    const scrollTarget = (slider.value / 100) * maxScroll;
-    window.scrollTo(0, scrollTarget);
-  };
-
-  window.onscroll = () => {
-    const maxScroll = root.scrollHeight - window.innerHeight * 0.99;
-    const percentage = (window.scrollY / maxScroll) * 100;
-    slider.value = percentage;
-    root.style.setProperty("--scroll-pos", percentage / 100);
-  };
+    return response.json();
+  });
 }
+
+function getCurrentTeamSlug() {
+  const pathParts = window.location.pathname.split("/").filter(Boolean);
+  const teamSitesIndex = pathParts.indexOf("Team_Sites");
+
+  if (teamSitesIndex >= 0 && pathParts[teamSitesIndex + 1]) {
+    return pathParts[teamSitesIndex + 1];
+  }
+
+  return "";
+}
+
+function getTeamApiPath(resourceName) {
+  return "/api/team-sites/" + encodeURIComponent(getCurrentTeamSlug()) + "/" + resourceName;
+}
+
+let teamContentPromise = null;
+
+function loadTeamContent() {
+  if (!teamContentPromise) {
+    teamContentPromise = fetchJson(getTeamApiPath("content")).catch(function () {
+      return {};
+    });
+  }
+
+  return teamContentPromise;
+}
+
+function clearElementChildren(node) {
+  while (node && node.firstChild) {
+    node.removeChild(node.firstChild);
+  }
+}
+
+function removeSectionParagraphs(sectionElement) {
+  if (!sectionElement) {
+    return;
+  }
+
+  Array.from(sectionElement.querySelectorAll(":scope > p")).forEach(function (paragraph) {
+    paragraph.remove();
+  });
+}
+
+function createFactList(facts) {
+  const listElement = document.createElement("ul");
+
+  facts.forEach(function (fact) {
+    const itemElement = document.createElement("li");
+    const label = fact && fact.label ? String(fact.label).trim() : "";
+    const value = fact && fact.value ? String(fact.value).trim() : "";
+
+    itemElement.textContent = (label ? label + ": " : "") + value;
+    listElement.appendChild(itemElement);
+  });
+
+  return listElement;
+}
+
+function createReadingBlock(block) {
+  const articleElement = document.createElement("article");
+  const titleElement = document.createElement("h3");
+  const paragraphElement = document.createElement("p");
+
+  titleElement.textContent = block.title || "Team note";
+  paragraphElement.textContent = block.body || "";
+
+  articleElement.appendChild(titleElement);
+  articleElement.appendChild(paragraphElement);
+
+  return articleElement;
+}
+
+function renderHomeNarrative(content) {
+  const homeContent = content && content.home ? content.home : null;
+  const welcomeSection = document.querySelector('section[aria-labelledby="welcome-title"]');
+  const quickLinksSection = document.querySelector('section[aria-labelledby="quick-links-title"]');
+  const mainElement = document.querySelector("main");
+
+  if (!homeContent || !welcomeSection || !mainElement) {
+    return;
+  }
+
+  removeSectionParagraphs(welcomeSection);
+  (Array.isArray(homeContent.intro) ? homeContent.intro : []).forEach(function (paragraphText) {
+    const paragraph = document.createElement("p");
+    paragraph.textContent = paragraphText;
+    welcomeSection.appendChild(paragraph);
+  });
+
+  let readingSection = document.getElementById("teamReadingMaterial");
+
+  if (!readingSection) {
+    readingSection = document.createElement("section");
+    readingSection.id = "teamReadingMaterial";
+
+    if (quickLinksSection && quickLinksSection.parentNode) {
+      quickLinksSection.parentNode.insertBefore(readingSection, quickLinksSection.nextSibling);
+    } else {
+      mainElement.appendChild(readingSection);
+    }
+  }
+
+  clearElementChildren(readingSection);
+
+  {
+    const titleElement = document.createElement("h2");
+    titleElement.textContent = "Team Reading Material";
+    readingSection.appendChild(titleElement);
+  }
+
+  (Array.isArray(homeContent.readingBlocks) ? homeContent.readingBlocks : []).forEach(function (block) {
+    readingSection.appendChild(createReadingBlock(block));
+  });
+
+  if (Array.isArray(homeContent.quickFacts) && homeContent.quickFacts.length > 0) {
+    const factsTitle = document.createElement("h3");
+    factsTitle.textContent = "Quick facts";
+    readingSection.appendChild(factsTitle);
+    readingSection.appendChild(createFactList(homeContent.quickFacts));
+  }
+}
+
+function renderProfileNarrative(content) {
+  const profileContent = content && content.profile ? content.profile : null;
+  const historySection = document.getElementById("History");
+  const teamMembersSection = document.getElementById("TeamMembers");
+  const featuredCircuitSection = document.getElementById("FeaturedCircuit");
+
+  if (!profileContent) {
+    return;
+  }
+
+  if (historySection) {
+    removeSectionParagraphs(historySection);
+    (Array.isArray(profileContent.history) ? profileContent.history : []).forEach(function (paragraphText) {
+      const paragraph = document.createElement("p");
+      paragraph.textContent = paragraphText;
+      historySection.appendChild(paragraph);
+    });
+  }
+
+  if (teamMembersSection) {
+    removeSectionParagraphs(teamMembersSection);
+    (Array.isArray(profileContent.teamMembers) ? profileContent.teamMembers : []).forEach(function (paragraphText) {
+      const paragraph = document.createElement("p");
+      paragraph.textContent = paragraphText;
+      teamMembersSection.appendChild(paragraph);
+    });
+  }
+
+  if (featuredCircuitSection && profileContent.featuredCircuit) {
+    let circuitName = featuredCircuitSection.querySelector("h4");
+
+    if (!circuitName) {
+      circuitName = document.createElement("h4");
+      featuredCircuitSection.appendChild(circuitName);
+    }
+
+    circuitName.textContent = profileContent.featuredCircuit.name || "Featured circuit";
+    removeSectionParagraphs(featuredCircuitSection);
+
+    (Array.isArray(profileContent.featuredCircuit.paragraphs) ? profileContent.featuredCircuit.paragraphs : []).forEach(function (paragraphText) {
+      const paragraph = document.createElement("p");
+      paragraph.textContent = paragraphText;
+      featuredCircuitSection.appendChild(paragraph);
+    });
+  }
+}
+
+function initNarrativePages() {
+  loadTeamContent().then(function (content) {
+    renderHomeNarrative(content);
+    renderProfileNarrative(content);
+});
+}
+
+initNarrativePages();
 
 //---Drivers page---
 const driversList = document.getElementById("driversList");
-const driversFileInput = document.getElementById("driversFileInput");
-const driversUploadArea = document.getElementById("driversUploadArea");
 
-if (driversList && driversFileInput && driversUploadArea) {
-
-  //Uploads Drivers Data
-  async function uploadDriversData() {
+if (driversList) {
+  //Loads driver data
+  async function loadDriversData() {
     try {
-      const response = await fetch("data/driversData.json");
-      if (!response.ok) throw new Error("Couldn't find file");
-      
-      const data = await response.json();
+      const data = await fetchJson(getTeamApiPath("drivers"));
 
       if (isDriversData(data)) {
         renderDriversList(data);
-        driversUploadArea.style.display = "none";
       }
     } catch (err) {
-      console.warn("Could not load JSON file.\n\n" + err.message);
+      console.warn("Could not load driver data.\n\n" + err.message);
     }
   }
 
@@ -592,9 +714,7 @@ if (driversList && driversFileInput && driversUploadArea) {
       section.classList.add("driver-card");
 
       const link = document.createElement("a");
-      link.href = getDriverWikiUrl(driver);
-      link.target = "_blank";
-      link.rel = "noopener noreferrer";
+      link.href = getPlayerProfileUrl(driver);
 
       const title = document.createElement("h2");
       title.textContent = driver.name;
@@ -638,7 +758,8 @@ if (driversList && driversFileInput && driversUploadArea) {
         const item = document.createElement("li");
         item.classList.add("team-item");
         item.textContent = team.title;
-        item.dataset.teamInfo = getTeamPreviewInfo(team);
+        item.dataset.teamInfo = getTeamPreviewInfo(team);
+
         formerTeamsList.appendChild(item);
       });
 
@@ -674,7 +795,8 @@ if (driversList && driversFileInput && driversUploadArea) {
 
       formerTeamsList.addEventListener("mouseout", function () {
         teamTooltip.classList.remove("team-tooltip--visible");
-      });
+      });
+
 
 
       tile.appendChild(image);
@@ -692,39 +814,9 @@ if (driversList && driversFileInput && driversUploadArea) {
       section.appendChild(link);
       driversList.appendChild(section);
     });
+}
 
-    if (typeof refreshAccessibilityOptions === "function") {
-      refreshAccessibilityOptions();
-    }
-  }
-
-  //Reads & Uploads File
-  driversFileInput.addEventListener("change", function (e) {
-    const selectedFile = e.target.files[0];
-    if (!selectedFile) {return;}
-
-    const reader = new FileReader();
-
-    reader.onload = function (event) {
-      try {
-        const data = JSON.parse(event.target.result);
-        if (!isDriversData(data)) {
-          throw new Error("Please upload a valid driversData.json file.");
-        }
-
-        renderDriversList(data);
-
-        driversUploadArea.style.display = "none";
-      } 
-      catch (err) {
-        alert("Could not load JSON file.\n\n" + err.message);
-      }
-    };
-
-    reader.readAsText(selectedFile);
-  });
-
-  uploadDriversData();
+  loadDriversData();
 }
 
 //---Statistics page---
@@ -737,24 +829,129 @@ const teamsYearLink = document.getElementById("teamsYearLink");
 if (yearSelect && CarContainer && tableBody && driverContainer && teamsYearLink) {
   let raceResults = {};
 
+  function ensureStatisticsSummarySection() {
+    const mainElement = document.querySelector("main");
+    const racesWrapper = document.querySelector(".stats-races");
+    let summarySection = document.getElementById("seasonSummary");
+    let summaryTitle = document.getElementById("seasonSummaryTitle");
+    let summaryText = document.getElementById("seasonSummaryText");
+    let summaryStats = document.getElementById("seasonSummaryStats");
+    let summaryNotes = document.getElementById("seasonSummaryNotes");
+
+    if (!summarySection && mainElement) {
+      summarySection = document.createElement("section");
+      summarySection.id = "seasonSummary";
+      summaryTitle = document.createElement("h2");
+      summaryTitle.id = "seasonSummaryTitle";
+      summaryText = document.createElement("p");
+      summaryText.id = "seasonSummaryText";
+      summaryStats = document.createElement("ul");
+      summaryStats.id = "seasonSummaryStats";
+      summaryNotes = document.createElement("ul");
+      summaryNotes.id = "seasonSummaryNotes";
+
+      summarySection.appendChild(summaryTitle);
+      summarySection.appendChild(summaryText);
+      summarySection.appendChild(summaryStats);
+      summarySection.appendChild(summaryNotes);
+
+      if (racesWrapper && racesWrapper.parentNode) {
+        racesWrapper.parentNode.insertBefore(summarySection, racesWrapper);
+      } else {
+        mainElement.appendChild(summarySection);
+      }
+    }
+
+    return {
+      section: summarySection,
+      title: summaryTitle || document.getElementById("seasonSummaryTitle"),
+      text: summaryText || document.getElementById("seasonSummaryText"),
+      stats: summaryStats || document.getElementById("seasonSummaryStats"),
+      notes: summaryNotes || document.getElementById("seasonSummaryNotes"),
+    };
+  }
+
+  function ensureRaceTableNote() {
+    const racesSection = document.getElementById("Races");
+    let noteElement = document.getElementById("raceTableNote");
+
+    if (!noteElement && racesSection) {
+      noteElement = document.createElement("p");
+      noteElement.id = "raceTableNote";
+      racesSection.insertBefore(noteElement, racesSection.querySelector("table"));
+    }
+
+    return noteElement;
+  }
+
+  function renderStatisticsSummary(year, data) {
+    const summaryNodes = ensureStatisticsSummarySection();
+    const raceTableNote = ensureRaceTableNote();
+    const summary = data && data.summary ? data.summary : null;
+
+    if (!summary || !summaryNodes.section) {
+      return;
+    }
+
+    summaryNodes.title.textContent = summary.headline || "Season summary - " + year;
+    summaryNodes.text.textContent = summary.overview || "";
+    clearElementChildren(summaryNodes.stats);
+    clearElementChildren(summaryNodes.notes);
+
+    (Array.isArray(summary.stats) ? summary.stats : []).forEach(function (item) {
+      const listItem = document.createElement("li");
+      listItem.textContent = String(item.label || "Stat") + ": " + String(item.value || "");
+      summaryNodes.stats.appendChild(listItem);
+    });
+
+    (Array.isArray(summary.notes) ? summary.notes : []).forEach(function (note) {
+      const listItem = document.createElement("li");
+      listItem.textContent = note;
+      summaryNodes.notes.appendChild(listItem);
+    });
+
+    if (raceTableNote) {
+      raceTableNote.textContent = summary.tableNote || "";
+    }
+  }
+
   //Uploads raceResults
   async function uploadData() {
-    const response = await fetch("data/raceData.json");
+    raceResults = await fetchJson(getTeamApiPath("race-data"));
 
-    raceResults = await response.json();
+    while (yearSelect.firstChild) {
+      yearSelect.removeChild(yearSelect.firstChild);
+    }
 
-    updateContent("2025");
+    Object.keys(raceResults)
+      .sort((leftYear, rightYear) => Number(leftYear) - Number(rightYear))
+      .forEach((year) => {
+        yearSelect.appendChild(new Option(year, year));
+      });
+
+    if (!yearSelect.options.length) {
+      return;
+    }
+
+    {
+      const requestedYear = new URLSearchParams(window.location.search).get("year");
+      const initialYear = Array.from(yearSelect.options).some((option) => option.value === requestedYear) ?
+          requestedYear
+        : yearSelect.options[yearSelect.options.length - 1].value;
+
+      yearSelect.value = initialYear;
+      updateContent(initialYear);
+    }
   }
 
   //Updates by year selected
   function updateContent(year) {
     updateTeamsYearLink(year);
     const data = raceResults[year];
+    renderStatisticsSummary(year, data);
 
     //Cars
-    while (CarContainer.firstChild) {
-      CarContainer.removeChild(CarContainer.firstChild);
-    }
+    clearElementChildren(CarContainer);
 
     if (data && data.Car) {
       data.Car.forEach((item) => {
@@ -769,7 +966,7 @@ if (yearSelect && CarContainer && tableBody && driverContainer && teamsYearLink)
         tileWrap.classList.add("stats-car--tile");
 
         const image = document.createElement("img");
-        image.src = `assets/images/cars/${item.img}`;
+        image.src = item.image;
         image.alt = item.name;
 
         const caption = document.createElement("figcaption");
@@ -785,24 +982,20 @@ if (yearSelect && CarContainer && tableBody && driverContainer && teamsYearLink)
     }
 
     //Drivers
-    while (driverContainer.firstChild) {
-      driverContainer.removeChild(driverContainer.firstChild);
-    }
+    clearElementChildren(driverContainer);
 
     if (data && data.drivers) {
       data.drivers.forEach((item) => {
         const divWrap = document.createElement("div");
 
         const aWrap = document.createElement("a");
-        aWrap.href = getDriverWikiUrl(item);
-        aWrap.target = "_blank";
-        aWrap.rel = "noopener noreferrer";
+        aWrap.href = getPlayerProfileUrl(item);
 
         const tileWrap = document.createElement("div");
         tileWrap.classList.add("driver-tile");
 
         const image = document.createElement("img");
-        image.src = `assets/images/drivers/${item.img}`;
+        image.src = item.image;
         image.alt = item.name;
 
         const caption = document.createElement("figcaption");
@@ -818,9 +1011,7 @@ if (yearSelect && CarContainer && tableBody && driverContainer && teamsYearLink)
     }
 
     //Races
-    while (tableBody.firstChild) {
-      tableBody.removeChild(tableBody.firstChild);
-    }
+    clearElementChildren(tableBody);
 
     if (data && Array.isArray(data.races) && data.races.length > 0) {
       const headerRow = document.createElement("tr");
@@ -840,8 +1031,11 @@ if (yearSelect && CarContainer && tableBody && driverContainer && teamsYearLink)
         const rowTime = document.createElement("tr");
 
         const tdName = document.createElement("td");
+        const driverLink = document.createElement("a");
+        driverLink.href = getPlayerProfileUrl(item);
+        driverLink.textContent = item.Drivers;
         tdName.rowSpan = 2;
-        tdName.textContent = item.Drivers;
+        tdName.appendChild(driverLink);
         rowPlace.appendChild(tdName);
 
         item.results.forEach((res) => {
@@ -870,8 +1064,7 @@ if (yearSelect && CarContainer && tableBody && driverContainer && teamsYearLink)
     updateContent(event.target.value),
   );
 
-  updateContent(yearSelect.value);
-  uploadData();
+  uploadData().catch((error) => console.error(error));
 }
 
 //---Cars page---
@@ -887,8 +1080,7 @@ if (carsTableBody) {
   }
 
   //Uploads table content
-  fetch("data/carsData.json")
-    .then((response) => response.json())          //Reads file
+  fetchJson(getTeamApiPath("cars"))
     .then((cars) => {                             //Creates table
       while (carsTableBody.firstChild) {
         carsTableBody.removeChild(carsTableBody.firstChild);
@@ -915,7 +1107,7 @@ if (carsTableBody) {
         const driversCell = document.createElement("td");
         car.drivers.forEach((driver, index) => {
           const link = document.createElement("a");
-          link.href = `drivers.html#${driver.id}`;
+          link.href = getPlayerProfileUrl(driver);
           link.textContent = driver.name;
           driversCell.appendChild(link);
 
@@ -978,15 +1170,13 @@ if (teamYearSelect && teamDrivers && teamSummaryText && teamSummaryList && teamY
       const card = document.createElement("div");
       
       const link = document.createElement("a");
-      link.href = getDriverWikiUrl(driver);
-      link.target = "_blank";
-      link.rel = "noopener noreferrer";
+      link.href = getPlayerProfileUrl(driver);
 
       const tile = document.createElement("div");
       tile.classList.add("driver-tile");
 
       const image = document.createElement("img");
-      image.src = `assets/images/drivers/${driver.img}`;
+      image.src = driver.image;
       image.alt = driver.name;
 
       const caption = document.createElement("figcaption");
@@ -1003,6 +1193,25 @@ if (teamYearSelect && teamDrivers && teamSummaryText && teamSummaryList && teamY
   //Updates Team Overview content
   function renderTeamSummary(year, data) {
     clearNode(teamSummaryList);
+    const summary = data && data.summary ? data.summary : null;
+
+    if (summary) {
+      teamSummaryText.textContent = summary.overview || "";
+
+      (Array.isArray(summary.stats) ? summary.stats : []).forEach((item) => {
+        const listItem = document.createElement("li");
+        listItem.textContent = String(item.label || "Stat") + ": " + String(item.value || "");
+        teamSummaryList.appendChild(listItem);
+      });
+
+      (Array.isArray(summary.notes) ? summary.notes : []).forEach((note) => {
+        const listItem = document.createElement("li");
+        listItem.textContent = note;
+        teamSummaryList.appendChild(listItem);
+      });
+
+      return;
+    }
 
     const races = Array.isArray(data.races) ? data.races : [];
     const drivers = Array.isArray(data.drivers) ? data.drivers : [];
@@ -1065,23 +1274,22 @@ if (teamYearSelect && teamDrivers && teamSummaryText && teamSummaryList && teamY
       return;
     }
 
-    teamYearTitle.textContent = `Team Overview - ${year}`;
+    teamYearTitle.textContent = data.summary && data.summary.headline ? data.summary.headline : `Team Overview - ${year}`;
     renderTeamDrivers(Array.isArray(data.drivers) ? data.drivers : []);
     renderTeamSummary(year, data);
-
-    if (typeof refreshAccessibilityOptions === "function") {
-      refreshAccessibilityOptions();
-    }
-  }
+}
 
   //Uploads page content
-  fetch("data/raceData.json")
-    .then((response) => response.json())          //Reads file
+  fetchJson(getTeamApiPath("race-data"))
     .then((data) => {                             //Uploads teamRaceData
       teamRaceData = data;
       const years = Object.keys(teamRaceData).sort(
         (a, b) => Number(a) - Number(b),
       );
+
+      while (teamYearSelect.firstChild) {
+        teamYearSelect.removeChild(teamYearSelect.firstChild);
+      }
 
       years.forEach((year) => {
         teamYearSelect.appendChild(new Option(year, year));
@@ -1106,323 +1314,4 @@ if (teamYearSelect && teamDrivers && teamSummaryText && teamSummaryList && teamY
     .catch((error) => console.error(error));      //Results error
 }
 
-//---About page---
-const fileInput = document.getElementById("fileInput");
-const playerContainer = document.getElementById("playerContainer") || document.getElementById("studentContainer");
 
-if (fileInput && playerContainer) {
-
-  //Checks Group Members data
-  function isGroupMembersData(data) {
-    if (!Array.isArray(data) || data.length === 0) {return false;}
-
-    const first = data[0];
-    if (!first || typeof first !== "object") {return false;}
-
-    return (
-      "firstName" in first &&
-      "lastName" in first &&
-      "major" in first &&
-      "courses" in first
-    );
-  }
-
-  //Reads & Uploads File
-  fileInput.addEventListener("change", function (e) {
-    const reader = new FileReader();
-
-    reader.onload = function (event) {
-      try {
-        const data = JSON.parse(event.target.result);
-        if (!isGroupMembersData(data)) {
-          throw new Error("Please upload a valid groupMembers.json file.");
-        }
-
-        while (playerContainer.firstChild) {
-          playerContainer.removeChild(playerContainer.firstChild);
-        }
-
-        data.forEach((memberData) => {
-          const groupMemberObj = new GroupMember(memberData);
-          playerContainer.appendChild(groupMemberObj.render());
-        });
-
-        if (typeof refreshAccessibilityOptions === "function") {
-          refreshAccessibilityOptions();
-        }
-
-        const uploadArea = document.getElementById("uploadArea");
-        if (uploadArea) {
-          uploadArea.style.display = "none";
-        }
-      } catch (err) {
-        alert("Could not load JSON file.\n\n" + err.message);
-      }
-    };
-
-    const selectedFile = e.target.files[0];
-    if (selectedFile) {
-      reader.readAsText(selectedFile);
-    }
-  });
-}
-
-//---Accessibility features---
-let refreshAccessibilityOptions = null;
-
-  //Select features
-  function initAccessibilityControls() {
-    return;
-    const host = document.querySelector("footer") || document.querySelector("header");
-
-    if (!host || document.getElementById("elementMenu")) {return;}
-
-    const panel = document.createElement("section");
-    panel.classList.add("accessibility-controls");
-
-    const title = document.createElement("p");
-    title.classList.add("accessibility-controls__title");
-    title.textContent = "Accessibility Features";
-
-    const elementLabel = document.createElement("label");
-    elementLabel.setAttribute("for", "elementMenu");
-    elementLabel.textContent = "Select element:";
-
-    const elementMenu = document.createElement("select");
-    elementMenu.id = "elementMenu";
-
-    const styleLabel = document.createElement("label");
-    styleLabel.setAttribute("for", "styleMenu");
-    styleLabel.textContent = "Selected element:";
-
-    const styleMenu = document.createElement("select");
-    styleMenu.id = "styleMenu";
-
-    styleMenu.appendChild(new Option("Text options", ""));
-    styleMenu.appendChild(new Option("Text size: small", "sizeSmall"));
-    styleMenu.appendChild(new Option("Text size: default", "sizeDefault"));
-    styleMenu.appendChild(new Option("Text size: large", "sizeLarge"));
-    styleMenu.appendChild(new Option("Text color: default", "colorDefault"));
-    styleMenu.appendChild(new Option("Text color: red", "colorRed"));
-    styleMenu.appendChild(new Option("Text color: blue", "colorBlue"));
-
-    const generalLabel = document.createElement("label");
-    generalLabel.setAttribute("for", "generalMenu");
-    generalLabel.textContent = "Website accessibility:";
-
-    const generalMenu = document.createElement("select");
-    generalMenu.id = "generalMenu";
-
-    generalMenu.appendChild(new Option("Site options", ""));
-    generalMenu.appendChild(new Option("Site text: small", "textSmall"));
-    generalMenu.appendChild(new Option("Site text: default", "textDefault"));
-    generalMenu.appendChild(new Option("Site text: large", "textLarge"));
-    generalMenu.appendChild(new Option("Color theme: default", "themeDefault"));
-    generalMenu.appendChild(new Option("Color theme: dark", "themeDark"));
-    generalMenu.appendChild(new Option("Color theme: light", "themeLight"));
-    generalMenu.appendChild(new Option("Color theme: high contrast", "themeContrast"));
-
-    panel.appendChild(title);
-    panel.appendChild(elementLabel);
-    panel.appendChild(elementMenu);
-    panel.appendChild(styleLabel);
-    panel.appendChild(styleMenu);
-    panel.appendChild(generalLabel);
-    panel.appendChild(generalMenu);
-
-    host.appendChild(panel);
-
-    //Applies Site Theme
-    function applyTheme(theme) {
-      document.body.classList.remove(
-        "theme-dark",
-        "theme-light",
-        "theme-contrast",
-      );
-
-      if (theme === "themeDark") {
-        document.body.classList.add("theme-dark");
-      }
-      if (theme === "themeLight") {
-        document.body.classList.add("theme-light");
-      }
-      if (theme === "themeContrast") {
-        document.body.classList.add("theme-contrast");
-      }
-    }
-
-    //Applies Site Textsize
-    function applySiteText(size) {
-      document.body.classList.remove("site-font-small", "site-font-large");
-
-      if (size === "textSmall") {
-        document.body.classList.add("site-font-small");
-      }
-      if (size === "textLarge") {
-        document.body.classList.add("site-font-large");
-      }
-    }
-
-    //Applies Element size & color
-    function applyOnElement(target, action) {
-      if (!target) {
-        return;
-      }
-
-      if (action === "sizeSmall") {
-        target.classList.remove(
-          "accessibility-size-small",
-          "accessibility-size-large",
-        );
-        target.classList.add("accessibility-size-small");
-      }
-      if (action === "sizeDefault") {
-        target.classList.remove(
-          "accessibility-size-small",
-          "accessibility-size-large",
-        );
-      }
-      if (action === "sizeLarge") {
-        target.classList.remove(
-          "accessibility-size-small",
-          "accessibility-size-large",
-        );
-        target.classList.add("accessibility-size-large");
-      }
-      if (action === "colorDefault") {
-        target.classList.remove(
-          "accessibility-color-red",
-          "accessibility-color-blue",
-        );
-      }
-      if (action === "colorRed") {
-        target.classList.remove(
-          "accessibility-color-red",
-          "accessibility-color-blue",
-        );
-        target.classList.add("accessibility-color-red");
-      }
-      if (action === "colorBlue") {
-        target.classList.remove(
-          "accessibility-color-red",
-          "accessibility-color-blue",
-        );
-        target.classList.add("accessibility-color-blue");
-      }
-    }
-
-    let elementIdCounter = 1;
-    let targetsById = new Map();
-
-    //Checks Element ID
-    function ensureAccessibilityId(element) {
-      if (!element.dataset.accessibilityId) {
-        element.dataset.accessibilityId = `accessibility-${elementIdCounter}`;
-        elementIdCounter += 1;
-      }
-
-      return element.dataset.accessibilityId;
-    }
-
-    //Names Element ID
-    function buildElementLabel(element, index) {
-      const tag = element.tagName.toLowerCase();
-      const firstClass =
-        typeof element.className === "string" ?
-          element.className.split(" ").find((name) => name.trim() !== "")
-        : "";
-
-      if (element.id) {
-        return `${tag}#${element.id}`;
-      }
-
-      if (firstClass) {
-        return `${tag}.${firstClass}`;
-      }
-
-      return `${tag} (${index + 1})`;
-    }
-
-    //Organizes Elements
-    function collectTargets() {
-      const targets = [document.body];
-      const dynamicTargets = document.querySelectorAll(
-        "header, main, footer, nav, article, section, aside",
-      );
-
-      dynamicTargets.forEach((element) => {
-        if (element !== panel && !panel.contains(element)) {
-          targets.push(element);
-        }
-      });
-
-      return targets;
-    }
-
-    //Fills Menu with Elements
-    function fillElementMenu() {
-      const previousValue = elementMenu.value;
-
-      while (elementMenu.firstChild) {
-        elementMenu.removeChild(elementMenu.firstChild);
-      }
-
-      targetsById = new Map();
-      const targets = collectTargets();
-
-      targets.forEach((element, index) => {
-        const accessibilityId = ensureAccessibilityId(element);
-        const label = buildElementLabel(element, index);
-        targetsById.set(accessibilityId, element);
-        elementMenu.appendChild(new Option(label, accessibilityId));
-      });
-
-      if (previousValue && targetsById.has(previousValue)) {
-        elementMenu.value = previousValue;
-      }
-    }
-
-    //Refills Menu with Elements
-    function refreshMenus() {
-      fillElementMenu();
-    }
-
-    refreshMenus();
-    refreshAccessibilityOptions = function () {
-      refreshMenus();
-    };
-
-    applyTheme(localStorage.getItem("siteTheme") || "themeDefault");
-    applySiteText(localStorage.getItem("siteTextSize") || "textDefault");
-
-    //Selecting element applications
-    styleMenu.addEventListener("change", function () {
-      const target = targetsById.get(elementMenu.value) || document.body;
-      applyOnElement(target, styleMenu.value);
-      styleMenu.value = "";
-    });
-
-    //Selecting site applications
-    generalMenu.addEventListener("change", function () {
-      const action = generalMenu.value;
-
-      if (action.startsWith("theme")) {
-        applyTheme(action);
-        localStorage.setItem("siteTheme", action);
-      }
-
-      if (action.startsWith("text")) {
-        applySiteText(action);
-        localStorage.setItem("siteTextSize", action);
-      }
-
-      generalMenu.value = "";
-    });
-  }
-
-  //Selecting features
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initAccessibilityControls);
-  } else {
-    initAccessibilityControls();
-  }

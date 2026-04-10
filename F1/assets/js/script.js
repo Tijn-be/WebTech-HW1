@@ -1,1546 +1,809 @@
-//---Login---
-document.getElementById('loginForm').addEventListener('submit', function(event) {
-  event.preventDefault();
+/* Purpose: Provides the client-side behavior for the main F1 site pages. */
 
-  const username = document.getElementById('username').value;
-  const password = document.getElementById('password').value;
-  const errorDisplay = document.getElementById('error-message');
+let currentSiteSession = null;
 
-  if (password.length < 6) {
-    errorDisplay.style.display = 'block';
-    errorDisplay.innerText = "Password too short!";
-    document.getElementById('password').style.borderColor = 'red';
+function requestJson(url, options) {
+  return fetch(
+    url,
+    Object.assign({ credentials: "same-origin" }, options || {}),
+  ).then(async function handleResponse(response) {
+    const payload = await response.json();
+
+    if (!response.ok) {
+      throw new Error(
+        payload && payload.message ? payload.message : "Request failed.",
+      );
+    }
+
+    return payload;
+  });
+}
+
+function clearNode(node) {
+  while (node.firstChild) {
+    node.removeChild(node.firstChild);
+  }
+}
+
+function getTeamPageUrl(teamSlugOrId) {
+  const teamValue = String(teamSlugOrId || "").trim();
+
+  if (teamValue && !/^\d+$/.test(teamValue)) {
+    return "Team_Sites/" + encodeURIComponent(teamValue) + "/index.html";
+  }
+
+  return "teamprofile.html?team=" + encodeURIComponent(teamValue);
+}
+
+function resetSelectWithPlaceholder(selectNode, placeholderText) {
+  clearNode(selectNode);
+
+  {
+    const option = document.createElement("option");
+    option.value = "";
+    option.textContent = placeholderText;
+    selectNode.appendChild(option);
+  }
+}
+
+function createTile(imagePath, altText) {
+  const tile = document.createElement("div");
+  const image = document.createElement("img");
+
+  tile.className = "driver-tile";
+  image.src = imagePath || "assets/images/F1Logo.png";
+  image.alt = altText || "";
+  tile.appendChild(image);
+
+  return tile;
+}
+
+function formatRaceDate(dateValue) {
+  if (!dateValue) {
+    return "Date to be confirmed";
+  }
+
+  {
+    const parsedDate = new Date(dateValue);
+
+    if (Number.isNaN(parsedDate.getTime())) {
+      return String(dateValue);
+    }
+
+    return parsedDate.toLocaleDateString("en-GB", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    });
+  }
+}
+
+function getFavoriteTeamId() {
+  const numericValue = Number(
+    currentSiteSession && currentSiteSession.favoriteTeamId,
+  );
+
+  return Number.isInteger(numericValue) && numericValue > 0 ?
+      numericValue
+    : null;
+}
+
+function getFavoriteTeamSlug() {
+  return currentSiteSession && currentSiteSession.favoriteTeamSlug ?
+      String(currentSiteSession.favoriteTeamSlug)
+    : "";
+}
+
+function isFavoriteTeam(teamIdValue, teamSlugValue) {
+  const favoriteTeamId = getFavoriteTeamId();
+  const favoriteTeamSlug = getFavoriteTeamSlug();
+  const numericTeamId = Number(teamIdValue);
+
+  if (
+    favoriteTeamId &&
+    Number.isInteger(numericTeamId) &&
+    numericTeamId === favoriteTeamId
+  ) {
+    return true;
+  }
+
+  return (
+    Boolean(favoriteTeamSlug) &&
+    String(teamSlugValue || "") === favoriteTeamSlug
+  );
+}
+
+function applyFavoriteTeamHighlighting() {
+  document
+    .querySelectorAll("[data-team-id], [data-team-slug]")
+    .forEach(function toggle(node) {
+      node.classList.toggle(
+        "favorite-team-highlight",
+        isFavoriteTeam(node.dataset.teamId, node.dataset.teamSlug),
+      );
+    });
+}
+
+function upsertAdminNavLink(session) {
+  const nav =
+    document.querySelector('.site-nav[aria-label="Main navigation"]') ||
+    document.querySelector(".site-nav");
+  let adminLink = document.getElementById("adminNavLink");
+
+  if (!nav) {
     return;
   }
 
-  fetch('login', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ username: username, password: password })
-  })
-  .then(response => {
-    if (!response.ok) {
-      throw new Error(`Server reageerde met status ${response.status}`);
+  if (!session || !session.isAdmin) {
+    if (adminLink) {
+      adminLink.remove();
     }
-    return response.json();
-  })
-  .then(data => {
-    if (data.success) {
-      document.getElementById('logInBox').style.display = 'none';
-      document.getElementById('userDisplayName').innerText = data.user;
-      document.getElementById('logOutBox').style.display = 'block';
+    return;
+  }
+
+  if (!adminLink) {
+    adminLink = document.createElement("a");
+    adminLink.id = "adminNavLink";
+    adminLink.className = "site-nav__link";
+    adminLink.href = "admin.html";
+    adminLink.textContent = "Admin";
+    nav.appendChild(adminLink);
+  }
+}
+
+function renderSessionBanner(session) {
+  const header = document.querySelector("header");
+  const headerBar = document.querySelector(".site-header__bar");
+  const logInBox = document.getElementById("logInBox");
+  const logOutBox = document.getElementById("logOutBox");
+  let banner = document.getElementById("sessionBanner");
+
+  if (!header || logInBox || logOutBox) {
+    if (banner) {
+      banner.remove();
+    }
+    return;
+  }
+
+  if (!session || !session.authenticated) {
+    if (banner) {
+      banner.remove();
+    }
+    return;
+  }
+
+  if (!banner) {
+    banner = document.createElement("p");
+    banner.id = "sessionBanner";
+    banner.className = "session-banner";
+
+    if (headerBar && headerBar.parentNode === header) {
+      header.insertBefore(banner, headerBar.nextSibling);
     } else {
-      errorDisplay.innerText = data.message;
-      errorDisplay.style.display = 'block';
+      header.insertBefore(banner, header.firstChild);
     }
-  })
-  .catch(err => {
-    console.error("Server unavailable:", err);
-  });
-});
-
-//---Classes---
-class Person {
-  #firstName;
-  #lastName;
-  #born;
-  #nationality;
-
-  constructor({
-    firstName,
-    lastName,
-    born = "1 January 2000",
-    nationality = "Unknown",
-  }) {
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.born = born;
-    this.nationality = nationality;
   }
 
-  get firstName() {
-    return this.#firstName;
-  }
-  set firstName(value) {
-    if (typeof value !== "string" || value.trim() === "") {
-      throw new Error("First name must be a string");
-    }
-    this.#firstName = value.trim();
-  }
-
-  get lastName() {
-    return this.#lastName;
-  }
-  set lastName(value) {
-    if (typeof value !== "string" || value.trim() === "") {
-      throw new Error("Last name must be a string");
-    }
-    this.#lastName = value.trim();
-  }
-
-  get born() {
-    return this.#born;
-  }
-  set born(value) {
-    if (typeof value !== "string" || value.trim() === "") {
-      throw new Error("Born must be a string");
-    }
-    this.#born = value.trim();
-  }
-
-  get nationality() {
-    return this.#nationality;
-  }
-  set nationality(value) {
-    if (typeof value !== "string" || value.trim() === "") {
-      throw new Error("Nationality must be a string");
-    }
-    this.#nationality = value.trim();
-  }
+  banner.textContent = "Welcome Back: " + session.user + "!";
 }
-class Course {
-  #title;
-  #teacher;
-  #description;
 
-  constructor({ title, teacher, description }) {
-    this.title = title;
-    this.teacher = teacher;
-    this.description = description;
+function syncProfileForm(session) {
+  const firstNameInput = document.getElementById("profileFirstName");
+  const lastNameInput = document.getElementById("profileLastName");
+  const emailInput = document.getElementById("profileEmail");
+  const favoriteTeamSelect = document.getElementById("profileFavoriteTeamId");
+  const passwordInput = document.getElementById("profilePassword");
+  const passwordConfirmInput = document.getElementById(
+    "profilePasswordConfirm",
+  );
+  const errorDisplay = document.getElementById("profile-error-message");
+
+  if (!firstNameInput || !lastNameInput || !emailInput || !favoriteTeamSelect) {
+    return;
   }
 
-  get title() {
-    return this.#title;
-  }
-  set title(value) {
-    if (typeof value !== "string" || value.trim() === "") {
-      throw new Error("Title must be a string");
+  if (!session || !session.authenticated) {
+    firstNameInput.value = "";
+    lastNameInput.value = "";
+    emailInput.value = "";
+    favoriteTeamSelect.value = "";
+
+    if (passwordInput) {
+      passwordInput.value = "";
     }
-    this.#title = value.trim();
-  }
-
-  get teacher() {
-    return this.#teacher;
-  }
-  set teacher(value) {
-    if (!value || typeof value !== "object") {
-      throw new Error("Teacher must be an object");
+    if (passwordConfirmInput) {
+      passwordConfirmInput.value = "";
     }
-    this.#teacher = value;
-  }
-
-  get description() {
-    return this.#description;
-  }
-  set description(value) {
-    if (typeof value !== "string") {
-      throw new Error("Description must be a string");
+    if (errorDisplay) {
+      errorDisplay.style.display = "none";
     }
-    this.#description = value;
-  }
-}
-class Team {
-  #title;
-  #country;
-  #city;
-
-  constructor({ title, country, city }) {
-    this.title = title;
-    this.country = country;
-    this.city = city;
+    return;
   }
 
-  get title() {
-    return this.#title;
+  firstNameInput.value = session.firstName || "";
+  lastNameInput.value = session.lastName || "";
+  emailInput.value = session.email || "";
+  favoriteTeamSelect.value =
+    session.favoriteTeamId ? String(session.favoriteTeamId) : "";
+
+  if (passwordInput) {
+    passwordInput.value = "";
   }
-  set title(value) {
-    if (typeof value !== "string" || value.trim() === "") {
-      throw new Error("Team title must be a string");
-    }
-    this.#title = value.trim();
+  if (passwordConfirmInput) {
+    passwordConfirmInput.value = "";
   }
-
-  get country() {
-    return this.#country;
-  }
-  set country(value) {
-    if (typeof value !== "string" || value.trim() === "") {
-      throw new Error("Country must be a string");
-    }
-    this.#country = value.trim();
-  }
-
-  get city() {
-    return this.#city;
-  }
-  set city(value) {
-    if (typeof value !== "string" || value.trim() === "") {
-      throw new Error("City must be a string");
-    }
-    this.#city = value.trim();
-  }
-}
-class GroupMember extends Person {
-  #age;
-  #email;
-  #photo;
-  #major;
-  #hobbies;
-  #courses;
-
-  constructor({
-    firstName,
-    lastName,
-    age,
-    email,
-    photo,
-    major,
-    hobbies = [],
-    courses = [],
-  }) {
-    super({
-      firstName,
-      lastName,
-      born: "1 January 2000",
-      nationality: "Unknown",
-    });
-    this.age = age;
-    this.email = email;
-    this.photo = photo;
-    this.major = major;
-    this.hobbies = hobbies;
-    this.courses = courses;
-  }
-
-  get age() {
-    return this.#age;
-  }
-  set age(value) {
-    if (!Number.isInteger(Number(value))) {
-      throw new Error("Age must be a number");
-    }
-    this.#age = Number(value);
-  }
-
-  get email() {
-    return this.#email;
-  }
-  set email(value) {
-    if (typeof value !== "string" || !value.includes("@")) {
-      throw new Error("Email must be valid");
-    }
-    this.#email = value;
-  }
-
-  get photo() {
-    return this.#photo;
-  }
-  set photo(value) {
-    if (typeof value !== "string" || value.trim() === "") {
-      throw new Error("Photo must be a string");
-    }
-    this.#photo = value.trim();
-  }
-
-  get major() {
-    return this.#major;
-  }
-  set major(value) {
-    if (typeof value !== "string" || value.trim() === "") {
-      throw new Error("Major must be a string");
-    }
-    this.#major = value.trim();
-  }
-
-  get hobbies() {
-    return this.#hobbies;
-  }
-  set hobbies(value) {
-    if (!Array.isArray(value)) {
-      throw new Error("Hobbies must be an array");
-    }
-    this.#hobbies = value;
-  }
-
-  get courses() {
-    return this.#courses;
-  }
-  set courses(value) {
-    if (!Array.isArray(value)) {
-      throw new Error("Courses must be an array");
-    }
-    this.#courses = value.map((courseData) =>
-      courseData instanceof Course ? courseData : new Course(courseData),
-    );
-  }
-
-  render() {
-    const section = document.createElement("section");
-    section.classList.add("student-section");
-
-    const tileDiv = document.createElement("div");
-    tileDiv.classList.add("student-tile");
-
-    const name = document.createElement("h2");
-    name.textContent = `${this.firstName} ${this.lastName}`;
-
-    const img = document.createElement("img");
-    img.src = this.photo;
-    img.alt = `${this.firstName} ${this.lastName}`;
-    img.classList.add("player-photo");
-
-    tileDiv.appendChild(name);
-    tileDiv.appendChild(img);
-
-    const content = document.createElement("div");
-    content.classList.add("student-content");
-
-    const info = document.createElement("pre");
-    info.textContent = `Major: ${this.major}\nAge: ${this.age}\nHobbies: ${this.hobbies.join(", ")}`;
-
-    const mailContainer = document.createElement("p");
-    mailContainer.textContent = "Mail: ";
-
-    const mailLink = document.createElement("a");
-    mailLink.href = `mailto:${this.email}`;
-    mailLink.textContent = this.email;
-    mailContainer.appendChild(mailLink);
-
-    const coursesTitle = document.createElement("h3");
-    coursesTitle.textContent = "Courses:";
-
-    const coursesList = document.createElement("ul");
-    this.courses.forEach((course) => {
-      const listItem = document.createElement("li");
-      const listName = document.createElement("h5");
-      listName.textContent = `${course.title} - ${course.teacher.firstName} ${course.teacher.lastName}`;
-      const listDescription = document.createElement("div");
-      listDescription.textContent = course.description;
-      listDescription.style.fontSize = "0.8em";
-      listItem.appendChild(listName);
-      listItem.appendChild(listDescription);
-      coursesList.appendChild(listItem);
-    });
-
-    content.appendChild(info);
-    content.appendChild(mailContainer);
-    content.appendChild(coursesTitle);
-    content.appendChild(coursesList);
-
-    section.appendChild(tileDiv);
-    section.appendChild(content);
-
-    return section;
-  }
-}
-class Player extends Person {
-  #role;
-  #number;
-  #photo;
-  #formerTeams;
-
-  constructor(playerData) {
-    const fullName = typeof playerData.name === "string" ? playerData.name : "";
-    const nameParts = fullName.split(" ");
-    const firstName = playerData.firstName || nameParts[0] || "Driver";
-    const lastName =
-      playerData.lastName || nameParts.slice(1).join(" ") || "Unknown";
-    const born = playerData.born || playerData.birthDate || "1 January 2000";
-    const nationality = playerData.nationality || "Unknown";
-
-    super({ firstName, lastName, born, nationality });
-
-    this.role = playerData.role || "Driver";
-    this.number = playerData.number;
-    this.photo = playerData.photo || playerData.image;
-    this.formerTeams = playerData.formerTeams || [];
-  }
-
-  get role() {
-    return this.#role;
-  }
-  set role(value) {
-    if (typeof value !== "string" || value.trim() === "") {
-      throw new Error("Role must be a string");
-    }
-    this.#role = value.trim();
-  }
-
-  get number() {
-    return this.#number;
-  }
-  set number(value) {
-    if (value === undefined || value === null || String(value).trim() === "") {
-      throw new Error("Number must be present");
-    }
-    this.#number = value;
-  }
-
-  get photo() {
-    return this.#photo;
-  }
-  set photo(value) {
-    if (typeof value !== "string" || value.trim() === "") {
-      throw new Error("Photo must be a string");
-    }
-    this.#photo = value.trim();
-  }
-
-  get formerTeams() {
-    return this.#formerTeams;
-  }
-  set formerTeams(value) {
-    if (!Array.isArray(value)) {
-      throw new Error("Former teams must be an array");
-    }
-    this.#formerTeams = value.map((teamData) =>
-      teamData instanceof Team ? teamData : new Team(teamData),
-    );
-  }
-}
-class Driver extends Player {
-  constructor(driverData) {
-    super(driverData);
-
-    const fullName = typeof driverData.name === "string" ? driverData.name : "";
-    const nameParts = fullName.split(" ");
-    const firstName = driverData.firstName || nameParts[0] || "Driver";
-    const lastName =
-      driverData.lastName || nameParts.slice(1).join(" ") || "Unknown";
-
-    this.id = driverData.id;
-    this.name = driverData.name || `${firstName} ${lastName}`;
-    this.fullName = driverData.fullName || this.name;
-    this.age = driverData.age;
-    this.birthDate = driverData.birthDate || this.born;
-    this.birthPlace = driverData.birthPlace;
-    this.wins = driverData.wins;
-    this.wikiUrl = driverData.wikiUrl;
-    this.image = driverData.image || this.photo;
+  if (errorDisplay) {
+    errorDisplay.style.display = "none";
   }
 }
 
-//---Wikipedia---
-const driverWikiById = {
-  "Alexander-Albon": "https://en.wikipedia.org/wiki/Alex_Albon",
-  "Christian-Klien": "https://en.wikipedia.org/wiki/Christian_Klien",
-  "Daniel-Ricciardo": "https://en.wikipedia.org/wiki/Daniel_Ricciardo",
-  "Daniil-Kvyat": "https://en.wikipedia.org/wiki/Daniil_Kvyat",
-  "David-Coulthard": "https://en.wikipedia.org/wiki/David_Coulthard",
-  "Isack-Hadjar": "https://en.wikipedia.org/wiki/Isack_Hadjar",
-  "Liam-Lawson": "https://en.wikipedia.org/wiki/Liam_Lawson",
-  "Mark-Webber": "https://en.wikipedia.org/wiki/Mark_Webber",
-  "Max-Verstappen": "https://en.wikipedia.org/wiki/Max_Verstappen",
-  "Pierre-Gasly": "https://en.wikipedia.org/wiki/Pierre_Gasly",
-  "Robert-Doornbos": "https://en.wikipedia.org/wiki/Robert_Doornbos",
-  "Sebastian-Vettel": "https://en.wikipedia.org/wiki/Sebastian_Vettel",
-  "Sergio-Perez": "https://en.wikipedia.org/wiki/Sergio_P%C3%A9rez",
-  "Vitantonio-Liuzzi": "https://en.wikipedia.org/wiki/Vitantonio_Liuzzi",
-  "Yuki-Tsunoda": "https://en.wikipedia.org/wiki/Yuki_Tsunoda",
-};
-const driverWikiByName = {
-  "Alexander Albon": "https://en.wikipedia.org/wiki/Alex_Albon",
-  "Christian Klien": "https://en.wikipedia.org/wiki/Christian_Klien",
-  "Daniel Ricciardo": "https://en.wikipedia.org/wiki/Daniel_Ricciardo",
-  "Daniil Kvyat": "https://en.wikipedia.org/wiki/Daniil_Kvyat",
-  "David Coulthard": "https://en.wikipedia.org/wiki/David_Coulthard",
-  "Isack Hadjar": "https://en.wikipedia.org/wiki/Isack_Hadjar",
-  "Liam Lawson": "https://en.wikipedia.org/wiki/Liam_Lawson",
-  "Mark Webber": "https://en.wikipedia.org/wiki/Mark_Webber",
-  "Max Verstappen": "https://en.wikipedia.org/wiki/Max_Verstappen",
-  "Pierre Gasly": "https://en.wikipedia.org/wiki/Pierre_Gasly",
-  "Robert Doornbos": "https://en.wikipedia.org/wiki/Robert_Doornbos",
-  "Sebastian Vettel": "https://en.wikipedia.org/wiki/Sebastian_Vettel",
-  "Sergio Perez": "https://en.wikipedia.org/wiki/Sergio_P%C3%A9rez",
-  "Vitantonio Liuzzi": "https://en.wikipedia.org/wiki/Vitantonio_Liuzzi",
-  "Yuki Tsunoda": "https://en.wikipedia.org/wiki/Yuki_Tsunoda",
-};
-const carWikiByCode = {
-  RB1: "https://en.wikipedia.org/wiki/Red_Bull_RB1",
-  RB2: "https://en.wikipedia.org/wiki/Red_Bull_RB2",
-  RB3: "https://en.wikipedia.org/wiki/Red_Bull_RB3",
-  RB4: "https://en.wikipedia.org/wiki/Red_Bull_RB4",
-  RB5: "https://en.wikipedia.org/wiki/Red_Bull_RB5",
-  RB6: "https://en.wikipedia.org/wiki/Red_Bull_RB6",
-  RB7: "https://en.wikipedia.org/wiki/Red_Bull_RB7",
-  RB8: "https://en.wikipedia.org/wiki/Red_Bull_RB8",
-  RB9: "https://en.wikipedia.org/wiki/Red_Bull_RB9",
-  RB10: "https://en.wikipedia.org/wiki/Red_Bull_RB10",
-  RB11: "https://en.wikipedia.org/wiki/Red_Bull_RB11",
-  RB12: "https://en.wikipedia.org/wiki/Red_Bull_RB12",
-  RB13: "https://en.wikipedia.org/wiki/Red_Bull_RB13",
-  RB14: "https://en.wikipedia.org/wiki/Red_Bull_RB14",
-  RB15: "https://en.wikipedia.org/wiki/Red_Bull_RB15",
-  RB16: "https://en.wikipedia.org/wiki/Red_Bull_RB16",
-  RB17: "https://en.wikipedia.org/wiki/Red_Bull_RB16B",
-  RB18: "https://en.wikipedia.org/wiki/Red_Bull_RB18",
-  RB19: "https://en.wikipedia.org/wiki/Red_Bull_RB19",
-  RB20: "https://en.wikipedia.org/wiki/Red_Bull_RB20",
-  RB21: "https://en.wikipedia.org/wiki/Red_Bull_RB21",
-};
-const teamFactsByTitle = {
-  "Red Bull Racing":
-    "Entered Formula One in 2005 after purchasing Jaguar Racing and is based in Milton Keynes.",
-  Williams:
-    "British constructor founded in 1977 and based in Grove, Oxfordshire.",
-  "Williams Racing":
-    "British constructor founded in 1977 and based in Grove, Oxfordshire.",
-  "Jaguar Racing":
-    "Competed in Formula One from 2000 to 2004 before being sold to Red Bull.",
-  "HRT F1 Team": "Spanish team that competed in Formula One from 2010 to 2012.",
-  "Toro Rosso":
-    "Faenza-based Italian team that raced from 2006 to 2019 before rebranding.",
-  McLaren:
-    "Woking-based British team that has competed in Formula One since the 1960s.",
-  "Racing Bulls":
-    "Current name of the Faenza-based team that previously raced as AlphaTauri.",
-  Minardi:
-    "Italian team that raced in Formula One from 1985 to 2005 before becoming Toro Rosso.",
-  Alpine: "Renault-owned Enstone team racing under the Alpine name since 2021.",
-  "BMW Sauber":
-    "Team identity used during BMW ownership of Sauber from 2006 to 2009.",
-  Sauber:
-    "Swiss constructor based in Hinwil that first entered Formula One in 1993.",
-  "Force India":
-    "Silverstone-based team that competed from 2008 to 2018 before becoming Racing Point.",
-  AlphaTauri:
-    "Team name used from 2020 to 2023 before the change to Racing Bulls.",
-};
+function setLoggedInState(session) {
+  const logInBox = document.getElementById("logInBox");
+  const logOutBox = document.getElementById("logOutBox");
+  const userDisplayName = document.getElementById("userDisplayName");
+  const adminHomeLink = document.getElementById("adminHomeLink");
+  const errorDisplay = document.getElementById("error-message");
 
-function getDriverWikiUrl(driver) {
-  if (driver && typeof driver.wikiUrl === "string" && driver.wikiUrl.trim() !== "") {
-    return driver.wikiUrl;
+  currentSiteSession = session && session.authenticated ? session : null;
+
+  upsertAdminNavLink(currentSiteSession);
+  renderSessionBanner(currentSiteSession);
+
+  if (!logInBox || !logOutBox || !userDisplayName) {
+    applyFavoriteTeamHighlighting();
+    return;
   }
 
-  if (driver && driver.id && driverWikiById[driver.id]) {
-    return driverWikiById[driver.id];
+  if (!currentSiteSession) {
+    logInBox.style.display = "block";
+    logOutBox.style.display = "none";
+
+    if (adminHomeLink) {
+      adminHomeLink.textContent = "";
+    }
+    if (errorDisplay) {
+      errorDisplay.style.display = "none";
+    }
+    syncProfileForm(null);
+    applyFavoriteTeamHighlighting();
+    return;
   }
 
-  if (driver && driver.name && driverWikiByName[driver.name]) {
-    return driverWikiByName[driver.name];
-  }
+  logInBox.style.display = "none";
+  logOutBox.style.display = "block";
+  userDisplayName.textContent = currentSiteSession.user;
 
-  const rawName =
-    (driver && (driver.name || driver.fullName)) ||
-    (driver && driver.id ? String(driver.id).replace(/-/g, " ") : "Formula One driver");
+  if (adminHomeLink) {
+    clearNode(adminHomeLink);
 
-  return `https://en.wikipedia.org/wiki/${encodeURIComponent(rawName).replace(/%20/g, "_")}`;
-}
-
-function getCarWikiUrl(car) {
-  if (!car) {
-    return "https://en.wikipedia.org/wiki/Red_Bull_Racing";
-  }
-
-  let code = "";
-
-  if (car.id) {
-    code = car.id;
-  } else if (car.name) {
-    code = String(car.name).replace("Red Bull ", "").trim();
-  }
-
-  if (carWikiByCode[code]) {
-    return carWikiByCode[code];
-  }
-
-  return "https://en.wikipedia.org/wiki/Red_Bull_Racing";
-}
-
-function getTeamPreviewInfo(team) {
-  const title = String(team.title || "Unknown team").trim();
-  const city = String(team.city || "Unknown city").trim();
-  const country = String(team.country || "Unknown country").trim();
-  const fact = teamFactsByTitle[title];
-
-  if (!fact) {
-    return `${title} (${city}, ${country})`;
-  }
-
-  return `${title} (${city}, ${country})\n${fact}`;
-}
-
-//---Leaderboard---
-const leaderBody = document.getElementById('leaderboard-body');
-
-if (leaderBody) {
-
-  //Adds table content
-  function createLeaderCell(value) {
-    const td = document.createElement("td");
-    td.textContent = String(value);
-    return td;
-  }
-
-  //Uploads table content
-  fetch("data/leaderData.json")
-    .then((response) => response.json())          //Reads file
-    .then((Placements) => {                       //Creates table
-      while (leaderBody.firstChild) {
-        leaderBody.removeChild(leaderBody.firstChild);
+    if (currentSiteSession.isAdmin) {
+      {
+        const adminLink = document.createElement("a");
+        adminLink.href = "admin.html";
+        adminLink.textContent = "Open admin dashboard";
+        adminHomeLink.appendChild(adminLink);
       }
+    }
+  }
 
-      Placements.sort((a, b) => {
-        return Number(b.points) - Number(a.points);
-      });
+  syncProfileForm(currentSiteSession);
+  applyFavoriteTeamHighlighting();
+}
 
-      Placements.forEach((driverPlace, index) => {
-        const row = document.createElement("tr");
-
-        const rankCell = createLeaderCell(index + 1);
-        rankCell.classList.add("rank");
-        
-        const driverCell = document.createElement("td");
-        const link = document.createElement("a");
-        link.href = getDriverWikiUrl({ name: driverPlace.name });
-        link.textContent = driverPlace.name;
-        driverCell.appendChild(link);
-
-        const teamCell = createLeaderCell(driverPlace.team)
-        teamCell.style.textAlign = "center";
-
-        const pointsCell = createLeaderCell(driverPlace.points);
-        pointsCell.classList.add("points");
-
-        row.appendChild(rankCell);
-        row.appendChild(driverCell);
-        row.appendChild(teamCell);
-        row.appendChild(pointsCell);
-
-        leaderBody.appendChild(row);
-      });
+function loadCurrentSession() {
+  requestJson("/api/session")
+    .then(function handleSession(session) {
+      setLoggedInState(session);
     })
-    .catch((error) => console.error(error));      //Results error
+    .catch(function handleError() {
+      setLoggedInState(null);
+    });
 }
 
-//---Drivers page---
-const driversList = document.getElementById("driversList");
-const driversFileInput = document.getElementById("driversFileInput");
-const driversUploadArea = document.getElementById("driversUploadArea");
+function populateFavoriteTeamSelects() {
+  const registerSelect = document.getElementById("registerFavoriteTeamId");
+  const profileSelect = document.getElementById("profileFavoriteTeamId");
 
-if (driversList && driversFileInput && driversUploadArea) {
-  //Uploads Drivers Data
-  async function uploadDriversData() {
-    try {
-      const response = await fetch("data/driversData.json");
-      if (!response.ok) throw new Error("Couldn't find file");
+  if (!registerSelect && !profileSelect) {
+    return;
+  }
 
-      const data = await response.json();
-
-      if (isDriversData(data)) {
-        renderDriversList(data);
-        driversUploadArea.style.display = "none";
+  requestJson("/api/teams")
+    .then(function handleTeams(teams) {
+      if (registerSelect) {
+        resetSelectWithPlaceholder(registerSelect, "Select favorite team");
       }
-    } catch (err) {
-      console.warn("Could not load JSON file.\n\n" + err.message);
-    }
-  }
+      if (profileSelect) {
+        resetSelectWithPlaceholder(profileSelect, "Select favorite team");
+      }
 
-  //Checks Drivers data
-  function isDriversData(data) {
-    if (!Array.isArray(data) || data.length === 0) {
-      return false;
-    }
+      teams.forEach(function appendTeam(team) {
+        if (registerSelect) {
+          const registerOption = document.createElement("option");
+          registerOption.value = String(team.id);
+          registerOption.textContent = team.name;
+          registerSelect.appendChild(registerOption);
+        }
 
-    const first = data[0];
-    if (!first || typeof first !== "object") {
-      return false;
-    }
-
-    return (
-      "name" in first &&
-      "fullName" in first &&
-      "birthDate" in first &&
-      "formerTeams" in first
-    );
-  }
-
-  //Updates Drivers content
-  function renderDriversList(drivers) {
-    if (!driversList) {
-      return;
-    }
-
-    while (driversList.firstChild) {
-      driversList.removeChild(driversList.firstChild);
-    }
-
-    drivers.forEach((driverData) => {
-      const driver = new Driver(driverData);
-      const section = document.createElement("section");
-      section.id = driver.id;
-      section.classList.add("driver-card");
-
-      const link = document.createElement("a");
-      link.href = getDriverWikiUrl(driver);
-      link.target = "_blank";
-      link.rel = "noopener noreferrer";
-
-      const title = document.createElement("h2");
-      title.textContent = driver.name;
-
-      const row = document.createElement("div");
-      row.classList.add("driver-card__row");
-
-      const tile = document.createElement("div");
-      tile.classList.add("driver-tile");
-
-      const image = document.createElement("img");
-      image.src = driver.image;
-      image.alt = driver.name;
-
-      const bio = document.createElement("pre");
-      bio.classList.add("drivers-bio");
-      bio.textContent =
-        "Full name: " +
-        driver.fullName +
-        "\nCurrent age: " +
-        driver.age +
-        "\nBirth date: " +
-        driver.birthDate +
-        "\nPlace of birth: " +
-        driver.birthPlace +
-        "\nNationality: " +
-        driver.nationality +
-        "\nCurrent car number: " +
-        driver.number +
-        "\nWins: " +
-        driver.wins;
-
-      const formerTeamsTitle = document.createElement("h3");
-      formerTeamsTitle.classList.add("former-teams-title");
-      formerTeamsTitle.textContent = "Former teams:";
-
-      const formerTeamsList = document.createElement("ul");
-      formerTeamsList.classList.add("former-teams-list");
-
-      driver.formerTeams.forEach((team) => {
-        const item = document.createElement("li");
-        item.classList.add("team-item");
-        item.textContent = team.title;
-        item.dataset.teamInfo = getTeamPreviewInfo(team);
-
-        formerTeamsList.appendChild(item);
+        if (profileSelect) {
+          const profileOption = document.createElement("option");
+          profileOption.value = String(team.id);
+          profileOption.textContent = team.name;
+          profileSelect.appendChild(profileOption);
+        }
       });
 
-      let teamTooltip = document.getElementById("teamTooltip");
-      if (!teamTooltip) {
-        teamTooltip = document.createElement("div");
-        teamTooltip.id = "teamTooltip";
-        teamTooltip.classList.add("team-tooltip");
-        teamTooltip.setAttribute("role", "tooltip");
-        document.body.appendChild(teamTooltip);
+      syncProfileForm(currentSiteSession);
+    })
+    .catch(function handleError() {
+      if (registerSelect) {
+        resetSelectWithPlaceholder(registerSelect, "Could not load teams");
+      }
+      if (profileSelect) {
+        resetSelectWithPlaceholder(profileSelect, "Could not load teams");
+      }
+    });
+}
+
+function bindLoginForms() {
+  const loginForm = document.getElementById("loginForm");
+  const registerForm = document.getElementById("registerForm");
+  const profileForm = document.getElementById("profileForm");
+  const logoutButton = document.getElementById("logoutButton");
+
+  if (loginForm) {
+    loginForm.addEventListener("submit", function handleLogin(event) {
+      const errorDisplay = document.getElementById("error-message");
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      event.preventDefault();
+
+      if (password.length < 6) {
+        errorDisplay.style.display = "block";
+        errorDisplay.textContent = "Password too short!";
+        return;
       }
 
-      formerTeamsList.addEventListener(
-        "mouseover",
-        function (event) {
-          const targetItem = event.target.closest(".team-item");
-          if (!targetItem) {
+      requestJson("/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: email, password: password }),
+      })
+        .then(function handleLoginResponse(payload) {
+          if (!payload.success) {
+            errorDisplay.style.display = "block";
+            errorDisplay.textContent = payload.message;
             return;
           }
 
-          teamTooltip.textContent = targetItem.dataset.teamInfo;
-          teamTooltip.style.left = `${event.pageX + 10}px`;
-          teamTooltip.style.top = `${event.pageY + 10}px`;
-          teamTooltip.classList.add("team-tooltip--visible");
-        },
-        true,
-      );
-
-      formerTeamsList.addEventListener("mousemove", function (event) {
-        if (teamTooltip.classList.contains("team-tooltip--visible")) {
-          teamTooltip.style.left = `${event.pageX + 10}px`;
-          teamTooltip.style.top = `${event.pageY + 10}px`;
-        }
-      });
-
-      formerTeamsList.addEventListener("mouseout", function () {
-        teamTooltip.classList.remove("team-tooltip--visible");
-      });
-
-
-
-      tile.appendChild(image);
-
-      const driverMeta = document.createElement("div");
-      driverMeta.classList.add("driver-meta");
-      driverMeta.appendChild(bio);
-      driverMeta.appendChild(formerTeamsTitle);
-      driverMeta.appendChild(formerTeamsList);
-
-      row.appendChild(tile);
-      row.appendChild(driverMeta);
-      link.appendChild(title);
-      link.appendChild(row);
-      section.appendChild(link);
-      driversList.appendChild(section);
-    });
-
-    if (typeof refreshAccessibilityOptions === "function") {
-      refreshAccessibilityOptions();
-    }
-  }
-
-  //Reads & Uploads File
-  driversFileInput.addEventListener("change", function (e) {
-    const selectedFile = e.target.files[0];
-    if (!selectedFile) {
-      return;
-    }
-
-    const reader = new FileReader();
-
-    reader.onload = function (event) {
-      try {
-        const data = JSON.parse(event.target.result);
-        if (!isDriversData(data)) {
-          throw new Error("Please upload a valid driversData.json file.");
-        }
-
-        renderDriversList(data);
-
-        driversUploadArea.style.display = "none";
-      } catch (err) {
-        alert("Could not load JSON file.\n\n" + err.message);
-      }
-    };
-
-    reader.readAsText(selectedFile);
-  });
-
-  uploadDriversData();
-}
-
-//---Statistics page---
-const yearSelect = document.getElementById("yearSelect");
-const CarContainer = document.getElementById("carType");
-const tableBody = document.getElementById("raceData");
-const driverContainer = document.getElementById("DriversPic");
-const teamsYearLink = document.getElementById("teamsYearLink");
-
-if (
-  yearSelect &&
-  CarContainer &&
-  tableBody &&
-  driverContainer &&
-  teamsYearLink
-) {
-  let raceResults = {};
-
-  //Uploads raceResults
-  async function uploadData() {
-    const response = await fetch("data/raceData.json");
-
-    raceResults = await response.json();
-
-    updateContent("2025");
-  }
-
-  //Updates by year selected
-  function updateContent(year) {
-    updateTeamsYearLink(year);
-    const data = raceResults[year];
-
-    //Cars
-    while (CarContainer.firstChild) {
-      CarContainer.removeChild(CarContainer.firstChild);
-    }
-
-    if (data && data.Car) {
-      data.Car.forEach((item) => {
-        const divWrap = document.createElement("div");
-
-        const aWrap = document.createElement("a");
-        aWrap.href = getCarWikiUrl(item);
-        aWrap.target = "_blank";
-        aWrap.rel = "noopener noreferrer";
-
-        const tileWrap = document.createElement("div");
-        tileWrap.classList.add("stats-car--tile");
-
-        const image = document.createElement("img");
-        image.src = `assets/images/cars/${item.img}`;
-        image.alt = item.name;
-
-        const caption = document.createElement("figcaption");
-        caption.textContent = item.name;
-
-        tileWrap.appendChild(image);
-        aWrap.appendChild(tileWrap);
-        aWrap.appendChild(caption);
-        divWrap.appendChild(aWrap);
-
-        CarContainer.appendChild(divWrap);
-      });
-    }
-
-    //Drivers
-    while (driverContainer.firstChild) {
-      driverContainer.removeChild(driverContainer.firstChild);
-    }
-
-    if (data && data.drivers) {
-      data.drivers.forEach((item) => {
-        const divWrap = document.createElement("div");
-
-        const aWrap = document.createElement("a");
-        aWrap.href = getDriverWikiUrl(item);
-        aWrap.target = "_blank";
-        aWrap.rel = "noopener noreferrer";
-
-        const tileWrap = document.createElement("div");
-        tileWrap.classList.add("driver-tile");
-
-        const image = document.createElement("img");
-        image.src = `assets/images/drivers/${item.img}`;
-        image.alt = item.name;
-
-        const caption = document.createElement("figcaption");
-        caption.textContent = item.name;
-
-        tileWrap.appendChild(image);
-        aWrap.appendChild(tileWrap);
-        aWrap.appendChild(caption);
-        divWrap.appendChild(aWrap);
-
-        driverContainer.appendChild(divWrap);
-      });
-    }
-
-    //Races
-    while (tableBody.firstChild) {
-      tableBody.removeChild(tableBody.firstChild);
-    }
-
-    if (data && Array.isArray(data.races) && data.races.length > 0) {
-      const headerRow = document.createElement("tr");
-      const thDriver = document.createElement("th");
-      thDriver.textContent = "Drivers";
-      headerRow.appendChild(thDriver);
-
-      data.races[0].results.forEach((res) => {
-        const th = document.createElement("th");
-        th.textContent = res.GP || "";
-        headerRow.appendChild(th);
-      });
-      tableBody.appendChild(headerRow);
-
-      data.races.forEach((item) => {
-        const rowPlace = document.createElement("tr");
-        const rowTime = document.createElement("tr");
-
-        const tdName = document.createElement("td");
-        tdName.rowSpan = 2;
-        tdName.textContent = item.Drivers;
-        rowPlace.appendChild(tdName);
-
-        item.results.forEach((res) => {
-          const tdPlace = document.createElement("td");
-          tdPlace.textContent = res.Place || "-";
-          rowPlace.appendChild(tdPlace);
-
-          const tdTime = document.createElement("td");
-          tdTime.textContent = res.Time || "-";
-          rowTime.appendChild(tdTime);
+          setLoggedInState(Object.assign({ authenticated: true }, payload));
+        })
+        .catch(function handleLoginError(error) {
+          errorDisplay.style.display = "block";
+          errorDisplay.textContent = error.message;
         });
-
-        tableBody.appendChild(rowPlace);
-        tableBody.appendChild(rowTime);
-      });
-    }
+    });
   }
 
-  //Links Team Page by year selected
-  function updateTeamsYearLink(year) {
-    teamsYearLink.href = `teams.html?year=${year}`;
-  }
+  if (registerForm) {
+    registerForm.addEventListener("submit", function handleRegister(event) {
+      const errorDisplay = document.getElementById("register-error-message");
+      const firstName = document.getElementById("registerFirstName").value;
+      const lastName = document.getElementById("registerLastName").value;
+      const email = document.getElementById("registerEmail").value;
+      const favoriteTeamId = document.getElementById(
+        "registerFavoriteTeamId",
+      ).value;
+      const password = document.getElementById("registerPassword").value;
+      const passwordConfirm = document.getElementById(
+        "registerPasswordConfirm",
+      ).value;
 
-  //Selecting year
-  yearSelect.addEventListener("change", (event) =>
-    updateContent(event.target.value),
-  );
+      event.preventDefault();
 
-  updateContent(yearSelect.value);
-  uploadData();
-}
-
-//---Cars page---
-const carsTableBody = document.getElementById("carsTableBody");
-
-if (carsTableBody) {
-  //Adds table content
-  function createCell(value) {
-    const td = document.createElement("td");
-    td.textContent = String(value);
-    return td;
-  }
-
-  //Uploads table content
-  fetch("data/carsData.json")
-    .then((response) => response.json()) //Reads file
-    .then((cars) => {
-      //Creates table
-      while (carsTableBody.firstChild) {
-        carsTableBody.removeChild(carsTableBody.firstChild);
+      if (password.length < 6) {
+        errorDisplay.style.display = "block";
+        errorDisplay.textContent = "Password too short!";
+        return;
       }
 
-      cars.forEach((car) => {
-        const row = document.createElement("tr");
-        row.id = car.id;
+      if (password !== passwordConfirm) {
+        errorDisplay.style.display = "block";
+        errorDisplay.textContent = "Passwords do not match.";
+        return;
+      }
 
-        const imageCell = document.createElement("td");
-
-        const imageLink = document.createElement("a");
-        imageLink.href = getCarWikiUrl(car);
-        imageLink.target = "_blank";
-        imageLink.rel = "noopener noreferrer";
-
-        const image = document.createElement("img");
-        image.src = car.image;
-        image.alt = car.name;
-
-        imageLink.appendChild(image);
-        imageCell.appendChild(imageLink);
-
-        const driversCell = document.createElement("td");
-        car.drivers.forEach((driver, index) => {
-          const link = document.createElement("a");
-          link.href = `drivers.html#${driver.id}`;
-          link.textContent = driver.name;
-          driversCell.appendChild(link);
-
-          if (index < car.drivers.length - 1) {
-            driversCell.appendChild(document.createTextNode(", "));
+      requestJson("/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          firstName: firstName,
+          lastName: lastName,
+          email: email,
+          favoriteTeamId: favoriteTeamId,
+          password: password,
+        }),
+      })
+        .then(function handleRegisterResponse(payload) {
+          if (!payload.success) {
+            errorDisplay.style.display = "block";
+            errorDisplay.textContent = payload.message;
+            return;
           }
+
+          errorDisplay.style.display = "none";
+          registerForm.reset();
+          setLoggedInState(Object.assign({ authenticated: true }, payload));
+        })
+        .catch(function handleRegisterError(error) {
+          errorDisplay.style.display = "block";
+          errorDisplay.textContent = error.message;
         });
-
-        row.appendChild(imageCell);
-        row.appendChild(createCell(car.name));
-        row.appendChild(createCell(car.notes));
-        row.appendChild(createCell(car.season));
-        row.appendChild(createCell(car.engine));
-        row.appendChild(driversCell);
-        row.appendChild(createCell(car.races));
-        row.appendChild(createCell(car.wins));
-        row.appendChild(createCell(car.poles));
-        row.appendChild(createCell(car.fastestLaps));
-        row.appendChild(createCell(car.power));
-
-        carsTableBody.appendChild(row);
-      });
-    })
-    .catch((error) => console.error(error)); //Results error
-}
-
-//---Teams page---
-const teamYearSelect = document.getElementById("teamYearSelect");
-const teamDrivers = document.getElementById("teamDrivers");
-const teamSummaryText = document.getElementById("teamSummaryText");
-const teamSummaryList = document.getElementById("teamSummaryList");
-const teamYearTitle = document.getElementById("teamYearTitle");
-
-if (
-  teamYearSelect &&
-  teamDrivers &&
-  teamSummaryText &&
-  teamSummaryList &&
-  teamYearTitle
-) {
-  let teamRaceData = {};
-
-  //Empties node
-  function clearNode(node) {
-    while (node.firstChild) {
-      node.removeChild(node.firstChild);
-    }
-  }
-
-  //Returns usable number
-  function parsePlace(placeValue) {
-    const parsed = Number(placeValue);
-    return Number.isFinite(parsed) ? parsed : null;
-  }
-
-  //Changes URL by year selected
-  function updateTeamsYearInUrl(year) {
-    window.history.replaceState({}, "", `teams.html?year=${year}`);
-  }
-
-  //Updates Team Members content
-  function renderTeamDrivers(drivers) {
-    clearNode(teamDrivers);
-
-    drivers.forEach((driver) => {
-      const card = document.createElement("div");
-
-      const link = document.createElement("a");
-      link.href = getDriverWikiUrl(driver);
-      link.target = "_blank";
-      link.rel = "noopener noreferrer";
-
-      const tile = document.createElement("div");
-      tile.classList.add("driver-tile");
-
-      const image = document.createElement("img");
-      image.src = `assets/images/drivers/${driver.img}`;
-      image.alt = driver.name;
-
-      const caption = document.createElement("figcaption");
-      caption.textContent = driver.name;
-
-      tile.appendChild(image);
-      link.appendChild(tile);
-      link.appendChild(caption);
-      card.appendChild(link);
-      teamDrivers.appendChild(card);
     });
   }
 
-  //Updates Team Overview content
-  function renderTeamSummary(year, data) {
-    clearNode(teamSummaryList);
+  if (profileForm) {
+    profileForm.addEventListener("submit", function handleProfileSave(event) {
+      const errorDisplay = document.getElementById("profile-error-message");
+      const firstName = document.getElementById("profileFirstName").value;
+      const lastName = document.getElementById("profileLastName").value;
+      const email = document.getElementById("profileEmail").value;
+      const favoriteTeamId = document.getElementById(
+        "profileFavoriteTeamId",
+      ).value;
+      const password = document.getElementById("profilePassword").value;
+      const passwordConfirm = document.getElementById(
+        "profilePasswordConfirm",
+      ).value;
 
-    const races = Array.isArray(data.races) ? data.races : [];
-    const drivers = Array.isArray(data.drivers) ? data.drivers : [];
-    const firstResults =
-      races.length > 0 && Array.isArray(races[0].results) ?
-        races[0].results
-      : [];
-    const raceWeekends =
-      firstResults.length > 0 ?
-        firstResults.filter((result) => result.GP).length
-      : 0;
+      event.preventDefault();
 
-    let teamWins = 0;
-    let teamPodiums = 0;
-
-    races.forEach((driverRow) => {
-      let starts = 0;
-      let wins = 0;
-      let podiums = 0;
-      let bestFinish = null;
-
-      const results = Array.isArray(driverRow.results) ? driverRow.results : [];
-
-      results.forEach((result) => {
-        const place = parsePlace(result.Place);
-        if (place === null) {
-          return;
-        }
-
-        starts += 1;
-
-        if (place === 1) {
-          wins += 1;
-          teamWins += 1;
-        }
-
-        if (place <= 3) {
-          podiums += 1;
-          teamPodiums += 1;
-        }
-
-        if (bestFinish === null || place < bestFinish) {
-          bestFinish = place;
-        }
-      });
-
-      const item = document.createElement("li");
-      item.textContent =
-        `${driverRow.Drivers}: starts ${starts}, wins ${wins}, podiums ${podiums}, best finish ` +
-        `${bestFinish === null ? "-" : bestFinish}`;
-      teamSummaryList.appendChild(item);
-    });
-
-    teamSummaryText.textContent =
-      `Year ${year}: ${drivers.length} drivers, ${raceWeekends} race weekends, ` +
-      `${teamWins} wins, ${teamPodiums} podiums.`;
-  }
-
-  //Updates by year selected
-  function renderTeamYear(year) {
-    const data = teamRaceData[year];
-
-    if (!data) {
-      teamYearTitle.textContent = "Team Overview";
-      teamSummaryText.textContent = "No data available for this year.";
-      clearNode(teamDrivers);
-      clearNode(teamSummaryList);
-      return;
-    }
-
-    teamYearTitle.textContent = `Team Overview - ${year}`;
-    renderTeamDrivers(Array.isArray(data.drivers) ? data.drivers : []);
-    renderTeamSummary(year, data);
-
-    if (typeof refreshAccessibilityOptions === "function") {
-      refreshAccessibilityOptions();
-    }
-  }
-
-  //Uploads page content
-  fetch("data/raceData.json")
-    .then((response) => response.json()) //Reads file
-    .then((data) => {
-      //Uploads teamRaceData
-      teamRaceData = data;
-      const years = Object.keys(teamRaceData).sort(
-        (a, b) => Number(a) - Number(b),
-      );
-
-      years.forEach((year) => {
-        teamYearSelect.appendChild(new Option(year, year));
-      });
-
-      let requestedYear = "";
-      if (window.location.search.startsWith("?year=")) {
-        requestedYear = window.location.search.replace("?year=", "");
+      if (password && password.length < 6) {
+        errorDisplay.style.display = "block";
+        errorDisplay.textContent = "Password too short!";
+        return;
       }
-      const initialYear =
-        years.includes(requestedYear) ? requestedYear : years[years.length - 1];
 
-      teamYearSelect.value = initialYear;
-      updateTeamsYearInUrl(initialYear);
-      renderTeamYear(initialYear);
+      if (password !== passwordConfirm) {
+        errorDisplay.style.display = "block";
+        errorDisplay.textContent = "Passwords do not match.";
+        return;
+      }
 
-      teamYearSelect.addEventListener("change", function () {
-        const selectedYear = teamYearSelect.value;
-        updateTeamsYearInUrl(selectedYear);
-        renderTeamYear(selectedYear);
-      });
-    })
-    .catch((error) => console.error(error)); //Results error
-}
+      requestJson("/api/profile", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          firstName: firstName,
+          lastName: lastName,
+          email: email,
+          favoriteTeamId: favoriteTeamId,
+          password: password,
+        }),
+      })
+        .then(function handleProfileResponse(payload) {
+          if (!payload.success) {
+            errorDisplay.style.display = "block";
+            errorDisplay.textContent = payload.message;
+            return;
+          }
 
-//---About page---
-const fileInput = document.getElementById("fileInput");
-const playerContainer =
-  document.getElementById("playerContainer") ||
-  document.getElementById("studentContainer");
-
-if (fileInput && playerContainer) {
-  //Checks Group Members data
-  function isGroupMembersData(data) {
-    if (!Array.isArray(data) || data.length === 0) {
-      return false;
-    }
-
-    const first = data[0];
-    if (!first || typeof first !== "object") {
-      return false;
-    }
-
-    return (
-      "firstName" in first &&
-      "lastName" in first &&
-      "major" in first &&
-      "courses" in first
-    );
-  }
-
-  //Reads & Uploads File
-  fileInput.addEventListener("change", function (e) {
-    const reader = new FileReader();
-
-    reader.onload = function (event) {
-      try {
-        const data = JSON.parse(event.target.result);
-        if (!isGroupMembersData(data)) {
-          throw new Error("Please upload a valid groupMembers.json file.");
-        }
-
-        while (playerContainer.firstChild) {
-          playerContainer.removeChild(playerContainer.firstChild);
-        }
-
-        data.forEach((memberData) => {
-          const groupMemberObj = new GroupMember(memberData);
-          playerContainer.appendChild(groupMemberObj.render());
+          errorDisplay.style.display = "none";
+          setLoggedInState(Object.assign({ authenticated: true }, payload));
+        })
+        .catch(function handleProfileError(error) {
+          errorDisplay.style.display = "block";
+          errorDisplay.textContent = error.message;
         });
+    });
+  }
 
-        if (typeof refreshAccessibilityOptions === "function") {
-          refreshAccessibilityOptions();
-        }
+  if (logoutButton) {
+    logoutButton.addEventListener("click", function handleLogout() {
+      requestJson("/logout", { method: "POST" })
+        .then(function handleLogoutResponse() {
+          setLoggedInState(null);
 
-        const uploadArea = document.getElementById("uploadArea");
-        if (uploadArea) {
-          uploadArea.style.display = "none";
-        }
-      } catch (err) {
-        alert("Could not load JSON file.\n\n" + err.message);
-      }
-    };
-
-    const selectedFile = e.target.files[0];
-    if (selectedFile) {
-      reader.readAsText(selectedFile);
-    }
-  });
+          if (loginForm) {
+            loginForm.reset();
+          }
+        })
+        .catch(function handleLogoutError() {});
+    });
+  }
 }
 
-//---Accessibility features---
-let refreshAccessibilityOptions = null;
+function renderLeaderboard() {
+  const leaderBody = document.getElementById("leaderboard-body");
 
-//Select features
-
-function initAccessibilityControls() {
-  return;
-  const host =
-    document.querySelector("footer") || document.querySelector("header");
-
-  if (!host || document.getElementById("elementMenu")) {
+  if (!leaderBody) {
     return;
   }
 
-  const panel = document.createElement("section");
-  panel.classList.add("accessibility-controls");
+  requestJson("/api/root/leaderboard")
+    .then(function handleLeaderboardRows(rows) {
+      clearNode(leaderBody);
 
-  const title = document.createElement("p");
-  title.classList.add("accessibility-controls__title");
-  title.textContent = "Accessibility Features";
+      rows.forEach(function appendRow(rowData) {
+        const row = document.createElement("tr");
+        const rankCell = document.createElement("td");
+        const teamCell = document.createElement("td");
+        const teamLink = document.createElement("a");
+        const winsCell = document.createElement("td");
+        const podiumsCell = document.createElement("td");
+        const pointsCell = document.createElement("td");
 
-  const elementLabel = document.createElement("label");
-  elementLabel.setAttribute("for", "elementMenu");
-  elementLabel.textContent = "Select element:";
+        row.dataset.teamId =
+          rowData.teamId === null || rowData.teamId === undefined ?
+            ""
+          : String(rowData.teamId);
+        row.dataset.teamSlug = rowData.teamSlug || "";
+        rankCell.textContent = String(rowData.rank);
+        teamLink.href = getTeamPageUrl(
+          rowData.teamSlug || rowData.teamId || "",
+        );
+        teamLink.textContent = rowData.team;
+        teamCell.style.textAlign = "left";
+        teamCell.appendChild(teamLink);
+        winsCell.textContent = String(rowData.wins);
+        winsCell.style.textAlign = "center";
+        podiumsCell.textContent = String(rowData.podiums);
+        podiumsCell.style.textAlign = "center";
+        pointsCell.textContent = String(rowData.points);
+        pointsCell.style.textAlign = "right";
 
-  const elementMenu = document.createElement("select");
-  elementMenu.id = "elementMenu";
+        row.appendChild(rankCell);
+        row.appendChild(teamCell);
+        row.appendChild(winsCell);
+        row.appendChild(podiumsCell);
+        row.appendChild(pointsCell);
+        leaderBody.appendChild(row);
+      });
 
-  const styleLabel = document.createElement("label");
-  styleLabel.setAttribute("for", "styleMenu");
-  styleLabel.textContent = "Selected element:";
+      applyFavoriteTeamHighlighting();
+    })
+    .catch(function handleLeaderboardError(error) {
+      console.error(error);
+    });
+}
 
-  const styleMenu = document.createElement("select");
-  styleMenu.id = "styleMenu";
+function createRaceFeedCard(titleText, subtitleText) {
+  const article = document.createElement("article");
+  const title = document.createElement("h3");
+  const subtitle = document.createElement("p");
 
-  styleMenu.appendChild(new Option("Text options", ""));
-  styleMenu.appendChild(new Option("Text size: small", "sizeSmall"));
-  styleMenu.appendChild(new Option("Text size: default", "sizeDefault"));
-  styleMenu.appendChild(new Option("Text size: large", "sizeLarge"));
-  styleMenu.appendChild(new Option("Text color: default", "colorDefault"));
-  styleMenu.appendChild(new Option("Text color: red", "colorRed"));
-  styleMenu.appendChild(new Option("Text color: blue", "colorBlue"));
+  article.className = "race-feed__card";
+  title.textContent = titleText;
+  subtitle.textContent = subtitleText;
+  subtitle.className = "race-feed__meta";
+  article.appendChild(title);
+  article.appendChild(subtitle);
 
-  const generalLabel = document.createElement("label");
-  generalLabel.setAttribute("for", "generalMenu");
-  generalLabel.textContent = "Website accessibility:";
+  return article;
+}
 
-  const generalMenu = document.createElement("select");
-  generalMenu.id = "generalMenu";
+function renderLatestScores() {
+  const latestScoresList = document.getElementById("latestScoresList");
+  const latestScoresStatus = document.getElementById("latestScoresStatus");
 
-  generalMenu.appendChild(new Option("Site options", ""));
-  generalMenu.appendChild(new Option("Site text: small", "textSmall"));
-  generalMenu.appendChild(new Option("Site text: default", "textDefault"));
-  generalMenu.appendChild(new Option("Site text: large", "textLarge"));
-  generalMenu.appendChild(new Option("Color theme: default", "themeDefault"));
-  generalMenu.appendChild(new Option("Color theme: dark", "themeDark"));
-  generalMenu.appendChild(new Option("Color theme: light", "themeLight"));
-  generalMenu.appendChild(
-    new Option("Color theme: high contrast", "themeContrast"),
-  );
-
-  panel.appendChild(title);
-  panel.appendChild(elementLabel);
-  panel.appendChild(elementMenu);
-  panel.appendChild(styleLabel);
-  panel.appendChild(styleMenu);
-  panel.appendChild(generalLabel);
-  panel.appendChild(generalMenu);
-
-  host.appendChild(panel);
-
-  //Applies Site Theme
-  function applyTheme(theme) {
-    document.body.classList.remove(
-      "theme-dark",
-      "theme-light",
-      "theme-contrast",
-    );
-
-    if (theme === "themeDark") {
-      document.body.classList.add("theme-dark");
-    }
-    if (theme === "themeLight") {
-      document.body.classList.add("theme-light");
-    }
-    if (theme === "themeContrast") {
-      document.body.classList.add("theme-contrast");
-    }
+  if (!latestScoresList || !latestScoresStatus) {
+    return;
   }
 
-  //Applies Site Textsize
-  function applySiteText(size) {
-    document.body.classList.remove("site-font-small", "site-font-large");
+  requestJson("/api/root/latest-scores")
+    .then(function handleLatestScores(races) {
+      clearNode(latestScoresList);
 
-    if (size === "textSmall") {
-      document.body.classList.add("site-font-small");
-    }
-    if (size === "textLarge") {
-      document.body.classList.add("site-font-large");
-    }
-  }
-
-  //Applies Element size & color
-  function applyOnElement(target, action) {
-    if (!target) {
-      return;
-    }
-
-    if (action === "sizeSmall") {
-      target.classList.remove(
-        "accessibility-size-small",
-        "accessibility-size-large",
-      );
-      target.classList.add("accessibility-size-small");
-    }
-    if (action === "sizeDefault") {
-      target.classList.remove(
-        "accessibility-size-small",
-        "accessibility-size-large",
-      );
-    }
-    if (action === "sizeLarge") {
-      target.classList.remove(
-        "accessibility-size-small",
-        "accessibility-size-large",
-      );
-      target.classList.add("accessibility-size-large");
-    }
-    if (action === "colorDefault") {
-      target.classList.remove(
-        "accessibility-color-red",
-        "accessibility-color-blue",
-      );
-    }
-    if (action === "colorRed") {
-      target.classList.remove(
-        "accessibility-color-red",
-        "accessibility-color-blue",
-      );
-      target.classList.add("accessibility-color-red");
-    }
-    if (action === "colorBlue") {
-      target.classList.remove(
-        "accessibility-color-red",
-        "accessibility-color-blue",
-      );
-      target.classList.add("accessibility-color-blue");
-    }
-  }
-
-  let elementIdCounter = 1;
-  let targetsById = new Map();
-
-  //Checks Element ID
-  function ensureAccessibilityId(element) {
-    if (!element.dataset.accessibilityId) {
-      element.dataset.accessibilityId = `accessibility-${elementIdCounter}`;
-      elementIdCounter += 1;
-    }
-
-    return element.dataset.accessibilityId;
-  }
-
-  //Names Element ID
-  function buildElementLabel(element, index) {
-    const tag = element.tagName.toLowerCase();
-    const firstClass =
-      typeof element.className === "string" ?
-        element.className.split(" ").find((name) => name.trim() !== "")
-      : "";
-
-    if (element.id) {
-      return `${tag}#${element.id}`;
-    }
-
-    if (firstClass) {
-      return `${tag}.${firstClass}`;
-    }
-
-    return `${tag} (${index + 1})`;
-  }
-
-  //Organizes Elements
-  function collectTargets() {
-    const targets = [document.body];
-    const dynamicTargets = document.querySelectorAll(
-      "header, main, footer, nav, article, section, aside",
-    );
-
-    dynamicTargets.forEach((element) => {
-      if (element !== panel && !panel.contains(element)) {
-        targets.push(element);
+      if (!Array.isArray(races) || races.length === 0) {
+        latestScoresStatus.textContent = "No completed races available yet.";
+        return;
       }
+
+      latestScoresStatus.textContent = "";
+
+      races.forEach(function appendRace(race) {
+        const card = createRaceFeedCard(
+          "Round " + String(race.roundNumber) + " - " + String(race.name),
+          String(race.circuitName) + " | " + formatRaceDate(race.scheduledAt),
+        );
+        const resultList = document.createElement("ul");
+
+        resultList.className = "race-feed__results";
+
+        race.results.forEach(function appendResult(result) {
+          const item = document.createElement("li");
+          const playerLink = document.createElement("a");
+          const teamLink = document.createElement("a");
+
+          playerLink.href =
+            "playerprofile.html?id=" + encodeURIComponent(result.playerId);
+          playerLink.textContent =
+            String(result.finishPosition) + ". " + String(result.name);
+          teamLink.href = getTeamPageUrl(
+            result.teamSlug || result.teamId || "",
+          );
+          teamLink.textContent = String(result.team);
+          teamLink.dataset.teamId =
+            result.teamId === null || result.teamId === undefined ?
+              ""
+            : String(result.teamId);
+          teamLink.dataset.teamSlug = result.teamSlug || "";
+
+          item.appendChild(playerLink);
+          item.appendChild(document.createTextNode(" ("));
+          item.appendChild(teamLink);
+          item.appendChild(
+            document.createTextNode(") - " + String(result.points) + " pts"),
+          );
+
+          if (result.resultTime) {
+            item.appendChild(
+              document.createTextNode(" - " + String(result.resultTime)),
+            );
+          }
+
+          resultList.appendChild(item);
+        });
+
+        card.appendChild(resultList);
+        latestScoresList.appendChild(card);
+      });
+
+      applyFavoriteTeamHighlighting();
+    })
+    .catch(function handleLatestScoresError() {
+      latestScoresStatus.textContent = "Could not load latest scores.";
     });
+}
 
-    return targets;
+function renderUpcomingRaces() {
+  const upcomingRacesList = document.getElementById("upcomingRacesList");
+  const upcomingRacesStatus = document.getElementById("upcomingRacesStatus");
+
+  if (!upcomingRacesList || !upcomingRacesStatus) {
+    return;
   }
 
-  //Fills Menu with Elements
-  function fillElementMenu() {
-    const previousValue = elementMenu.value;
+  requestJson("/api/root/upcoming-races")
+    .then(function handleUpcomingRaces(races) {
+      clearNode(upcomingRacesList);
 
-    while (elementMenu.firstChild) {
-      elementMenu.removeChild(elementMenu.firstChild);
-    }
+      if (!Array.isArray(races) || races.length === 0) {
+        upcomingRacesStatus.textContent = "No upcoming races remain.";
+        return;
+      }
 
-    targetsById = new Map();
-    const targets = collectTargets();
+      upcomingRacesStatus.textContent = "";
 
-    targets.forEach((element, index) => {
-      const accessibilityId = ensureAccessibilityId(element);
-      const label = buildElementLabel(element, index);
-      targetsById.set(accessibilityId, element);
-      elementMenu.appendChild(new Option(label, accessibilityId));
+      races.forEach(function appendRace(race) {
+        upcomingRacesList.appendChild(
+          createRaceFeedCard(
+            "Round " + String(race.roundNumber) + " - " + String(race.name),
+            String(race.circuitName) + " | " + formatRaceDate(race.scheduledAt),
+          ),
+        );
+      });
+    })
+    .catch(function handleUpcomingRacesError() {
+      upcomingRacesStatus.textContent = "Could not load upcoming races.";
     });
+}
 
-    if (previousValue && targetsById.has(previousValue)) {
-      elementMenu.value = previousValue;
-    }
+function renderGroupMembers() {
+  const status = document.getElementById("groupMembersStatus");
+  const container = document.getElementById("playerContainer");
+
+  if (!status || !container) {
+    return;
   }
 
-  //Refills Menu with Elements
-  function refreshMenus() {
-    fillElementMenu();
+  requestJson("/api/root/group-members")
+    .then(function handleMembers(members) {
+      clearNode(container);
+
+      if (!Array.isArray(members) || members.length === 0) {
+        status.textContent = "No group members available.";
+        return;
+      }
+
+      members.forEach(function appendMember(member) {
+        const article = document.createElement("article");
+        const title = document.createElement("h2");
+        const row = document.createElement("div");
+        const meta = document.createElement("div");
+        const age = document.createElement("p");
+        const major = document.createElement("p");
+        const email = document.createElement("p");
+        const emailLink = document.createElement("a");
+        const hobbies = document.createElement("p");
+        const coursesTitle = document.createElement("p");
+        const coursesList = document.createElement("ul");
+
+        article.className = "driver-card";
+        row.className = "driver-card__row";
+        meta.className = "driver-meta";
+        title.textContent =
+          String(member.firstName || "") + " " + String(member.lastName || "");
+        age.textContent = "Age: " + String(member.age || "-");
+        major.textContent = "Major: " + String(member.major || "Unknown");
+        email.textContent = "Email: ";
+        emailLink.href = "mailto:" + String(member.email || "");
+        emailLink.textContent = String(member.email || "");
+        email.appendChild(emailLink);
+        hobbies.textContent =
+          "Hobbies: " +
+          (Array.isArray(member.hobbies) && member.hobbies.length > 0 ?
+            member.hobbies.join(", ")
+          : "-");
+        coursesTitle.textContent = "Courses:";
+
+        (Array.isArray(member.courses) ? member.courses : []).forEach(
+          function appendCourse(course) {
+            const item = document.createElement("li");
+            const heading = document.createElement("p");
+            const description = document.createElement("p");
+            const teacher = course && course.teacher ? course.teacher : {};
+
+            heading.textContent =
+              String(course && course.title ? course.title : "") +
+              (teacher.firstName || teacher.lastName ?
+                " - " +
+                String(teacher.firstName || "") +
+                " " +
+                String(teacher.lastName || "")
+              : "");
+            description.textContent = String(
+              (course && course.description) || "",
+            );
+            item.appendChild(heading);
+            item.appendChild(description);
+            coursesList.appendChild(item);
+          },
+        );
+
+        row.appendChild(createTile(member.photo, title.textContent));
+        meta.appendChild(age);
+        meta.appendChild(major);
+        meta.appendChild(email);
+        meta.appendChild(hobbies);
+        meta.appendChild(coursesTitle);
+        meta.appendChild(coursesList);
+        row.appendChild(meta);
+        article.appendChild(title);
+        article.appendChild(row);
+        container.appendChild(article);
+      });
+
+      status.textContent = "";
+    })
+    .catch(function handleGroupMembersError() {
+      status.textContent = "Could not load group members.";
+    });
+}
+
+function makeMainLogoClickable() {
+  const logo = document.getElementById("Formula1");
+
+  if (!logo) {
+    return;
   }
 
-  refreshMenus();
-  refreshAccessibilityOptions = function () {
-    refreshMenus();
-  };
-
-  applyTheme(localStorage.getItem("siteTheme") || "themeDefault");
-  applySiteText(localStorage.getItem("siteTextSize") || "textDefault");
-
-  //Selecting element applications
-  styleMenu.addEventListener("change", function () {
-    const target = targetsById.get(elementMenu.value) || document.body;
-    applyOnElement(target, styleMenu.value);
-    styleMenu.value = "";
-  });
-
-  //Selecting site applications
-  generalMenu.addEventListener("change", function () {
-    const action = generalMenu.value;
-
-    if (action.startsWith("theme")) {
-      applyTheme(action);
-      localStorage.setItem("siteTheme", action);
-    }
-
-    if (action.startsWith("text")) {
-      applySiteText(action);
-      localStorage.setItem("siteTextSize", action);
-    }
-
-    generalMenu.value = "";
+  logo.style.cursor = "pointer";
+  logo.addEventListener("click", function handleLogoClick() {
+    window.location.href = "index.html";
   });
 }
 
-//Selecting features
-if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", initAccessibilityControls);
-} else {
-  initAccessibilityControls();
+function startPage() {
+  makeMainLogoClickable();
+  bindLoginForms();
+  loadCurrentSession();
+  populateFavoriteTeamSelects();
+  renderLeaderboard();
+  renderLatestScores();
+  renderUpcomingRaces();
+  renderGroupMembers();
 }
+
+startPage();

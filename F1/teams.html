@@ -1,3 +1,4 @@
+<!-- Purpose: Provides the teams page markup for the main F1 site. -->
 <!doctype html>
 <html lang="en">
   <head>
@@ -8,7 +9,7 @@
     <link rel="stylesheet" href="assets/css/style.css" />
     <link rel="canonical" href="teams.html" />
   </head>
-  <body>
+  <body data-page="teams">
     <header>
       <div class="site-header__bar">
         <h1>Formula 1</h1>
@@ -20,6 +21,8 @@
 
       <nav class="site-nav" aria-label="Main navigation">
         <a class="site-nav__link" href="index.html">Home</a>
+        <a class="site-nav__link" href="latestscores.html">Latest Scores</a>
+        <a class="site-nav__link" href="upcominggames.html">Upcoming Games</a>
         <a class="site-nav__link" href="drivers.html">Drivers</a>
         <a
           class="site-nav__link"
@@ -28,25 +31,26 @@
           aria-current="page"
           >Teams</a
         >
-        <a class="site-nav__link" href="teamprofile.html">League Profile</a>
+        <a class="site-nav__link" href="league.html">League Info</a>
         <a class="site-nav__link" href="About.html">About</a>
       </nav>
     </header>
 
     <main>
-      <pre>
-        <a href="Team_Sites/Alpine/index.html">Alpine</a>
-        <a href="Team_Sites/Aston_Martin/index.html">Aston Martin</a>
-        <a href="Team_Sites/Audi/index.html">Audi</a>
-        <a href="Team_Sites/Cadillac/index.html">Cadillac</a>
-        <a href="Team_Sites/Ferrari/index.html">Ferrari</a>
-        <a href="Team_Sites/Haas/index.html">Haas</a>
-        <a href="Team_Sites/McLaren/index.html">McLaren</a>
-        <a href="Team_Sites/Mercedes/index.html">Mercedes</a>
-        <a href="Team_Sites/Racing_Bulls/index.html">Racing Bulls</a>
-        <a href="Team_Sites/Red_Bull/index.html">Red Bull</a>
-        <a href="Team_Sites/Williams/index.html">Williams</a>
-      </pre>
+      <section aria-labelledby="teams-title">
+        <h2 id="teams-title">Formula 1 Teams</h2>
+        <p>
+          The teams page introduces the constructors that make up the current
+          championship. Each team card links into that constructor's own
+          mini-site, where visitors can read about the team, browse its drivers,
+          review its season statistics, and see the cars connected to that
+          programme.
+        </p>
+
+        <p id="teamsStatus">Loading teams...</p>
+      </section>
+
+      <div id="teamsList" class="content-row" aria-live="polite"></div>
     </main>
 
     <footer>
@@ -57,6 +61,6 @@
       &copy; 2026 F1 Team<br />
     </footer>
 
-    <script src="assets/js/script.js"></script>
+    <script src="assets/js/main-pages.js"></script>
   </body>
 </html>

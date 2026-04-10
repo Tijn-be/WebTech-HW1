@@ -1,3 +1,4 @@
+<!-- Purpose: Provides the index page markup for the main F1 site. -->
 <!doctype html>
 <html lang="en">
   <head>
@@ -17,8 +18,8 @@
         <div id="logInBox" class="login-container">
           <form id="loginForm">
             <div class="input-groep">
-              <label for="username">username</label>
-              <input type="text" id="username" name="username" required>
+              <label for="email">email</label>
+              <input type="email" id="email" name="email" required>
             </div>
 
             <div class="input-groep">
@@ -36,11 +37,89 @@
               </p>
             </div>
           </form>
+
+          <form id="registerForm">
+            <div class="input-groep">
+              <label for="registerFirstName">first name</label>
+              <input type="text" id="registerFirstName" name="firstName" required>
+            </div>
+
+            <div class="input-groep">
+              <label for="registerLastName">last name</label>
+              <input type="text" id="registerLastName" name="lastName" required>
+            </div>
+
+            <div class="input-groep">
+              <label for="registerEmail">email</label>
+              <input type="email" id="registerEmail" name="email" required>
+            </div>
+
+            <div class="input-groep">
+              <label for="registerFavoriteTeamId">favorite team</label>
+              <select id="registerFavoriteTeamId" name="favoriteTeamId" required>
+                <option value="">Loading teams...</option>
+              </select>
+            </div>
+
+            <div class="input-groep">
+              <label for="registerPassword">password</label>
+              <input type="password" id="registerPassword" name="password" required>
+            </div>
+
+            <div class="input-groep">
+              <label for="registerPasswordConfirm">confirm password</label>
+              <input type="password" id="registerPasswordConfirm" name="passwordConfirm" required>
+              <p id="register-error-message" style="color: red; font-size: 0.8rem; display: none; margin-bottom: 10px;"></p>
+            </div>
+
+            <div class="footer-tekst">
+              <button type="submit">Register</button>
+            </div>
+          </form>
         </div>
 
         <div id="logOutBox" style="display: none; text-align: center;">
           <h2>Welcome Back: <span id="userDisplayName"></span>!</h2>
-          <button onclick="location.reload()">Uitloggen</button>
+          <p id="adminHomeLink"></p>
+          <form id="profileForm">
+            <div class="input-groep">
+              <label for="profileFirstName">first name</label>
+              <input type="text" id="profileFirstName" name="firstName" required>
+            </div>
+
+            <div class="input-groep">
+              <label for="profileLastName">last name</label>
+              <input type="text" id="profileLastName" name="lastName" required>
+            </div>
+
+            <div class="input-groep">
+              <label for="profileEmail">email</label>
+              <input type="email" id="profileEmail" name="email" required>
+            </div>
+
+            <div class="input-groep">
+              <label for="profileFavoriteTeamId">favorite team</label>
+              <select id="profileFavoriteTeamId" name="favoriteTeamId" required>
+                <option value="">Loading teams...</option>
+              </select>
+            </div>
+
+            <div class="input-groep">
+              <label for="profilePassword">new password</label>
+              <input type="password" id="profilePassword" name="password">
+            </div>
+
+            <div class="input-groep">
+              <label for="profilePasswordConfirm">confirm new password</label>
+              <input type="password" id="profilePasswordConfirm" name="passwordConfirm">
+              <p id="profile-error-message" style="color: red; font-size: 0.8rem; display: none; margin-bottom: 10px;"></p>
+            </div>
+
+            <div class="footer-tekst">
+              <button type="submit">Save Profile</button>
+            </div>
+          </form>
+          <button id="logoutButton" type="button">Uitloggen</button>
         </div>
 
         <img
@@ -57,22 +136,24 @@
           aria-current="page"
           >Home</a
         >
+        <a class="site-nav__link" href="latestscores.html">Latest Scores</a>
+        <a class="site-nav__link" href="upcominggames.html">Upcoming Games</a>
         <a class="site-nav__link" href="drivers.html">Drivers</a>
         <a class="site-nav__link" href="teams.html">Teams</a>
-        <a class="site-nav__link" href="teamprofile.html">League Profile</a>
+        <a class="site-nav__link" href="league.html">League Info</a>
         <a class="site-nav__link" href="About.html">About</a>
       </nav>
     </header>
 
     <main>
       <section aria-labelledby="welcome-title">
-
         <table class="leaderboard-table">
           <thead>
             <tr>
               <th>#</th>
-              <th style="text-align: left;">Driver</th>
-              <th>Team</th>
+              <th style="text-align: left;">Team</th>
+              <th>Wins</th>
+              <th>Podiums</th>
               <th style="text-align: right;">Points</th>
             </tr>
           </thead>
@@ -82,11 +163,28 @@
 
         <h2 id="welcome-title">Formula 1</h2>
 
-        <p>This website covers Formula 1 teams, drivers, league information, and supporting project pages.</p>
+        <p>
+          This website follows the current Formula 1 season through the team
+          standings, recent race results, upcoming weekends, driver profiles,
+          and team pages. Instead of acting like a poster, it is meant to give
+          visitors enough context to understand who is competing, where the
+          season stands, and why each page matters.
+        </p>
+        <p>
+          From the homepage you can move into the constructor table, compare
+          recent results, open full team mini-sites, and browse individual
+          driver pages. Logged-in visitors also see their favourite team
+          highlighted around the site.
+        </p>
       </section>
 
       <section aria-labelledby="site-content-title">
         <h2 id="site-content-title">Pages</h2>
+        <p>
+          The site is split into focused public pages so visitors can either
+          scan the current season quickly or spend more time reading through
+          teams, drivers, and league-wide context.
+        </p>
 
         <article aria-labelledby="drivers-overview-title">
           <h3 id="drivers-overview-title">
@@ -106,12 +204,32 @@
         </article>
       </section>
 
+      <section aria-labelledby="latest-scores-title">
+        <h2 id="latest-scores-title">Latest Scores</h2>
+        <p>
+          This section shows the most recent completed Grands Prix from the
+          database, with the top classified finishers and their points.
+        </p>
+        <p id="latestScoresStatus">Loading latest scores...</p>
+        <div id="latestScoresList" class="race-feed" aria-live="polite"></div>
+      </section>
+
+      <section aria-labelledby="upcoming-races-title">
+        <h2 id="upcoming-races-title">Upcoming Races</h2>
+        <p>
+          This section highlights the next scheduled race weekends so visitors
+          can see which circuits are still ahead on the calendar.
+        </p>
+        <p id="upcomingRacesStatus">Loading upcoming races...</p>
+        <div id="upcomingRacesList" class="race-feed" aria-live="polite"></div>
+      </section>
+
       <section aria-labelledby="quick-links-title">
         <h2 id="quick-links-title">Quick links</h2>
         <ul>
           <li><a href="drivers.html">Browse the drivers</a></li>
           <li><a href="teams.html">Browse the teams</a></li>
-          <li><a href="teamprofile.html">Read the league profile</a></li>
+          <li><a href="league.html">Read the league info</a></li>
           <li><a href="About.html">Open the About page</a></li>
         </ul>
       </section>
