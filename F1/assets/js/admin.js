@@ -36,6 +36,24 @@ function buildAppUrl(pathValue) {
   return getAppBasePath() + normalizedPath;
 }
 
+function resolveAssetUrl(pathValue) {
+  const normalizedPath = String(pathValue || "");
+
+  if (!normalizedPath) {
+    return normalizedPath;
+  }
+
+  if (/^(https?:)?\/\//i.test(normalizedPath) || normalizedPath.startsWith("data:")) {
+    return normalizedPath;
+  }
+
+  if (normalizedPath.startsWith("/")) {
+    return buildAppUrl(normalizedPath);
+  }
+
+  return normalizedPath;
+}
+
 function fetchJson(url, options) {
   return fetch(
     buildAppUrl(url),
@@ -83,7 +101,7 @@ function createSharedTile(imagePath, altText) {
   const image = document.createElement("img");
 
   tile.className = "driver-tile";
-  image.src = imagePath || "assets/images/F1Logo.png";
+  image.src = resolveAssetUrl(imagePath || "assets/images/F1Logo.png");
   image.alt = altText;
   tile.appendChild(image);
   return tile;

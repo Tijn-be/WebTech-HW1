@@ -1,4 +1,40 @@
 /* Purpose: Provides the client-side behavior for this team mini-site, including team info, drivers, cars, statistics, and race data. */
+function getMiniSiteBasePath() {
+  const currentScript = document.currentScript || Array.from(document.scripts || []).find(
+    function findScript(scriptNode) {
+      return /\/Team_Sites\/[^/]+\/assets\/js\/script\.js(?:\?|$)/.test(
+        String((scriptNode && scriptNode.src) || ""),
+      );
+    },
+  );
+
+  if (!currentScript || !currentScript.src) {
+    return "";
+  }
+
+  return new URL(currentScript.src, window.location.href).pathname.replace(
+    /\/Team_Sites\/[^/]+\/assets\/js\/script\.js$/,
+    "",
+  );
+}
+
+function resolveSiteAssetUrl(pathValue) {
+  const normalizedPath = String(pathValue || "");
+
+  if (!normalizedPath) {
+    return normalizedPath;
+  }
+
+  if (/^(https?:)?\/\//i.test(normalizedPath) || normalizedPath.startsWith("data:")) {
+    return normalizedPath;
+  }
+
+  if (normalizedPath.startsWith("/")) {
+    return getMiniSiteBasePath() + normalizedPath;
+  }
+
+  return normalizedPath;
+}
 //---Classes---
 class Person {
   #firstName;
@@ -769,7 +805,7 @@ if (driversList) {
       tile.classList.add("driver-tile");
 
       const image = document.createElement("img");
-      image.src = driver.image;
+      image.src = resolveSiteAssetUrl(driver.image);
       image.alt = driver.name;
 
       const bio = document.createElement("pre");
@@ -1031,7 +1067,7 @@ if (
         tileWrap.classList.add("stats-car--tile");
 
         const image = document.createElement("img");
-        image.src = item.image;
+        image.src = resolveSiteAssetUrl(item.image);
         image.alt = item.name;
 
         const caption = document.createElement("figcaption");
@@ -1060,7 +1096,7 @@ if (
         tileWrap.classList.add("driver-tile");
 
         const image = document.createElement("img");
-        image.src = item.image;
+        image.src = resolveSiteAssetUrl(item.image);
         image.alt = item.name;
 
         const caption = document.createElement("figcaption");
@@ -1163,7 +1199,7 @@ if (carsTableBody) {
         imageLink.rel = "noopener noreferrer";
 
         const image = document.createElement("img");
-        image.src = car.image;
+        image.src = resolveSiteAssetUrl(car.image);
         image.alt = car.name;
 
         imageLink.appendChild(image);
@@ -1247,7 +1283,7 @@ if (
       tile.classList.add("driver-tile");
 
       const image = document.createElement("img");
-      image.src = driver.image;
+      image.src = resolveSiteAssetUrl(driver.image);
       image.alt = driver.name;
 
       const caption = document.createElement("figcaption");
@@ -1398,3 +1434,4 @@ if (
     })
     .catch((error) => console.error(error)); //Results error
 }
+
