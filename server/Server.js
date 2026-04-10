@@ -194,49 +194,49 @@ function resolveStaticFilePath(requestPath) {
   return fullPath;
 }
 
-function ensureLeagueData() {
-  const teamsTable = get(
+async function ensureLeagueData() {
+  const teamsTable = await get(
     "SELECT name FROM sqlite_master WHERE type = 'table' AND name = 'teams'",
     [],
   );
-  const playersTable = get(
+  const playersTable = await get(
     "SELECT name FROM sqlite_master WHERE type = 'table' AND name = 'players'",
     [],
   );
-  const teamSiteTable = get(
+  const teamSiteTable = await get(
     "SELECT name FROM sqlite_master WHERE type = 'table' AND name = 'team_site_data'",
     [],
   );
-  const rootSiteTable = get(
+  const rootSiteTable = await get(
     "SELECT name FROM sqlite_master WHERE type = 'table' AND name = 'root_site_data'",
     [],
   );
-  const driverImagesTable = get(
+  const driverImagesTable = await get(
     "SELECT name FROM sqlite_master WHERE type = 'table' AND name = 'driver_images'",
     [],
   );
-  const usersTable = get(
+  const usersTable = await get(
     "SELECT name FROM sqlite_master WHERE type = 'table' AND name = 'users'",
     [],
   );
-  const racesTable = get(
+  const racesTable = await get(
     "SELECT name FROM sqlite_master WHERE type = 'table' AND name = 'races'",
     [],
   );
-  const raceEntriesTable = get(
+  const raceEntriesTable = await get(
     "SELECT name FROM sqlite_master WHERE type = 'table' AND name = 'race_entries'",
     [],
   );
-  const scoresTable = get(
+  const scoresTable = await get(
     "SELECT name FROM sqlite_master WHERE type = 'table' AND name = 'scores'",
     [],
   );
-  const teamMembershipsTable = get(
+  const teamMembershipsTable = await get(
     "SELECT name FROM sqlite_master WHERE type = 'table' AND name = 'team_memberships'",
     [],
   );
-  const teamCountRow = teamsTable ? get("SELECT COUNT(*) AS count FROM teams", []) : { count: 0 };
-  const userCountRow = usersTable ? get("SELECT COUNT(*) AS count FROM users", []) : { count: 0 };
+  const teamCountRow = teamsTable ? await get("SELECT COUNT(*) AS count FROM teams", []) : { count: 0 };
+  const userCountRow = usersTable ? await get("SELECT COUNT(*) AS count FROM users", []) : { count: 0 };
 
   if (
     !teamsTable ||
@@ -276,7 +276,7 @@ async function handleLogin(request, response) {
   try {
     const requestBody = await readRequestBody(request);
     const parsedBody = JSON.parse(requestBody || "{}");
-    const user = authenticateUser(parsedBody.email, parsedBody.password);
+    const user = await authenticateUser(parsedBody.email, parsedBody.password);
 
     if (!user) {
       sendJson(response, 200, {
@@ -314,7 +314,7 @@ async function handleRegister(request, response) {
   try {
     const requestBody = await readRequestBody(request);
     const parsedBody = JSON.parse(requestBody || "{}");
-    const user = registerUser(parsedBody);
+    const user = await registerUser(parsedBody);
 
     if (!user) {
       sendJson(response, 200, {
@@ -358,7 +358,7 @@ async function handleProfileUpdate(request, response) {
   try {
     const requestBody = await readRequestBody(request);
     const parsedBody = JSON.parse(requestBody || "{}");
-    const updatedUser = updateUserProfile(session.userId, parsedBody);
+    const updatedUser = await updateUserProfile(session.userId, parsedBody);
 
     deleteSession(session.id);
 
@@ -386,7 +386,7 @@ async function handleProfileUpdate(request, response) {
   }
 }
 
-function handleApiRequest(requestPath, response) {
+async function handleApiRequest(requestPath, response) {
   const driverImageMatch = requestPath.match(/^\/api\/driver-images\/([^/]+)\.jpg$/);
   const rootMatch = requestPath.match(/^\/api\/root\/([^/]+)$/);
   const teamSiteContentMatch = requestPath.match(/^\/api\/team-sites\/([^/]+)\/content$/);
@@ -399,7 +399,7 @@ function handleApiRequest(requestPath, response) {
   const playerMatch = requestPath.match(/^\/api\/players\/([^/]+)$/);
 
   if (driverImageMatch) {
-    const imageRecord = getDriverImage(driverImageMatch[1]);
+    const imageRecord = await getDriverImage(driverImageMatch[1]);
 
     if (!imageRecord) {
       response.writeHead(404);
@@ -413,58 +413,58 @@ function handleApiRequest(requestPath, response) {
 
   if (rootMatch) {
     if (rootMatch[1] === "leaderboard") {
-      sendJson(response, 200, getRootLeaderboard());
+      sendJson(response, 200, await getRootLeaderboard());
       return true;
     }
 
     if (rootMatch[1] === "league-info") {
-      sendJson(response, 200, getLeagueInfo());
+      sendJson(response, 200, await getLeagueInfo());
       return true;
     }
 
     if (rootMatch[1] === "latest-scores") {
-      sendJson(response, 200, getLatestScores());
+      sendJson(response, 200, await getLatestScores());
       return true;
     }
 
     if (rootMatch[1] === "upcoming-races") {
-      sendJson(response, 200, getUpcomingRaces());
+      sendJson(response, 200, await getUpcomingRaces());
       return true;
     }
 
     if (rootMatch[1] === "group-members") {
-      sendJson(response, 200, getRootGroupMembers());
+      sendJson(response, 200, await getRootGroupMembers());
       return true;
     }
   }
 
   if (teamSiteDriversMatch) {
-    sendJson(response, 200, getTeamSiteDrivers(teamSiteDriversMatch[1]));
+    sendJson(response, 200, await getTeamSiteDrivers(teamSiteDriversMatch[1]));
     return true;
   }
 
   if (teamSiteContentMatch) {
-    sendJson(response, 200, getTeamSiteContent(teamSiteContentMatch[1]));
+    sendJson(response, 200, await getTeamSiteContent(teamSiteContentMatch[1]));
     return true;
   }
 
   if (teamSiteCarsMatch) {
-    sendJson(response, 200, getTeamSiteCars(teamSiteCarsMatch[1]));
+    sendJson(response, 200, await getTeamSiteCars(teamSiteCarsMatch[1]));
     return true;
   }
 
   if (teamSiteRaceMatch) {
-    sendJson(response, 200, getTeamSiteRaceData(teamSiteRaceMatch[1]));
+    sendJson(response, 200, await getTeamSiteRaceData(teamSiteRaceMatch[1]));
     return true;
   }
 
   if (requestPath === "/api/teams") {
-    sendJson(response, 200, getTeams());
+    sendJson(response, 200, await getTeams());
     return true;
   }
 
   if (teamGamesMatch) {
-    const result = getTeamGamesBySlugOrId(teamGamesMatch[1]);
+    const result = await getTeamGamesBySlugOrId(teamGamesMatch[1]);
 
     if (!result) {
       sendJson(response, 404, { message: "Team not found" });
@@ -476,7 +476,7 @@ function handleApiRequest(requestPath, response) {
   }
 
   if (teamPlayersMatch) {
-    const result = getPlayersByTeamSlugOrId(teamPlayersMatch[1]);
+    const result = await getPlayersByTeamSlugOrId(teamPlayersMatch[1]);
 
     if (!result) {
       sendJson(response, 404, { message: "Team not found" });
@@ -488,7 +488,7 @@ function handleApiRequest(requestPath, response) {
   }
 
   if (teamMatch) {
-    const team = getTeamBySlugOrId(teamMatch[1]);
+    const team = await getTeamBySlugOrId(teamMatch[1]);
 
     if (!team) {
       sendJson(response, 404, { message: "Team not found" });
@@ -500,7 +500,7 @@ function handleApiRequest(requestPath, response) {
   }
 
   if (requestPath === "/api/players") {
-    sendJson(response, 200, getPlayers());
+    sendJson(response, 200, await getPlayers());
     return true;
   }
 
@@ -511,7 +511,7 @@ function handleApiRequest(requestPath, response) {
     }
 
     {
-      const player = getPlayerById(playerMatch[1]);
+      const player = await getPlayerById(playerMatch[1]);
 
       if (!player) {
         sendJson(response, 404, { message: "Player not found" });
@@ -542,14 +542,14 @@ async function handleAdminApiRequest(request, requestPath, response) {
 
   try {
     if (request.method === "GET" && adminDashboardMatch) {
-      sendJson(response, 200, getAdminDashboardData());
+      sendJson(response, 200, await getAdminDashboardData());
       return true;
     }
 
     if (request.method === "POST" && adminPlayerCreateMatch) {
       const requestBody = await readRequestBody(request);
       const parsedBody = JSON.parse(requestBody || "{}");
-      const player = createAdminPlayer(parsedBody);
+      const player = await createAdminPlayer(parsedBody);
 
       sendJson(response, 200, {
         success: true,
@@ -561,7 +561,7 @@ async function handleAdminApiRequest(request, requestPath, response) {
     if (request.method === "PATCH" && adminPlayerTeamMatch) {
       const requestBody = await readRequestBody(request);
       const parsedBody = JSON.parse(requestBody || "{}");
-      const player = updateAdminPlayerTeam(adminPlayerTeamMatch[1], parsedBody.teamId);
+      const player = await updateAdminPlayerTeam(adminPlayerTeamMatch[1], parsedBody.teamId);
 
       sendJson(response, 200, {
         success: true,
@@ -574,7 +574,7 @@ async function handleAdminApiRequest(request, requestPath, response) {
       const requestBody = await readRequestBody(request);
       const parsedBody = JSON.parse(requestBody || "{}");
 
-      updateAdminRaceScores(adminRaceScoresMatch[1], parsedBody.results);
+      await updateAdminRaceScores(adminRaceScoresMatch[1], parsedBody.results);
       sendJson(response, 200, {
         success: true,
       });
@@ -591,7 +591,7 @@ async function handleAdminApiRequest(request, requestPath, response) {
   return true;
 }
 
-function handleStoredRootData(requestPath, response) {
+async function handleStoredRootData(requestPath, response) {
   const rootDataMatch = requestPath.match(/^\/data\/([^/]+\.json)$/);
 
   if (!rootDataMatch) {
@@ -599,12 +599,12 @@ function handleStoredRootData(requestPath, response) {
   }
 
   if (rootDataMatch[1] === "leaderData.json") {
-    sendJson(response, 200, getRootLeaderboard());
+    sendJson(response, 200, await getRootLeaderboard());
     return true;
   }
 
   {
-    const payload = getRootSiteData(rootDataMatch[1]);
+    const payload = await getRootSiteData(rootDataMatch[1]);
 
     if (!payload) {
       return false;
@@ -615,7 +615,7 @@ function handleStoredRootData(requestPath, response) {
   }
 }
 
-function handleStoredTeamData(requestPath, response) {
+async function handleStoredTeamData(requestPath, response) {
   const teamDataMatch = requestPath.match(/^\/Team_Sites\/([^/]+)\/data\/([^/]+\.json)$/);
 
   if (!teamDataMatch) {
@@ -623,17 +623,17 @@ function handleStoredTeamData(requestPath, response) {
   }
 
   if (teamDataMatch[2] === "raceData.json") {
-    sendJson(response, 200, getTeamSiteRaceData(teamDataMatch[1]));
+    sendJson(response, 200, await getTeamSiteRaceData(teamDataMatch[1]));
     return true;
   }
 
   if (teamDataMatch[2] === "driversData.json") {
-    sendJson(response, 200, getTeamSiteDrivers(teamDataMatch[1]));
+    sendJson(response, 200, await getTeamSiteDrivers(teamDataMatch[1]));
     return true;
   }
 
   {
-    const payload = getTeamSiteData(teamDataMatch[1], teamDataMatch[2]);
+    const payload = await getTeamSiteData(teamDataMatch[1], teamDataMatch[2]);
 
     if (!payload) {
       sendJson(response, 404, { message: "Data file not found" });
@@ -728,30 +728,35 @@ async function handleRequest(request, response) {
     }
   }
 
-  if (request.method === "GET" && handleApiRequest(requestPath, response)) {
+  if (request.method === "GET" && (await handleApiRequest(requestPath, response))) {
     return;
   }
 
-  if (request.method === "GET" && handleStoredRootData(requestPath, response)) {
+  if (request.method === "GET" && (await handleStoredRootData(requestPath, response))) {
     return;
   }
 
-  if (request.method === "GET" && handleStoredTeamData(requestPath, response)) {
+  if (request.method === "GET" && (await handleStoredTeamData(requestPath, response))) {
     return;
   }
 
   serveStaticFile(requestPath, response);
 }
 
-ensureLeagueData();
-
-http
-  .createServer(function createServer(request, response) {
-    handleRequest(request, response).catch(function handleError(error) {
-      console.error("Request handling failed.", error);
-      sendJson(response, 500, { message: "Internal server error" });
-    });
+ensureLeagueData()
+  .then(function startServer() {
+    http
+      .createServer(function createServer(request, response) {
+        handleRequest(request, response).catch(function handleError(error) {
+          console.error("Request handling failed.", error);
+          sendJson(response, 500, { message: "Internal server error" });
+        });
+      })
+      .listen(port, "0.0.0.0", function handleListen() {
+        console.log("Server running on http://127.0.0.1:" + String(port) + "/");
+      });
   })
-  .listen(port, "0.0.0.0", function handleListen() {
-    console.log("Server running on http://127.0.0.1:" + String(port) + "/");
+  .catch(function handleStartupError(error) {
+    console.error("Server startup failed.", error);
+    process.exit(1);
   });

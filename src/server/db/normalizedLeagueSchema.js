@@ -3,7 +3,6 @@
 const crypto = require("crypto");
 const fs = require("fs");
 const path = require("path");
-const { DatabaseSync } = require("node:sqlite");
 const { User } = require("../models/User");
 
 const currentSchemaVersion = "5";
@@ -318,24 +317,24 @@ function quoteIdentifier(identifier) {
   return '"' + String(identifier) + '"';
 }
 
-function tableExists(database, tableName) {
+async function tableExists(database, tableName) {
   return Boolean(
-    database
+    await database
       .prepare("SELECT name FROM sqlite_master WHERE type = 'table' AND name = ?")
       .get(tableName),
   );
 }
 
-function getTableColumns(database, tableName) {
-  if (!tableExists(database, tableName)) {
+async function getTableColumns(database, tableName) {
+  if (!(await tableExists(database, tableName))) {
     return [];
   }
 
   return database.prepare("PRAGMA table_info(" + quoteIdentifier(tableName) + ")").all();
 }
 
-function columnExists(database, tableName, columnName) {
-  return getTableColumns(database, tableName).some(function hasColumn(column) {
+async function columnExists(database, tableName, columnName) {
+  return (await getTableColumns(database, tableName)).some(function hasColumn(column) {
     return column.name === columnName;
   });
 }
@@ -456,20 +455,20 @@ function verifyPassword(password, storedPasswordHash) {
   );
 }
 
-function getSchemaMetaValue(database, keyValue) {
-  if (!tableExists(database, "schema_meta")) {
+async function getSchemaMetaValue(database, keyValue) {
+  if (!(await tableExists(database, "schema_meta"))) {
     return null;
   }
 
-  const schemaRow = database
+  const schemaRow = await database
     .prepare("SELECT value FROM schema_meta WHERE key = ?")
     .get(keyValue);
 
   return schemaRow ? String(schemaRow.value) : null;
 }
 
-function setSchemaMetaValue(database, keyValue, value) {
-  database
+async function setSchemaMetaValue(database, keyValue, value) {
+  await database
     .prepare(
       "INSERT INTO schema_meta (key, value) VALUES (?, ?) " +
         "ON CONFLICT(key) DO UPDATE SET value = excluded.value",
@@ -477,16 +476,16 @@ function setSchemaMetaValue(database, keyValue, value) {
     .run(keyValue, String(value));
 }
 
-function getSchemaVersion(database) {
+async function getSchemaVersion(database) {
   return getSchemaMetaValue(database, "league_schema_version");
 }
 
-function setSchemaVersion(database, versionValue) {
-  setSchemaMetaValue(database, "league_schema_version", versionValue);
+async function setSchemaVersion(database, versionValue) {
+  await setSchemaMetaValue(database, "league_schema_version", versionValue);
 }
 
-function readExistingTeams(database) {
-  if (!tableExists(database, "teams")) {
+async function readExistingTeams(database) {
+  if (!(await tableExists(database, "teams"))) {
     return [];
   }
 
@@ -498,12 +497,12 @@ function readExistingTeams(database) {
     .all();
 }
 
-function readExistingPlayers(database) {
-  if (!tableExists(database, "players")) {
+async function readExistingPlayers(database) {
+  if (!(await tableExists(database, "players"))) {
     return [];
   }
 
-  if (columnExists(database, "players", "current_team_id")) {
+  if (await columnExists(database, "players", "current_team_id")) {
     return database
       .prepare(
         "SELECT id, current_team_id AS team_id, first_name, last_name, date_of_birth, role, " +
@@ -522,20 +521,20 @@ function readExistingPlayers(database) {
     .all();
 }
 
-function readExistingUsers(database) {
-  if (!tableExists(database, "users")) {
+async function readExistingUsers(database) {
+  if (!(await tableExists(database, "users"))) {
     return [];
   }
 
   if (
-    columnExists(database, "users", "email") &&
-    columnExists(database, "users", "first_name") &&
-    columnExists(database, "users", "last_name") &&
-    columnExists(database, "users", "password_hash")
+    (await columnExists(database, "users", "email")) &&
+    (await columnExists(database, "users", "first_name")) &&
+    (await columnExists(database, "users", "last_name")) &&
+    (await columnExists(database, "users", "password_hash"))
   ) {
-    const hasRoleColumn = columnExists(database, "users", "role");
-    const hasIsAdminColumn = columnExists(database, "users", "is_admin");
-    const hasFavoriteTeamColumn = columnExists(database, "users", "favorite_team_id");
+    const hasRoleColumn = await columnExists(database, "users", "role");
+    const hasIsAdminColumn = await columnExists(database, "users", "is_admin");
+    const hasFavoriteTeamColumn = await columnExists(database, "users", "favorite_team_id");
 
     return database
       .prepare(
@@ -557,8 +556,8 @@ function readExistingUsers(database) {
   return [];
 }
 
-function readExistingUsersForSeed(database) {
-  const normalizedUsers = readExistingUsers(database);
+async function readExistingUsersForSeed(database) {
+  const normalizedUsers = await readExistingUsers(database);
 
   if (normalizedUsers.length > 0) {
     return normalizedUsers.map(function mapNormalizedUser(userRow) {
@@ -577,14 +576,14 @@ function readExistingUsersForSeed(database) {
   return [];
 }
 
-function ensureSupportTables(database) {
-  database.exec(
+async function ensureSupportTables(database) {
+  await database.exec(
     "CREATE TABLE IF NOT EXISTS schema_meta (" +
       "key TEXT PRIMARY KEY, " +
       "value TEXT NOT NULL" +
       ")",
   );
-  database.exec(
+  await database.exec(
     "CREATE TABLE IF NOT EXISTS root_site_data (" +
       "scope_key TEXT NOT NULL, " +
       "file_name TEXT NOT NULL, " +
@@ -592,7 +591,7 @@ function ensureSupportTables(database) {
       "PRIMARY KEY (scope_key, file_name)" +
       ")",
   );
-  database.exec(
+  await database.exec(
     "CREATE TABLE IF NOT EXISTS driver_images (" +
       "image_key TEXT PRIMARY KEY, " +
       "file_name TEXT NOT NULL, " +
@@ -600,7 +599,7 @@ function ensureSupportTables(database) {
       "image_blob BLOB NOT NULL" +
       ")",
   );
-  database.exec(
+  await database.exec(
     "CREATE TABLE IF NOT EXISTS team_site_data (" +
       "team_slug TEXT NOT NULL, " +
       "file_name TEXT NOT NULL, " +
@@ -608,7 +607,7 @@ function ensureSupportTables(database) {
       "PRIMARY KEY (team_slug, file_name)" +
       ")",
   );
-  database.exec(
+  await database.exec(
     "CREATE TABLE IF NOT EXISTS team_site_drivers (" +
       "team_slug TEXT NOT NULL, " +
       "driver_key TEXT NOT NULL, " +
@@ -632,7 +631,7 @@ function ensureSupportTables(database) {
       "PRIMARY KEY (team_slug, driver_key)" +
       ")",
   );
-  database.exec(
+  await database.exec(
     "CREATE TABLE IF NOT EXISTS team_site_driver_former_teams (" +
       "team_slug TEXT NOT NULL, " +
       "driver_key TEXT NOT NULL, " +
@@ -645,18 +644,18 @@ function ensureSupportTables(database) {
   );
 }
 
-function ensureDefaultRootSiteData(database) {
-  database
+async function ensureDefaultRootSiteData(database) {
+  await database
     .prepare(
       "INSERT OR REPLACE INTO root_site_data (scope_key, file_name, payload) VALUES (?, ?, ?)",
     )
     .run("root", "groupMembers.json", JSON.stringify(defaultRootGroupMembers));
-  database
+  await database
     .prepare(
       "INSERT OR REPLACE INTO root_site_data (scope_key, file_name, payload) VALUES (?, ?, ?)",
     )
     .run("root", "leagueInfo.json", JSON.stringify(currentLeagueInfo));
-  database
+  await database
     .prepare("DELETE FROM root_site_data WHERE scope_key = ? AND file_name = ?")
     .run("root", "leaderData.json");
 }
@@ -670,12 +669,15 @@ function buildTeamSiteDriverKey(driverRecord, sortOrder) {
   return normalizeEntityToken(derivedName) || "driver-" + String(sortOrder);
 }
 
-function syncTeamSiteDriversFromLegacyPayloads(database) {
-  if (!tableExists(database, "team_site_data") || !tableExists(database, "team_site_drivers")) {
+async function syncTeamSiteDriversFromLegacyPayloads(database) {
+  if (
+    !(await tableExists(database, "team_site_data")) ||
+    !(await tableExists(database, "team_site_drivers"))
+  ) {
     return;
   }
 
-  const legacyDriverRows = database
+  const legacyDriverRows = await database
     .prepare("SELECT team_slug, payload FROM team_site_data WHERE file_name = ? ORDER BY team_slug")
     .all("driversData.json");
 
@@ -697,7 +699,7 @@ function syncTeamSiteDriversFromLegacyPayloads(database) {
   );
   const deleteLegacyRows = database.prepare("DELETE FROM team_site_data WHERE team_slug = ? AND file_name = ?");
 
-  legacyDriverRows.forEach(function importLegacyDriverRow(row) {
+  for (const row of legacyDriverRows) {
     let payload = [];
 
     try {
@@ -706,12 +708,12 @@ function syncTeamSiteDriversFromLegacyPayloads(database) {
       payload = [];
     }
 
-    deleteFormerTeams.run(row.team_slug);
-    deleteTeamDrivers.run(row.team_slug);
+    await deleteFormerTeams.run(row.team_slug);
+    await deleteTeamDrivers.run(row.team_slug);
 
-    (Array.isArray(payload) ? payload : []).forEach(function importDriver(driverRecord, driverIndex) {
+    for (const [driverIndex, driverRecord] of (Array.isArray(payload) ? payload : []).entries()) {
       if (!driverRecord || typeof driverRecord !== "object") {
-        return;
+        continue;
       }
 
       const derivedName =
@@ -721,7 +723,7 @@ function syncTeamSiteDriversFromLegacyPayloads(database) {
       const splitName = splitDisplayName(derivedName);
       const driverKey = buildTeamSiteDriverKey(driverRecord, driverIndex);
 
-      insertDriver.run(
+      await insertDriver.run(
         row.team_slug,
         driverKey,
         driverIndex,
@@ -743,15 +745,14 @@ function syncTeamSiteDriversFromLegacyPayloads(database) {
         stringValue(driverRecord.photo) || stringValue(driverRecord.image),
       );
 
-      (Array.isArray(driverRecord.formerTeams) ? driverRecord.formerTeams : []).forEach(function importFormerTeam(
-        formerTeam,
-        formerTeamIndex,
-      ) {
+      for (const [formerTeamIndex, formerTeam] of (Array.isArray(driverRecord.formerTeams)
+        ? driverRecord.formerTeams
+        : []).entries()) {
         if (!formerTeam || typeof formerTeam !== "object" || !stringValue(formerTeam.title)) {
-          return;
+          continue;
         }
 
-        insertFormerTeam.run(
+        await insertFormerTeam.run(
           row.team_slug,
           driverKey,
           formerTeamIndex,
@@ -759,15 +760,15 @@ function syncTeamSiteDriversFromLegacyPayloads(database) {
           stringValue(formerTeam.city),
           stringValue(formerTeam.country),
         );
-      });
-    });
+      }
+    }
 
-    deleteLegacyRows.run(row.team_slug, "driversData.json");
-  });
+    await deleteLegacyRows.run(row.team_slug, "driversData.json");
+  }
 }
 
-function createNormalizedCoreTables(database) {
-  database.exec(
+async function createNormalizedCoreTables(database) {
+  await database.exec(
     "CREATE TABLE IF NOT EXISTS teams (" +
       "id INTEGER PRIMARY KEY, " +
       "slug TEXT NOT NULL UNIQUE, " +
@@ -779,7 +780,7 @@ function createNormalizedCoreTables(database) {
       "founded_year INTEGER" +
       ")",
   );
-  database.exec(
+  await database.exec(
     "CREATE TABLE IF NOT EXISTS users (" +
       "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
       "email TEXT NOT NULL UNIQUE, " +
@@ -793,7 +794,7 @@ function createNormalizedCoreTables(database) {
       "FOREIGN KEY (favorite_team_id) REFERENCES teams(id) ON DELETE SET NULL" +
       ")",
   );
-  database.exec(
+  await database.exec(
     "CREATE TABLE IF NOT EXISTS players (" +
       "id INTEGER PRIMARY KEY, " +
       "current_team_id INTEGER, " +
@@ -807,7 +808,7 @@ function createNormalizedCoreTables(database) {
       "FOREIGN KEY (current_team_id) REFERENCES teams(id) ON DELETE SET NULL" +
       ")",
   );
-  database.exec(
+  await database.exec(
     "CREATE TABLE IF NOT EXISTS team_memberships (" +
       "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
       "player_id INTEGER NOT NULL, " +
@@ -820,7 +821,7 @@ function createNormalizedCoreTables(database) {
       "UNIQUE (player_id, team_id, start_season, end_season, is_current)" +
       ")",
   );
-  database.exec(
+  await database.exec(
     "CREATE TABLE IF NOT EXISTS races (" +
       "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
       "slug TEXT NOT NULL UNIQUE, " +
@@ -832,7 +833,7 @@ function createNormalizedCoreTables(database) {
       "status TEXT NOT NULL DEFAULT 'upcoming' CHECK (status IN ('upcoming', 'completed'))" +
       ")",
   );
-  database.exec(
+  await database.exec(
     "CREATE TABLE IF NOT EXISTS race_entries (" +
       "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
       "race_id INTEGER NOT NULL, " +
@@ -844,7 +845,7 @@ function createNormalizedCoreTables(database) {
       "UNIQUE (race_id, team_id)" +
       ")",
   );
-  database.exec(
+  await database.exec(
     "CREATE TABLE IF NOT EXISTS scores (" +
       "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
       "race_id INTEGER NOT NULL, " +
@@ -862,34 +863,34 @@ function createNormalizedCoreTables(database) {
       "UNIQUE (race_id, player_id)" +
       ")",
   );
-  database.exec(
+  await database.exec(
     "CREATE INDEX IF NOT EXISTS idx_players_current_team_id ON players(current_team_id)",
   );
-  database.exec(
+  await database.exec(
     "CREATE INDEX IF NOT EXISTS idx_team_memberships_player_id ON team_memberships(player_id)",
   );
-  database.exec(
+  await database.exec(
     "CREATE INDEX IF NOT EXISTS idx_team_memberships_team_id ON team_memberships(team_id)",
   );
-  database.exec(
+  await database.exec(
     "CREATE INDEX IF NOT EXISTS idx_race_entries_race_id ON race_entries(race_id)",
   );
-  database.exec(
+  await database.exec(
     "CREATE INDEX IF NOT EXISTS idx_scores_race_id ON scores(race_id)",
   );
-  database.exec(
+  await database.exec(
     "CREATE INDEX IF NOT EXISTS idx_scores_player_id ON scores(player_id)",
   );
 }
 
-function insertTeams(database, teams) {
+async function insertTeams(database, teams) {
   const insertTeam = database.prepare(
     "INSERT INTO teams (id, slug, name, description, logo_image, team_image, base_location, founded_year) " +
       "VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
   );
 
-  teams.forEach(function insertTeamRow(teamRow) {
-    insertTeam.run(
+  for (const teamRow of teams) {
+    await insertTeam.run(
       teamRow.id,
       teamRow.slug,
       teamRow.name,
@@ -899,17 +900,17 @@ function insertTeams(database, teams) {
       null,
       null,
     );
-  });
+  }
 }
 
-function insertActivePlayers(database, players) {
+async function insertActivePlayers(database, players) {
   const insertPlayer = database.prepare(
     "INSERT INTO players (id, current_team_id, first_name, last_name, date_of_birth, role, driver_number, photo, is_active) " +
       "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
   );
 
-  players.forEach(function insertPlayerRow(playerRow) {
-    insertPlayer.run(
+  for (const playerRow of players) {
+    await insertPlayer.run(
       playerRow.id,
       playerRow.team_id,
       playerRow.first_name,
@@ -920,7 +921,7 @@ function insertActivePlayers(database, players) {
       playerRow.photo,
       playerRow.is_active ? 1 : 0,
     );
-  });
+  }
 }
 
 function capitalizeWord(wordValue) {
@@ -1027,28 +1028,28 @@ function buildSeedUsers(existingUsers, teamIdBySlug) {
   return seedUsers;
 }
 
-function syncTeamMemberships(database) {
+async function syncTeamMemberships(database) {
   const insertMembership = database.prepare(
     "INSERT OR IGNORE INTO team_memberships (player_id, team_id, start_season, end_season, is_current) " +
       "VALUES (?, ?, ?, ?, ?)",
   );
-  const activePlayers = database
+  const activePlayers = await database
     .prepare(
       "SELECT id, current_team_id FROM players " +
         "WHERE current_team_id IS NOT NULL AND is_active = 1",
     )
     .all();
 
-  database.exec("DELETE FROM team_memberships");
+  await database.exec("DELETE FROM team_memberships");
 
-  activePlayers.forEach(function insertActiveMembership(playerRow) {
-    insertMembership.run(playerRow.id, playerRow.current_team_id, 0, 0, 1);
-  });
+  for (const playerRow of activePlayers) {
+    await insertMembership.run(playerRow.id, playerRow.current_team_id, 0, 0, 1);
+  }
 }
 
-function buildPlayersByToken(database) {
+async function buildPlayersByToken(database) {
   const playersByToken = new Map();
-  const playerRows = database
+  const playerRows = await database
     .prepare("SELECT id, first_name, last_name FROM players ORDER BY id")
     .all();
 
@@ -1067,8 +1068,8 @@ function buildPlayersByToken(database) {
   return playersByToken;
 }
 
-function insertInactivePlayersFromTeamData(database) {
-  if (!tableExists(database, "team_site_drivers")) {
+async function insertInactivePlayersFromTeamData(database) {
+  if (!(await tableExists(database, "team_site_drivers"))) {
     return;
   }
 
@@ -1076,15 +1077,15 @@ function insertInactivePlayersFromTeamData(database) {
     "INSERT INTO players (current_team_id, first_name, last_name, date_of_birth, role, driver_number, photo, is_active) " +
       "VALUES (?, ?, ?, ?, ?, ?, ?, 0)",
   );
-  const playersByToken = buildPlayersByToken(database);
+  const playersByToken = await buildPlayersByToken(database);
   const playerTeamStateById = new Map();
-  const teamRows = database.prepare("SELECT id, slug FROM teams ORDER BY id").all();
+  const teamRows = await database.prepare("SELECT id, slug FROM teams ORDER BY id").all();
   const teamIdBySlug = new Map();
   const insertMembership = database.prepare(
     "INSERT OR IGNORE INTO team_memberships (player_id, team_id, start_season, end_season, is_current) " +
       "VALUES (?, ?, ?, ?, 0)",
   );
-  const driverRows = database
+  const driverRows = await database
     .prepare(
       "SELECT team_slug, driver_id, display_name, full_name, first_name, last_name, birth_date, born_text, role, driver_number, photo, image_path " +
         "FROM team_site_drivers " +
@@ -1095,9 +1096,9 @@ function insertInactivePlayersFromTeamData(database) {
   teamRows.forEach(function indexTeam(teamRow) {
     teamIdBySlug.set(teamRow.slug, teamRow.id);
   });
-  database
+  (await database
     .prepare("SELECT id, current_team_id, is_active FROM players ORDER BY id")
-    .all()
+    .all())
     .forEach(function indexPlayerState(playerRow) {
       playerTeamStateById.set(playerRow.id, {
         currentTeamId: playerRow.current_team_id,
@@ -1105,7 +1106,7 @@ function insertInactivePlayersFromTeamData(database) {
       });
     });
 
-  driverRows.forEach(function insertDriver(driverRecord) {
+  for (const driverRecord of driverRows) {
       const derivedName =
         driverRecord.full_name ||
         driverRecord.display_name ||
@@ -1135,16 +1136,16 @@ function insertInactivePlayersFromTeamData(database) {
         });
 
         if (teamId && (!playerState.isActive || playerState.currentTeamId !== teamId)) {
-          insertMembership.run(existingPlayerId, teamId, 0, 0);
+          await insertMembership.run(existingPlayerId, teamId, 0, 0);
         }
-        return;
+        continue;
       }
 
       const photoPath =
         stringValue(driverRecord.photo) ||
         stringValue(driverRecord.image_path) ||
         "/api/driver-images/" + normalizeEntityToken(derivedName) + ".jpg";
-      const insertResult = insertPlayer.run(
+      const insertResult = await insertPlayer.run(
         null,
         splitName.firstName,
         splitName.lastName,
@@ -1163,14 +1164,14 @@ function insertInactivePlayersFromTeamData(database) {
       });
 
       if (teamId) {
-        insertMembership.run(playerId, teamId, 0, 0);
+        await insertMembership.run(playerId, teamId, 0, 0);
       }
 
       playerTeamStateById.set(playerId, {
         currentTeamId: null,
         isActive: false,
       });
-  });
+  }
 }
 
 function buildRaceSlug(season, circuitName) {
@@ -1181,8 +1182,8 @@ function buildScheduledAt(raceSeed) {
   return stringValue(raceSeed && raceSeed.scheduledAt) || null;
 }
 
-function readStoredSitePayload(database, tableName, keyColumn, keyValue, fileName) {
-  const row = database
+async function readStoredSitePayload(database, tableName, keyColumn, keyValue, fileName) {
+  const row = await database
     .prepare(
       "SELECT payload FROM " +
         tableName +
@@ -1199,8 +1200,8 @@ function readStoredSitePayload(database, tableName, keyColumn, keyValue, fileNam
   return JSON.parse(row.payload);
 }
 
-function writeStoredSitePayload(database, tableName, keyColumn, keyValue, fileName, payload) {
-  database
+async function writeStoredSitePayload(database, tableName, keyColumn, keyValue, fileName, payload) {
+  await database
     .prepare(
       "INSERT INTO " +
         tableName +
@@ -1228,9 +1229,9 @@ function buildCurrentDriverPhotoPath(driverSeed, existingPlayerRow) {
   return "/api/driver-images/" + normalizeEntityToken(toDisplayName(driverSeed.firstName, driverSeed.lastName)) + ".jpg";
 }
 
-function syncCurrentActiveDrivers(database) {
-  const teamRows = database.prepare("SELECT id, slug FROM teams ORDER BY id").all();
-  const existingPlayers = database
+async function syncCurrentActiveDrivers(database) {
+  const teamRows = await database.prepare("SELECT id, slug FROM teams ORDER BY id").all();
+  const existingPlayers = await database
     .prepare("SELECT id, first_name, last_name, photo FROM players ORDER BY id")
     .all();
   const teamIdBySlug = new Map();
@@ -1260,9 +1261,9 @@ function syncCurrentActiveDrivers(database) {
     });
   });
 
-  database.exec("UPDATE players SET current_team_id = NULL, is_active = 0 WHERE is_active = 1");
+  await database.exec("UPDATE players SET current_team_id = NULL, is_active = 0 WHERE is_active = 1");
 
-  currentDriverLineup.forEach(function syncDriver(driverSeed) {
+  for (const driverSeed of currentDriverLineup) {
     const teamId = teamIdBySlug.get(driverSeed.teamSlug);
     const displayName = toDisplayName(driverSeed.firstName, driverSeed.lastName);
     const playerTokens = buildPlayerTokens(driverSeed.firstName, driverSeed.lastName, displayName);
@@ -1273,11 +1274,11 @@ function syncCurrentActiveDrivers(database) {
     let playerId = existingPlayer ? Number(existingPlayer.id) : null;
 
     if (!teamId) {
-      return;
+      continue;
     }
 
     if (playerId) {
-      updatePlayer.run(
+      await updatePlayer.run(
         teamId,
         driverSeed.firstName,
         driverSeed.lastName,
@@ -1288,7 +1289,7 @@ function syncCurrentActiveDrivers(database) {
         playerId,
       );
     } else {
-      const insertResult = insertPlayer.run(
+      const insertResult = await insertPlayer.run(
         teamId,
         driverSeed.firstName,
         driverSeed.lastName,
@@ -1310,7 +1311,7 @@ function syncCurrentActiveDrivers(database) {
         });
       }
     });
-  });
+  }
 }
 
 function buildCarImagePath(teamSlug, fileName) {
@@ -1340,9 +1341,9 @@ function buildDriverSiteReference(driverRow) {
   };
 }
 
-function buildCurrentTeamDriverReferences(database) {
+async function buildCurrentTeamDriverReferences(database) {
   const driversByTeamSlug = new Map();
-  const driverRows = database
+  const driverRows = await database
     .prepare(
       "SELECT teams.slug AS team_slug, players.first_name, players.last_name, players.driver_number, players.date_of_birth, players.photo, players.role " +
         "FROM players " +
@@ -1410,17 +1411,23 @@ function findPreferredCarAssetFileName(carsDirectory) {
   return carAssets.length > 0 ? carAssets[carAssets.length - 1] : "";
 }
 
-function syncCurrentTeamSitePayloads(database) {
-  if (!tableExists(database, "team_site_data")) {
+async function syncCurrentTeamSitePayloads(database) {
+  if (!(await tableExists(database, "team_site_data"))) {
     return;
   }
 
-  const teams = database.prepare("SELECT slug, name FROM teams ORDER BY slug").all();
-  const currentDriversByTeamSlug = buildCurrentTeamDriverReferences(database);
+  const teams = await database.prepare("SELECT slug, name FROM teams ORDER BY slug").all();
+  const currentDriversByTeamSlug = await buildCurrentTeamDriverReferences(database);
 
-  teams.forEach(function syncTeamPayload(teamRow) {
+  for (const teamRow of teams) {
     const currentDrivers = currentDriversByTeamSlug.get(teamRow.slug) || [];
-    const carsPayload = readStoredSitePayload(database, "team_site_data", "team_slug", teamRow.slug, "carsData.json");
+    const carsPayload = await readStoredSitePayload(
+      database,
+      "team_site_data",
+      "team_slug",
+      teamRow.slug,
+      "carsData.json",
+    );
     const mergedCars = Array.isArray(carsPayload) ? carsPayload.slice() : [];
     const carsDirectory = path.join(rootDirectory, "F1", "Team_Sites", teamRow.slug, "assets", "images", "cars");
     const latestCarRow = mergedCars.find(function findLatestCar(carRow) {
@@ -1459,28 +1466,35 @@ function syncCurrentTeamSitePayloads(database) {
       });
     }
 
-    writeStoredSitePayload(database, "team_site_data", "team_slug", teamRow.slug, "carsData.json", mergedCars);
-  });
+    await writeStoredSitePayload(
+      database,
+      "team_site_data",
+      "team_slug",
+      teamRow.slug,
+      "carsData.json",
+      mergedCars,
+    );
+  }
 }
 
-function rebuildDerivedRaceData(database) {
-  database.exec("DELETE FROM scores");
-  database.exec("DELETE FROM race_entries");
-  database.exec("DELETE FROM races");
-  seedRacesAndScores(database);
-  setSchemaMetaValue(database, "race_seed_version", currentRaceSeedVersion);
+async function rebuildDerivedRaceData(database) {
+  await database.exec("DELETE FROM scores");
+  await database.exec("DELETE FROM race_entries");
+  await database.exec("DELETE FROM races");
+  await seedRacesAndScores(database);
+  await setSchemaMetaValue(database, "race_seed_version", currentRaceSeedVersion);
 }
 
-function seedRacesAndScores(database) {
-  const raceCount = database.prepare("SELECT COUNT(*) AS count FROM races").get().count;
-  const scoreCount = database.prepare("SELECT COUNT(*) AS count FROM scores").get().count;
+async function seedRacesAndScores(database) {
+  const raceCount = (await database.prepare("SELECT COUNT(*) AS count FROM races").get()).count;
+  const scoreCount = (await database.prepare("SELECT COUNT(*) AS count FROM scores").get()).count;
 
   if (Number(raceCount) > 0 || Number(scoreCount) > 0) {
     return;
   }
 
-  const teamRows = database.prepare("SELECT id, slug FROM teams ORDER BY id").all();
-  const activePlayerRows = database
+  const teamRows = await database.prepare("SELECT id, slug FROM teams ORDER BY id").all();
+  const activePlayerRows = await database
     .prepare(
       "SELECT players.id, players.current_team_id, players.driver_number, players.first_name, players.last_name, teams.slug AS team_slug " +
         "FROM players " +
@@ -1513,10 +1527,10 @@ function seedRacesAndScores(database) {
     );
   });
 
-  defaultRaceSchedule.forEach(function seedRace(raceSeed) {
+  for (const raceSeed of defaultRaceSchedule) {
     const completedResults = completedRaceResultsByRound[raceSeed.roundNumber] || null;
     const raceStatus = completedResults ? "completed" : "upcoming";
-    const insertRaceResult = insertRace.run(
+    const insertRaceResult = await insertRace.run(
       buildRaceSlug(defaultRaceSeason, raceSeed.circuitName),
       defaultRaceSeason,
       raceSeed.roundNumber,
@@ -1527,23 +1541,23 @@ function seedRacesAndScores(database) {
     );
     const raceId = Number(insertRaceResult.lastInsertRowid);
 
-    teamRows.forEach(function insertTeamEntry(teamRow) {
-      insertRaceEntry.run(
+    for (const teamRow of teamRows) {
+      await insertRaceEntry.run(
         raceId,
         teamRow.id,
         raceStatus === "completed" ? "completed" : "scheduled",
       );
-    });
+    }
 
     if (completedResults) {
-      completedResults.forEach(function insertCompletedScore(resultRow) {
+      for (const resultRow of completedResults) {
         const playerRow = activePlayerByName.get(normalizeEntityToken(resultRow.driverName));
 
         if (!playerRow) {
-          return;
+          continue;
         }
 
-        insertScore.run(
+        await insertScore.run(
           raceId,
           playerRow.current_team_id,
           playerRow.id,
@@ -1553,12 +1567,12 @@ function seedRacesAndScores(database) {
           stringValue(resultRow.resultTime),
           "completed",
         );
-      });
-      return;
+      }
+      continue;
     }
 
-    activePlayerRows.forEach(function insertUpcomingScore(driverRow) {
-      insertScore.run(
+    for (const driverRow of activePlayerRows) {
+      await insertScore.run(
         raceId,
         driverRow.current_team_id,
         driverRow.id,
@@ -1568,10 +1582,10 @@ function seedRacesAndScores(database) {
         null,
         "scheduled",
       );
-    });
-  });
+    }
+  }
 
-  database.exec(
+  await database.exec(
     "UPDATE races " +
       "SET status = CASE " +
       "WHEN EXISTS (" +
@@ -1579,7 +1593,7 @@ function seedRacesAndScores(database) {
       ") THEN 'completed' " +
       "ELSE 'upcoming' END",
   );
-  database.exec(
+  await database.exec(
     "UPDATE race_entries " +
       "SET entry_status = CASE " +
       "WHEN EXISTS (" +
@@ -1594,110 +1608,110 @@ function seedRacesAndScores(database) {
   );
 }
 
-function hasNormalizedCore(database) {
+async function hasNormalizedCore(database) {
   return (
-    getSchemaVersion(database) === currentSchemaVersion &&
-    columnExists(database, "players", "current_team_id") &&
-    columnExists(database, "players", "date_of_birth") &&
-    columnExists(database, "players", "role") &&
-    columnExists(database, "players", "driver_number") &&
-    columnExists(database, "players", "is_active") &&
-    columnExists(database, "users", "email") &&
-    columnExists(database, "users", "first_name") &&
-    columnExists(database, "users", "last_name") &&
-    columnExists(database, "users", "password_hash") &&
-    columnExists(database, "users", "favorite_team_id") &&
-    columnExists(database, "users", "is_admin") &&
-    tableExists(database, "team_memberships") &&
-    tableExists(database, "races") &&
-    tableExists(database, "race_entries") &&
-    tableExists(database, "scores") &&
-    columnExists(database, "scores", "bonus_points")
+    (await getSchemaVersion(database)) === currentSchemaVersion &&
+    (await columnExists(database, "players", "current_team_id")) &&
+    (await columnExists(database, "players", "date_of_birth")) &&
+    (await columnExists(database, "players", "role")) &&
+    (await columnExists(database, "players", "driver_number")) &&
+    (await columnExists(database, "players", "is_active")) &&
+    (await columnExists(database, "users", "email")) &&
+    (await columnExists(database, "users", "first_name")) &&
+    (await columnExists(database, "users", "last_name")) &&
+    (await columnExists(database, "users", "password_hash")) &&
+    (await columnExists(database, "users", "favorite_team_id")) &&
+    (await columnExists(database, "users", "is_admin")) &&
+    (await tableExists(database, "team_memberships")) &&
+    (await tableExists(database, "races")) &&
+    (await tableExists(database, "race_entries")) &&
+    (await tableExists(database, "scores")) &&
+    (await columnExists(database, "scores", "bonus_points"))
   );
 }
 
-function rebuildCoreSchema(database) {
-  const existingTeams = readExistingTeams(database);
-  const existingPlayers = readExistingPlayers(database);
-  const existingUsers = readExistingUsersForSeed(database);
+async function rebuildCoreSchema(database) {
+  const existingTeams = await readExistingTeams(database);
+  const existingPlayers = await readExistingPlayers(database);
+  const existingUsers = await readExistingUsersForSeed(database);
 
-  database.exec("PRAGMA foreign_keys = OFF");
-  database.exec("BEGIN");
+  await database.exec("PRAGMA foreign_keys = OFF");
+  await database.exec("BEGIN");
 
   try {
-    if (tableExists(database, "scores")) {
-      database.exec("DROP TABLE scores");
+    if (await tableExists(database, "scores")) {
+      await database.exec("DROP TABLE scores");
     }
 
-    if (tableExists(database, "race_entries")) {
-      database.exec("DROP TABLE race_entries");
+    if (await tableExists(database, "race_entries")) {
+      await database.exec("DROP TABLE race_entries");
     }
 
-    if (tableExists(database, "races")) {
-      database.exec("DROP TABLE races");
+    if (await tableExists(database, "races")) {
+      await database.exec("DROP TABLE races");
     }
 
-    if (tableExists(database, "team_memberships")) {
-      database.exec("DROP TABLE team_memberships");
+    if (await tableExists(database, "team_memberships")) {
+      await database.exec("DROP TABLE team_memberships");
     }
 
-    if (tableExists(database, "users")) {
-      database.exec("DROP TABLE users");
+    if (await tableExists(database, "users")) {
+      await database.exec("DROP TABLE users");
     }
 
-    if (tableExists(database, "players")) {
-      database.exec("DROP TABLE players");
+    if (await tableExists(database, "players")) {
+      await database.exec("DROP TABLE players");
     }
 
-    if (tableExists(database, "teams")) {
-      database.exec("DROP TABLE teams");
+    if (await tableExists(database, "teams")) {
+      await database.exec("DROP TABLE teams");
     }
 
-    createNormalizedCoreTables(database);
-    insertTeams(database, existingTeams);
-    insertActivePlayers(database, existingPlayers);
-    syncCurrentActiveDrivers(database);
-    syncTeamSiteDriversFromLegacyPayloads(database);
-    insertSeedUsersFromExistingUsers(database, existingUsers);
-    syncTeamMemberships(database);
-    insertInactivePlayersFromTeamData(database);
-    syncCurrentTeamSitePayloads(database);
-    rebuildDerivedRaceData(database);
-    ensureMinimumSeedCoverage(database);
-    setSchemaVersion(database, currentSchemaVersion);
-    database.exec("COMMIT");
+    await createNormalizedCoreTables(database);
+    await insertTeams(database, existingTeams);
+    await insertActivePlayers(database, existingPlayers);
+    await syncCurrentActiveDrivers(database);
+    await syncTeamSiteDriversFromLegacyPayloads(database);
+    await insertSeedUsersFromExistingUsers(database, existingUsers);
+    await syncTeamMemberships(database);
+    await insertInactivePlayersFromTeamData(database);
+    await syncCurrentTeamSitePayloads(database);
+    await rebuildDerivedRaceData(database);
+    await ensureMinimumSeedCoverage(database);
+    await setSchemaVersion(database, currentSchemaVersion);
+    await database.exec("COMMIT");
   } catch (error) {
-    database.exec("ROLLBACK");
+    await database.exec("ROLLBACK");
     throw error;
   } finally {
-    database.exec("PRAGMA foreign_keys = ON");
+    await database.exec("PRAGMA foreign_keys = ON");
   }
 }
 
-function topUpNormalizedData(database) {
-  insertSeedUsers(database);
-  syncCurrentActiveDrivers(database);
-  syncTeamSiteDriversFromLegacyPayloads(database);
-  syncTeamMemberships(database);
-  insertInactivePlayersFromTeamData(database);
-  syncCurrentTeamSitePayloads(database);
-  if (getSchemaMetaValue(database, "race_seed_version") !== currentRaceSeedVersion) {
-    rebuildDerivedRaceData(database);
+async function topUpNormalizedData(database) {
+  await insertSeedUsers(database);
+  await syncCurrentActiveDrivers(database);
+  await syncTeamSiteDriversFromLegacyPayloads(database);
+  await syncTeamMemberships(database);
+  await insertInactivePlayersFromTeamData(database);
+  await syncCurrentTeamSitePayloads(database);
+  if ((await getSchemaMetaValue(database, "race_seed_version")) !== currentRaceSeedVersion) {
+    await rebuildDerivedRaceData(database);
   }
-  ensureMinimumSeedCoverage(database);
-  setSchemaVersion(database, currentSchemaVersion);
+  await ensureMinimumSeedCoverage(database);
+  await setSchemaVersion(database, currentSchemaVersion);
 }
 
-function ensureNormalizedLeagueSchema(database) {
-  ensureSupportTables(database);
-  ensureDefaultRootSiteData(database);
+async function ensureNormalizedLeagueSchema(database) {
+  await ensureSupportTables(database);
+  await ensureDefaultRootSiteData(database);
 
-  if (hasNormalizedCore(database)) {
-    topUpNormalizedData(database);
+  if (await hasNormalizedCore(database)) {
+    await topUpNormalizedData(database);
     return;
   }
 
-  rebuildCoreSchema(database);
+  await rebuildCoreSchema(database);
 }
 
 function buildUserDisplayName(firstName, lastName, emailAddress) {
@@ -1718,8 +1732,8 @@ function mapUserRowToUser(userRow) {
   });
 }
 
-function insertSeedUsersFromExistingUsers(database, existingUsers) {
-  const teamRows = database.prepare("SELECT id, slug FROM teams ORDER BY id").all();
+async function insertSeedUsersFromExistingUsers(database, existingUsers) {
+  const teamRows = await database.prepare("SELECT id, slug FROM teams ORDER BY id").all();
   const teamIdBySlug = new Map();
   const insertUser = database.prepare(
     "INSERT OR IGNORE INTO users (email, first_name, last_name, password_hash, favorite_team_id, is_admin, role) " +
@@ -1730,8 +1744,8 @@ function insertSeedUsersFromExistingUsers(database, existingUsers) {
     teamIdBySlug.set(teamRow.slug, teamRow.id);
   });
 
-  buildSeedUsers(Array.isArray(existingUsers) ? existingUsers : [], teamIdBySlug).forEach(function insertUserSeed(userSeed) {
-    insertUser.run(
+  for (const userSeed of buildSeedUsers(Array.isArray(existingUsers) ? existingUsers : [], teamIdBySlug)) {
+    await insertUser.run(
       userSeed.email,
       userSeed.firstName,
       userSeed.lastName,
@@ -1740,25 +1754,25 @@ function insertSeedUsersFromExistingUsers(database, existingUsers) {
       userSeed.isAdmin,
       userSeed.role,
     );
-  });
+  }
 }
 
-function insertSeedUsers(database) {
-  insertSeedUsersFromExistingUsers(database, readExistingUsersForSeed(database));
+async function insertSeedUsers(database) {
+  await insertSeedUsersFromExistingUsers(database, await readExistingUsersForSeed(database));
 }
 
-function ensureMinimumSeedCoverage(database) {
-  const userCount = Number(database.prepare("SELECT COUNT(*) AS count FROM users").get().count || 0);
+async function ensureMinimumSeedCoverage(database) {
+  const userCount = Number((await database.prepare("SELECT COUNT(*) AS count FROM users").get()).count || 0);
   const adminCount = Number(
-    database
+    (await database
       .prepare(
         "SELECT COUNT(*) AS count FROM users " +
           "WHERE COALESCE(is_admin, 0) = 1 OR role = ?",
       )
-      .get("admin").count || 0,
+      .get("admin")).count || 0,
   );
   const playerCount = Number(
-    database.prepare("SELECT COUNT(*) AS count FROM players").get().count || 0,
+    (await database.prepare("SELECT COUNT(*) AS count FROM players").get()).count || 0,
   );
 
   if (userCount < minimumSeededUserCount) {
@@ -1786,14 +1800,14 @@ function ensureMinimumSeedCoverage(database) {
   }
 }
 
-function authenticateUser(database, emailValue, passwordValue) {
+async function authenticateUser(database, emailValue, passwordValue) {
   const normalizedEmail = normalizeEmailAddress(emailValue);
 
   if (!normalizedEmail || !stringValue(passwordValue)) {
     return null;
   }
 
-  const userRow = database
+  const userRow = await database
     .prepare(
       "SELECT users.id, users.email, users.first_name, users.last_name, users.password_hash, " +
         "users.role, users.is_admin, users.favorite_team_id, teams.slug AS favorite_team_slug " +
@@ -1810,7 +1824,7 @@ function authenticateUser(database, emailValue, passwordValue) {
   return mapUserRowToUser(userRow);
 }
 
-function registerUser(database, userInput) {
+async function registerUser(database, userInput) {
   const firstName = stringValue(userInput && userInput.firstName);
   const lastName = stringValue(userInput && userInput.lastName);
   const normalizedEmail = normalizeEmailAddress(userInput && userInput.email);
@@ -1830,7 +1844,7 @@ function registerUser(database, userInput) {
   }
 
   {
-    const teamRow = database
+    const teamRow = await database
       .prepare("SELECT id FROM teams WHERE id = ?")
       .get(favoriteTeamId);
 
@@ -1840,7 +1854,7 @@ function registerUser(database, userInput) {
   }
 
   {
-    const existingUser = database
+    const existingUser = await database
       .prepare("SELECT id FROM users WHERE lower(email) = ?")
       .get(normalizedEmail);
 
@@ -1849,7 +1863,7 @@ function registerUser(database, userInput) {
     }
   }
 
-  database
+  await database
     .prepare(
       "INSERT INTO users (email, first_name, last_name, password_hash, favorite_team_id, is_admin, role) " +
         "VALUES (?, ?, ?, ?, ?, 0, 'visitor')",
@@ -1865,14 +1879,14 @@ function registerUser(database, userInput) {
   return authenticateUser(database, normalizedEmail, password);
 }
 
-function updateUserProfile(database, userIdValue, userInput) {
+async function updateUserProfile(database, userIdValue, userInput) {
   const userId = Number.parseInt(stringValue(userIdValue), 10);
   const firstName = stringValue(userInput && userInput.firstName);
   const lastName = stringValue(userInput && userInput.lastName);
   const normalizedEmail = normalizeEmailAddress(userInput && userInput.email);
   const password = stringValue(userInput && userInput.password);
   const favoriteTeamId = Number.parseInt(stringValue(userInput && userInput.favoriteTeamId), 10);
-  const existingUser = database
+  const existingUser = await database
     .prepare("SELECT id, password_hash FROM users WHERE id = ?")
     .get(userId);
 
@@ -1893,7 +1907,7 @@ function updateUserProfile(database, userIdValue, userInput) {
   }
 
   {
-    const teamRow = database
+    const teamRow = await database
       .prepare("SELECT id FROM teams WHERE id = ?")
       .get(favoriteTeamId);
 
@@ -1903,7 +1917,7 @@ function updateUserProfile(database, userIdValue, userInput) {
   }
 
   {
-    const conflictingUser = database
+    const conflictingUser = await database
       .prepare("SELECT id FROM users WHERE lower(email) = ? AND id <> ?")
       .get(normalizedEmail, userId);
 
@@ -1912,7 +1926,7 @@ function updateUserProfile(database, userIdValue, userInput) {
     }
   }
 
-  database
+  await database
     .prepare(
       "UPDATE users SET first_name = ?, last_name = ?, email = ?, password_hash = ?, favorite_team_id = ? " +
         "WHERE id = ?",
@@ -1926,7 +1940,7 @@ function updateUserProfile(database, userIdValue, userInput) {
       userId,
     );
 
-  const userRow = database
+  const userRow = await database
     .prepare(
       "SELECT users.id, users.email, users.first_name, users.last_name, users.password_hash, " +
         "users.role, users.is_admin, users.favorite_team_id, teams.slug AS favorite_team_slug " +

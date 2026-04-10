@@ -1,8 +1,8 @@
-/* Purpose: Opens the league SQLite database, upgrades it to the normalized schema, and exposes query helpers. */
+/* Purpose: Opens the league SQLite database through sqlite3, upgrades it to the normalized schema, and exposes async query helpers. */
 
 const fs = require("fs");
 const path = require("path");
-const { DatabaseSync } = require("node:sqlite");
+const sqlite3 = require("sqlite3");
 const {
   authenticateUser: authenticateLeagueUser,
   ensureNormalizedLeagueSchema,
@@ -18,38 +18,150 @@ if (!fs.existsSync(storageDirectory)) {
   fs.mkdirSync(storageDirectory, { recursive: true });
 }
 
-const database = new DatabaseSync(databasePath);
-database.exec("PRAGMA foreign_keys = ON");
-ensureNormalizedLeagueSchema(database);
+function normalizeParameters(parameters) {
+  return Array.isArray(parameters) ? parameters : [];
+}
 
-function run(sql, parameters) {
+function createSqlite3Database(databaseFilePath) {
+  const rawDatabase = new sqlite3.Database(databaseFilePath);
+
+  function exec(sql) {
+    return new Promise(function handleExec(resolve, reject) {
+      rawDatabase.exec(sql, function onExec(error) {
+        if (error) {
+          reject(error);
+          return;
+        }
+
+        resolve();
+      });
+    });
+  }
+
+  function get(sql, parameters) {
+    return new Promise(function handleGet(resolve, reject) {
+      rawDatabase.get(sql, normalizeParameters(parameters), function onGet(error, row) {
+        if (error) {
+          reject(error);
+          return;
+        }
+
+        resolve(row || null);
+      });
+    });
+  }
+
+  function all(sql, parameters) {
+    return new Promise(function handleAll(resolve, reject) {
+      rawDatabase.all(sql, normalizeParameters(parameters), function onAll(error, rows) {
+        if (error) {
+          reject(error);
+          return;
+        }
+
+        resolve(Array.isArray(rows) ? rows : []);
+      });
+    });
+  }
+
+  function run(sql, parameters) {
+    return new Promise(function handleRun(resolve, reject) {
+      rawDatabase.run(sql, normalizeParameters(parameters), function onRun(error) {
+        if (error) {
+          reject(error);
+          return;
+        }
+
+        resolve({
+          changes: Number(this && this.changes) || 0,
+          lastInsertRowid:
+            this && this.lastID !== undefined && this.lastID !== null
+              ? Number(this.lastID)
+              : 0,
+        });
+      });
+    });
+  }
+
+  return {
+    exec,
+    get,
+    all,
+    run,
+    prepare: function prepare(sql) {
+      return {
+        run: function runPrepared() {
+          return run(sql, Array.from(arguments));
+        },
+        get: function getPrepared() {
+          return get(sql, Array.from(arguments));
+        },
+        all: function allPrepared() {
+          return all(sql, Array.from(arguments));
+        },
+      };
+    },
+    close: function closeDatabase() {
+      return new Promise(function handleClose(resolve, reject) {
+        rawDatabase.close(function onClose(error) {
+          if (error) {
+            reject(error);
+            return;
+          }
+
+          resolve();
+        });
+      });
+    },
+  };
+}
+
+const database = createSqlite3Database(databasePath);
+const initializationPromise = (async function initializeDatabase() {
+  await database.exec("PRAGMA foreign_keys = ON");
+  await ensureNormalizedLeagueSchema(database);
+})();
+
+async function exec(sql) {
+  await initializationPromise;
+  return database.exec(sql);
+}
+
+async function run(sql, parameters) {
+  await initializationPromise;
   const statement = database.prepare(sql);
-  return statement.run.apply(statement, Array.isArray(parameters) ? parameters : []);
+  return statement.run.apply(statement, normalizeParameters(parameters));
 }
 
-function get(sql, parameters) {
+async function get(sql, parameters) {
+  await initializationPromise;
   const statement = database.prepare(sql);
-  return statement.get.apply(statement, Array.isArray(parameters) ? parameters : []);
+  return statement.get.apply(statement, normalizeParameters(parameters));
 }
 
-function all(sql, parameters) {
+async function all(sql, parameters) {
+  await initializationPromise;
   const statement = database.prepare(sql);
-  return statement.all.apply(statement, Array.isArray(parameters) ? parameters : []);
+  return statement.all.apply(statement, normalizeParameters(parameters));
 }
 
-function close() {
-  database.close();
+async function close() {
+  await initializationPromise;
+  return database.close();
 }
 
-function authenticateUser(loginValue, passwordValue) {
+async function authenticateUser(loginValue, passwordValue) {
+  await initializationPromise;
   return authenticateLeagueUser(database, loginValue, passwordValue);
 }
 
-function registerUser(userInput) {
+async function registerUser(userInput) {
+  await initializationPromise;
   return registerLeagueUser(database, userInput);
 }
 
-function updateUserProfile(userId, userInput) {
+async function updateUserProfile(userId, userInput) {
+  await initializationPromise;
   return updateLeagueUserProfile(database, userId, userInput);
 }
 
@@ -59,7 +171,9 @@ module.exports = {
   close,
   database,
   databasePath,
+  exec,
   get,
+  initializationPromise,
   registerUser,
   run,
   updateUserProfile,

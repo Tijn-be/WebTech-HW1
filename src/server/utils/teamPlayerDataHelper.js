@@ -35,8 +35,8 @@ function mapPlayers(playerRows) {
   });
 }
 
-function getTeams() {
-  const teamRows = all(
+async function getTeams() {
+  const teamRows = await all(
     "SELECT id, slug, name, description, logo_image, team_image " +
       "FROM teams " +
       "ORDER BY name",
@@ -46,11 +46,11 @@ function getTeams() {
   return mapTeams(teamRows);
 }
 
-function getTeamBySlugOrId(teamIdentifier) {
+async function getTeamBySlugOrId(teamIdentifier) {
   const value = String(teamIdentifier).trim();
   const whereColumn = isNumericIdentifier(value) ? "id" : "slug";
   const parameter = isNumericIdentifier(value) ? Number(value) : value;
-  const teamRow = get(
+  const teamRow = await get(
     "SELECT id, slug, name, description, logo_image, team_image " +
       "FROM teams " +
       "WHERE " +
@@ -66,8 +66,8 @@ function getTeamBySlugOrId(teamIdentifier) {
   return new Team(teamRow);
 }
 
-function getPlayers() {
-  const playerRows = all(
+async function getPlayers() {
+  const playerRows = await all(
     playerSelectSql +
       " WHERE players.is_active = 1 " +
       " ORDER BY teams.name, players.last_name, players.first_name",
@@ -77,14 +77,14 @@ function getPlayers() {
   return mapPlayers(playerRows);
 }
 
-function getPlayersByTeamSlugOrId(teamIdentifier) {
-  const team = getTeamBySlugOrId(teamIdentifier);
+async function getPlayersByTeamSlugOrId(teamIdentifier) {
+  const team = await getTeamBySlugOrId(teamIdentifier);
 
   if (!team) {
     return null;
   }
 
-  const playerRows = all(
+  const playerRows = await all(
     playerSelectSql +
       " WHERE players.current_team_id = ? AND players.is_active = 1 " +
       "ORDER BY players.last_name, players.first_name",
@@ -97,8 +97,8 @@ function getPlayersByTeamSlugOrId(teamIdentifier) {
   };
 }
 
-function getLatestSeason() {
-  const seasonRow = get("SELECT MAX(season) AS season FROM races", []);
+async function getLatestSeason() {
+  const seasonRow = await get("SELECT MAX(season) AS season FROM races", []);
   const seasonValue = Number(seasonRow && seasonRow.season);
 
   return Number.isInteger(seasonValue) && seasonValue > 0 ? seasonValue : null;
@@ -108,9 +108,9 @@ function buildPlayerName(firstName, lastName) {
   return String((String(firstName || "") + " " + String(lastName || "")).trim());
 }
 
-function getTeamGamesBySlugOrId(teamIdentifier) {
-  const team = getTeamBySlugOrId(teamIdentifier);
-  const season = getLatestSeason();
+async function getTeamGamesBySlugOrId(teamIdentifier) {
+  const team = await getTeamBySlugOrId(teamIdentifier);
+  const season = await getLatestSeason();
 
   if (!team) {
     return null;
@@ -123,7 +123,7 @@ function getTeamGamesBySlugOrId(teamIdentifier) {
     };
   }
 
-  const raceRows = all(
+  const raceRows = await all(
     "SELECT " +
       "races.id, " +
       "races.season, " +
@@ -149,7 +149,7 @@ function getTeamGamesBySlugOrId(teamIdentifier) {
   const placeholders = raceRows.map(function mapPlaceholder() {
     return "?";
   }).join(", ");
-  const scoreRows = all(
+  const scoreRows = await all(
     "SELECT " +
       "scores.race_id, " +
       "scores.player_id, " +
@@ -221,14 +221,14 @@ function getTeamGamesBySlugOrId(teamIdentifier) {
   };
 }
 
-function getPlayerById(playerIdentifier) {
+async function getPlayerById(playerIdentifier) {
   const numericIdentifier = Number(playerIdentifier);
 
   if (!Number.isInteger(numericIdentifier) || numericIdentifier <= 0) {
     return null;
   }
 
-  const playerRow = get(
+  const playerRow = await get(
     playerSelectSql + " WHERE players.id = ?",
     [numericIdentifier],
   );

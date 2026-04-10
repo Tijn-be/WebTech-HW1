@@ -1,6 +1,6 @@
 /* Purpose: Provides admin dashboard reads and protected write operations for race score management and player-team assignments. */
 
-const { all, database, get, run } = require("../db/leagueDatabase");
+const { all, exec, get, run } = require("../db/leagueDatabase");
 
 const pointsByFinishPosition = {
   1: 25,
@@ -28,8 +28,8 @@ function parseOptionalPositiveInteger(rawValue) {
   return Number.isInteger(parsedValue) && parsedValue > 0 ? parsedValue : null;
 }
 
-function getLatestSeason() {
-  const row = get("SELECT MAX(season) AS season FROM races", []);
+async function getLatestSeason() {
+  const row = await get("SELECT MAX(season) AS season FROM races", []);
   const seasonValue = Number(row && row.season);
 
   return Number.isInteger(seasonValue) && seasonValue > 0 ? seasonValue : null;
@@ -43,12 +43,12 @@ function buildPlayerDisplayName(playerRow) {
   return String((stringValue(playerRow.first_name) + " " + stringValue(playerRow.last_name)).trim());
 }
 
-function ensureTeamExists(teamId) {
+async function ensureTeamExists(teamId) {
   if (teamId === null) {
     return null;
   }
 
-  const teamRow = get("SELECT id, slug, name FROM teams WHERE id = ?", [teamId]);
+  const teamRow = await get("SELECT id, slug, name FROM teams WHERE id = ?", [teamId]);
 
   if (!teamRow) {
     throw new Error("Selected team does not exist.");
@@ -57,8 +57,8 @@ function ensureTeamExists(teamId) {
   return teamRow;
 }
 
-function getAdminPlayers() {
-  return all(
+async function getAdminPlayers() {
+  return (await all(
     "SELECT " +
       "players.id, " +
       "players.first_name, " +
@@ -75,7 +75,7 @@ function getAdminPlayers() {
       "LEFT JOIN teams ON teams.id = players.current_team_id " +
       "ORDER BY players.is_active DESC, COALESCE(teams.name, 'ZZZ'), players.last_name, players.first_name",
     [],
-  ).map(function mapPlayerRow(playerRow) {
+  )).map(function mapPlayerRow(playerRow) {
     return {
       id: playerRow.id,
       firstName: playerRow.first_name,
@@ -93,20 +93,20 @@ function getAdminPlayers() {
   });
 }
 
-function getAdminTeams() {
+async function getAdminTeams() {
   return all(
     "SELECT id, slug, name FROM teams ORDER BY name",
     [],
   );
 }
 
-function getAdminRaces(season) {
-  const raceRows = all(
+async function getAdminRaces(season) {
+  const raceRows = await all(
     "SELECT id, season, round_number, name, circuit_name, scheduled_at, status " +
       "FROM races WHERE season = ? ORDER BY round_number, id",
     [season],
   );
-  const scoreRows = all(
+  const scoreRows = await all(
     "SELECT " +
       "scores.id, " +
       "scores.race_id, " +
@@ -164,20 +164,20 @@ function getAdminRaces(season) {
   });
 }
 
-function getAdminDashboardData() {
-  const season = getLatestSeason();
+async function getAdminDashboardData() {
+  const season = await getLatestSeason();
 
   return {
     season: season,
-    teams: getAdminTeams(),
-    players: getAdminPlayers(),
-    races: season ? getAdminRaces(season) : [],
+    teams: await getAdminTeams(),
+    players: await getAdminPlayers(),
+    races: season ? await getAdminRaces(season) : [],
   };
 }
 
-function syncPlayerMembership(playerId, teamId, season) {
+async function syncPlayerMembership(playerId, teamId, season) {
   if (teamId === null) {
-    run(
+    await run(
       "UPDATE team_memberships " +
         "SET is_current = 0, end_season = CASE WHEN end_season = 0 THEN ? ELSE end_season END " +
         "WHERE player_id = ? AND is_current = 1",
@@ -186,65 +186,65 @@ function syncPlayerMembership(playerId, teamId, season) {
     return;
   }
 
-  run(
+  await run(
     "UPDATE team_memberships " +
       "SET is_current = 0, end_season = CASE WHEN end_season = 0 THEN ? ELSE end_season END " +
       "WHERE player_id = ? AND is_current = 1 AND team_id <> ?",
     [season, playerId, teamId],
   );
-  run(
+  await run(
     "INSERT OR IGNORE INTO team_memberships (player_id, team_id, start_season, end_season, is_current) " +
       "VALUES (?, ?, ?, 0, 1)",
     [playerId, teamId, season],
   );
-  run(
+  await run(
     "UPDATE team_memberships SET is_current = 1, end_season = 0 WHERE player_id = ? AND team_id = ?",
     [playerId, teamId],
   );
 }
 
-function syncScheduledScoresForPlayer(playerId, teamId, season) {
+async function syncScheduledScoresForPlayer(playerId, teamId, season) {
   if (teamId === null) {
-    run("DELETE FROM scores WHERE player_id = ? AND status = 'scheduled'", [playerId]);
+    await run("DELETE FROM scores WHERE player_id = ? AND status = 'scheduled'", [playerId]);
     return;
   }
 
-  run(
+  await run(
     "UPDATE scores SET team_id = ? WHERE player_id = ? AND status = 'scheduled'",
     [teamId, playerId],
   );
 
-  const upcomingRaceRows = all(
+  const upcomingRaceRows = await all(
     "SELECT id FROM races WHERE season = ? AND status = 'upcoming' ORDER BY round_number",
     [season],
   );
   const scheduledRaceIds = new Set(
-    all(
+    (await all(
       "SELECT race_id FROM scores WHERE player_id = ? AND status = 'scheduled'",
       [playerId],
-    ).map(function mapRaceId(row) {
+    )).map(function mapRaceId(row) {
       return Number(row.race_id);
     }),
   );
 
-  upcomingRaceRows.forEach(function ensureScheduledRow(raceRow) {
+  for (const raceRow of upcomingRaceRows) {
     if (!scheduledRaceIds.has(Number(raceRow.id))) {
-      run(
+      await run(
         "INSERT OR IGNORE INTO scores (race_id, team_id, player_id, finish_position, points, result_time, status) " +
           "VALUES (?, ?, ?, NULL, 0, NULL, 'scheduled')",
         [raceRow.id, teamId, playerId],
       );
     }
-  });
+  }
 }
 
-function getAdminPlayerById(playerId) {
-  return getAdminPlayers().find(function findPlayer(playerRow) {
+async function getAdminPlayerById(playerId) {
+  return (await getAdminPlayers()).find(function findPlayer(playerRow) {
     return Number(playerRow.id) === Number(playerId);
   }) || null;
 }
 
-function createAdminPlayer(playerInput) {
+async function createAdminPlayer(playerInput) {
   const firstName = stringValue(playerInput.firstName);
   const lastName = stringValue(playerInput.lastName);
   const dateOfBirth = stringValue(playerInput.dateOfBirth);
@@ -252,81 +252,81 @@ function createAdminPlayer(playerInput) {
   const photo = stringValue(playerInput.photo) || "/assets/images/F1Logo.png";
   const number = parseOptionalPositiveInteger(playerInput.number);
   const teamId = parseOptionalPositiveInteger(playerInput.teamId);
-  const season = getLatestSeason() || new Date().getUTCFullYear();
+  const season = (await getLatestSeason()) || new Date().getUTCFullYear();
 
   if (!firstName || !lastName || !dateOfBirth) {
     throw new Error("First name, last name, and date of birth are required.");
   }
 
-  ensureTeamExists(teamId);
+  await ensureTeamExists(teamId);
 
-  database.exec("BEGIN");
+  await exec("BEGIN");
 
   try {
-    const result = run(
+    const result = await run(
       "INSERT INTO players (current_team_id, first_name, last_name, date_of_birth, role, driver_number, photo, is_active) " +
         "VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
       [teamId, firstName, lastName, dateOfBirth, role, number, photo, teamId === null ? 0 : 1],
     );
     const playerId = Number(result.lastInsertRowid);
 
-    syncPlayerMembership(playerId, teamId, season);
-    syncScheduledScoresForPlayer(playerId, teamId, season);
-    database.exec("COMMIT");
+    await syncPlayerMembership(playerId, teamId, season);
+    await syncScheduledScoresForPlayer(playerId, teamId, season);
+    await exec("COMMIT");
 
     return getAdminPlayerById(playerId);
   } catch (error) {
-    database.exec("ROLLBACK");
+    await exec("ROLLBACK");
     throw error;
   }
 }
 
-function updateAdminPlayerTeam(playerId, teamIdValue) {
-  const player = get(
+async function updateAdminPlayerTeam(playerId, teamIdValue) {
+  const player = await get(
     "SELECT id FROM players WHERE id = ?",
     [playerId],
   );
   const teamId = parseOptionalPositiveInteger(teamIdValue);
-  const season = getLatestSeason() || new Date().getUTCFullYear();
+  const season = (await getLatestSeason()) || new Date().getUTCFullYear();
 
   if (!player) {
     throw new Error("Player not found.");
   }
 
-  ensureTeamExists(teamId);
+  await ensureTeamExists(teamId);
 
-  database.exec("BEGIN");
+  await exec("BEGIN");
 
   try {
-    run(
+    await run(
       "UPDATE players SET current_team_id = ?, is_active = ? WHERE id = ?",
       [teamId, teamId === null ? 0 : 1, playerId],
     );
-    syncPlayerMembership(playerId, teamId, season);
-    syncScheduledScoresForPlayer(playerId, teamId, season);
-    database.exec("COMMIT");
+    await syncPlayerMembership(playerId, teamId, season);
+    await syncScheduledScoresForPlayer(playerId, teamId, season);
+    await exec("COMMIT");
 
     return getAdminPlayerById(playerId);
   } catch (error) {
-    database.exec("ROLLBACK");
+    await exec("ROLLBACK");
     throw error;
   }
 }
 
-function recalculateRaceEntries(raceId, raceStatus) {
-  const teamRows = all(
+async function recalculateRaceEntries(raceId, raceStatus) {
+  const teamRows = await all(
     "SELECT team_id FROM race_entries WHERE race_id = ? ORDER BY team_id",
     [raceId],
   );
 
-  teamRows.forEach(function updateTeamEntry(teamRow) {
-    const pointsRow = get(
+  for (const teamRow of teamRows) {
+    const pointsRow = await get(
       "SELECT COALESCE(SUM(points + COALESCE(bonus_points, 0)), 0) AS total_points " +
         "FROM scores WHERE race_id = ? AND team_id = ? AND status = 'completed'",
       [raceId, teamRow.team_id],
     );
 
-    run(
+    await run(
       "UPDATE race_entries SET team_points = ?, entry_status = ? WHERE race_id = ? AND team_id = ?",
       [
         Number(pointsRow && pointsRow.total_points) || 0,
@@ -335,16 +335,16 @@ function recalculateRaceEntries(raceId, raceStatus) {
         teamRow.team_id,
       ],
     );
-  });
+  }
 }
 
-function updateAdminRaceScores(raceIdValue, scoreInput) {
+async function updateAdminRaceScores(raceIdValue, scoreInput) {
   const raceId = parseOptionalPositiveInteger(raceIdValue);
-  const race = get(
+  const race = await get(
     "SELECT id FROM races WHERE id = ?",
     [raceId],
   );
-  const existingScoreRows = all(
+  const existingScoreRows = await all(
     "SELECT id, player_id FROM scores WHERE race_id = ? ORDER BY id",
     [raceId],
   );
@@ -403,11 +403,11 @@ function updateAdminRaceScores(raceIdValue, scoreInput) {
   const raceStatus = hasCompletedResults ? "completed" : "upcoming";
   const scoreStatus = hasCompletedResults ? "completed" : "scheduled";
 
-  database.exec("BEGIN");
+  await exec("BEGIN");
 
   try {
-    normalizedUpdates.forEach(function updateScoreRow(updateRow) {
-      run(
+    for (const updateRow of normalizedUpdates) {
+      await run(
         "UPDATE scores SET finish_position = ?, points = ?, result_time = ?, status = ? WHERE id = ?",
         [
           updateRow.finishPosition,
@@ -417,15 +417,15 @@ function updateAdminRaceScores(raceIdValue, scoreInput) {
           updateRow.scoreId,
         ],
       );
-    });
-    run(
+    }
+    await run(
       "UPDATE races SET status = ? WHERE id = ?",
       [raceStatus, raceId],
     );
-    recalculateRaceEntries(raceId, raceStatus);
-    database.exec("COMMIT");
+    await recalculateRaceEntries(raceId, raceStatus);
+    await exec("COMMIT");
   } catch (error) {
-    database.exec("ROLLBACK");
+    await exec("ROLLBACK");
     throw error;
   }
 

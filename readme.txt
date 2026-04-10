@@ -71,6 +71,11 @@ Structure of the application
 - storage/http-requests.log
   HTTP request log file.
 
+Note about the sqlite3 conversion
+- We changed the database access to sqlite3 so the site can run on the school server.
+- Parts of that sqlite3 conversion were written with help from ChatGPT.
+- We are saying that openly because we did not want to pretend we wrote that conversion fully by ourselves.
+
 Database structure
 - We use one SQLite database as the source of truth.
 - teams

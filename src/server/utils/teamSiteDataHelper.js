@@ -104,8 +104,8 @@ function resolveTeamCarImagePath(teamSlug, carRow) {
   return stringValue(carRow && carRow.image);
 }
 
-function readStoredPayload(tableName, whereColumn, keyValue, fileName) {
-  const row = get(
+async function readStoredPayload(tableName, whereColumn, keyValue, fileName) {
+  const row = await get(
     "SELECT payload FROM " +
       tableName +
       " WHERE " +
@@ -121,24 +121,24 @@ function readStoredPayload(tableName, whereColumn, keyValue, fileName) {
   return JSON.parse(row.payload);
 }
 
-function getTeamSiteData(teamSlug, fileName) {
+async function getTeamSiteData(teamSlug, fileName) {
   return readStoredPayload("team_site_data", "team_slug", teamSlug, fileName);
 }
 
-function getRootSiteData(fileName) {
+async function getRootSiteData(fileName) {
   return readStoredPayload("root_site_data", "scope_key", "root", fileName);
 }
 
-function getLeagueInfo() {
-  return getRootSiteData("leagueInfo.json") || {
+async function getLeagueInfo() {
+  return (await getRootSiteData("leagueInfo.json")) || {
     title: "League Info",
     intro: "League information is currently unavailable.",
     sections: [],
   };
 }
 
-function getLatestSeason() {
-  const row = get("SELECT MAX(season) AS season FROM races", []);
+async function getLatestSeason() {
+  const row = await get("SELECT MAX(season) AS season FROM races", []);
   const seasonValue = Number(row && row.season);
 
   return Number.isInteger(seasonValue) && seasonValue > 0 ? seasonValue : null;
@@ -181,7 +181,7 @@ function formatList(values) {
   return cleanedValues.slice(0, -1).join(", ") + ", and " + cleanedValues[cleanedValues.length - 1];
 }
 
-function resolvePlayerReference(driverLike) {
+async function resolvePlayerReference(driverLike) {
   const displayName = stringValue(
     driverLike &&
       (driverLike.fullName ||
@@ -198,7 +198,7 @@ function resolvePlayerReference(driverLike) {
     };
   }
 
-  let playerRow = get(
+  let playerRow = await get(
     "SELECT players.id, players.current_team_id, teams.slug AS team_slug " +
       "FROM players " +
       "LEFT JOIN teams ON teams.id = players.current_team_id " +
@@ -211,7 +211,7 @@ function resolvePlayerReference(driverLike) {
     const displayNameParts = displayName.split(/\s+/).filter(Boolean);
 
     if (displayNameParts.length > 2) {
-      playerRow = get(
+      playerRow = await get(
         "SELECT players.id, players.current_team_id, teams.slug AS team_slug " +
           "FROM players " +
           "LEFT JOIN teams ON teams.id = players.current_team_id " +
@@ -237,12 +237,12 @@ function resolvePlayerReference(driverLike) {
   };
 }
 
-function attachPlayerReference(driverLike) {
-  return Object.assign({}, driverLike, resolvePlayerReference(driverLike));
+async function attachPlayerReference(driverLike) {
+  return Object.assign({}, driverLike, await resolvePlayerReference(driverLike));
 }
 
-function getSeasonCars(teamSlug, season) {
-  const cars = getTeamSiteData(teamSlug, "carsData.json");
+async function getSeasonCars(teamSlug, season) {
+  const cars = await getTeamSiteData(teamSlug, "carsData.json");
 
   if (!Array.isArray(cars) || cars.length === 0) {
     return [];
@@ -305,8 +305,8 @@ function getSeasonCars(teamSlug, season) {
   });
 }
 
-function getStoredTeamDrivers(teamSlug) {
-  const driverRows = all(
+async function getStoredTeamDrivers(teamSlug) {
+  const driverRows = await all(
     "SELECT " +
       "driver_key, driver_id, display_name, full_name, wiki_url, image_path, age_text, birth_date, birth_place, nationality, driver_number, wins_text, first_name, last_name, born_text, role, photo " +
       "FROM team_site_drivers " +
@@ -319,7 +319,7 @@ function getStoredTeamDrivers(teamSlug) {
     return [];
   }
 
-  const formerTeamRows = all(
+  const formerTeamRows = await all(
     "SELECT driver_key, title, city, country " +
       "FROM team_site_driver_former_teams " +
       "WHERE team_slug = ? " +
@@ -338,19 +338,21 @@ function getStoredTeamDrivers(teamSlug) {
     formerTeamsByDriverKey.set(formerTeamRow.driver_key, driverFormerTeams);
   });
 
-  return driverRows.map(function mapStoredDriver(driverRow) {
+  const mappedDrivers = [];
+
+  for (const driverRow of driverRows) {
     const displayName =
       stringValue(driverRow && (driverRow.display_name || driverRow.full_name)) ||
       buildDriverName(driverRow && driverRow.first_name, driverRow && driverRow.last_name) ||
       "Unknown Driver";
-    const playerReference = resolvePlayerReference({
+    const playerReference = await resolvePlayerReference({
       name: displayName,
       fullName: displayName,
       id: driverRow && driverRow.driver_id,
     });
     const resolvedImage = resolveTeamDriverImagePath(teamSlug, driverRow, displayName);
 
-    return {
+    mappedDrivers.push({
       id: stringValue(driverRow && driverRow.driver_id) || buildDriverId(displayName),
       name: displayName,
       wikiUrl: stringValue(driverRow && driverRow.wiki_url),
@@ -371,12 +373,14 @@ function getStoredTeamDrivers(teamSlug) {
       playerId: playerReference.playerId,
       teamId: playerReference.teamId,
       teamSlug: playerReference.teamSlug,
-    };
-  });
+    });
+  }
+
+  return mappedDrivers;
 }
 
-function getCurrentTeamDrivers(teamSlug) {
-  const driverRows = all(
+async function getCurrentTeamDrivers(teamSlug) {
+  const driverRows = await all(
       "SELECT " +
       "players.id, " +
       "teams.id AS team_id, " +
@@ -429,7 +433,7 @@ function getCurrentTeamDrivers(teamSlug) {
   return getStoredTeamDrivers(teamSlug);
 }
 
-function getCurrentSeasonConstructorStandings(season) {
+async function getCurrentSeasonConstructorStandings(season) {
   return all(
     "SELECT " +
       "teams.id, " +
@@ -446,11 +450,11 @@ function getCurrentSeasonConstructorStandings(season) {
   );
 }
 
-function buildTeamSeasonSummary(teamRow, season, scheduleRows, teamScoreRows) {
+async function buildTeamSeasonSummary(teamRow, season, scheduleRows, teamScoreRows) {
   const completedScoreRows = teamScoreRows.filter(function filterCompletedScoreRows(scoreRow) {
     return scoreRow.status === "completed";
   });
-  const constructorStandings = getCurrentSeasonConstructorStandings(season);
+  const constructorStandings = await getCurrentSeasonConstructorStandings(season);
   const championshipPosition =
     constructorStandings.findIndex(function findStandingRow(standingRow) {
       return Number(standingRow.id) === Number(teamRow.id);
@@ -532,16 +536,16 @@ function buildTeamSeasonSummary(teamRow, season, scheduleRows, teamScoreRows) {
   };
 }
 
-function buildCurrentSeasonTeamRacePayload(teamSlug) {
-  const currentSeason = getLatestSeason();
-  const teamRow = get("SELECT id, slug, name FROM teams WHERE slug = ?", [teamSlug]);
+async function buildCurrentSeasonTeamRacePayload(teamSlug) {
+  const currentSeason = await getLatestSeason();
+  const teamRow = await get("SELECT id, slug, name FROM teams WHERE slug = ?", [teamSlug]);
 
   if (!currentSeason || !teamRow) {
     return null;
   }
 
-  const currentDrivers = getCurrentTeamDrivers(teamSlug);
-  const scheduleRows = all(
+  const currentDrivers = await getCurrentTeamDrivers(teamSlug);
+  const scheduleRows = await all(
     "SELECT id, round_number, name, circuit_name, status " +
       "FROM races " +
       "WHERE season = ? " +
@@ -553,7 +557,7 @@ function buildCurrentSeasonTeamRacePayload(teamSlug) {
     return null;
   }
 
-  const teamScoreRows = all(
+  const teamScoreRows = await all(
     "SELECT " +
       "scores.player_id, " +
       "scores.finish_position, " +
@@ -580,7 +584,7 @@ function buildCurrentSeasonTeamRacePayload(teamSlug) {
   return {
     seasonKey: String(currentSeason),
     payload: {
-      Car: getSeasonCars(teamSlug, currentSeason),
+      Car: await getSeasonCars(teamSlug, currentSeason),
       drivers: currentDrivers.map(function mapDriverForPayload(driverRow) {
         return {
           id: driverRow.id,
@@ -609,19 +613,19 @@ function buildCurrentSeasonTeamRacePayload(teamSlug) {
           }),
         };
       }),
-      summary: buildTeamSeasonSummary(teamRow, currentSeason, scheduleRows, teamScoreRows),
+      summary: await buildTeamSeasonSummary(teamRow, currentSeason, scheduleRows, teamScoreRows),
     },
   };
 }
 
-function getRootLeaderboard() {
-  const currentSeason = getLatestSeason();
+async function getRootLeaderboard() {
+  const currentSeason = await getLatestSeason();
 
   if (!currentSeason) {
     return [];
   }
 
-  return all(
+  return (await all(
     "SELECT " +
       "teams.id AS team_id, " +
       "teams.slug AS team_slug, " +
@@ -637,7 +641,7 @@ function getRootLeaderboard() {
       "GROUP BY teams.id, teams.slug, teams.name " +
       "ORDER BY points DESC, wins DESC, podiums DESC, COALESCE(best_finish, 999) ASC, teams.name ASC",
     [currentSeason, currentSeason, currentSeason, currentSeason, currentSeason],
-  ).map(function mapLeaderboardRow(row, rowIndex) {
+  )).map(function mapLeaderboardRow(row, rowIndex) {
     return {
       rank: rowIndex + 1,
       season: currentSeason,
@@ -653,15 +657,15 @@ function getRootLeaderboard() {
   });
 }
 
-function getLatestScores(limitValue) {
-  const currentSeason = getLatestSeason();
+async function getLatestScores(limitValue) {
+  const currentSeason = await getLatestSeason();
   const limit = Number.isInteger(Number(limitValue)) && Number(limitValue) > 0 ? Number(limitValue) : 10;
 
   if (!currentSeason) {
     return [];
   }
 
-  const raceRows = all(
+  const raceRows = await all(
     "SELECT id, season, round_number, name, circuit_name, scheduled_at " +
       "FROM races " +
       "WHERE season = ? AND status = 'completed' " +
@@ -677,7 +681,7 @@ function getLatestScores(limitValue) {
   const placeholders = raceRows.map(function mapPlaceholder() {
     return "?";
   }).join(", ");
-  const scoreRows = all(
+  const scoreRows = await all(
     "SELECT " +
       "scores.race_id, " +
       "scores.player_id, " +
@@ -731,22 +735,22 @@ function getLatestScores(limitValue) {
   });
 }
 
-function getUpcomingRaces(limitValue) {
-  const currentSeason = getLatestSeason();
+async function getUpcomingRaces(limitValue) {
+  const currentSeason = await getLatestSeason();
   const limit = Number.isInteger(Number(limitValue)) && Number(limitValue) > 0 ? Number(limitValue) : 10;
 
   if (!currentSeason) {
     return [];
   }
 
-  return all(
+  return (await all(
     "SELECT id, season, round_number, name, circuit_name, scheduled_at " +
       "FROM races " +
       "WHERE season = ? AND status = 'upcoming' " +
       "ORDER BY round_number ASC, id ASC " +
       "LIMIT ?",
     [currentSeason, limit],
-  ).map(function mapRaceRow(raceRow) {
+  )).map(function mapRaceRow(raceRow) {
     return {
       id: raceRow.id,
       season: raceRow.season,
@@ -758,13 +762,13 @@ function getUpcomingRaces(limitValue) {
   });
 }
 
-function getRootGroupMembers() {
-  return getRootSiteData("groupMembers.json") || [];
+async function getRootGroupMembers() {
+  return (await getRootSiteData("groupMembers.json")) || [];
 }
 
-function getTeamSiteDrivers(teamSlug) {
-  const storedDrivers = getStoredTeamDrivers(teamSlug);
-  const currentDrivers = getCurrentTeamDrivers(teamSlug);
+async function getTeamSiteDrivers(teamSlug) {
+  const storedDrivers = await getStoredTeamDrivers(teamSlug);
+  const currentDrivers = await getCurrentTeamDrivers(teamSlug);
   const mergedDrivers = storedDrivers.slice();
   const knownDriverNames = new Set();
   const knownPlayerIds = new Set();
@@ -795,35 +799,39 @@ function getTeamSiteDrivers(teamSlug) {
   return mergedDrivers;
 }
 
-function getTeamSiteCars(teamSlug) {
-  const cars = getTeamSiteData(teamSlug, "carsData.json") || [];
+async function getTeamSiteCars(teamSlug) {
+  const cars = (await getTeamSiteData(teamSlug, "carsData.json")) || [];
 
-  return cars.map(function mapCarRow(carRow) {
-    return Object.assign({}, carRow, {
-      image: resolveTeamCarImagePath(teamSlug, carRow),
-      drivers: Array.isArray(carRow.drivers)
-        ? carRow.drivers.map(function mapCarDriver(driverRow) {
-            return attachPlayerReference(driverRow);
-          })
-        : [],
-    });
-  });
+  return Promise.all(
+    cars.map(async function mapCarRow(carRow) {
+      return Object.assign({}, carRow, {
+        image: resolveTeamCarImagePath(teamSlug, carRow),
+        drivers: Array.isArray(carRow.drivers)
+          ? await Promise.all(
+              carRow.drivers.map(function mapCarDriver(driverRow) {
+                return attachPlayerReference(driverRow);
+              }),
+            )
+          : [],
+      });
+    }),
+  );
 }
 
-function enrichRacePayloadWithPlayerReferences(teamSlug, racePayloadBySeason) {
+async function enrichRacePayloadWithPlayerReferences(teamSlug, racePayloadBySeason) {
   const enrichedPayload = {};
 
-  Object.keys(racePayloadBySeason || {}).forEach(function mapSeasonPayload(seasonKey) {
+  for (const seasonKey of Object.keys(racePayloadBySeason || {})) {
     const seasonPayload = racePayloadBySeason[seasonKey] || {};
     const drivers = Array.isArray(seasonPayload.drivers)
-      ? seasonPayload.drivers.map(function mapDriver(driverRow) {
-          const enrichedDriver = attachPlayerReference(driverRow);
+      ? await Promise.all(seasonPayload.drivers.map(async function mapDriver(driverRow) {
+          const enrichedDriver = await attachPlayerReference(driverRow);
           const displayName = stringValue(enrichedDriver.name || enrichedDriver.fullName);
 
           return Object.assign({}, enrichedDriver, {
             image: resolveTeamDriverImagePath(teamSlug, enrichedDriver, displayName),
           });
-        })
+        }))
       : [];
     const playerIdByName = new Map();
 
@@ -837,22 +845,24 @@ function enrichRacePayloadWithPlayerReferences(teamSlug, racePayloadBySeason) {
 
     enrichedPayload[seasonKey] = Object.assign({}, seasonPayload, {
       Car: Array.isArray(seasonPayload.Car)
-        ? seasonPayload.Car.map(function mapCarRow(carRow) {
+        ? await Promise.all(seasonPayload.Car.map(async function mapCarRow(carRow) {
             return Object.assign({}, carRow, {
               image: resolveTeamCarImagePath(teamSlug, carRow),
               drivers: Array.isArray(carRow.drivers)
-                ? carRow.drivers.map(function mapCarDriver(driverRow) {
-                    return attachPlayerReference(driverRow);
-                  })
+                ? await Promise.all(
+                    carRow.drivers.map(function mapCarDriver(driverRow) {
+                      return attachPlayerReference(driverRow);
+                    }),
+                  )
                 : [],
             });
-          })
+          }))
         : [],
       drivers: drivers,
       races: Array.isArray(seasonPayload.races)
-        ? seasonPayload.races.map(function mapRaceRow(raceRow) {
+        ? await Promise.all(seasonPayload.races.map(async function mapRaceRow(raceRow) {
             const driverName = stringValue(raceRow.Drivers);
-            const reference = attachPlayerReference({
+            const reference = await attachPlayerReference({
               name: driverName,
               fullName: driverName,
             });
@@ -861,21 +871,21 @@ function enrichRacePayloadWithPlayerReferences(teamSlug, racePayloadBySeason) {
               playerId:
                 reference.playerId || playerIdByName.get(driverName) || null,
             });
-          })
+          }))
         : [],
     });
-  });
+  }
 
   return enrichedPayload;
 }
 
-function getTeamSiteRaceData(teamSlug) {
-  const archivedRaceData = getTeamSiteData(teamSlug, "raceData.json");
+async function getTeamSiteRaceData(teamSlug) {
+  const archivedRaceData = await getTeamSiteData(teamSlug, "raceData.json");
   const mergedRaceData =
     archivedRaceData && typeof archivedRaceData === "object" && !Array.isArray(archivedRaceData)
       ? Object.assign({}, archivedRaceData)
       : {};
-  const currentSeasonPayload = buildCurrentSeasonTeamRacePayload(teamSlug);
+  const currentSeasonPayload = await buildCurrentSeasonTeamRacePayload(teamSlug);
 
   if (!currentSeasonPayload) {
     return enrichRacePayloadWithPlayerReferences(teamSlug, mergedRaceData);
@@ -885,13 +895,13 @@ function getTeamSiteRaceData(teamSlug) {
   return enrichRacePayloadWithPlayerReferences(teamSlug, mergedRaceData);
 }
 
-function getTeamSiteContent(teamSlug) {
-  const contentPayload = getTeamSiteData(teamSlug, "contentData.json") || {};
-  const currentSeason = getLatestSeason();
-  const teamRow = get("SELECT id, name FROM teams WHERE slug = ?", [teamSlug]);
-  const currentDrivers = getCurrentTeamDrivers(teamSlug);
-  const currentCars = currentSeason ? getSeasonCars(teamSlug, currentSeason) : [];
-  const constructorStandings = currentSeason ? getCurrentSeasonConstructorStandings(currentSeason) : [];
+async function getTeamSiteContent(teamSlug) {
+  const contentPayload = (await getTeamSiteData(teamSlug, "contentData.json")) || {};
+  const currentSeason = await getLatestSeason();
+  const teamRow = await get("SELECT id, name FROM teams WHERE slug = ?", [teamSlug]);
+  const currentDrivers = await getCurrentTeamDrivers(teamSlug);
+  const currentCars = currentSeason ? await getSeasonCars(teamSlug, currentSeason) : [];
+  const constructorStandings = currentSeason ? await getCurrentSeasonConstructorStandings(currentSeason) : [];
   const championshipPosition =
     constructorStandings.findIndex(function findStandingRow(standingRow) {
       return Number(standingRow.id) === Number(teamRow && teamRow.id);
@@ -946,8 +956,8 @@ function getTeamSiteContent(teamSlug) {
   });
 }
 
-function getDriverImage(imageKey) {
-  const row = get(
+async function getDriverImage(imageKey) {
+  const row = await get(
     "SELECT file_name, content_type, image_blob FROM driver_images WHERE image_key = ?",
     [normalizeDriverImageKey(imageKey)],
   );
