@@ -537,7 +537,13 @@ function getCurrentTeamSlug() {
 }
 
 function getTeamApiPath(resourceName) {
-  return "/api/team-sites/" + encodeURIComponent(getCurrentTeamSlug()) + "/" + resourceName;
+  return (
+    getMiniSiteBasePath() +
+    "/api/team-sites/" +
+    encodeURIComponent(getCurrentTeamSlug()) +
+    "/" +
+    resourceName
+  );
 }
 
 let teamContentPromise = null;

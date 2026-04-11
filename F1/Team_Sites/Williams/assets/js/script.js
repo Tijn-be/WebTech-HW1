@@ -541,6 +541,7 @@ function getCurrentTeamSlug() {
 
 function getTeamApiPath(resourceName) {
   return (
+    getMiniSiteBasePath() +
     "/api/team-sites/" +
     encodeURIComponent(getCurrentTeamSlug()) +
     "/" +
